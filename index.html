@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillPoint — Learn, Intern, Earn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to your external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-firestore-compat.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-text">SkillPoint</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Courses</a>
+                <a href="#" class="nav-link">Internships</a>
+                <a href="#" class="nav-link">Jobs</a>
+                <a href="#" class="nav-link">About</a>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search for courses...">
+                </div>
+                
+                <!-- Buttons for non-authenticated users -->
+                <div id="authButtons">
+                    <button class="btn btn-outline" id="loginBtnHeader">Log in</button>
+                    <button class="btn btn-primary" id="signupBtnHeader">Sign up</button>
+                </div>
+                
+                <!-- Profile for authenticated users (hidden by default) -->
+                <div class="user-profile hidden" id="userProfile">
+                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
+                    <span id="userNameHeader"></span>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <button id="logoutBtnHeader">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-heading">Learn, <span>Intern</span>, and Earn with SkillPoint</h1>
+                    <p class="hero-description">Gain in-demand skills through expert-led courses, secure internships with top companies, and launch your career with our job placement assistance.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">5,000+</span>
+                            <span class="stat-label">Courses</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">2,500+</span>
+                            <span class="stat-label">Internships</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">85%</span>
+                            <span class="stat-label">Job Placement</span>
+                        - </div>
+                    </div>
+                    
+                    <div class="hero-cta">
+                        <button class="btn btn-primary btn-lg">Explore Courses</button>
+                        <button class="btn btn-outline btn-lg">Find Internships</button>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Students learning together" class="hero-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Proposition -->
+        <section class="value-prop">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Your Career Transformation Journey</h2>
+                    <p class="section-subtitle">We provide a complete pathway from learning to earning through skill development, practical experience, and career placement.</p>
+                </div>
+                
+                <div class="value-cards">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="value-title">Learn</h3>
+                        <p class="value-description">Access 5,000+ courses taught by industry experts with practical projects and certifications.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="value-title">Intern</h3>
+                        <p class="value-description">Gain real-world experience with our network of 1,000+ company partners across various industries.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="value-title">Earn</h3>
+                        <p class="value-description">Launch your career with our job placement assistance and start earning in your chosen field.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section class="courses">
+            <div class="container">
+                <div class="courses-header">
+                    <h2 class="section-title">Popular Courses</h2>
+                    <a href="#" class="btn btn-outline">View All Courses</a>
+                </div>
+                
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Web Development">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">The Complete Web Development Bootcamp 2023</h3>
+                            <p class="course-instructor">By Dr. Angela Yu</p>
+                            <div class="course-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-value">4.7</span>
+                                <span class="rating-count">(12,345)</span>
+                            </div>
+                            <div class="course-price">
+                                <span class="current-price">$94.99</span>
+                                <span class="original-price">$199.99</span>
+                                <span class="badge bestseller">Bestseller</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Data Science">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Python for Data Science and Machine Learning</h3>
+                            <p class="course-instructor">By Jose Portilla</p>
+                            <div class="course-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-value">4.8</span>
+                                <span class="rating-count">(9,876)</span>
+                            </div>
+                            <div class="course-price">
+                                <span class="current-price">$84.99</span>
+                                <span class="original-price">$189.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Digital Marketing">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">The Complete Digital Marketing Course - 12 Courses in 1</h3>
+                            <p class="course-instructor">By Rob Percival</p>
+                            <div class="course-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-value">4.6</span>
+                                <span class="rating-count">(7,654)</span>
+                            </div>
+                            <div class="course-price">
+                                <span class="current-price">$74.99</span>
+                                <span class="original-price">$179.99</span>
+                                <span class="badge bestseller">Bestseller</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="UI/UX Design">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">UI/UX Design Bootcamp: From Beginner to Advanced</h3>
+                            <p class="course-instructor">By Daniel Walter Scott</p>
+                            <div class="course-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-value">4.9</span>
+                                <span class="rating-count">(5,432)</span>
+                            </div>
+                            <div class="course-price">
+                                <span class="current-price">$89.99</span>
+                                <span class="original-price">$169.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Internship Section -->
+        <section class="internships">
+            <div class="container internship-container">
+                <div class="internship-content">
+                    <h2 class="section-title">Get Real-World Experience with Our Internship Program</h2>
+                    <p>Our internship program connects you with top companies where you can apply your skills, gain valuable experience, and build your professional network.</p>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Paid internship opportunities</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Remote and on-site options</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Mentorship from industry professionals</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Potential for full-time job offers</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary">Explore Internships</button>
+                </div>
+                
+                <div class="internship-image">
+                    <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Internship program" class="internship-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Success Stories</h2>
+                    <p class="section-subtitle">Hear from our students who transformed their careers through SkillPoint</p>
+                </div>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">SkillPoint completely changed my career trajectory. After completing the web development course, I landed an internship that turned into a full-time job offer. I'm now working as a junior developer at a tech startup!</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson" class="author-avatar">
+                            <div class="author-details">
+                                <span class="author-name">Sarah Johnson</span>
+                                <span class="author-role">Web Developer at TechStart</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">The data science program was incredibly comprehensive. The projects were challenging but practical, and the internship opportunity I got through SkillPoint helped me build a portfolio that impressed employers.</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-avatar">
+                            <div class="author-details">
+                                <span class="author-name">Michael Chen</span>
+                                <span class="author-role">Data Analyst at DataCorp</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">I was able to switch careers from marketing to UX design thanks to SkillPoint. The courses were up-to-date with industry standards, and the career coaching helped me negotiate a 30% higher salary than I expected!</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jessica Williams" class="author-avatar">
+                            <div class="author-details">
+                                <span class="author-name">Jessica Williams</span>
+                                <span class="author-role">UX Designer at CreativeMinds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">Start Your Career Journey Today</h2>
+                <p class="cta-description">Join thousands of students who have transformed their careers through SkillPoint's learn, intern, and earn model.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-light btn-lg">Get Started</button>
+                    <button class="btn btn-transparent btn-lg">Browse Courses</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">SkillPoint</div>
+                    <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Learn</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Browse Courses</a></li>
+                        <li><a href="#">Free Courses</a></li>
+                        <li><a href="#">For Businesses</a></li>
+                        <li><a href="#">Become an Instructor</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Intern</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Find Internships</a></li>
+                        <li><a href="#">For Companies</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Career Coaching</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                        <li><a href="#">Press Inquiries</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 SkillPoint. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+
+            <!-- Login Section -->
+            <div id="loginSection" class="auth-section">
+                <h2 class="auth-title">Welcome Back</h2>
+                <div class="loading" id="loginLoading">
+                    <div class="spinner"></div>
+                    <span>Signing in...</span>
+                </div>
+                <div id="loginError" class="error"></div>
+                
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                
+                <button class="btn btn-primary" id="emailLoginBtn">Sign In</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="btn btn-google" id="googleLoginBtn"><i class="fab fa-google"></i> Continue with Google</button>
+                
+                <div class="toggle-auth">
+                    <span>Don't have an account?</span> <a href="#" id="showSignup">Sign up</a>
+                </div>
+            </div>
+            
+            <!-- Signup Section -->
+            <div id="signupSection" class="auth-section">
+                <h2 class="auth-title">Create Account</h2>
+                <div class="loading" id="signupLoading">
+                    <div class="spinner"></div>
+                    <span>Creating account...</span>
+                </div>
+                <div id="signupError" class="error"></div>
+                
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password (6+ characters)" required>
+                </div>
+                
+                <button class="btn btn-primary" id="emailSignupBtn">Create Account</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="btn btn-google" id="googleSignupBtn"><i class="fab fa-google"></i> Sign up with Google</button>
+                
+                <div class="toggle-auth">
+                    <span>Already have an account?</span> <a href="#" id="showLogin">Sign in</a>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboardSection" class="auth-section">
+                <div class="dashboard-content">
+                    <div class="user-info">
+                        <img id="userAvatarDashboard" class="user-avatar" src="https://placehold.co/80x80/5624d0/ffffff?text=U" alt="User Avatar">
+                        <h2 id="userNameDashboard">Welcome!</h2>
+                        <p id="userEmailDashboard"></p>
+                    </div>
+                    
+                    <button class="btn btn-secondary" id="logoutBtnModal">Sign Out</button>
+                    
+                    <div class="data-section">
+                        <h3 class="section-title-small">📝 Your Notes</h3>
+                        
+                        <div class="form-group-note">
+                            <input type="text" id="dataInput" placeholder="Enter a new note...">
+                            <button class="btn btn-primary btn-note" id="saveDataBtn">💾 Save</button>
+                        </div>
+                        
+                        <div id="userDataList" class="user-data-list">
+                            <!-- User data will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Link to your external script file -->
+    <script src="script.js"></script>
+</body>
+</html>
