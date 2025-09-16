@@ -2,16 +2,6 @@
 // Firebase Auth & Firestore Logic
 // ---------------------------------------------
 
-// Check environment compatibility
-if (!['http:', 'https:', 'chrome-extension:'].includes(window.location.protocol)) {
-    console.error('Firebase Auth requires http, https, or chrome-extension protocol. Current protocol:', window.location.protocol);
-    alert('This application must be run on a web server (http:// or https://). Please use a local server or deploy to a hosting service.');
-}
-if (!window.localStorage) {
-    console.error('LocalStorage is disabled or unavailable.');
-    alert('Please enable browser storage to use this application.');
-}
-
 // Replace with your Firebase config
 const firebaseConfig = {
     apiKey: "AIzaSyDYYx46KEkHSA78xHMo8lYS8tKqYrLZK-w",
@@ -24,16 +14,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-try {
-    firebase.initializeApp(firebaseConfig);
-} catch (error) {
-    console.error('Firebase initialization failed:', error);
-    alert('Failed to initialize Firebase. Please check your configuration.');
-}
+firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-const storage = firebase.storage();
-const storageRef = storage.ref();
+    
 
 // Google Auth Provider
 const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -82,7 +66,7 @@ const userNameDashboard = document.getElementById('userNameDashboard');
 const userEmailDashboard = document.getElementById('userEmailDashboard');
 const userDataList = document.getElementById('userDataList');
 
-// Profile elements
+// New profile elements
 const profileName = document.getElementById('profileName');
 const profileGender = document.getElementById('profileGender');
 const profilePhotoUrl = document.getElementById('profilePhotoUrl');
@@ -111,6 +95,7 @@ const verifiedInterns = [
     { name: "Pranjal Singh", email: "pranjal@example.com", testPassed: true },
     { name: "Anuj Singh", email: "anuj@example.com", testPassed: true },
     { name: "Sumit Pandey", email: "sumit@example.com", testPassed: true },
+    // Add more verified interns here
 ];
 
 // Helper function to create a URL-friendly slug
@@ -119,7 +104,8 @@ function createCourseSlug(title) {
 }
 
 // Course data for client-side search (for course.html)
-const allCourses = [];
+const allCourses = [
+];
 
 // Course data for index.html search
 const popularCourses = [
@@ -153,14 +139,14 @@ function renderCourses(courses) {
                 <p class="course-author">${course.instructor}</p>
                 <div class="course-rating">
                     <div class="rating-stars">
-                        ${generateStarRating(course.rating || 0)}
+                        ${generateStarRating(course.rating)}
                     </div>
-                    <span class="rating-value">${course.rating || 'N/A'}</span>
-                    <span class="rating-count">(${course.reviews || 0})</span>
+                    <span class="rating-value">${course.rating}</span>
+                    <span class="rating-count">(${course.reviews})</span>
                 </div>
                 <div class="course-price">
-                    <span class="current-price">${course.price || 'Free'}</span>
-                    <span class="original-price">${course.originalPrice || ''}</span>
+                    <span class="current-price">${course.price}</span>
+                    <span class="original-price">${course.originalPrice}</span>
                     ${course.bestseller ? '<span class="badge bestseller">Bestseller</span>' : ''}
                 </div>
             </div>
@@ -213,7 +199,7 @@ function handleImagePreview(event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            if (userAvatarPreview) userAvatarPreview.src = e.target.result;
+            userAvatarPreview.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
@@ -231,31 +217,23 @@ function checkVerificationStatus(userEmail, userName) {
 // Utility Functions
 function showSection(sectionElement) {
     document.querySelectorAll('.auth-section').forEach(s => s.classList.remove('active'));
-    if (sectionElement) sectionElement.classList.add('active');
+    sectionElement.classList.add('active');
 }
 
 function showError(element, message) {
-    if (element) {
-        element.textContent = message;
-        element.style.display = 'block';
-        setTimeout(() => {
-            element.style.display = 'none';
-        }, 5000);
-    } else {
-        console.warn('Error element not found for message:', message);
-    }
+    element.textContent = message;
+    element.style.display = 'block';
+    setTimeout(() => {
+        element.style.display = 'none';
+    }, 5000);
 }
 
 function showLoading(element, show) {
-    if (element) {
-        element.style.display = show ? 'block' : 'none';
-    }
+    element.style.display = show ? 'block' : 'none';
 }
 
 function showSearchResults(results) {
     const resultsContainer = document.getElementById('searchResults');
-    if (!resultsContainer) return;
-    
     resultsContainer.innerHTML = '';
     
     if (results.length > 0) {
@@ -289,20 +267,20 @@ function showSearchResults(results) {
 // Event Listeners for Modal
 if (loginBtnHeader) {
     loginBtnHeader.addEventListener('click', () => {
-        if (authModal) authModal.classList.add('active');
+        authModal.classList.add('active');
         showSection(loginSection);
     });
 }
 if (signupBtnHeader) {
     signupBtnHeader.addEventListener('click', () => {
-        if (authModal) authModal.classList.add('active');
+        authModal.classList.add('active');
         showSection(signupSection);
     });
 }
 
 if (closeModalBtn) {
     closeModalBtn.addEventListener('click', () => {
-        if (authModal) authModal.classList.remove('active');
+        authModal.classList.remove('active');
     });
 }
 
@@ -328,15 +306,16 @@ if (showLoginLink) {
 }
 if (userProfile) {
     userProfile.addEventListener('click', () => {
-        if (userDropdown) userDropdown.classList.toggle('active');
+        userDropdown.classList.toggle('active');
     });
 }
 
+// New event listener for profile button
 if (profileBtnHeader) {
     profileBtnHeader.addEventListener('click', () => {
-        if (authModal) authModal.classList.add('active');
+        authModal.classList.add('active');
         showSection(dashboardSection);
-        if (userDropdown) userDropdown.classList.remove('active');
+        userDropdown.classList.remove('active'); // Close the dropdown after click
     });
 }
 
@@ -346,18 +325,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Hamburger menu
 if (hamburgerMenu) {
     hamburgerMenu.addEventListener('click', () => {
         hamburgerMenu.classList.toggle('active');
-        if (navMenu) navMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
     });
 }
 
 // Email Login
 if (emailLoginBtn) {
     emailLoginBtn.addEventListener('click', async () => {
-        const email = loginEmail?.value.trim() || '';
-        const password = loginPassword?.value || '';
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value;
     
         if (!email || !password) {
             showError(loginError, 'Please fill in all fields');
@@ -369,9 +349,8 @@ if (emailLoginBtn) {
     
         try {
             await auth.signInWithEmailAndPassword(email, password);
-            if (authModal) authModal.classList.remove('active');
+            authModal.classList.remove('active');
         } catch (error) {
-            console.error('Login error:', error);
             showError(loginError, error.message);
         } finally {
             showLoading(loginLoading, false);
@@ -380,11 +359,12 @@ if (emailLoginBtn) {
     });
 }
 
+
 // Email Signup
 if (emailSignupBtn) {
     emailSignupBtn.addEventListener('click', async () => {
-        const email = signupEmail?.value.trim() || '';
-        const password = signupPassword?.value || '';
+        const email = signupEmail.value.trim();
+        const password = signupPassword.value;
     
         if (!email || !password) {
             showError(signupError, 'Please fill in all fields');
@@ -401,9 +381,8 @@ if (emailSignupBtn) {
     
         try {
             await auth.createUserWithEmailAndPassword(email, password);
-            if (authModal) authModal.classList.remove('active');
+            authModal.classList.remove('active');
         } catch (error) {
-            console.error('Signup error:', error);
             showError(signupError, error.message);
         } finally {
             showLoading(signupLoading, false);
@@ -416,9 +395,8 @@ if (emailSignupBtn) {
 async function signInWithGoogle() {
     try {
         await auth.signInWithPopup(googleProvider);
-        if (authModal) authModal.classList.remove('active');
+        authModal.classList.remove('active');
     } catch (error) {
-        console.error('Google sign-in error:', error);
         showError(loginError, error.message);
         showError(signupError, error.message);
     }
@@ -436,7 +414,6 @@ const handleLogout = async () => {
         await auth.signOut();
     } catch (error) {
         console.error('Logout error:', error);
-        showError(loginError, 'Failed to log out. Please try again.');
     }
 };
 if (logoutBtnHeader) {
@@ -445,6 +422,7 @@ if (logoutBtnHeader) {
 if (logoutBtnModal) {
     logoutBtnModal.addEventListener('click', handleLogout);
 }
+
 
 // Profile Tab Logic
 if (tabButtons) {
@@ -456,150 +434,102 @@ if (tabButtons) {
             button.classList.add('active');
     
             document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-            const tabContent = document.getElementById(`${tab}TabContent`);
-            if (tabContent) {
-                tabContent.classList.remove('hidden');
-                tabContent.classList.add('active');
-            }
+            document.getElementById(`${tab}TabContent`).classList.remove('hidden');
+            document.getElementById(`${tab}TabContent`).classList.add('active');
         });
     });
 }
 
-// Edit Profile Button
+
+// New Edit Profile Button
 if (editProfileBtn) {
     editProfileBtn.addEventListener('click', () => {
-        if (profileDisplaySection && profileEditSection) {
-            profileDisplaySection.classList.add('hidden');
-            profileEditSection.classList.remove('hidden');
-        }
+        profileDisplaySection.classList.add('hidden');
+        profileEditSection.classList.remove('hidden');
     });
 }
+
 
 // Save Profile Data
 if (saveProfileBtn) {
     saveProfileBtn.addEventListener('click', async () => {
         const user = auth.currentUser;
-        if (!user) {
-            alert('You must be signed in to save your profile.');
-            return;
+        if (!user) return;
+    
+        const displayName = profileName.value.trim();
+        const gender = profileGender.value;
+        const interestedDomainValue = interestedDomain.value;
+        
+        let photoURL = userAvatarPreview.src;
+        if (photoURL && photoURL.startsWith('data:')) {
+            // For production, you would upload the file to Firebase Storage here.
+            // For now, we'll just keep the Data URL for a client-side preview.
+        } else {
+            // If no new image is uploaded, keep the current photo URL
+            photoURL = user.photoURL;
         }
-
-        saveProfileBtn.disabled = true;
-        saveProfileBtn.textContent = 'Saving...';
-
-        const displayName = profileName?.value.trim() || user.displayName || '';
-        const gender = profileGender?.value || '';
-        const interestedDomainValue = interestedDomain?.value || '';
-        let photoURL = user.photoURL || '';
-
-        // Handle image upload
-        if (profileImageInput?.files[0]) {
-            const file = profileImageInput.files[0];
-            if (!file.type.startsWith('image/')) {
-                alert('Please upload a valid image file.');
-                saveProfileBtn.disabled = false;
-                saveProfileBtn.textContent = 'Save Profile';
-                return;
-            }
-
-            try {
-                const storagePath = `profileImages/${user.uid}/${file.name}`;
-                const fileRef = storageRef.child(storagePath);
-                await fileRef.put(file);
-                photoURL = await fileRef.getDownloadURL();
-                if (userAvatarPreview) userAvatarPreview.src = photoURL;
-            } catch (error) {
-                console.error('Error uploading image to Storage:', error);
-                alert(`Failed to upload profile image: ${error.message}`);
-                saveProfileBtn.disabled = false;
-                saveProfileBtn.textContent = 'Save Profile';
-                return;
-            }
-        }
-
+    
         // Update Firebase Auth profile
         try {
             await user.updateProfile({
-                displayName: displayName,
+                displayName: displayName || user.displayName,
                 photoURL: photoURL,
             });
-            console.log('User profile updated successfully:', { displayName, photoURL });
+            console.log('User profile updated successfully.');
         } catch (error) {
-            console.error('Error updating Firebase Auth profile:', error);
-            alert(`Failed to update profile: ${error.message}`);
-            saveProfileBtn.disabled = false;
-            saveProfileBtn.textContent = 'Save Profile';
-            return;
+            console.error('Error updating user profile:', error);
         }
-
+    
         // Save additional data to Firestore
         try {
             const userDocRef = db.collection('userProfiles').doc(user.uid);
-            await userDocRef.set(
-                {
-                    name: displayName,
-                    gender: gender,
-                    photoUrl: photoURL,
-                    interestedDomain: interestedDomainValue,
-                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
-                },
-                { merge: true }
-            );
-
-            console.log('User data saved to Firestore:', {
+            await userDocRef.set({
                 name: displayName,
-                gender,
+                gender: gender,
                 photoUrl: photoURL,
                 interestedDomain: interestedDomainValue,
-            });
-
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+    
+            console.log('User data saved to Firestore.');
             alert('Your profile has been saved successfully!');
-
+            
+            // Show professional alert for seats left
             if (interestedDomainValue) {
                 const seatsLeft = Math.floor(Math.random() * 9) + 2;
                 showSeatsPopup(interestedDomainValue, seatsLeft);
             }
-
+            
+            // Switch back to display mode
             if (profileEditSection && profileDisplaySection) {
                 profileEditSection.classList.add('hidden');
                 profileDisplaySection.classList.remove('hidden');
             }
+    
+            // Reload user data to reflect changes
+            await auth.currentUser.reload();
+            // Reload the user to ensure profile updates are reflected
+            await auth.currentUser.reload();
 
-            await user.reload();
-            auth.onAuthStateChanged(async (updatedUser) => {
-                if (updatedUser) {
-                    if (userNameDashboard) userNameDashboard.textContent = displayName || 'User';
-                    if (userEmailDashboard) userEmailDashboard.textContent = updatedUser.email;
-                    if (userAvatarHeader) userAvatarHeader.src = photoURL;
-                    if (userAvatarDashboard) userAvatarDashboard.src = photoURL;
-                    if (document.getElementById('profileGenderDisplay')) {
-                        document.getElementById('profileGenderDisplay').textContent = gender || 'Not specified';
-                    }
-                    if (document.getElementById('profileDomainDisplay')) {
-                        document.getElementById('profileDomainDisplay').textContent = interestedDomainValue || 'Not specified';
-                    }
-                }
-            });
+            // Optionally refetch user info directly
+            const updatedUser = auth.currentUser;
+
+    
         } catch (error) {
-            console.error('Error saving user data to Firestore:', error);
-            alert(`Failed to save profile: ${error.message}`);
-        } finally {
-            saveProfileBtn.disabled = false;
-            saveProfileBtn.textContent = 'Save Profile';
+            console.error('Error saving user data:', error);
+            alert('Failed to save profile. Please try again.');
         }
     });
 }
 
+
 // Save Data (Notes)
 if (saveDataBtn) {
     saveDataBtn.addEventListener('click', async () => {
-        const data = dataInput?.value.trim() || '';
+        const data = dataInput.value.trim();
         const user = auth.currentUser;
     
-        if (!data || !user) {
-            showError(loginError, 'Please enter a note and ensure you are signed in.');
-            return;
-        }
+        if (!data || !user) return;
     
         saveDataBtn.disabled = true;
         saveDataBtn.textContent = 'Saving...';
@@ -614,7 +544,6 @@ if (saveDataBtn) {
             dataInput.value = '';
         } catch (error) {
             console.error('Error saving data:', error);
-            showError(loginError, `Failed to save note: ${error.message}`);
         } finally {
             saveDataBtn.disabled = false;
             saveDataBtn.textContent = '💾 Save';
@@ -651,19 +580,17 @@ function setupDataListener() {
             });
         }, err => {
             console.error('Error getting real-time data:', err);
-            showError(loginError, 'Failed to load notes.');
         });
     }
+
 }
 
 // Delete Data
 window.deleteData = async function(docId) {
     try {
         await db.collection('userData').doc(docId).delete();
-        console.log('Note deleted successfully:', docId);
     } catch (error) {
         console.error('Error deleting data:', error);
-        showError(loginError, 'Failed to delete note.');
     }
 };
 
@@ -691,12 +618,14 @@ function showSeatsPopup(domain, seats) {
     });
 }
 
+
 // Auth State Observer
 auth.onAuthStateChanged(async (user) => {
     if (user) {
-        if (authButtons) authButtons.classList.add('hidden');
-        if (userProfile) userProfile.classList.remove('hidden');
-        if (userNameHeader) userNameHeader.textContent = user.displayName ? user.displayName.split(' ')[0] : 'User';
+        // User is signed in
+        if(authButtons) authButtons.classList.add('hidden');
+        if(userProfile) userProfile.classList.remove('hidden');
+        if(userNameHeader) userNameHeader.textContent = user.displayName ? user.displayName.split(' ')[0] : 'User';
 
         if (authModal && authModal.classList.contains('active')) {
             showSection(dashboardSection);
@@ -705,78 +634,78 @@ auth.onAuthStateChanged(async (user) => {
         // Load profile data from Firestore
         const userDocRef = db.collection('userProfiles').doc(user.uid);
         const userProgressRef = db.collection('userProgress').doc(user.uid);
-        let profileData = {};
-        try {
-            const userDoc = await userDocRef.get();
-            const userProgressDoc = await userProgressRef.get();
-            
-            if (userDoc.exists) {
-                profileData = userDoc.data();
-                if (profileName) profileName.value = profileData.name || '';
-                if (profileGender) profileGender.value = profileData.gender || '';
-                if (interestedDomain) interestedDomain.value = profileData.interestedDomain || '';
-            } else {
-                if (profileName) profileName.value = user.displayName || '';
-            }
+        const userDoc = await userDocRef.get();
+        const userProgressDoc = await userProgressRef.get();
         
-            const userProgress = userProgressDoc.exists ? userProgressDoc.data() : { coursesCompleted: 0, testsCompleted: 0 };
-            const avatarUrl = getAvatarUrl(userProgress, profileData.photoUrl);
+        let profileData = {};
+        if (userDoc.exists) {
+            profileData = userDoc.data();
+            if(profileName) profileName.value = profileData.name || '';
+            if(profileGender) profileGender.value = profileData.gender || '';
+            if(interestedDomain) interestedDomain.value = profileData.interestedDomain || '';
+        } else {
+            if(profileName) profileName.value = user.displayName || '';
+        }
+        
+        const userProgress = userProgressDoc.exists ? userProgressDoc.data() : { coursesCompleted: 0, testsCompleted: 0 };
+        const avatarUrl = getAvatarUrl(userProgress, profileData.photoUrl);
 
-            if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
-            if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
-            if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
+        // Update avatar image in header and dashboard
+        if(userAvatarHeader) userAvatarHeader.src = avatarUrl;
+        if(userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
+        if(userAvatarPreview) userAvatarPreview.src = avatarUrl;
 
-            if (userNameDashboard) userNameDashboard.textContent = profileData.name || user.displayName || 'User';
-            if (userEmailDashboard) userEmailDashboard.textContent = user.email;
-            if (document.getElementById('profileGenderDisplay')) {
-                document.getElementById('profileGenderDisplay').textContent = profileData.gender || 'Not specified';
-            }
-            if (document.getElementById('profileDomainDisplay')) {
-                document.getElementById('profileDomainDisplay').textContent = profileData.interestedDomain || 'Not specified';
-            }
-
-            if (profileEditSection && profileDisplaySection) {
-                profileEditSection.classList.add('hidden');
-                profileDisplaySection.classList.remove('hidden');
-            }
-
-            const isVerified = checkVerificationStatus(user.email, profileData.name || user.displayName);
-            if (verificationBadge) {
-                if (isVerified) {
-                    verificationBadge.textContent = 'Verified';
-                    verificationBadge.classList.remove('faded');
-                    verificationBadge.title = 'This user is a verified intern.';
-                } else {
-                    verificationBadge.textContent = 'Unverified';
-                    verificationBadge.classList.add('faded');
-                    verificationBadge.title = 'Pass the test to get verified intern.';
-                }
-            }
-
-            setupDataListener();
-
-            if (profileData.interestedDomain) {
-                const lastShown = localStorage.getItem('seatsPopupShown');
-                const now = new Date().getTime();
-                const oneHour = 60 * 60 * 1000;
-                if (!lastShown || (now - lastShown > oneHour)) {
-                    const seatsLeft = Math.floor(Math.random() * 9) + 2;
-                    showSeatsPopup(profileData.interestedDomain, seatsLeft);
-                    localStorage.setItem('seatsPopupShown', now);
-                }
-            }
-        } catch (error) {
-            console.error('Error loading user profile:', error);
-            showError(loginError, 'Failed to load profile data.');
+        // Update profile display section
+        if(userNameDashboard) userNameDashboard.textContent = profileData.name || user.displayName || 'User';
+        if(userEmailDashboard) userEmailDashboard.textContent = user.email;
+        if(document.getElementById('profileGenderDisplay')) document.getElementById('profileGenderDisplay').textContent = profileData.gender || 'Not specified';
+        if(document.getElementById('profileDomainDisplay')) document.getElementById('profileDomainDisplay').textContent = profileData.interestedDomain || 'Not specified';
+        
+        // Hide edit section and show display section by default
+        if (profileEditSection && profileDisplaySection) {
+            profileEditSection.classList.add('hidden');
+            profileDisplaySection.classList.remove('hidden');
         }
 
-        if (loginEmail) loginEmail.value = '';
-        if (loginPassword) loginPassword.value = '';
-        if (signupEmail) signupEmail.value = '';
-        if (signupPassword) signupPassword.value = '';
+
+        // Check verification status and update badge
+        const isVerified = checkVerificationStatus(user.email, profileData.name || user.displayName);
+        if (verificationBadge) {
+            if (isVerified) {
+                verificationBadge.textContent = 'Verified';
+                verificationBadge.classList.remove('faded');
+                verificationBadge.title = 'This user is a verified intern.';
+            } else {
+                verificationBadge.textContent = 'Unverified';
+                verificationBadge.classList.add('faded');
+                verificationBadge.title = 'Pass the test to get verified intern.';
+            }
+        }
+
+
+        setupDataListener();
+
+        // Show seats popup if applicable
+        if (profileData.interestedDomain) {
+            const lastShown = localStorage.getItem('seatsPopupShown');
+            const now = new Date().getTime();
+            const oneHour = 60 * 60 * 1000;
+            if (!lastShown || (now - lastShown > oneHour)) {
+                const seatsLeft = Math.floor(Math.random() * 9) + 2;
+                showSeatsPopup(profileData.interestedDomain, seatsLeft);
+                localStorage.setItem('seatsPopupShown', now);
+            }
+        }
+
+        // Clear forms
+        if(loginEmail) loginEmail.value = '';
+        if(loginPassword) loginPassword.value = '';
+        if(signupEmail) signupEmail.value = '';
+        if(signupPassword) signupPassword.value = '';
     } else {
-        if (authButtons) authButtons.classList.remove('hidden');
-        if (userProfile) userProfile.classList.add('hidden');
+        // User is signed out
+        if(authButtons) authButtons.classList.remove('hidden');
+        if(userProfile) userProfile.classList.add('hidden');
 
         if (authModal && authModal.classList.contains('active')) {
             showSection(loginSection);
@@ -785,25 +714,27 @@ auth.onAuthStateChanged(async (user) => {
 });
 
 // Enter key listeners for forms
-if (loginPassword) {
+if(loginPassword) {
     loginPassword.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && emailLoginBtn) emailLoginBtn.click();
+        if (e.key === 'Enter') emailLoginBtn.click();
     });
 }
-if (signupPassword) {
+if(signupPassword) {
     signupPassword.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && emailSignupBtn) emailSignupBtn.click();
+        if (e.key === 'Enter') emailSignupBtn.click();
     });
 }
-if (dataInput) {
+if(dataInput) {
     dataInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && saveDataBtn) saveDataBtn.click();
+        if (e.key === 'Enter') saveDataBtn.click();
     });
 }
 
-if (profileImageInput) {
+// File input change listener for preview
+if(profileImageInput) {
     profileImageInput.addEventListener('change', handleImagePreview);
 }
+
 
 // Hero image slider logic
 const sliderWrapper = document.querySelector('.hero-image-slider .slider-wrapper');
@@ -829,7 +760,7 @@ if (sliderWrapper) {
     }
 
     function startSlider() {
-        slideInterval = setInterval(nextSlide, 5000);
+        slideInterval = setInterval(nextSlide, 5000); // Change image every 5 seconds
     }
 
     function stopSlider() {
@@ -845,11 +776,13 @@ if (sliderWrapper) {
         });
     });
 
+    // Initial slide setup for home page
     document.addEventListener('DOMContentLoaded', () => {
         showSlide(0);
         startSlider();
     });
 }
+
 
 // Search functionality
 function filterCourses(query) {
@@ -874,6 +807,7 @@ if (searchInput) {
     });
 }
 
+// Clear search input on click outside
 document.addEventListener('click', (e) => {
     const searchContainer = document.querySelector('.search-container');
     const searchResultsContainer = document.getElementById('searchResults');
@@ -883,10 +817,11 @@ document.addEventListener('click', (e) => {
     }
 });
 
+
 // Initial load
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
-    if (header) {
+    if(header) {
         window.addEventListener('scroll', function() {
             if (window.scrollY > 50) {
                 header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
@@ -909,6 +844,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // On the course.html page, render the courses.
     if (coursesGrid) {
         renderCourses(allCourses);
     }
