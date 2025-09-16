@@ -423,6 +423,33 @@ if (logoutBtnModal) {
     logoutBtnModal.addEventListener('click', handleLogout);
 }
 
+// New function to update the profile display section
+function updateProfileUI(user, profileData) {
+    const avatarUrl = profileData.photoUrl || user.photoURL || '';
+
+    if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
+    if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
+    if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
+
+    if (userNameDashboard) userNameDashboard.textContent = profileData.name || user.displayName || 'User';
+    if (userEmailDashboard) userEmailDashboard.textContent = user.email;
+    if (document.getElementById('profileGenderDisplay')) document.getElementById('profileGenderDisplay').textContent = profileData.gender || 'Not specified';
+    if (document.getElementById('profileDomainDisplay')) document.getElementById('profileDomainDisplay').textContent = profileData.interestedDomain || 'Not specified';
+    
+    // Check verification status and update badge
+    const isVerified = checkVerificationStatus(user.email, profileData.name || user.displayName);
+    if (verificationBadge) {
+        if (isVerified) {
+            verificationBadge.textContent = 'Verified';
+            verificationBadge.classList.remove('faded');
+            verificationBadge.title = 'This user is a verified intern.';
+        } else {
+            verificationBadge.textContent = 'Unverified';
+            verificationBadge.classList.add('faded');
+            verificationBadge.title = 'Pass the test to get verified intern.';
+        }
+    }
+}
 
 // Profile Tab Logic
 if (tabButtons) {
@@ -496,8 +523,14 @@ if (saveProfileBtn) {
             
             // Show professional alert for seats left
             if (interestedDomainValue) {
-                const seatsLeft = Math.floor(Math.random() * 9) + 2;
-                showSeatsPopup(interestedDomainValue, seatsLeft);
+                const lastShown = localStorage.getItem('seatsPopupShown');
+                const now = new Date().getTime();
+                const oneHour = 60 * 60 * 1000;
+                if (!lastShown || (now - lastShown > oneHour)) {
+                    const seatsLeft = Math.floor(Math.random() * 9) + 2;
+                    showSeatsPopup(interestedDomainValue, seatsLeft);
+                    localStorage.setItem('seatsPopupShown', now);
+                }
             }
             
             // Switch back to display mode
@@ -506,14 +539,8 @@ if (saveProfileBtn) {
                 profileDisplaySection.classList.remove('hidden');
             }
     
-            // Reload user data to reflect changes
-            await auth.currentUser.reload();
-            // Reload the user to ensure profile updates are reflected
-            await auth.currentUser.reload();
-
-            // Optionally refetch user info directly
-            const updatedUser = auth.currentUser;
-
+            // Update UI immediately with new data
+            updateProfileUI(user, { name: displayName, gender: gender, interestedDomain: interestedDomainValue, photoUrl: photoURL });
     
         } catch (error) {
             console.error('Error saving user data:', error);
@@ -648,39 +675,9 @@ auth.onAuthStateChanged(async (user) => {
         }
         
         const userProgress = userProgressDoc.exists ? userProgressDoc.data() : { coursesCompleted: 0, testsCompleted: 0 };
-        const avatarUrl = getAvatarUrl(userProgress, profileData.photoUrl);
-
-        // Update avatar image in header and dashboard
-        if(userAvatarHeader) userAvatarHeader.src = avatarUrl;
-        if(userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
-        if(userAvatarPreview) userAvatarPreview.src = avatarUrl;
-
-        // Update profile display section
-        if(userNameDashboard) userNameDashboard.textContent = profileData.name || user.displayName || 'User';
-        if(userEmailDashboard) userEmailDashboard.textContent = user.email;
-        if(document.getElementById('profileGenderDisplay')) document.getElementById('profileGenderDisplay').textContent = profileData.gender || 'Not specified';
-        if(document.getElementById('profileDomainDisplay')) document.getElementById('profileDomainDisplay').textContent = profileData.interestedDomain || 'Not specified';
         
-        // Hide edit section and show display section by default
-        if (profileEditSection && profileDisplaySection) {
-            profileEditSection.classList.add('hidden');
-            profileDisplaySection.classList.remove('hidden');
-        }
-
-
-        // Check verification status and update badge
-        const isVerified = checkVerificationStatus(user.email, profileData.name || user.displayName);
-        if (verificationBadge) {
-            if (isVerified) {
-                verificationBadge.textContent = 'Verified';
-                verificationBadge.classList.remove('faded');
-                verificationBadge.title = 'This user is a verified intern.';
-            } else {
-                verificationBadge.textContent = 'Unverified';
-                verificationBadge.classList.add('faded');
-                verificationBadge.title = 'Pass the test to get verified intern.';
-            }
-        }
+        // Update UI immediately with new data
+        updateProfileUI(user, profileData);
 
 
         setupDataListener();
