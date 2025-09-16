@@ -423,21 +423,21 @@ if (logoutBtnModal) {
     logoutBtnModal.addEventListener('click', handleLogout);
 }
 
-// New function to update the profile display section
-function updateProfileUI(user, profileData) {
-    const avatarUrl = profileData.photoUrl || user.photoURL || '';
-
+// Function to update the profile display section based on a given data object
+function updateProfileUI(profileData) {
+    const avatarUrl = profileData.photoUrl || 'https://placehold.co/40x40/5624d0/ffffff?text=U';
+    
     if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
     if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
     if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
 
-    if (userNameDashboard) userNameDashboard.textContent = profileData.name || user.displayName || 'User';
-    if (userEmailDashboard) userEmailDashboard.textContent = user.email;
+    if (userNameDashboard) userNameDashboard.textContent = profileData.name || 'User';
+    if (userEmailDashboard) userEmailDashboard.textContent = profileData.email;
     if (document.getElementById('profileGenderDisplay')) document.getElementById('profileGenderDisplay').textContent = profileData.gender || 'Not specified';
     if (document.getElementById('profileDomainDisplay')) document.getElementById('profileDomainDisplay').textContent = profileData.interestedDomain || 'Not specified';
-    
+
     // Check verification status and update badge
-    const isVerified = checkVerificationStatus(user.email, profileData.name || user.displayName);
+    const isVerified = checkVerificationStatus(profileData.email, profileData.name);
     if (verificationBadge) {
         if (isVerified) {
             verificationBadge.textContent = 'Verified';
@@ -487,13 +487,26 @@ if (saveProfileBtn) {
         const gender = profileGender.value;
         const interestedDomainValue = interestedDomain.value;
         
-        let photoURL = userAvatarPreview.src;
-        if (photoURL && photoURL.startsWith('data:')) {
-            // For production, you would upload the file to Firebase Storage here.
-            // For now, we'll just keep the Data URL for a client-side preview.
+        let photoURL = user.photoURL; // Fallback to current photoURL
+        const file = profileImageInput.files[0];
+
+        if (file) {
+             // For production, you must use the Firebase Storage SDK.
+             // For now, keeping the data URL for a client-side preview.
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                photoURL = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            console.log("Image upload simulated. In a real app, upload this file to Firebase Storage.");
         } else {
-            // If no new image is uploaded, keep the current photo URL
-            photoURL = user.photoURL;
+            // No new image selected, check if we have a photoUrl from Firestore
+            const userDoc = await db.collection('userProfiles').doc(user.uid).get();
+            if (userDoc.exists) {
+                photoURL = userDoc.data().photoUrl;
+            } else {
+                 photoURL = user.photoURL;
+            }
         }
     
         // Update Firebase Auth profile
@@ -515,7 +528,8 @@ if (saveProfileBtn) {
                 gender: gender,
                 photoUrl: photoURL,
                 interestedDomain: interestedDomainValue,
-                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+                email: user.email // Store email for easier lookup
             }, { merge: true });
     
             console.log('User data saved to Firestore.');
@@ -539,8 +553,13 @@ if (saveProfileBtn) {
                 profileDisplaySection.classList.remove('hidden');
             }
     
-            // Update UI immediately with new data
-            updateProfileUI(user, { name: displayName, gender: gender, interestedDomain: interestedDomainValue, photoUrl: photoURL });
+            // Refetch data and update UI
+            const updatedUserDoc = await db.collection('userProfiles').doc(user.uid).get();
+            if (updatedUserDoc.exists) {
+                 updateProfileUI(updatedUserDoc.data());
+            } else {
+                 updateProfileUI({ name: user.displayName, photoUrl: user.photoURL, email: user.email});
+            }
     
         } catch (error) {
             console.error('Error saving user data:', error);
@@ -660,9 +679,7 @@ auth.onAuthStateChanged(async (user) => {
 
         // Load profile data from Firestore
         const userDocRef = db.collection('userProfiles').doc(user.uid);
-        const userProgressRef = db.collection('userProgress').doc(user.uid);
         const userDoc = await userDocRef.get();
-        const userProgressDoc = await userProgressRef.get();
         
         let profileData = {};
         if (userDoc.exists) {
@@ -671,13 +688,11 @@ auth.onAuthStateChanged(async (user) => {
             if(profileGender) profileGender.value = profileData.gender || '';
             if(interestedDomain) interestedDomain.value = profileData.interestedDomain || '';
         } else {
-            if(profileName) profileName.value = user.displayName || '';
+             profileData = { name: user.displayName, photoUrl: user.photoURL, email: user.email};
+             if(profileName) profileName.value = user.displayName || '';
         }
         
-        const userProgress = userProgressDoc.exists ? userProgressDoc.data() : { coursesCompleted: 0, testsCompleted: 0 };
-        
-        // Update UI immediately with new data
-        updateProfileUI(user, profileData);
+        updateProfileUI(profileData);
 
 
         setupDataListener();
@@ -823,7 +838,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (window.scrollY > 50) {
                 header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
             } else {
-                header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08)';
             }
         });
     }
