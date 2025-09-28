@@ -1451,45 +1451,6 @@ select#profileGender, select#interestedDomain {
     background: var(--secondary);
 }
 
-/* Verified Badge Styles */
-.verified-badge {
-    position: absolute;
-    top: 0;
-    right: -10px;
-    background-color: var(--success);
-    color: var(--white);
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    transform: rotate(15deg);
-    animation: bounce 1s infinite alternate;
-    transition: var(--transition);
-}
-
-.verified-badge:hover {
-    animation: none;
-    transform: scale(1.1) rotate(0deg);
-}
-
-@keyframes bounce {
-    0% { transform: translateY(0) rotate(15deg); }
-    100% { transform: translateY(-5px) rotate(15deg); }
-}
-
-.verified-badge.faded {
-    background-color: var(--gray);
-    opacity: 0.6;
-    animation: none;
-    cursor: help;
-}
-
-.verified-badge.faded:hover {
-    opacity: 1;
-    transform: translateY(0) scale(1.1);
-}
 
 /* New style for profile information */
 .profile-details {
