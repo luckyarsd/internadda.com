@@ -3,7 +3,6 @@
 // ---------------------------------------------
 
 // Replace with your Firebase config
-
 const firebaseConfig = {
     apiKey: "AIzaSyDYYx46KEkHSA78xHMo8lYS8tKqYrLZK-w",
     authDomain: "skillpoint-c3e39.firebaseapp.com",
@@ -83,7 +82,6 @@ const profileDisplaySection = document.getElementById('profileDisplaySection');
 const profileEditSection = document.getElementById('profileEditSection');
 const userAvatarPreview = document.getElementById('userAvatarPreview');
 const profileImageInput = document.getElementById('profileImageInput');
-const verificationBadge = document.getElementById('verificationBadge');
 
 // Loading and Error Elements
 const loginLoading = document.getElementById('loginLoading');
@@ -110,10 +108,10 @@ const allCourses = [
 
 // Course data for index.html search
 const popularCourses = [
-    { title: 'Generative AI & Prompt Engineering Masterclass', instructor: 'Created by AI', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=500&q=80', url: `courses/${createCourseSlug('Generative AI & Prompt Engineering Masterclass')}.html` },
-    { title: 'Cloud Computing & DevOps Essentials', instructor: 'Created by AI', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=500&q=80', url: `courses/${createCourseSlug('Cloud Computing & DevOps Essentials')}.html` },
-    { title: 'The Complete Digital Marketing Course', instructor: 'Created by AI', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=500&q=80', url: `courses/${createCourseSlug('The Complete Digital Marketing Course')}.html` },
-    { title: 'E-Commerce & Dropshipping Business Mastery', instructor: 'Created by AI', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=500&q=80', url: `courses/${createCourseSlug('E-Commerce & Dropshipping Business Mastery')}.html` },
+    { title: 'Data Science Intern Course', instructor: 'Created by AI', image: 'images/Essential Data Science Intern Course.png', url: "courses/courses/Essential Data Science Intern Course.html" },
+    { title: 'Generative AI & Prompt Engineering', instructor: 'Created by AI', image: 'images/Generative-AI-Prompt-Engineering-Masterclass.png', url: "courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
+    { title: 'Python Essentials for All', instructor: 'Created by AI', image: 'images/Python-Essentials-for-All.png', url: "courses/courses/Python-Essentials-for-All.html" },
+    { title: 'Cybersecurity Fundamentals', instructor: 'Created by AI', image: 'images/Ethical-Hacking-Mastery.png', url: "courses/courses/Ethical-Hacking-Mastery.html" },
 ];
 
 const coursesGrid = document.getElementById('coursesGrid');
@@ -437,19 +435,6 @@ function updateProfileUI(profileData) {
     if (document.getElementById('profileGenderDisplay')) document.getElementById('profileGenderDisplay').textContent = profileData.gender || 'Not specified';
     if (document.getElementById('profileDomainDisplay')) document.getElementById('profileDomainDisplay').textContent = profileData.interestedDomain || 'Not specified';
 
-    // Check verification status and update badge
-    const isVerified = checkVerificationStatus(profileData.email, profileData.name);
-    if (verificationBadge) {
-        if (isVerified) {
-            verificationBadge.textContent = 'Verified';
-            verificationBadge.classList.remove('faded');
-            verificationBadge.title = 'This user is a verified intern.';
-        } else {
-            verificationBadge.textContent = 'Unverified';
-            verificationBadge.classList.add('faded');
-            verificationBadge.title = 'Pass the test to get verified intern.';
-        }
-    }
 }
 
 // Profile Tab Logic
@@ -702,7 +687,7 @@ auth.onAuthStateChanged(async (user) => {
         if (profileData.interestedDomain) {
             const lastShown = localStorage.getItem('seatsPopupShown');
             const now = new Date().getTime();
-            const oneHour = 60 * 60 * 1000;
+            const oneHour = 60*60;
             if (!lastShown || (now - lastShown > oneHour)) {
                 const seatsLeft = Math.floor(Math.random() * 9) + 2;
                 showSeatsPopup(profileData.interestedDomain, seatsLeft);
