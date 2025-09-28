@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Certificate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Outer border wrapper */
+    .certificate-border {
+      padding: 12px;
+      background: linear-gradient(135deg, #0a2e5d, #c2a16d, #0a2e5d);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .certificate-container {
+      width: 1000px;
+      height: 707px;
+      background: #fff;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 20px 40px;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 90px;
+      font-weight: bold;
+      color: rgba(192, 161, 109, 0.08);
+      white-space: nowrap;
+      z-index: 0;
+      user-select: none;
+    }
+
+    .header-content {
+      z-index: 2;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4em;
+      font-weight: 700;
+      color: #0a2e5d;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .header-text p {
+      font-size: 1em;
+      font-weight: 500;
+      color: #546e7a;
+      margin: 5px 0 0;
+      letter-spacing: 2px;
+    }
+
+    .certificate-body {
+      z-index: 2;
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    .statement {
+      font-size: 1.2em;
+      color: #3f51b5;
+      margin-bottom: 15px;
+    }
+
+    .recipient-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5em;
+      font-weight: 700;
+      color: #212121;
+      border-bottom: 2px solid #c2a16d;
+      padding-bottom: 10px;
+      margin: 20px 0;
+    }
+
+    .description-text {
+      font-size: 1.2em;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .course-name {
+      font-weight: 600;
+      color: #c2a16d;
+    }
+
+    .certificate-info-block {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      padding: 10px 40px 30px;
+      z-index: 2;
+    }
+
+    .info-item {
+      font-size: 1em;
+      color: #546e7a;
+    }
+
+    .info-item strong {
+      color: #0a2e5d;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .stamp-area {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .stamp-area img {
+      width: 120px;
+      opacity: 0.9;
+    }
+
+    .stamp-label {
+      font-size: 0.85em;
+      color: #546e7a;
+      margin-top: 5px;
+    }
+
+    .download-button-container {
+      margin-top: 25px;
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #0a2e5d, #c2a16d);
+      color: #fff;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate-border" id="certificate">
+    <div class="certificate-container">
+      <div class="watermark">Internadda</div>
+
+      <div class="header-content">
+        <div class="logo">
+          <img src="https://raw.githubusercontent.com/luckyarsd/skillpoint.in/main/logo.jpg" alt="Company Logo">
+        </div>
+        <div class="header-text">
+          <h1>Internadda</h1>
+          <p>CERTIFICATE OF COMPLETION</p>
+        </div>
+      </div>
+
+      <div class="certificate-body">
+        <p class="statement">This document proudly certifies that</p>
+        <h2 class="recipient-name" id="certificateName"></h2>
+        <p class="description-text">
+          has successfully completed the esteemed program,
+          <strong class="course-name" id="certificateCourse"></strong>,
+          demonstrating dedication and mastery of the subject matter.
+        </p>
+      </div>
+
+      <div class="certificate-info-block">
+        <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
+        <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
+      </div>
+
+      <div class="stamp-area">
+        <img src="https://raw.githubusercontent.com/luckyarsd/skillpoint.in/main/stamp.jpg" alt="Official Seal Stamp">
+        <p class="stamp-label">Official Accreditation</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="download-button-container">
+    <button class="btn-download" id="downloadButton">Download Certificate</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('name') || 'Student Name';
+      const course = params.get('course') || 'Professional Development Program';
+      const certificateName = document.getElementById('certificateName');
+      const certificateCourse = document.getElementById('certificateCourse');
+      const certificateDate = document.getElementById('certificateDate');
+      const certificateId = document.getElementById('certificateId');
+      const downloadButton = document.getElementById('downloadButton');
+
+      certificateName.textContent = decodeURIComponent(name);
+      certificateCourse.textContent = decodeURIComponent(course);
+      certificateDate.textContent = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      certificateId.textContent = generateUUID();
+
+      downloadButton.addEventListener('click', () => {
+        const element = document.getElementById('certificate');
+        const opt = {
+          margin: 0,
+          filename: `Certificate_${decodeURIComponent(name).replace(/\s+/g, '_')}_${decodeURIComponent(course).replace(/\s+/g, '_')}.pdf`,
+          image: { type: 'jpeg', quality: 1.0 },
+          html2canvas: { scale: 3, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+        html2pdf().set(opt).from(element).save();
+      });
+    });
+  </script>
+</body>
+</html>
