@@ -338,7 +338,7 @@ header {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 80px;
+    top: 100%; /* Changed from 80px for better alignment */
     left: 0;
     width: 100%;
     background-color: var(--white);
@@ -346,6 +346,7 @@ header {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     animation: slideDown 0.4s ease-out;
 }
+
 
 @keyframes slideDown {
     from { transform: translateY(-30px); opacity: 0; }
@@ -1603,21 +1604,36 @@ select#profileGender, select#interestedDomain {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 0; /* Adjusted padding for mobile */
+    }
+
+    .logo {
+        order: 1; /* Logo on the left */
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .header-actions {
+        order: 2; /* Actions on the right */
+        width: auto;
         gap: 16px;
     }
-    .header-actions {
-        order: 2;
-        width: auto;
+
+    /* Hide login/signup on mobile header, only show profile icon */
+    #authButtons {
+        display: none;
     }
-    .logo {
-        order: 1;
-        width: auto;
+
+    .user-profile {
+        /* Ensure user profile is visible if logged in */
     }
-    .nav-menu.active {
-        top: 100%;
-        left: 0;
-        right: 0;
+    
+    .hamburger-menu {
+        order: 3; /* Hamburger can be placed as needed if actions are complex */
     }
+
     .hero-heading {
         font-size: 40px;
     }
@@ -1678,5 +1694,20 @@ select#profileGender, select#interestedDomain {
     .btn-lg {
         padding: 16px 28px;
         font-size: 16px;
+    }
+    
+    /* Ensure user avatar and name are not shown on smallest screens if needed */
+    .user-profile span#userNameHeader {
+        display: none;
+    }
+
+    #authButtons {
+        display: none; /* Re-iterate hiding auth buttons */
+    }
+    .header-actions .btn {
+        display: none; /* Hide any other buttons in header actions if needed */
+    }
+    .user-profile, .hamburger-menu {
+        display: flex; /* Ensure these are visible */
     }
 }
