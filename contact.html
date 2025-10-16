@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — Internadda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+        <a href="index.html" class="logo">
+          <img src="images/logo.jpg" alt="InternAdda Logo" class="logo-img">
+          <span class="logo-text">InternAdda</span>
+        </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="courses/course.html" class="nav-link">Courses</a>
+                <a href="intern/internship.html" class="nav-link">Internships</a>
+                <a href="#" class="nav-link">Jobs</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+            <div class="header-actions">
+                 <div id="authButtons">
+                    <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
+                    <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
+                </div>
+                 <div class="user-profile hidden" id="userProfile">
+                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
+                    <span id="userNameHeader"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" style="padding: 60px 0; text-align: center;">
+            <div class="container">
+                <h1 class="hero-heading" style="font-size: 2.5rem;">Get in Touch</h1>
+                <p class="hero-description" style="max-width: 800px; margin: 0 auto;">We're here to help. If you have any questions, please don't hesitate to reach out.</p>
+            </div>
+        </section>
+
+        <section style="padding: 60px 0;">
+            <div class="container" style="max-width: 800px; margin: 0 auto; display: flex; gap: 40px;">
+                <div style="flex: 1;">
+                    <h2 style="font-size: 2rem; margin-bottom: 20px;">Contact Information</h2>
+                    <div style="margin-bottom: 20px;">
+                        <strong>Address:</strong><br>
+                        Karawal Nagar<br>
+                        New Delhi, 110090, India
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <strong>Email:</strong><br>
+                        <a href="mailto:support@internadda.com">support@internadda.com</a>
+                    </div>
+                    <div>
+                        <strong>Phone:</strong><br>
+                        <a href="tel:+911234567890">+91 82877 42390</a>
+                    </div>
+                </div>
+                <div style="flex: 1.5;">
+                     <h2 style="font-size: 2rem; margin-bottom: 20px;">Send Us a Message</h2>
+                     <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                     </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                 <div class="footer-brand">
+                    <div class="footer-logo">Internadda</div>
+                    <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="refund.html">Refund & Cancellation</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-links-column">
+                    <h3 class="footer-links-title">Contact</h3>
+                     <ul class="footer-links">
+                        <li><a href="mailto:support@internadda.com">support@internadda.com</a></li>
+                        <li><a href="tel:+911234567890">+91 82877 42390</a></li>
+                        <li>New Delhi, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 Internadda. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
