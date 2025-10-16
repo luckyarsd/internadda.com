@@ -575,7 +575,8 @@
                 loginBtnMobile.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (authModal && loginSection && signupSection) {
-                        authModal.style.display = 'block';
+                        authModal.classList.add('active'); // Use classList for consistency
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
                         signupSection.classList.remove('active');
                         loginSection.classList.add('active');
                         closeHamburgerMenu();
@@ -588,7 +589,8 @@
                 signupBtnMobile.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (authModal && loginSection && signupSection) {
-                        authModal.style.display = 'block';
+                        authModal.classList.add('active'); // Use classList for consistency
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
                         loginSection.classList.remove('active');
                         signupSection.classList.add('active');
                         closeHamburgerMenu();
