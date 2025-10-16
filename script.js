@@ -267,12 +267,14 @@ function showSearchResults(results) {
 if (loginBtnHeader) {
     loginBtnHeader.addEventListener('click', () => {
         authModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
         showSection(loginSection);
     });
 }
 if (signupBtnHeader) {
     signupBtnHeader.addEventListener('click', () => {
         authModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
         showSection(signupSection);
     });
 }
@@ -280,6 +282,7 @@ if (signupBtnHeader) {
 if (closeModalBtn) {
     closeModalBtn.addEventListener('click', () => {
         authModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
     });
 }
 
@@ -287,6 +290,7 @@ if (authModal) {
     window.addEventListener('click', (e) => {
         if (e.target === authModal) {
             authModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
         }
     });
 }
@@ -313,6 +317,7 @@ if (userProfile) {
 if (profileBtnHeader) {
     profileBtnHeader.addEventListener('click', () => {
         authModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
         showSection(dashboardSection);
         userDropdown.classList.remove('active'); // Close the dropdown after click
     });
@@ -349,6 +354,7 @@ if (emailLoginBtn) {
         try {
             await auth.signInWithEmailAndPassword(email, password);
             authModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
         } catch (error) {
             showError(loginError, error.message);
         } finally {
@@ -381,6 +387,7 @@ if (emailSignupBtn) {
         try {
             await auth.createUserWithEmailAndPassword(email, password);
             authModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
         } catch (error) {
             showError(signupError, error.message);
         } finally {
@@ -395,6 +402,7 @@ async function signInWithGoogle() {
     try {
         await auth.signInWithPopup(googleProvider);
         authModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
     } catch (error) {
         showError(loginError, error.message);
         showError(signupError, error.message);
