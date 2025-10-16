@@ -338,7 +338,7 @@ header {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 100%; /* Changed from 80px for better alignment */
+    top: 80px;
     left: 0;
     width: 100%;
     background-color: var(--white);
@@ -346,7 +346,6 @@ header {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     animation: slideDown 0.4s ease-out;
 }
-
 
 @keyframes slideDown {
     from { transform: translateY(-30px); opacity: 0; }
@@ -958,6 +957,66 @@ header {
     transform: translateY(-3px);
 }
 
+/* ==================
+   Team Section Styles
+   ================== */
+.team-section {
+    padding: 60px 0;
+    background-color: var(--light);
+    text-align: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-member {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 14px; /* Using your standard border-radius */
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* A slightly stronger hover shadow */
+}
+
+.team-member-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid var(--primary); /* Using your primary color for the border */
+}
+
+.team-member-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    color: var(--dark);
+}
+
+.team-member-title {
+    font-size: 1rem;
+    color: var(--primary); /* Using your primary color for consistency */
+    margin: 0 0 15px 0;
+    font-weight: 500;
+}
+
+.team-member-desc {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+
 /* Footer */
 footer {
     background-color: var(--dark);
@@ -1557,12 +1616,6 @@ select#profileGender, select#interestedDomain {
 
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-    .container {
-        padding: 0 24px;
-    }
-}
-
 @media (max-width: 1024px) {
     .header-actions {
         flex-grow: 1;
@@ -1573,20 +1626,6 @@ select#profileGender, select#interestedDomain {
     }
     .hero-container, .internship-container {
         flex-direction: column;
-        text-align: center;
-    }
-    .hero-content {
-        order: 2;
-    }
-    .hero-image {
-        order: 1;
-        margin-bottom: 40px;
-    }
-    .hero-stats {
-        justify-content: center;
-    }
-    .hero-cta {
-        justify-content: center;
     }
     .value-cards {
         grid-template-columns: repeat(2, 1fr);
@@ -1601,51 +1640,29 @@ select#profileGender, select#interestedDomain {
 
 @media (max-width: 768px) {
     .header-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 16px 0; /* Adjusted padding for mobile */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
     }
-
-    .logo {
-        order: 1; /* Logo on the left */
-        width: auto;
-        justify-content: flex-start;
-    }
-
     .header-actions {
-        order: 2; /* Actions on the right */
-        width: auto;
-        gap: 16px;
+        width: 100%;
+        justify-content: space-between;
     }
-
-    /* Hide login/signup on mobile header, only show profile icon */
-    #authButtons {
-        display: none;
+    .logo {
+        width: 100%;
+        justify-content: center;
     }
-
-    .user-profile {
-        /* Ensure user profile is visible if logged in */
-    }
-    
-    .hamburger-menu {
-        order: 3; /* Hamburger can be placed as needed if actions are complex */
-    }
-
     .hero-heading {
         font-size: 40px;
     }
     .hero-stats {
         flex-direction: column;
         gap: 24px;
-        align-items: center;
     }
     .hero-cta, .cta-buttons {
         flex-direction: column;
     }
-    .value-cards, .courses-grid, .testimonials-grid, .footer-grid {
+    .value-cards, .courses-grid, .testimonials-grid, .footer-grid, .team-grid {
         grid-template-columns: 1fr;
     }
     .modal-content {
@@ -1669,45 +1686,5 @@ select#profileGender, select#interestedDomain {
     }
     .data-item button {
         align-self: flex-end;
-    }
-}
-@media (max-width: 480px) {
-    .container {
-        padding: 0 16px;
-    }
-    .logo-text {
-        font-size: 1.8rem;
-    }
-    .hero-heading {
-        font-size: 32px;
-    }
-    .section-title {
-        font-size: 32px;
-    }
-    .value-card {
-        padding: 32px;
-    }
-    .btn {
-        padding: 12px 20px;
-        font-size: 14px;
-    }
-    .btn-lg {
-        padding: 16px 28px;
-        font-size: 16px;
-    }
-    
-    /* Ensure user avatar and name are not shown on smallest screens if needed */
-    .user-profile span#userNameHeader {
-        display: none;
-    }
-
-    #authButtons {
-        display: none; /* Re-iterate hiding auth buttons */
-    }
-    .header-actions .btn {
-        display: none; /* Hide any other buttons in header actions if needed */
-    }
-    .user-profile, .hamburger-menu {
-        display: flex; /* Ensure these are visible */
     }
 }
