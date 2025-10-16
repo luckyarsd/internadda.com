@@ -39,11 +39,28 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
+        }
+        
+        .main-content-container {
+             max-width: 800px;
+             margin: 0 auto;
         }
 
         .hidden {
@@ -203,7 +220,6 @@
             align-items: center;
             gap: 20px;
             margin: 40px auto;
-            max-width: 800px;
         }
         .progress-bar-bg {
             flex-grow: 1;
@@ -351,6 +367,11 @@
             padding: 15px;
             border-radius: 12px;
             font-weight: 600;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .quiz-feedback.hidden {
             display: none;
@@ -362,6 +383,74 @@
             width: 100%;
             text-align: center;
         }
+        
+        .takeaways {
+            margin-top: 40px;
+            padding: 30px;
+            background: #eef2f7;
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+        }
+        .takeaways h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .takeaways ul {
+            list-style-type: '✅ ';
+            padding-left: 20px;
+        }
+        
+        /* Video Section */
+        .video-wrapper {
+            margin: 30px 0;
+            position: relative;
+            cursor: pointer;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .video-wrapper:hover {
+            transform: scale(1.02);
+        }
+        .video-wrapper img {
+            width: 100%;
+            display: block;
+            border-radius: 16px;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+        .video-wrapper .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, color 0.2s ease;
+            pointer-events: none;
+        }
+        .video-wrapper:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            color: #fff;
+        }
+        .video-embed-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+        .video-embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+        }
+
 
         footer {
             background-color: var(--dark);
@@ -481,7 +570,7 @@
                 <a href="../course.html" class="nav-link">Courses</a>
                 <a href="../../intern/internship.html" class="nav-link">Internships</a>
                 <a href="#" class="nav-link">Jobs</a>
-                <a href="#" class="nav-link">About</a>
+                <a href="../../about.html" class="nav-link">About</a>
             </nav>
             <div class="header-actions">
                 <div class="user-profile" id="userProfile">
@@ -499,10 +588,17 @@
 
     <main>
         <section class="course-section">
-            <div class="container">
-                <h1 class="course-title-main">Ethical Hacking Mastery</h1>
+            <div class="main-content-container">
+                <h1 class="course-title-main fade-in">Ethical Hacking Mastery</h1>
 
-                <div class="progress-container">
+                <div id="video-container" class="fade-in">
+                    <div class="video-wrapper" id="video-thumbnail">
+                        <img src="" alt="Ethical Hacking Course Thumbnail">
+                        <div class="play-button"><i class="fas fa-play-circle"></i></div>
+                    </div>
+                </div>
+
+                <div class="progress-container fade-in">
                     <div class="progress-bar-bg">
                         <div class="progress-bar-fill" id="progressBar"></div>
                     </div>
@@ -511,317 +607,337 @@
 
                 <div class="course-content-wrapper">
                     <div class="course-page active" data-page="1">
-                        <h2 class="course-page-title">Page 1: Introduction to Ethical Hacking & Cybersecurity</h2>
-                        <div class="course-page-body">
-                            <h3>1️⃣ <b>What is Ethical Hacking?</b></h3>
-                            <p>Ethical hacking is the practice of legally testing computer systems and networks to identify vulnerabilities before malicious hackers exploit them.</p>
-                            <ul>
-                                <li>Also called <b>white-hat hacking</b>.</li>
-                                <li>Focused on protecting systems and data.</li>
-                            </ul>
-                            <h3>2️⃣ <b>Why Cybersecurity Matters</b></h3>
-                            <p>Organizations face threats every day: malware, phishing, ransomware, data breaches.</p>
-                            <ul>
-                                <li>Ethical hackers prevent financial loss, legal issues, and reputational damage.</li>
-                                <li>Cybersecurity careers are highly in-demand globally.</li>
-                            </ul>
-                            <h3>3️⃣ <b>Key Concepts</b></h3>
-                            <ul>
-                                <li><b>Vulnerability:</b> Weakness in a system.</li>
-                                <li><b>Exploit:</b> A method to take advantage of a vulnerability.</li>
-                                <li><b>Penetration Testing (Pentest):</b> Simulated attacks to test security.</li>
-                                <li><b>Firewall:</b> Controls network traffic to block unauthorized access.</li>
-                                <li><b>Encryption:</b> Converts data into unreadable form for security.</li>
-                            </ul>
-                            <h3>4️⃣ <b>Types of Hackers</b></h3>
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Type</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><b>White-hat</b></td>
-                                            <td>Ethical hackers, legal</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Black-hat</b></td>
-                                            <td>Malicious hackers</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Grey-hat</b></td>
-                                            <td>Sometimes ethical, sometimes not</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="fade-in">
+                            <h2 class="course-page-title">Page 1: Introduction to Ethical Hacking & Cybersecurity</h2>
+                            <div class="course-page-body">
+                                <h3>1️⃣ <b>What is Ethical Hacking?</b></h3>
+                                <p>Ethical hacking is the practice of legally testing computer systems and networks to identify vulnerabilities before malicious hackers exploit them.</p>
+                                <ul>
+                                    <li>Also called <b>white-hat hacking</b>.</li>
+                                    <li>Focused on protecting systems and data.</li>
+                                </ul>
+                                <h3>2️⃣ <b>Why Cybersecurity Matters</b></h3>
+                                <p>Organizations face threats every day: malware, phishing, ransomware, data breaches.</p>
+                                <ul>
+                                    <li>Ethical hackers prevent financial loss, legal issues, and reputational damage.</li>
+                                    <li>Cybersecurity careers are highly in-demand globally.</li>
+                                </ul>
+                                <h3>3️⃣ <b>Key Concepts</b></h3>
+                                <ul>
+                                    <li><b>Vulnerability:</b> Weakness in a system.</li>
+                                    <li><b>Exploit:</b> A method to take advantage of a vulnerability.</li>
+                                    <li><b>Penetration Testing (Pentest):</b> Simulated attacks to test security.</li>
+                                    <li><b>Firewall:</b> Controls network traffic to block unauthorized access.</li>
+                                    <li><b>Encryption:</b> Converts data into unreadable form for security.</li>
+                                </ul>
+                                <h3>4️⃣ <b>Types of Hackers</b></h3>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>White-hat</b></td>
+                                                <td>Ethical hackers, legal</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Black-hat</b></td>
+                                                <td>Malicious hackers</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Grey-hat</b></td>
+                                                <td>Sometimes ethical, sometimes not</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>💡 <b>Quick Tips</b></p>
+                                <ul>
+                                    <li>Always work legally—permission is mandatory.</li>
+                                    <li>Ethical hackers document everything to improve system security.</li>
+                                </ul>
                             </div>
-                            <p>💡 <b>Quick Tips</b></p>
-                            <ul>
-                                <li>Always work legally—permission is mandatory.</li>
-                                <li>Ethical hackers document everything to improve system security.</li>
-                            </ul>
-                        </div>
-                        <div class="quiz-section">
-                            <h3 class="quiz-question">❓ Check Your Understanding</h3>
-                            <p>Which of the following best describes ethical hacking?</p>
-                            <div class="quiz-options">
-                                <div class="option" data-answer="1">A) Illegally breaking into systems to steal data</div>
-                                <div class="option" data-answer="2">B) Legally testing systems to identify and fix vulnerabilities</div>
-                                <div class="option" data-answer="3">C) Writing viruses for fun</div>
-                                <div class="option" data-answer="4">D) Monitoring a network without permission</div>
+                            <div class="quiz-section">
+                                <h3 class="quiz-question">❓ Check Your Understanding</h3>
+                                <p>Which of the following best describes ethical hacking?</p>
+                                <div class="quiz-options">
+                                    <div class="option" data-answer="1">A) Illegally breaking into systems to steal data</div>
+                                    <div class="option" data-answer="2">B) Legally testing systems to identify and fix vulnerabilities</div>
+                                    <div class="option" data-answer="3">C) Writing viruses for fun</div>
+                                    <div class="option" data-answer="4">D) Monitoring a network without permission</div>
+                                </div>
+                                <div class="quiz-feedback hidden" id="feedback1"></div>
+                                <button class="btn btn-primary hidden" id="nextButton1">Next Page</button>
                             </div>
-                            <div class="quiz-feedback hidden" id="feedback1"></div>
-                            <button class="btn btn-primary hidden" id="nextButton1">Next Page</button>
                         </div>
                     </div>
 
                     <div class="course-page hidden" data-page="2">
-                        <h2 class="course-page-title">Page 2: Networking Basics for Hackers</h2>
-                        <div class="course-page-body">
-                            <h3>1️⃣ <b>What is a Network?</b></h3>
-                            <p>A network is a collection of devices connected to share data and resources.</p>
-                            <p>Examples: LAN (Local Area Network), WAN (Wide Area Network), Wi-Fi, and the Internet.<br>
-                            Understanding networking is essential for ethical hacking.</p>
-                            <h3>2️⃣ <b>IP Addresses & Subnets</b></h3>
-                            <p><b>IP Address:</b> Unique identifier for devices on a network (IPv4: 192.168.0.1).<br>
-                            <b>Subnet:</b> Divides networks into smaller segments for efficiency and security.<br>
-                            Hackers often scan IP ranges to discover live hosts.</p>
-                            <h3>3️⃣ <b>Ports and Protocols</b></h3>
-                            <p><b>Port:</b> Entry/exit point for data (like a door for network services).</p>
-                            <p>Common ports:</p>
-                            <ul>
-                                <li><b>80</b> → HTTP</li>
-                                <li><b>443</b> → HTTPS</li>
-                                <li><b>22</b> → SSH</li>
-                            </ul>
-                            <p>Protocols are rules for communication: TCP, UDP, ICMP, HTTP, FTP, DNS.</p>
-                            <h3>4️⃣ <b>Common Network Devices</b></h3>
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Device</th>
-                                            <th>Purpose</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><b>Router</b></td>
-                                            <td>Connects different networks</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Switch</b></td>
-                                            <td>Connects multiple devices in LAN</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Firewall</b></td>
-                                            <td>Blocks unauthorized traffic</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Access Point</b></td>
-                                            <td>Provides Wi-Fi connectivity</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                       <div class="fade-in">
+                            <h2 class="course-page-title">Page 2: Networking Basics for Hackers</h2>
+                            <div class="course-page-body">
+                                <h3>1️⃣ <b>What is a Network?</b></h3>
+                                <p>A network is a collection of devices connected to share data and resources.</p>
+                                <p>Examples: LAN (Local Area Network), WAN (Wide Area Network), Wi-Fi, and the Internet.<br>
+                                Understanding networking is essential for ethical hacking.</p>
+                                <h3>2️⃣ <b>IP Addresses & Subnets</b></h3>
+                                <p><b>IP Address:</b> Unique identifier for devices on a network (IPv4: 192.168.0.1).<br>
+                                <b>Subnet:</b> Divides networks into smaller segments for efficiency and security.<br>
+                                Hackers often scan IP ranges to discover live hosts.</p>
+                                <h3>3️⃣ <b>Ports and Protocols</b></h3>
+                                <p><b>Port:</b> Entry/exit point for data (like a door for network services).</p>
+                                <p>Common ports:</p>
+                                <ul>
+                                    <li><b>80</b> → HTTP</li>
+                                    <li><b>443</b> → HTTPS</li>
+                                    <li><b>22</b> → SSH</li>
+                                </ul>
+                                <p>Protocols are rules for communication: TCP, UDP, ICMP, HTTP, FTP, DNS.</p>
+                                <h3>4️⃣ <b>Common Network Devices</b></h3>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Device</th>
+                                                <th>Purpose</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Router</b></td>
+                                                <td>Connects different networks</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Switch</b></td>
+                                                <td>Connects multiple devices in LAN</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Firewall</b></td>
+                                                <td>Blocks unauthorized traffic</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Access Point</b></td>
+                                                <td>Provides Wi-Fi connectivity</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h3>5️⃣ <b>Networking Tools for Hackers</b></h3>
+                                <ul>
+                                    <li><b>Ping:</b> Check if a host is alive.</li>
+                                    <li><b>Traceroute:</b> Find the path packets take.</li>
+                                    <li><b>Netstat:</b> Display active connections and ports.</li>
+                                    <li><b>Nmap:</b> Scan networks and discover devices & open ports.</li>
+                                </ul>
+                                <p>💡 <b>Quick Tips</b></p>
+                                <ul>
+                                    <li>Always scan networks legally in a controlled lab or with permission.</li>
+                                    <li>Document open ports and active devices—it helps in vulnerability assessment.</li>
+                                </ul>
                             </div>
-                            <h3>5️⃣ <b>Networking Tools for Hackers</b></h3>
-                            <ul>
-                                <li><b>Ping:</b> Check if a host is alive.</li>
-                                <li><b>Traceroute:</b> Find the path packets take.</li>
-                                <li><b>Netstat:</b> Display active connections and ports.</li>
-                                <li><b>Nmap:</b> Scan networks and discover devices & open ports.</li>
-                            </ul>
-                            <p>💡 <b>Quick Tips</b></p>
-                            <ul>
-                                <li>Always scan networks legally in a controlled lab or with permission.</li>
-                                <li>Document open ports and active devices—it helps in vulnerability assessment.</li>
-                            </ul>
-                        </div>
-                        <div class="quiz-section">
-                            <h3 class="quiz-question">❓ Check Your Understanding</h3>
-                            <p>Which tool is commonly used by ethical hackers to scan a network and discover open ports?</p>
-                            <div class="quiz-options">
-                                <div class="option" data-answer="1">A) Ping</div>
-                                <div class="option" data-answer="2">B) Netstat</div>
-                                <div class="option" data-answer="3">C) Nmap</div>
-                                <div class="option" data-answer="4">D) Traceroute</div>
+                            <div class="quiz-section">
+                                <h3 class="quiz-question">❓ Check Your Understanding</h3>
+                                <p>Which tool is commonly used by ethical hackers to scan a network and discover open ports?</p>
+                                <div class="quiz-options">
+                                    <div class="option" data-answer="1">A) Ping</div>
+                                    <div class="option" data-answer="2">B) Netstat</div>
+                                    <div class="option" data-answer="3">C) Nmap</div>
+                                    <div class="option" data-answer="4">D) Traceroute</div>
+                                </div>
+                                <div class="quiz-feedback hidden" id="feedback2"></div>
+                                <button class="btn btn-primary hidden" id="nextButton2">Next Page</button>
                             </div>
-                            <div class="quiz-feedback hidden" id="feedback2"></div>
-                            <button class="btn btn-primary hidden" id="nextButton2">Next Page</button>
                         </div>
                     </div>
 
                     <div class="course-page hidden" data-page="3">
-                        <h2 class="course-page-title">Page 3: Reconnaissance & Information Gathering</h2>
-                        <div class="course-page-body">
-                            <h3>1️⃣ <b>What is Reconnaissance?</b></h3>
-                            <p>Reconnaissance (recon) is the process of gathering information about a target before attempting any attack.</p>
-                            <ul>
-                                <li>Helps ethical hackers identify potential vulnerabilities.</li>
-                                <li>Done legally in penetration testing.</li>
-                            </ul>
-                            <h3>2️⃣ <b>Types of Reconnaissance</b></h3>
-                            <p><b>Passive Recon</b> – Gathering information without touching the target.<br>
-                            Examples: Google searches, WHOIS lookup, social media, public websites.</p>
-                            <p><b>Active Recon</b> – Interacting directly with the target system.<br>
-                            Examples: Port scanning, ping sweeps, banner grabbing.</p>
-                            <h3>3️⃣ <b>Key Information to Gather</b></h3>
-                            <ul>
-                                <li>IP addresses and domain names</li>
-                                <li>Open ports and services</li>
-                                <li>Network topology</li>
-                                <li>Employee names or emails (for social engineering)</li>
-                            </ul>
-                            <h3>4️⃣ <b>Tools for Reconnaissance</b></h3>
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Tool</th>
-                                            <th>Purpose</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><b>WHOIS</b></td>
-                                            <td>Domain ownership info</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Nslookup</b></td>
-                                            <td>Resolve domain names to IPs</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Shodan</b></td>
-                                            <td>Discover Internet-connected devices</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Maltego</b></td>
-                                            <td>Visual link analysis of entities</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Google Dorks</b></td>
-                                            <td>Advanced search to find sensitive info</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="fade-in">
+                            <h2 class="course-page-title">Page 3: Reconnaissance & Information Gathering</h2>
+                            <div class="course-page-body">
+                                <h3>1️⃣ <b>What is Reconnaissance?</b></h3>
+                                <p>Reconnaissance (recon) is the process of gathering information about a target before attempting any attack.</p>
+                                <ul>
+                                    <li>Helps ethical hackers identify potential vulnerabilities.</li>
+                                    <li>Done legally in penetration testing.</li>
+                                </ul>
+                                <h3>2️⃣ <b>Types of Reconnaissance</b></h3>
+                                <p><b>Passive Recon</b> – Gathering information without touching the target.<br>
+                                Examples: Google searches, WHOIS lookup, social media, public websites.</p>
+                                <p><b>Active Recon</b> – Interacting directly with the target system.<br>
+                                Examples: Port scanning, ping sweeps, banner grabbing.</p>
+                                <h3>3️⃣ <b>Key Information to Gather</b></h3>
+                                <ul>
+                                    <li>IP addresses and domain names</li>
+                                    <li>Open ports and services</li>
+                                    <li>Network topology</li>
+                                    <li>Employee names or emails (for social engineering)</li>
+                                </ul>
+                                <h3>4️⃣ <b>Tools for Reconnaissance</b></h3>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Tool</th>
+                                                <th>Purpose</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>WHOIS</b></td>
+                                                <td>Domain ownership info</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Nslookup</b></td>
+                                                <td>Resolve domain names to IPs</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Shodan</b></td>
+                                                <td>Discover Internet-connected devices</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Maltego</b></td>
+                                                <td>Visual link analysis of entities</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Google Dorks</b></td>
+                                                <td>Advanced search to find sensitive info</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h3>5️⃣ <b>Best Practices</b></h3>
+                                <ul>
+                                    <li>Always record your findings in a structured report.</li>
+                                    <li>Avoid any illegal access. Recon is only the information-gathering phase.</li>
+                                </ul>
                             </div>
-                            <h3>5️⃣ <b>Best Practices</b></h3>
-                            <ul>
-                                <li>Always record your findings in a structured report.</li>
-                                <li>Avoid any illegal access. Recon is only the information-gathering phase.</li>
-                            </ul>
-                        </div>
-                        <div class="quiz-section">
-                            <h3 class="quiz-question">❓ Check Your Understanding</h3>
-                            <p>Which type of reconnaissance involves gathering information without interacting with the target system?</p>
-                            <div class="quiz-options">
-                                <div class="option" data-answer="1">A) Active Recon</div>
-                                <div class="option" data-answer="2">B) Passive Recon</div>
-                                <div class="option" data-answer="3">C) Port Scanning</div>
-                                <div class="option" data-answer="4">D) Social Engineering</div>
+                            <div class="quiz-section">
+                                <h3 class="quiz-question">❓ Check Your Understanding</h3>
+                                <p>Which type of reconnaissance involves gathering information without interacting with the target system?</p>
+                                <div class="quiz-options">
+                                    <div class="option" data-answer="1">A) Active Recon</div>
+                                    <div class="option" data-answer="2">B) Passive Recon</div>
+                                    <div class="option" data-answer="3">C) Port Scanning</div>
+                                    <div class="option" data-answer="4">D) Social Engineering</div>
+                                </div>
+                                <div class="quiz-feedback hidden" id="feedback3"></div>
+                                <button class="btn btn-primary hidden" id="nextButton3">Next Page</button>
                             </div>
-                            <div class="quiz-feedback hidden" id="feedback3"></div>
-                            <button class="btn btn-primary hidden" id="nextButton3">Next Page</button>
                         </div>
                     </div>
 
                     <div class="course-page hidden" data-page="4">
-                        <h2 class="course-page-title">Page 4: Scanning, Vulnerability Analysis & Exploitation</h2>
-                        <div class="course-page-body">
-                            <h3>1️⃣ <b>Scanning Overview</b></h3>
-                            <p>Scanning is the phase where ethical hackers interact with the target to discover live hosts, open ports, and services.</p>
-                            <p>Goal: Identify potential vulnerabilities that can be tested safely.</p>
-                            <h3>2️⃣ <b>Types of Scanning</b></h3>
-                            <ul>
-                                <li><b>Port Scanning:</b> Finds open ports on a target machine. Tools: Nmap, Zenmap, Masscan.</li>
-                                <li><b>Network Scanning:</b> Maps the target network and its devices. Tools: Angry IP Scanner, Advanced IP Scanner.</li>
-                                <li><b>Vulnerability Scanning:</b> Detects known security flaws. Tools: Nessus, OpenVAS, Nikto.</li>
-                            </ul>
-                            <h3>3️⃣ <b>Vulnerability Analysis</b></h3>
-                            <ul>
-                                <li>Check for weak passwords, unpatched software, misconfigurations.</li>
-                                <li>Categorize vulnerabilities by severity: Low, Medium, High, Critical.</li>
-                                <li>Document everything for reporting and fixing.</li>
-                            </ul>
-                            <h3>4️⃣ <b>Exploitation (Ethically)</b></h3>
-                            <p>Exploitation is safely testing vulnerabilities to understand their impact.</p>
-                            <ul>
-                                <li>Use controlled labs or sandbox environments.</li>
-                                <li>Popular tools:</li>
+                        <div class="fade-in">
+                            <h2 class="course-page-title">Page 4: Scanning, Vulnerability Analysis & Exploitation</h2>
+                            <div class="course-page-body">
+                                <h3>1️⃣ <b>Scanning Overview</b></h3>
+                                <p>Scanning is the phase where ethical hackers interact with the target to discover live hosts, open ports, and services.</p>
+                                <p>Goal: Identify potential vulnerabilities that can be tested safely.</p>
+                                <h3>2️⃣ <b>Types of Scanning</b></h3>
                                 <ul>
-                                    <li><b>Metasploit Framework</b> – Simulate attacks safely</li>
-                                    <li><b>Burp Suite</b> – Web application testing</li>
-                                    <li><b>SQLmap</b> – SQL injection testing</li>
+                                    <li><b>Port Scanning:</b> Finds open ports on a target machine. Tools: Nmap, Zenmap, Masscan.</li>
+                                    <li><b>Network Scanning:</b> Maps the target network and its devices. Tools: Angry IP Scanner, Advanced IP Scanner.</li>
+                                    <li><b>Vulnerability Scanning:</b> Detects known security flaws. Tools: Nessus, OpenVAS, Nikto.</li>
                                 </ul>
-                            </ul>
-                            <h3>5️⃣ <b>Safety & Legal Notes</b></h3>
-                            <ul>
-                                <li>Always get written permission before scanning or exploiting.</li>
-                                <li>Avoid testing on live production systems without authorization.</li>
-                                <li>Ethical hacking is about improving security, not causing harm.</li>
-                            </ul>
-                        </div>
-                        <div class="quiz-section">
-                            <h3 class="quiz-question">❓ Check Your Understanding</h3>
-                            <p>Which tool is primarily used for simulating attacks safely in a penetration testing environment?</p>
-                            <div class="quiz-options">
-                                <div class="option" data-answer="1">A) Nmap</div>
-                                <div class="option" data-answer="2">B) Metasploit Framework</div>
-                                <div class="option" data-answer="3">C) WHOIS</div>
-                                <div class="option" data-answer="4">D) Google Dorks</div>
+                                <h3>3️⃣ <b>Vulnerability Analysis</b></h3>
+                                <ul>
+                                    <li>Check for weak passwords, unpatched software, misconfigurations.</li>
+                                    <li>Categorize vulnerabilities by severity: Low, Medium, High, Critical.</li>
+                                    <li>Document everything for reporting and fixing.</li>
+                                </ul>
+                                <h3>4️⃣ <b>Exploitation (Ethically)</b></h3>
+                                <p>Exploitation is safely testing vulnerabilities to understand their impact.</p>
+                                <ul>
+                                    <li>Use controlled labs or sandbox environments.</li>
+                                    <li>Popular tools:</li>
+                                    <ul>
+                                        <li><b>Metasploit Framework</b> – Simulate attacks safely</li>
+                                        <li><b>Burp Suite</b> – Web application testing</li>
+                                        <li><b>SQLmap</b> – SQL injection testing</li>
+                                    </ul>
+                                </ul>
+                                <h3>5️⃣ <b>Safety & Legal Notes</b></h3>
+                                <ul>
+                                    <li>Always get written permission before scanning or exploiting.</li>
+                                    <li>Avoid testing on live production systems without authorization.</li>
+                                    <li>Ethical hacking is about improving security, not causing harm.</li>
+                                </ul>
                             </div>
-                            <div class="quiz-feedback hidden" id="feedback4"></div>
-                            <button class="btn btn-primary hidden" id="nextButton4">Next Page</button>
+                            <div class="quiz-section">
+                                <h3 class="quiz-question">❓ Check Your Understanding</h3>
+                                <p>Which tool is primarily used for simulating attacks safely in a penetration testing environment?</p>
+                                <div class="quiz-options">
+                                    <div class="option" data-answer="1">A) Nmap</div>
+                                    <div class="option" data-answer="2">B) Metasploit Framework</div>
+                                    <div class="option" data-answer="3">C) WHOIS</div>
+                                    <div class="option" data-answer="4">D) Google Dorks</div>
+                                </div>
+                                <div class="quiz-feedback hidden" id="feedback4"></div>
+                                <button class="btn btn-primary hidden" id="nextButton4">Next Page</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="course-page hidden" data-page="5">
-                        <h2 class="course-page-title">Page 5: Security Best Practices & Defense Strategies</h2>
-                        <div class="course-page-body">
-                            <h3>1️⃣ <b>Understanding Defense</b></h3>
-                            <p>While ethical hackers find vulnerabilities, cybersecurity professionals implement defenses to prevent attacks.</p>
-                            <p>Goal: Protect systems, data, and networks from malicious hackers.</p>
-                            <h3>2️⃣ <b>Key Security Practices</b></h3>
-                            <ul>
-                                <li><b>Strong Passwords & MFA</b> – Use long, unique passwords and multi-factor authentication.</li>
-                                <li><b>Regular Software Updates</b> – Patch vulnerabilities promptly.</li>
-                                <li><b>Firewalls & Intrusion Detection Systems (IDS)</b> – Monitor and filter traffic.</li>
-                                <li><b>Backup & Recovery Plans</b> – Keep regular backups to recover from attacks.</li>
-                                <li><b>User Awareness & Training</b> – Employees are often the first line of defense.</li>
-                            </ul>
-                            <h3>3️⃣ <b>Network Security</b></h3>
-                            <ul>
-                                <li>Segment networks to limit access.</li>
-                                <li>Use VPNs for remote access.</li>
-                                <li>Encrypt sensitive data in transit and at rest.</li>
-                            </ul>
-                            <h3>4️⃣ <b>Web & Application Security</b></h3>
-                            <ul>
-                                <li>Input validation to prevent SQL injection or XSS attacks.</li>
-                                <li>HTTPS for secure communication.</li>
-                                <li>Regular penetration testing to identify weak spots.</li>
-                            </ul>
-                            <h3>5️⃣ <b>Reporting & Continuous Monitoring</b></h3>
-                            <ul>
-                                <li>Ethical hackers document findings in penetration test reports.</li>
-                                <li>Security teams monitor networks for anomalies continuously.</li>
-                                <li>Security is an ongoing process, not a one-time task.</li>
-                            </ul>
-                        </div>
-                        <div class="quiz-section">
-                            <h3 class="quiz-question">❓ Check Your Understanding</h3>
-                            <p>Which of the following is not a recommended cybersecurity best practice?</p>
-                            <div class="quiz-options">
-                                <div class="option" data-answer="1">A) Using multi-factor authentication</div>
-                                <div class="option" data-answer="2">B) Regularly updating software</div>
-                                <div class="option" data-answer="3">C) Sharing passwords among employees</div>
-                                <div class="option" data-answer="4">D) Encrypting sensitive data</div>
+                        <div class="fade-in">
+                            <h2 class="course-page-title">Page 5: Security Best Practices & Defense Strategies</h2>
+                            <div class="course-page-body">
+                                <h3>1️⃣ <b>Understanding Defense</b></h3>
+                                <p>While ethical hackers find vulnerabilities, cybersecurity professionals implement defenses to prevent attacks.</p>
+                                <p>Goal: Protect systems, data, and networks from malicious hackers.</p>
+                                <h3>2️⃣ <b>Key Security Practices</b></h3>
+                                <ul>
+                                    <li><b>Strong Passwords & MFA</b> – Use long, unique passwords and multi-factor authentication.</li>
+                                    <li><b>Regular Software Updates</b> – Patch vulnerabilities promptly.</li>
+                                    <li><b>Firewalls & Intrusion Detection Systems (IDS)</b> – Monitor and filter traffic.</li>
+                                    <li><b>Backup & Recovery Plans</b> – Keep regular backups to recover from attacks.</li>
+                                    <li><b>User Awareness & Training</b> – Employees are often the first line of defense.</li>
+                                </ul>
+                                <h3>3️⃣ <b>Network Security</b></h3>
+                                <ul>
+                                    <li>Segment networks to limit access.</li>
+                                    <li>Use VPNs for remote access.</li>
+                                    <li>Encrypt sensitive data in transit and at rest.</li>
+                                </ul>
+                                <h3>4️⃣ <b>Web & Application Security</b></h3>
+                                <ul>
+                                    <li>Input validation to prevent SQL injection or XSS attacks.</li>
+                                    <li>HTTPS for secure communication.</li>
+                                    <li>Regular penetration testing to identify weak spots.</li>
+                                </ul>
+                                <h3>5️⃣ <b>Reporting & Continuous Monitoring</b></h3>
+                                <ul>
+                                    <li>Ethical hackers document findings in penetration test reports.</li>
+                                    <li>Security teams monitor networks for anomalies continuously.</li>
+                                    <li>Security is an ongoing process, not a one-time task.</li>
+                                </ul>
+                                 <div class="takeaways">
+                                    <h3>Key Takeaways from This Course</h3>
+                                    <ul>
+                                        <li>Ethical hacking requires legal permission and strict documentation.</li>
+                                        <li>Mastering networking fundamentals (IPs, Ports, Protocols) is essential.</li>
+                                        <li>Reconnaissance is the critical first step in identifying vulnerabilities.</li>
+                                        <li>Use professional tools like Nmap and Metasploit responsibly in controlled environments.</li>
+                                        <li>The ultimate goal is defense: implement robust security practices to protect systems.</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="quiz-feedback hidden" id="feedback5"></div>
-                            <a href="javascript:void(0);" class="btn btn-primary hidden" id="finishButton">Get Certificate of Completion</a>
+                            <div class="quiz-section">
+                                <h3 class="quiz-question">❓ Check Your Understanding</h3>
+                                <p>Which of the following is not a recommended cybersecurity best practice?</p>
+                                <div class="quiz-options">
+                                    <div class="option" data-answer="1">A) Using multi-factor authentication</div>
+                                    <div class="option" data-answer="2">B) Regularly updating software</div>
+                                    <div class="option" data-answer="3">C) Sharing passwords among employees</div>
+                                    <div class="option" data-answer="4">D) Encrypting sensitive data</div>
+                                </div>
+                                <div class="quiz-feedback hidden" id="feedback5"></div>
+                                <a href="javascript:void(0);" class="btn btn-primary hidden" id="finishButton">Get Certificate of Completion</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -846,7 +962,7 @@
                 <div class="footer-links-column">
                     <h3 class="footer-links-title">Learn</h3>
                     <ul class="footer-links">
-                        <li><a href="course.html">Browse Courses</a></li>
+                        <li><a href="../course.html">Browse Courses</a></li>
                         <li><a href="#">Free Courses</a></li>
                         <li><a href="#">For Businesses</a></li>
                         <li><a href="#">Become an Instructor</a></li>
@@ -864,13 +980,13 @@
                     </ul>
                 </div>
                 <div class="footer-links-column">
-                    <h3 class="footer-links-title">Contact</h3>
+                    <h3 class="footer-links-title">Contact & Legal</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Partnerships</a></li>
-                        <li><a href="#">Press Inquiries</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a href="../../about.html">About Us</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                        <li><a href="../../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../refund.html">Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -898,6 +1014,21 @@
                 5: { correct: 3, feedback: "✅ Correct! Sharing passwords is a major security risk and is against all professional best practices." }
             };
 
+            // Animation observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
             const updateProgress = () => {
                 const totalPages = coursePages.length;
                 const progressPercentage = Math.floor(((currentPage - 1) / totalPages) * 100);
@@ -906,6 +1037,17 @@
                 if (currentPage > totalPages) {
                     progressFill.style.width = `100%`;
                     progressText.textContent = `100% Complete`;
+                }
+            };
+
+            const showPage = (pageNumber) => {
+                coursePages.forEach(page => page.classList.add('hidden'));
+                const newPage = document.querySelector(`[data-page="${pageNumber}"]`);
+                if (newPage) {
+                    newPage.classList.remove('hidden');
+                    const newContent = newPage.querySelector('.fade-in');
+                    newContent.classList.remove('visible');
+                    setTimeout(() => observer.observe(newContent), 10);
                 }
             };
 
@@ -955,12 +1097,8 @@
 
                 if (nextButton) {
                     nextButton.addEventListener('click', () => {
-                        page.classList.add('hidden');
                         currentPage++;
-                        const nextPage = document.querySelector(`[data-page="${currentPage}"]`);
-                        if (nextPage) {
-                            nextPage.classList.remove('hidden');
-                        }
+                        showPage(currentPage);
                         updateProgress();
                     });
                 }
@@ -971,6 +1109,7 @@
             }
 
             updateProgress();
+            showPage(1);
 
             // Placeholder user data
             if (userNameHeader) {
@@ -988,6 +1127,41 @@
                     navMenu.classList.toggle('active');
                 });
             }
+
+            // Video Player Logic
+            const videoThumbnail = document.getElementById('video-thumbnail');
+            const videoContainer = document.getElementById('video-container');
+            const videoId = "NaczecoIARU"; // Video ID from your URL
+
+            if (videoThumbnail) {
+                videoThumbnail.querySelector('img').src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                
+                videoThumbnail.addEventListener('click', () => {
+                    const iframeContainer = document.createElement('div');
+                    iframeContainer.classList.add('video-embed-container');
+                    
+                    const iframe = document.createElement('iframe');
+                    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
+                    iframe.setAttribute('title', 'YouTube video player');
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                    iframe.setAttribute('allowfullscreen', '');
+                    
+                    iframeContainer.appendChild(iframe);
+                    videoContainer.innerHTML = '';
+                    videoContainer.appendChild(iframeContainer);
+                });
+            }
+
+            finishButton.addEventListener('click', () => {
+                const name = prompt("Please enter the name you'd like on the certificate:");
+                if (name) {
+                    const courseName = "Ethical Hacking Mastery";
+                    const courseNameEncoded = encodeURIComponent(courseName);
+                    const nameEncoded = encodeURIComponent(name);
+                    window.location.href = `certificate.html?name=${nameEncoded}&course=${courseNameEncoded}`;
+                }
+            });
         });
     </script>
 </body>
