@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internadda — India’s Adda for Internships</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
@@ -16,10 +16,10 @@
 <body>
     <header>
         <div class="container header-container">
-        <a href="index.html" class="logo">
-          <img src="images/logo.jpg" alt="InternAdda Logo" class="logo-img"> 
-          <span class="logo-text">InternAdda</span>
-        </a>
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpg" alt="InternAdda Logo" class="logo-img"> 
+                <span class="logo-text">InternAdda</span>
+            </a>
             
             <nav class="nav-menu">
                 <a href="#" class="nav-link">Home</a>
@@ -27,20 +27,22 @@
                 <a href="intern/internship.html" class="nav-link">Internships</a>
                 <a href="#" class="nav-link">Jobs</a>
                 <a href="about.html" class="nav-link">About</a>
+                <!-- Mobile-only login/signup buttons -->
+                <div class="nav-actions-mobile">
+                     <div id="authButtonsMobile">
+                        <a href="#" class="btn btn-outline" id="loginBtnHeaderMobile">Log in</a>
+                        <a href="#" class="btn btn-primary" id="signupBtnHeaderMobile">Sign up</a>
+                    </div>
+                </div>
             </nav>
 
-            <button class="hamburger-menu" id="hamburgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
             <div class="header-actions">
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" id="searchInput" class="search-input" placeholder="Search for courses...">
                 </div>
                 
+                <!-- Desktop-only login/signup buttons -->
                 <div id="authButtons">
                     <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
                     <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
@@ -55,6 +57,12 @@
                     </div>
                 </div>
             </div>
+
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
         <div id="searchResults" class="search-results-container container hidden"></div>
     </header>
@@ -179,29 +187,29 @@
                 <a href="courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" 
                    class="course-card" 
                    style="text-decoration:none; color:inherit;">
-                    <div class="course-image">
-                        <img src="images/Generative-AI-Prompt-Engineering-Masterclass.png" 
-                             alt="Generative AI & Prompt Engineering Masterclass">
-                    </div>
-                    <div class="course-content">
-                        <h3 class="course-title">Generative AI & Prompt Engineering</h3>
-                        <p class="course-author">Created by AI</p>
-                        <div class="course-rating">
-                            <div class="rating-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="rating-value">4.7</span>
-                        </div>
-                        <div class="course-price">
-                            <span class="original-price">₹2,999</span>
-                            <span class="badge free">FREE</span>
-                        </div>
-                    </div>
-                </a>
+                     <div class="course-image">
+                         <img src="images/Generative-AI-Prompt-Engineering-Masterclass.png" 
+                              alt="Generative AI & Prompt Engineering Masterclass">
+                     </div>
+                     <div class="course-content">
+                         <h3 class="course-title">Generative AI & Prompt Engineering</h3>
+                         <p class="course-author">Created by AI</p>
+                         <div class="course-rating">
+                             <div class="rating-stars">
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star-half-alt"></i>
+                             </div>
+                             <span class="rating-value">4.7</span>
+                         </div>
+                         <div class="course-price">
+                             <span class="original-price">₹2,999</span>
+                             <span class="badge free">FREE</span>
+                         </div>
+                     </div>
+                 </a>
 
             </div>
 
@@ -212,34 +220,34 @@
                 <a href="courses/courses/Python-Essentials-for-All.html" 
                    class="course-card" 
                    style="text-decoration:none; color:inherit;">
-                    <div class="course-image">
-                        <img src="images/Python-Essentials-for-All.png" 
-                             alt="Python Essentials for All">
-                    </div>
-                    <div class="course-content">
-                        <h3 class="course-title">Python Essentials for All</h3>
-                        <p class="course-author">Created by AI</p>
-                        <div class="course-rating">
-                            <div class="rating-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="rating-value">4.8</span>
-                        </div>
-                        <div class="course-price">
-                            <span class="original-price">₹1,999</span>
-                            <span class="badge free">FREE</span>
-                        </div>
-                    </div>
-                </a>
+                     <div class="course-image">
+                         <img src="images/Python-Essentials-for-All.png" 
+                              alt="Python Essentials for All">
+                     </div>
+                     <div class="course-content">
+                         <h3 class="course-title">Python Essentials for All</h3>
+                         <p class="course-author">Created by AI</p>
+                         <div class="course-rating">
+                             <div class="rating-stars">
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star-half-alt"></i>
+                             </div>
+                             <span class="rating-value">4.8</span>
+                         </div>
+                         <div class="course-price">
+                             <span class="original-price">₹1,999</span>
+                             <span class="badge free">FREE</span>
+                         </div>
+                     </div>
+                 </a>
 
             </div>
 
 
-              
+                
         </section>
 
         <section class="internships">
