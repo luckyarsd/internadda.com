@@ -547,5 +547,56 @@
     </div>
     
     <script src="script.js"></script>
+    
+    <!-- ADDED SCRIPT TO FIX MOBILE BUTTONS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Select the buttons for mobile view
+            const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
+            const signupBtnMobile = document.getElementById('signupBtnHeaderMobile');
+
+            // Select the elements to control the modal and hamburger menu
+            const authModal = document.getElementById('authModal');
+            const loginSection = document.getElementById('loginSection');
+            const signupSection = document.getElementById('signupSection');
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+
+            // Function to close the hamburger menu
+            const closeHamburgerMenu = () => {
+                if (navMenu && hamburgerMenu) {
+                    navMenu.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
+                }
+            };
+
+            // Add event listener for the mobile login button
+            if (loginBtnMobile) {
+                loginBtnMobile.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (authModal && loginSection && signupSection) {
+                        authModal.style.display = 'block';
+                        signupSection.classList.remove('active');
+                        loginSection.classList.add('active');
+                        closeHamburgerMenu();
+                    }
+                });
+            }
+
+            // Add event listener for the mobile signup button
+            if (signupBtnMobile) {
+                signupBtnMobile.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (authModal && loginSection && signupSection) {
+                        authModal.style.display = 'block';
+                        loginSection.classList.remove('active');
+                        signupSection.classList.add('active');
+                        closeHamburgerMenu();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
+
