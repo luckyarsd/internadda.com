@@ -976,7 +976,7 @@ header {
 .team-member {
     background-color: var(--white);
     padding: 30px;
-    border-radius: 14px; /* Using your standard border-radius */
+    border-radius: 14px;
     box-shadow: var(--shadow);
     text-align: center;
     transition: var(--transition);
@@ -984,7 +984,7 @@ header {
 
 .team-member:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* A slightly stronger hover shadow */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .team-member-img {
@@ -993,7 +993,7 @@ header {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
-    border: 3px solid var(--primary); /* Using your primary color for the border */
+    border: 3px solid var(--primary);
 }
 
 .team-member-name {
@@ -1005,7 +1005,7 @@ header {
 
 .team-member-title {
     font-size: 1rem;
-    color: var(--primary); /* Using your primary color for consistency */
+    color: var(--primary);
     margin: 0 0 15px 0;
     font-weight: 500;
 }
@@ -1639,19 +1639,27 @@ select#profileGender, select#interestedDomain {
 }
 
 @media (max-width: 768px) {
+    /* --- START: CORRECTED HEADER STYLES --- */
     .header-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
+        flex-direction: row; /* Keep it as a row */
+        align-items: center; /* Vertically center items */
+        justify-content: space-between; /* Pushes logo left and actions right */
+        gap: 0; /* Remove the large gap */
+        padding: 16px 0; /* Adjust padding for mobile */
     }
+
     .header-actions {
-        width: 100%;
-        justify-content: space-between;
+        width: auto; /* Allow it to shrink to fit content */
+        justify-content: flex-end; /* Align items to the right */
+        gap: 16px; /* Space between buttons/hamburger */
     }
+
     .logo {
-        width: 100%;
-        justify-content: center;
+        width: auto; /* Allow it to shrink to fit content */
+        justify-content: flex-start;
     }
+    /* --- END: CORRECTED HEADER STYLES --- */
+
     .hero-heading {
         font-size: 40px;
     }
