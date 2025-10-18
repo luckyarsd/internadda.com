@@ -4,13 +4,13 @@
 
 // Replace with your Firebase config
 const firebaseConfig = {
-    apiKey: "AIzaSyDYYx46KEkHSA78xHMo8lYS8tKqYrLZK-w",
-    authDomain: "skillpoint-c3e39.firebaseapp.com",
-    projectId: "skillpoint-c3e39",
-    storageBucket: "skillpoint-c3e39.firebasestorage.app",
-    messagingSenderId: "984664107678",
-    appId: "1:984664107678:web:af02e53e532d4e57f0298f",
-    measurementId: "G-390K2B4HC7"
+  apiKey: "AIzaSyCEas4FDRozXwhnzKeCz09LQnyCjY1twh4",
+  authDomain: "internadda-c7217.firebaseapp.com",
+  projectId: "internadda-c7217",
+  storageBucket: "internadda-c7217.firebasestorage.app",
+  messagingSenderId: "88070207511",
+  appId: "1:88070207511:web:b15e5672970d6f699dc452",
+  measurementId: "G-3ZZ3HGFM3Q"
 };
 
 // Initialize Firebase
