@@ -53,12 +53,10 @@ module.exports = async (req, res) => {
         customer_phone: req.body?.phone || "9999999999",
       },
       order_meta: {
-        // --- IMPORTANT: Ensure these URLs are correct in your deployed environment ---
-        notify_url: "https://internadda.com/api/payment-webhook", // Verify this is your correct webhook URL
-        return_url: "https://internadda.com/intern/payment-status.html?order_id={order_id}", // Verify this is your correct return URL
-      },
-      order_note: "Internadda Final Exam Fee"
-    };
+  // --- IMPORTANT: Ensure these URLs are correct ---
+  notify_url: "https://internadda.com/api/payment-webhook", // <-- IS THIS EXACTLY CORRECT?
+  return_url: "https://internadda.com/intern/payment-status.html?order_id={order_id}", // <-- Check this too
+},
 
     console.log(`Creating Cashfree Order (Order ID: ${uniqueOrderId}) with API version ${CASHFREE_API_VERSION}`);
 
