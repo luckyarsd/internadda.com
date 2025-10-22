@@ -604,106 +604,134 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- CASHFREE PAYMENT INTEGRATION (Add this section) ---
+// --- CASHFREE PAYMENT INTEGRATION (UPDATED SECTION) ---
     const payButton = document.getElementById('pay-btn'); // Button on exam pages
     const paymentMessage = document.getElementById('payment-message'); // Div for messages on exam page
-    const paymentStep = document.getElementById('payment-step'); // Div for payment step
-    const instructionsStep = document.getElementById('instructions-step'); // Div for instructions step
 
-    if (payButton && typeof Cashfree !== 'undefined') { // Check if button and SDK exist
-        const cashfree = new Cashfree();
-
-        payButton.addEventListener('click', async () => {
-            payButton.textContent = 'Processing...';
+    if (payButton) {
+        if (typeof Cashfree === 'undefined') {
+            // Handle case where Cashfree SDK didn't load
+            console.error("Cashfree SDK not loaded! Payment button disabled.");
+            if (paymentMessage) {
+                paymentMessage.textContent = "Error loading payment library. Please refresh.";
+                paymentMessage.style.color = '#c53030'; // Error color
+            }
             payButton.disabled = true;
-            if(paymentMessage) paymentMessage.textContent = 'Initiating secure payment...';
-            if(paymentMessage) paymentMessage.style.color = 'var(--gray)'; // Neutral color
+            payButton.textContent = 'Payment Unavailable';
+        } else {
+            // Cashfree SDK is loaded, proceed with setup
+            const cashfree = new Cashfree();
 
-            try {
-                // 1. Call your Vercel function
-                console.log("Calling /api/create-payment-order");
-                const orderResponse = await fetch('/api/create-payment-order', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    // Optionally send user details if logged in
-                    // body: JSON.stringify({ email: auth.currentUser?.email }),
-                });
-
-                console.log("Order response status:", orderResponse.status);
-                const orderData = await orderResponse.json(); // Read response body
-
-                if (!orderResponse.ok) {
-                    console.error("Order creation failed:", orderData);
-                    throw new Error(orderData.error || `Server error ${orderResponse.status}`);
+            payButton.addEventListener('click', async () => {
+                payButton.textContent = 'Processing...';
+                payButton.disabled = true;
+                if (paymentMessage) {
+                    paymentMessage.textContent = 'Initiating secure payment...';
+                    paymentMessage.style.color = 'var(--gray)'; // Neutral color
                 }
 
-                if (!orderData.payment_session_id) {
-                    console.error("Session ID missing in response:", orderData);
-                    throw new Error('Payment session ID not received from server.');
-                }
+                try {
+                    // 1. Call your Vercel function to create the order
+                    console.log("Calling /api/create-payment-order");
+                    const orderResponse = await fetch('/api/create-payment-order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        // Optionally send user details if logged in and needed by backend
+                        // body: JSON.stringify({ email: auth.currentUser?.email }),
+                    });
 
-                const sessionId = orderData.payment_session_id;
-                console.log("Received Session ID:", sessionId);
+                    console.log("Order response status code:", orderResponse.status);
 
-                // 2. Use Cashfree SDK to start checkout
-                cashfree.checkout({
-                    paymentSessionId: sessionId,
-                }).then((result) => {
-                    console.log("Cashfree checkout result:", result);
-                    if (result.error) {
-                        console.error("Cashfree Checkout Error:", result.error);
-                        if(paymentMessage) {
-                             paymentMessage.textContent = "Payment Failed: " + result.error.message;
-                             paymentMessage.style.color = '#c53030'; // Error color
+                    // --- Improved Response Handling ---
+                    if (!orderResponse.ok) {
+                        // Attempt to get error message from JSON response first
+                        let errorMsg = `Server error ${orderResponse.status}. Please try again later.`;
+                        try {
+                            const errorData = await orderResponse.json();
+                            // Use the error message from the backend's JSON response
+                            errorMsg = errorData.error || errorData.details || `Payment initiation failed (${orderResponse.status}).`;
+                            console.error("Order creation failed (JSON parsed):", errorData);
+                        } catch (jsonError) {
+                            // If response is not JSON (e.g., HTML error page or plain text)
+                            const textResponse = await orderResponse.text(); // Read as text
+                            errorMsg = `Payment initiation failed. Server responded unexpectedly.`; // Generic message for non-JSON
+                            console.error("Order creation failed (Non-JSON response):", textResponse); // Log the raw text
+                        }
+                        throw new Error(errorMsg); // Throw the error to be caught below
+                    }
+                    // --- End Improved Response Handling ---
+
+                    // If response is OK (2xx status), parse JSON
+                    const orderData = await orderResponse.json();
+
+                    // Check if the backend indicated success and returned session ID
+                    if (!orderData.success || !orderData.payment_session_id) {
+                        console.error("Session ID missing or backend reported failure:", orderData);
+                        throw new Error(orderData.error || 'Payment session ID not received from server.');
+                    }
+
+                    const sessionId = orderData.payment_session_id;
+                    console.log("Received Session ID:", sessionId);
+                    // Optionally store order_id if needed: currentOrderId = orderData.order_id;
+
+                    // 2. Use Cashfree SDK to start checkout
+                    cashfree.checkout({
+                        paymentSessionId: sessionId,
+                    }).then((result) => {
+                        console.log("Cashfree checkout result:", result);
+                        if (result.error) {
+                            console.error("Cashfree Checkout Error:", result.error);
+                            if (paymentMessage) {
+                                paymentMessage.textContent = "Payment Failed/Cancelled: " + (result.error.message || "Please try again.");
+                                paymentMessage.style.color = '#c53030'; // Error color
+                            }
+                            // Re-enable button immediately on checkout error/cancel
+                            payButton.textContent = 'Pay ₹99 Now';
+                            payButton.disabled = false;
+                        }
+                        // IMPORTANT: Successful payment redirects handled by Cashfree via `return_url`.
+                        // No automatic progression here. The user lands on payment-status.html.
+                        else if (!result.redirect) {
+                            // This case is less common but handle if SDK returns without error or redirect
+                            console.warn("Cashfree Result (No Redirect):", result);
+                            if (paymentMessage) {
+                                paymentMessage.textContent = "Please complete payment via the opened window/app or try again.";
+                                paymentMessage.style.color = 'var(--warning)';
+                            }
+                            // Re-enable button after a delay if stuck
+                            setTimeout(() => {
+                                if (payButton.disabled) { // Check if still disabled
+                                    payButton.textContent = 'Pay ₹99 Now';
+                                    payButton.disabled = false;
+                                }
+                            }, 5000); // 5 seconds delay
+                        }
+                    }).catch(sdkError => {
+                        // Error during cashfree.checkout() call itself
+                        console.error("Cashfree SDK checkout initiation error:", sdkError);
+                        if (paymentMessage) {
+                            paymentMessage.textContent = 'SDK Error: Could not start payment checkout.';
+                            paymentMessage.style.color = '#c53030';
                         }
                         payButton.textContent = 'Pay ₹99 Now';
                         payButton.disabled = false;
-                    }
-                    // IMPORTANT: Cashfree handles the redirect. Success is typically verified
-                    // via webhooks on your backend and checked on the returnUrl page.
-                    // We DO NOT automatically move to the instructionsStep here.
-                    else if (!result.redirect) {
-                         console.warn("Cashfree Result (No Redirect):", result);
-                         // This might happen for UPI Intent flows or if something else went wrong
-                         if(paymentMessage) {
-                              paymentMessage.textContent = "Please complete payment via your UPI app or try again.";
-                              paymentMessage.style.color = 'var(--warning)';
-                         }
-                          // Re-enable button after a delay if no redirect happens
-                         setTimeout(() => {
-                             if (!result.error && !result.redirect) { // Check again in case state changed
-                                 payButton.textContent = 'Pay ₹99 Now';
-                                 payButton.disabled = false;
-                             }
-                         }, 5000); // 5 seconds delay
-                    }
-                }).catch(sdkError => {
-                     console.error("Cashfree SDK initialization error:", sdkError);
-                     if(paymentMessage) {
-                          paymentMessage.textContent = 'SDK Error: Could not start payment.';
-                          paymentMessage.style.color = '#c53030';
-                     }
-                     payButton.textContent = 'Pay ₹99 Now';
-                     payButton.disabled = false;
-                });
+                    });
 
-            } catch (error) {
-                console.error('Payment initiation fetch/process error:', error);
-                if(paymentMessage) {
-                     paymentMessage.textContent = 'Error: ' + error.message;
-                     paymentMessage.style.color = '#c53030';
+                } catch (error) {
+                    // Catch errors from fetch call or manual throws
+                    console.error('Payment initiation fetch/process error:', error);
+                    if (paymentMessage) {
+                        // Display the error message thrown (more specific now)
+                        paymentMessage.textContent = 'Error: ' + error.message;
+                        paymentMessage.style.color = '#c53030';
+                    }
+                    payButton.textContent = 'Pay ₹99 Now';
+                    payButton.disabled = false;
                 }
-                payButton.textContent = 'Pay ₹99 Now';
-                payButton.disabled = false;
-            }
-        });
-    } else if (payButton && typeof Cashfree === 'undefined') {
-         console.error("Cashfree SDK not loaded! Payment button disabled.");
-         if(paymentMessage) paymentMessage.textContent = "Error loading payment library.";
-         payButton.disabled = true;
+            });
+        }
     }
     // --- END CASHFREE PAYMENT INTEGRATION ---
-
 
 }); // End DOMContentLoaded
 
