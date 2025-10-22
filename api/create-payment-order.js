@@ -9,24 +9,24 @@ console.log("Function: /api/create-payment-order invoked."); // Log start
 const cashfreeAppId = process.env.CASHFREE_APP_ID;
 const cashfreeSecretKey = process.env.CASHFREE_SECRET_KEY;
 
-// --- CORRECTED Environment Determination ---
-// Use string literals based on the environment variable
-const cashfreeEnvironment = process.env.CASHFREE_ENVIRONMENT === 'PRODUCTION' ? "production" : "sandbox";
-// --- END CORRECTED Environment Determination ---
+// --- FORCED PRODUCTION Environment ---
+// Since Production keys are used, explicitly set the environment to "production"
+const cashfreeEnvironment = "production";
+console.log("Forcing Cashfree environment to: production"); // Log the forced environment
+// --- END FORCED Environment ---
 
 let cashfree; // Variable to hold the SDK instance
 
 // --- Initialization Check & SDK Instantiation ---
 if (!cashfreeAppId || !cashfreeSecretKey) {
     console.error("FATAL CONFIG ERROR: Cashfree credentials (CASHFREE_APP_ID or CASHFREE_SECRET_KEY) are missing in environment variables.");
-    // SDK cannot be initialized without credentials, cashfree remains undefined
 } else {
     try {
-        // Initialize the SDK instance using the string environment
+        // Initialize the SDK instance using the FORCED production environment string
         cashfree = new PGCashfree({
             clientId: cashfreeAppId,
             clientSecret: cashfreeSecretKey,
-            environment: cashfreeEnvironment, // Pass the string "sandbox" or "production"
+            environment: cashfreeEnvironment, // Pass the string "production"
         });
         console.log(`Cashfree SDK initialized successfully for environment: ${cashfreeEnvironment.toUpperCase()}.`);
     } catch (initError) {
@@ -47,8 +47,9 @@ module.exports = async (req, res) => {
         console.error("Handler Error: Credentials missing inside handler.");
         return res.status(500).json({ success: false, error: "Server configuration error: Payment credentials missing." });
     }
+    // Check if SDK initialization failed earlier (most likely cause of the previous error)
     if (!cashfree) {
-        console.error("Handler Error: Cashfree SDK not initialized (likely due to config or init error).");
+        console.error("Handler Error: Cashfree SDK not initialized. Check credentials and environment matching in Vercel logs.");
         return res.status(500).json({ success: false, error: "Server configuration error: Payment SDK failed to initialize." });
     }
     // --- End Critical Checks ---
@@ -75,6 +76,7 @@ module.exports = async (req, res) => {
                 customer_phone: req.body?.phone || "9999999999",
             },
             order_meta: {
+                // Ensure these URLs are correct for your DEPLOYED application
                 notify_url: process.env.PAYMENT_NOTIFY_URL || "https://internadda.com/api/payment-webhook", // Replace if needed
                 return_url: process.env.PAYMENT_RETURN_URL || `https://internadda.com/intern/payment-status.html?order_id={order_id}`, // Replace if needed
             },
