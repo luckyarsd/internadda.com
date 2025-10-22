@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Final Exam — Internadda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        .exam-container {
+            max-width: 900px;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .exam-step {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px; /* Add margin between steps if needed */
+        }
+
+        .hidden { display: none !important; }
+
+        /* Proctoring Styles */
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 25px;
+            background: #eef2f7;
+            border-radius: 8px;
+        }
+
+        .exam-header h1 {
+            font-size: 1.6rem; /* Slightly smaller title */
+        }
+
+
+        #timer {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        #camera-popup {
+            position: fixed;
+            top: 100px; /* Below header */
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: #2d3748;
+            border-radius: 8px;
+            border: 3px solid #f56565; /* Red border indicating recording */
+            overflow: hidden;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+         #camera-popup video {
+            width: 100%;
+            height: calc(100% - 30px);
+            object-fit: cover;
+            transform: scaleX(-1); /* Mirror view */
+        }
+
+        /* Updated Camera Status */
+        .camera-status {
+            width: 100%;
+            height: 30px;
+            background-color: #c53030; /* Red status bar */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space out dot and timer */
+            padding: 0 10px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .recording-indicator {
+            display: flex;
+            align-items: center;
+        }
+
+        .camera-dot {
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite ease-in-out;
+        }
+
+        #camera-timer {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* Payment Step */
+        #payment-step { text-align: center; }
+        #payment-step h2 { font-size: 2rem; margin-bottom: 15px; }
+        #payment-step p { font-size: 1.1rem; color: var(--gray); margin-bottom: 10px; }
+        /* Removed img and input styles as they are replaced */
+        .payment-warning {
+            color: #4A5568; /* Changed color to be less alarming initially */
+            background: #EBF8FF; /* Light blue background */
+            padding: 15px; border-radius: 8px;
+            margin-top: 25px; font-weight: 500; border: 1px solid #BEE3F8; /* Light blue border */
+            text-align: center; /* Centered warning text */
+        }
+        #payment-message { /* Style for status messages */
+             margin-top: 15px;
+             font-weight: bold;
+             min-height: 20px; /* Prevent layout shift */
+        }
+
+
+        /* Instructions Step */
+        #instructions-step h2 { text-align: center; font-size: 2rem; margin-bottom: 25px; }
+        #instructions-step .instructions-list {
+            margin: 25px auto; padding: 25px; background: #f7fafc; border-left: 4px solid var(--warning);
+            max-width: 700px; border-radius: 8px;
+        }
+        #instructions-step .instructions-list ul { padding-left: 20px; text-align: left; font-size: 1.05rem; line-height: 1.8; }
+        #instructions-step .instructions-list li { margin-bottom: 15px; }
+         /* Highlight passing score */
+        #instructions-step .passing-score {
+             font-weight: 700;
+             color: var(--accent);
+             background-color: #f0fff4;
+             padding: 2px 6px;
+             border-radius: 4px;
+        }
+        .strict-disclaimer {
+            margin-top: 30px; padding: 20px; background: #fff5f5; border: 1px solid #fbb2b2;
+            color: #c53030; font-weight: 600; border-radius: 8px; text-align: center;
+        }
+        .strict-disclaimer i { margin-right: 8px; }
+
+        /* Exam Step */
+        #exam-step { padding-top: 20px; }
+        .question-block {
+            margin-bottom: 35px; border-bottom: 1px solid #e2e8f0; padding-bottom: 25px;
+        }
+        .question-block:last-child { border-bottom: none; margin-bottom: 0; }
+        .question-block h3 {
+            font-size: 1.2rem; /* Smaller for more questions */
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            display: flex; /* Align number and text */
+            align-items: flex-start;
+        }
+        .question-block h3 strong { /* Number styling */
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            margin-right: 12px;
+            font-size: 0.95rem;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+         /* Code block style */
+        .question-block pre {
+            background-color: #f6f8fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 15px 0;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            color: #2d3748;
+        }
+        .options .option {
+            background-color: var(--light); padding: 14px 18px; border: 1px solid #e2e8f0;
+            border-radius: 10px; cursor: pointer; transition: var(--transition); margin-bottom: 10px;
+            display: flex; align-items: center; gap: 12px; font-size: 1rem;
+        }
+        .options .option::before { /* Radio button style */
+            content: ''; display: inline-block; width: 16px; height: 16px;
+            border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0;
+        }
+        .options .option:hover { background-color: #eef2f7; border-color: #cbd5e0; }
+        .options .option:hover::before { border-color: var(--primary); }
+        .options .option.selected {
+            background-color: #ebf8ff; color: var(--primary); border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2);
+        }
+        .options .option.selected::before {
+            background-color: var(--primary); border-color: var(--primary);
+            box-shadow: inset 0 0 0 3px white;
+        }
+        #submit-exam-btn { width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px; }
+
+        /* Submission Step */
+        #submission-step { text-align: center; padding: 40px; }
+        #submission-step .icon { font-size: 4rem; margin-bottom: 20px; }
+        #submission-step .icon.success { color: var(--success); }
+        #submission-step .icon.fail { color: var(--warning); }
+        #submission-step h2 { font-size: 2rem; margin-bottom: 15px; }
+        #submission-step p { font-size: 1.1rem; color: var(--gray); max-width: 650px; margin: 0 auto 20px; line-height: 1.7; }
+        .score-display { font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; }
+        .score-display span { color: var(--primary); }
+        .email-instructions {
+            margin-top: 30px; padding: 25px; background: #eef2f7; border-radius: 8px; text-align: left;
+            border-left: 4px solid var(--primary);
+        }
+         .email-instructions p { color: var(--dark); margin-bottom: 15px; font-size: 1rem; }
+         .email-instructions strong { font-weight: 600; }
+         .email-instructions ul li { margin-bottom: 8px; }
+         .email-instructions ul { margin-bottom: 15px; }
+         #email-link { display: inline-block; margin-top: 15px; }
+
+         /* Message Box Styling */
+        .message-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1005;
+            text-align: center;
+            border-top: 5px solid var(--primary);
+            max-width: 500px;
+        }
+        .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;}
+        .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;}
+        .message-box button { margin: 0 10px; }
+        .message-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1004;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+        <a href="../index.html" class="logo">
+          <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img">
+          <span class="logo-text">InternAdda</span>
+        </a>
+            <nav class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../courses/course.html" class="nav-link">Courses</a>
+                <a href="internship.html" class="nav-link">Internships</a>
+                <a href="../jobs.html" class="nav-link">Jobs</a>
+                <a href="../about.html" class="nav-link">About</a>
+            </nav>
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-actions">
+                <div id="authButtons">
+                    <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
+                    <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
+                </div>
+                <div class="user-profile hidden" id="userProfile">
+                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
+                    <span id="userNameHeader"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="camera-popup" class="hidden">
+             <video id="camera-feed" autoplay playsinline></video>
+             <div class="camera-status">
+                 <div class="recording-indicator">
+                    <div class="camera-dot"></div>
+                    <span>REC</span>
+                 </div>
+                 <span id="camera-timer">00:00</span>
+             </div>
+        </div>
+
+        <section class="course-section">
+            <div class="exam-container">
+
+                <div id="payment-step" class="exam-step">
+                    <h2>Final Exam Registration</h2>
+                    <p>Complete the payment of <strong>₹99</strong> (non-refundable) to access the final internship qualification exam.</p>
+
+                    <div id="payment-message"></div>
+
+                    <button class="btn btn-primary" id="pay-btn" style="padding: 16px 30px; font-size: 1.1rem; margin-top: 20px;">Pay ₹99 Now</button>
+
+                    <div class="payment-warning">
+                        <strong><i class="fas fa-lock"></i> Secure Payment via Cashfree</strong>
+                        <p style="font-size: 0.9em; color: var(--gray); margin-top: 5px;">You will be redirected to Cashfree's secure payment page to complete the transaction.</p>
+                        </div>
+                </div>
+                <div id="instructions-step" class="exam-step hidden">
+                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions</h2>
+                    <div class="instructions-list">
+                        <ul>
+                            <li><strong>Duration:</strong> This is a timed exam of <strong>30 minutes</strong>.</li>
+                            <li><strong>Passing Score:</strong> A minimum score of <strong class="passing-score">60%</strong> is required to be eligible for internship consideration.</li>
+                            <li><strong>Proctoring:</strong> Your camera MUST remain on throughout the exam. This session is recorded for integrity verification. Ensure your face is clearly visible.</li>
+                            <li><strong>Environment:</strong> Take the exam in a quiet, well-lit room, alone. No external help is permitted.</li>
+                            <li><strong>Academic Integrity:</strong> Do NOT switch tabs, open other applications, use AI assistance, or look away frequently. Suspicious activity will be flagged and reviewed.</li>
+                             <li><strong>Connectivity:</strong> A stable internet connection is required. We are not responsible for disruptions due to your connection.</li>
+                             <li><strong>Questions:</strong> All 25 questions are mandatory Multiple Choice Questions (MCQs).</li>
+                             <li><strong>Submission:</strong> The exam will auto-submit when the timer runs out, or you can submit manually. Once submitted, answers cannot be changed.</li>
+                        </ul>
+                    </div>
+                     <div class="strict-disclaimer">
+                        <i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> By starting this exam, you agree to adhere to the highest standards of academic honesty. Any violation detected through proctoring review (including suspicious eye movements, background noise, use of unauthorized aids, or tab switching) will lead to immediate disqualification without refund and a permanent ban from Internadda internships.
+                    </div>
+                    <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Acknowledge and Start Exam</button>
+                </div>
+
+                <div id="exam-step" class="exam-step hidden">
+                    <div class="exam-header">
+                        <h1>Data Science Final Exam</h1>
+                        <div id="timer">30:00</div>
+                    </div>
+
+                    <div id="quiz-container">
+                        <div class="question-block" data-answer="d">
+                            <h3><strong>1</strong>What is 'Overfitting' in machine learning?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Model too simple.</div>
+                                <div class="option" data-value="b">Performs equally on train/test.</div>
+                                <div class="option" data-value="c">Insufficient training data.</div>
+                                <div class="option" data-value="d">Good on train, poor on test.</div>
+                            </div>
+                        </div>
+                        <div class="question-block" data-answer="b">
+                            <h3><strong>2</strong>Which plot is LEAST suitable for showing data distribution?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Histogram</div>
+                                <div class="option" data-value="b">Pie Chart</div>
+                                <div class="option" data-value="c">Box Plot</div>
+                                <div class="option" data-value="d">KDE Plot</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="c">
+                            <h3><strong>3</strong>What does SQL stand for?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Strong Question Language</div>
+                                <div class="option" data-value="b">Simple Query Logic</div>
+                                <div class="option" data-value="c">Structured Query Language</div>
+                                <div class="option" data-value="d">Sequential Query Language</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="a">
+                            <h3><strong>4</strong>Pandas is primarily built on top of which other Python library for numerical operations?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">NumPy</div>
+                                <div class="option" data-value="b">Matplotlib</div>
+                                <div class="option" data-value="c">SciPy</div>
+                                <div class="option" data-value="d">Requests</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="b">
+                            <h3><strong>5</strong>You have a column 'Age' with some missing values (`NaN`). Which is generally the most robust method to fill these missing values if the data has outliers?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Fill with 0.</div>
+                                <div class="option" data-value="b">Fill with the median age.</div>
+                                <div class="option" data-value="c">Fill with the mean age.</div>
+                                <div class="option" data-value="d">Drop the rows with missing age.</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="c">
+                            <h3><strong>6</strong>What is the purpose of the `GROUP BY` clause combined with an aggregate function (like `COUNT()` or `AVG()`) in SQL?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">To sort the results based on the aggregated value.</div>
+                                <div class="option" data-value="b">To filter rows before aggregation.</div>
+                                <div class="option" data-value="c">To perform calculations across subsets of rows based on column values.</div>
+                                <div class="option" data-value="d">To join multiple tables before aggregation.</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="a">
+                            <h3><strong>7</strong>You need to predict whether an email is 'spam' or 'not spam'. What type of machine learning problem is this?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Binary Classification</div>
+                                <div class="option" data-value="b">Regression</div>
+                                <div class="option" data-value="c">Clustering</div>
+                                <div class="option" data-value="d">Dimensionality Reduction</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="d">
+                            <h3><strong>8</strong>If a classification model correctly identifies 90 out of 100 positive instances, but incorrectly flags 10 negative instances as positive, what metric specifically measures its ability to correctly identify the positives?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Accuracy</div>
+                                <div class="option" data-value="b">Precision</div>
+                                <div class="option" data-value="c">Specificity</div>
+                                <div class="option" data-value="d">Recall (Sensitivity)</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="b">
+                            <h3><strong>9</strong>Which Python code snippet correctly imports the Matplotlib library for plotting?</h3>
+                            <pre># Option A
+import plot as plt
+
+# Option B
+import matplotlib.pyplot as plt
+
+# Option C
+from matplotlib import plot
+
+# Option D
+import pyplot as plt</pre>
+                            <div class="options">
+                                <div class="option" data-value="a">Option A</div>
+                                <div class="option" data-value="b">Option B</div>
+                                <div class="option" data-value="c">Option C</div>
+                                <div class="option" data-value="d">Option D</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="a">
+                            <h3><strong>10</strong>K-Means is an example of which type of machine learning algorithm?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Unsupervised Learning (Clustering)</div>
+                                <div class="option" data-value="b">Supervised Learning (Classification)</div>
+                                <div class="option" data-value="c">Supervised Learning (Regression)</div>
+                                <div class="option" data-value="d">Reinforcement Learning</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="c">
+                            <h3><strong>11</strong>How do you select a column named 'user_id' from a Pandas DataFrame called `df`?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">`df.column('user_id')`</div>
+                                <div class="option" data-value="b">`df.get('user_id')`</div>
+                                <div class="option" data-value="c">`df['user_id']` or `df.user_id`</div>
+                                <div class="option" data-value="d">`select user_id from df`</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="d">
+                            <h3><strong>12</strong>An e-commerce site wants to test if changing a button color from blue to green increases clicks. What is this process called?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Regression Analysis</div>
+                                <div class="option" data-value="b">Feature Engineering</div>
+                                <div class="option" data-value="c">Data Cleaning</div>
+                                <div class="option" data-value="d">A/B Testing</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="a">
+                            <h3><strong>13</strong>In hypothesis testing, if the p-value is 0.03 and the significance level (alpha) is 0.05, what is the conclusion?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Reject the null hypothesis (result is statistically significant).</div>
+                                <div class="option" data-value="b">Fail to reject the null hypothesis (result is not statistically significant).</div>
+                                <div class="option" data-value="c">Accept the alternative hypothesis.</div>
+                                <div class="option" data-value="d">The test is inconclusive.</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="b">
+                            <h3><strong>14</strong>Which technique transforms categorical features (like 'City': ['Delhi', 'Mumbai']) into numerical format using binary columns ('City_Delhi', 'City_Mumbai')?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Label Encoding</div>
+                                <div class="option" data-value="b">One-Hot Encoding</div>
+                                <div class="option" data-value="c">Normalization</div>
+                                <div class="option" data-value="d">Binning</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="c">
+                            <h3><strong>15</strong>You plot house prices vs. square footage and see a clear upward trend. This indicates a...?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Negative Correlation</div>
+                                <div class="option" data-value="b">No Correlation</div>
+                                <div class="option" data-value="c">Positive Correlation</div>
+                                <div class="option" data-value="d">Causation</div>
+                            </div>
+                        </div>
+                        <div class="question-block" data-answer="d">
+                            <h3><strong>16</strong>What Python data structure is ordered, immutable (cannot be changed after creation), and allows duplicate elements?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">List</div>
+                                <div class="option" data-value="b">Dictionary</div>
+                                <div class="option" data-value="c">Set</div>
+                                <div class="option" data-value="d">Tuple</div>
+                            </div>
+                        </div>
+                        <div class="question-block" data-answer="a">
+                            <h3><strong>17</strong>Which SQL statement modifies existing records in a table?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">UPDATE</div>
+                                <div class="option" data-value="b">MODIFY</div>
+                                <div class="option" data-value="c">INSERT INTO</div>
+                                <div class="option" data-value="d">ALTER TABLE</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="c">
+                            <h3><strong>18</strong>You have two tables: `Customers` (CustomerID, Name) and `Orders` (OrderID, CustomerID, Product). Which SQL clause combines rows from both tables based on `CustomerID`?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">UNION</div>
+                                <div class="option" data-value="b">GROUP BY</div>
+                                <div class="option" data-value="c">JOIN (e.g., INNER JOIN)</div>
+                                <div class="option" data-value="d">WHERE</div>
+                            </div>
+                        </div>
+                        <div class="question-block" data-answer="b">
+                            <h3><strong>19</strong>What does AUC (Area Under the ROC Curve) primarily measure for a binary classifier?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">The speed of the model.</div>
+                                <div class="option" data-value="b">The model's ability to distinguish between positive and negative classes across various thresholds.</div>
+                                <div class="option" data-value="c">The number of features used by the model.</div>
+                                <div class="option" data-value="d">The accuracy on the training set.</div>
+                            </div>
+                        </div>
+                        <div class="question-block" data-answer="a">
+                            <h3><strong>20</strong>Which of these is typically the FIRST step in the data science workflow after understanding the business problem?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Data Collection / Acquisition</div>
+                                <div class="option" data-value="b">Model Building</div>
+                                <div class="option" data-value="c">Data Visualization</div>
+                                <div class="option" data-value="d">Feature Engineering</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="d">
+                            <h3><strong>21</strong>Which Pandas method removes rows containing missing values (`NaN`)?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">`.fillna()`</div>
+                                <div class="option" data-value="b">`.remove_na()`</div>
+                                <div class="option" data-value="c">`.clean()`</div>
+                                <div class="option" data-value="d">`.dropna()`</div>
+                            </div>
+                        </div>
+                        <div class="question-block" data-answer="b">
+                            <h3><strong>22</strong>A model predicts 'rain' 80 times and 'no rain' 20 times. It rained 70 times and didn't rain 30 times. How many True Positives (predicting rain when it rained) are possible at maximum?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">80</div>
+                                <div class="option" data-value="b">70</div>
+                                <div class="option" data-value="c">30</div>
+                                <div class="option" data-value="d">20</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="c">
+                            <h3><strong>23</strong>Which plot type is most effective for comparing the distribution of a numerical variable across different categories?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Line Chart</div>
+                                <div class="option" data-value="b">Scatter Plot</div>
+                                <div class="option" data-value="c">Box Plot (or Violin Plot)</div>
+                                <div class="option" data-value="d">Pie Chart</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="a">
+                            <h3><strong>24</strong>What is the primary goal when selecting features for a machine learning model?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">To choose variables that are relevant and predictive of the target outcome.</div>
+                                <div class="option" data-value="b">To include as many variables as possible.</div>
+                                <div class="option" data-value="c">To choose only numerical variables.</div>
+                                <div class="option" data-value="d">To select features randomly.</div>
+                            </div>
+                        </div>
+                         <div class="question-block" data-answer="d">
+                            <h3><strong>25</strong>If your linear regression model has a very high R-squared value on the training data but performs poorly on the test data, what is the likely issue?</h3>
+                            <div class="options">
+                                <div class="option" data-value="a">Underfitting</div>
+                                <div class="option" data-value="b">High Bias</div>
+                                <div class="option" data-value="c">Data Leakage</div>
+                                <div class="option" data-value="d">Overfitting</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
+                    </div>
+                </div>
+
+                <div id="submission-step" class="exam-step hidden">
+                    <div id="result-icon" class="icon"></div>
+                    <h2 id="result-title">Exam Submitted</h2>
+                    <p id="result-message"></p>
+                    <div id="score-display" class="score-display">Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> (<span id="final-percentage">--</span>%)</div>
+
+                    <div id="email-instructions" class="email-instructions hidden">
+                         <p><strong>Congratulations!</strong> You have met the minimum score requirement (60%).</p>
+                         <p>To proceed with your internship application, please <strong>carefully follow these steps:</strong></p>
+                         <ul>
+                             <li><strong>Send an Email To:</strong> official.internadda@gmail.com</li>
+                             <li><strong>Subject Line:</strong> Data Science Internship Application - [Your Full Name Here]</li>
+                             <li><strong>Email Body (Copy and paste, then fill in your details):</strong>
+                                 <pre style="background: #fff; padding: 10px; border-radius: 4px; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word;">Dear Internadda Team,
+
+I have successfully completed the Data Science Final Exam with a score of <span class="final-score-email">--</span>%. My registered email is [Your Registered Email Address Here].
+
+My payment has been processed successfully via Cashfree. (Order ID if available from return URL: <span id="order-id-email">[Order ID Here or leave blank]</span>).
+
+Please find attached the required document:
+1. A screenshot of my exam result page showing the score.
+I look forward to hearing about the next steps in the internship selection process.
+
+Thank you,
+
+[Your Full Name Here]
+[Your Contact Number Here]
+[Link to your LinkedIn Profile, if available - Optional]</pre>
+                            </li>
+                             <li><strong>Mandatory Attachment:</strong> <br>1. Screenshot of this results page (showing score).
+                             </li>
+                         </ul>
+                         <p><strong>Verification Timeline:</strong> You will receive an update on your application status via email within <strong>72 business hours</strong> after we successfully verify your score, payment, and proctoring session.</p>
+                         <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
+                    </div>
+
+                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
+                </div>
+                </div>
+        </section>
+
+        <div id="messageOverlay" class="message-overlay"></div>
+        <div id="cameraMessageBox" class="message-box">
+             <h3><i class="fas fa-video"></i> Camera Access Required</h3>
+             <p>This is a proctored exam. You <strong>must</strong> allow camera access to start. Ensure your face is clearly visible throughout the exam.</p>
+             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
+        </div>
+        <div id="cameraErrorBox" class="message-box">
+             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Camera Error</h3>
+             <p id="cameraErrorText">Could not access the camera. Please ensure permissions are granted in your browser settings and that no other application is using the camera. <br><br><strong>You cannot proceed without a working camera.</strong></p>
+             <button id="retryCameraBtn" class="btn btn-primary">Retry Camera Check</button>
+             <button id="cancelExamBtn" class="btn btn-outline">Cancel Exam</button>
+        </div>
+         <div id="tabSwitchWarningBox" class="message-box">
+             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
+             <p>You have navigated away from the exam tab. This action has been logged. Continuous or prolonged focus loss will result in automatic disqualification.</p>
+             <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                 <div class="footer-brand">
+                    <div class="footer-logo">Internadda</div>
+                    <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-links-column">
+                    <h3 class="footer-links-title">Contact</h3>
+                     <ul class="footer-links">
+                        <li><a href="mailto:support@internadda.com">support@internadda.com</a></li>
+                        <li>New Delhi, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Internadda. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script> <script src="../script.js"></script> <script>
+        // All the specific exam logic JavaScript goes here
+        // (including the new Cashfree payment button listener)
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Step DIVs
+            const paymentStep = document.getElementById('payment-step');
+            const instructionsStep = document.getElementById('instructions-step');
+            const examStep = document.getElementById('exam-step');
+            const submissionStep = document.getElementById('submission-step');
+
+            // --- NEW PAYMENT ELEMENTS ---
+            const payButton = document.getElementById('pay-btn');
+            const paymentMessage = document.getElementById('payment-message');
+            // --- END NEW PAYMENT ELEMENTS ---
+
+            // Old payment button (keep for reference if needed, but not used)
+            // const verifyPaymentBtn = document.getElementById('verify-payment-btn');
+            // const upiInput = document.getElementById('upi-id'); // Removed from HTML, keep variable if logic depends on it elsewhere initially
+
+            // Buttons
+            const startExamBtn = document.getElementById('start-exam-btn');
+            const submitExamBtn = document.getElementById('submit-exam-btn');
+
+            // Proctoring Elements
+            const timerEl = document.getElementById('timer');
+            const cameraPopup = document.getElementById('camera-popup');
+            const cameraFeed = document.getElementById('camera-feed');
+            const cameraTimerEl = document.getElementById('camera-timer');
+
+            // Message Boxes & Overlay
+            const messageOverlay = document.getElementById('messageOverlay');
+            const cameraMessageBox = document.getElementById('cameraMessageBox');
+            const cameraErrorBox = document.getElementById('cameraErrorBox');
+            const allowCameraBtn = document.getElementById('allowCameraBtn');
+            const retryCameraBtn = document.getElementById('retryCameraBtn');
+            const cancelExamBtn = document.getElementById('cancelExamBtn');
+            const cameraErrorText = document.getElementById('cameraErrorText');
+            const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
+            const resumeExamBtn = document.getElementById('resumeExamBtn');
+
+            // Submission Elements
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultMessage = document.getElementById('result-message');
+            const scoreDisplay = document.getElementById('score-display');
+            const finalScoreEl = document.getElementById('final-score');
+            const totalQuestionsEl = document.getElementById('total-questions');
+            const finalPercentageEl = document.getElementById('final-percentage');
+            const emailInstructions = document.getElementById('email-instructions');
+            const emailLink = document.getElementById('email-link');
+            const finalScoreEmailSpan = document.querySelector('.final-score-email');
+            // const upiIdEmailSpan = document.querySelector('.upi-id-email'); // Removed UPI ID display
+
+             // --- NEW --- For storing order ID if available on return
+             const orderIdEmailSpan = document.getElementById('order-id-email');
+             let currentOrderId = null; // To store order ID if needed
+
+
+            let examTimerInterval;
+            let cameraTimerInterval;
+            let stream = null;
+            // let submittedUPI_ID = ''; // No longer needed
+            let tabSwitchCount = 0;
+            const MAX_TAB_SWITCHES = 2;
+            let examStartTime = 0;
+
+            // --- Helper: Format Time ---
+             function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // --- NEW: Cashfree Payment Logic ---
+            if (typeof Cashfree === 'undefined') {
+                console.error("Cashfree SDK not loaded!");
+                if(paymentMessage) paymentMessage.textContent = "Error: Payment library failed to load.";
+                if(payButton) payButton.disabled = true;
+            } else {
+                const cashfree = new Cashfree();
+
+                if (payButton) {
+                    payButton.addEventListener('click', async () => {
+                        payButton.textContent = 'Processing...';
+                        payButton.disabled = true;
+                        if(paymentMessage) paymentMessage.textContent = 'Initiating secure payment...';
+
+                        try {
+                            // 1. Call your Vercel function to create the order
+                            const orderResponse = await fetch('/api/create-payment-order', { // Assumes function is at this path
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                // Add user details if available (e.g., from Firebase Auth)
+                                // body: JSON.stringify({ email: user.email, phone: user.phoneNumber }),
+                            });
+
+                            if (!orderResponse.ok) {
+                                const errorData = await orderResponse.json();
+                                throw new Error(errorData.error || 'Failed to create payment order.');
+                            }
+
+                            const orderData = await orderResponse.json();
+
+                            if (!orderData.payment_session_id) {
+                                throw new Error('Payment session ID not received.');
+                            }
+
+                             // Store the order ID if returned by your backend (useful for the return URL)
+                            // currentOrderId = orderData.order_id; // Assuming your backend returns this
+
+                            const sessionId = orderData.payment_session_id;
+                            console.log("Received Session ID:", sessionId);
+
+                            // 2. Use Cashfree SDK to start checkout
+                            // The SDK will handle the redirect
+                            cashfree.checkout({
+                                paymentSessionId: sessionId,
+                            }).then((result) => {
+                                // This block mainly handles errors or non-redirect scenarios
+                                if (result.error) {
+                                    console.error("Cashfree Checkout Error:", result.error);
+                                    if(paymentMessage) paymentMessage.textContent = "Payment Failed: " + result.error.message;
+                                    payButton.textContent = 'Pay ₹99 Now';
+                                    payButton.disabled = false;
+                                } else if (!result.redirect) {
+                                     // Handle cases where redirect might not happen (e.g., inline payments or errors)
+                                     console.log("Cashfree Result (No Redirect):", result);
+                                     if(paymentMessage) paymentMessage.textContent = "Could not redirect to payment page. Please try again.";
+                                     payButton.textContent = 'Pay ₹99 Now';
+                                     payButton.disabled = false;
+                                }
+                            }).catch(sdkError => {
+                                 console.error("Cashfree SDK Error:", sdkError);
+                                 if(paymentMessage) paymentMessage.textContent = 'SDK Error: Could not initiate payment.';
+                                 payButton.textContent = 'Pay ₹99 Now';
+                                 payButton.disabled = false;
+                            });
+
+                        } catch (error) {
+                            console.error('Error during payment initiation:', error);
+                            if(paymentMessage) paymentMessage.textContent = 'Error: ' + error.message;
+                            payButton.textContent = 'Pay ₹99 Now';
+                            payButton.disabled = false;
+                        }
+                    });
+                }
+            }
+            // --- END NEW Cashfree Logic ---
+
+            // --- Existing Logic (Camera, Timers, Exam Submission, etc.) ---
+            // Needs modification to trigger based on payment success (likely handled on the return page redirect)
+            // For now, the flow is: Pay -> Redirect -> Return -> Check Status -> Show Instructions
+
+            // --- Camera Logic (Keep as is) ---
+            async function requestCamera() { /* ... */ }
+            async function startCamera() { /* ... */ }
+            function stopCamera() { /* ... */ }
+
+            // --- Payment Verification (OLD - REMOVE/COMMENT OUT) ---
+            /*
+            verifyPaymentBtn.addEventListener('click', () => {
+                submittedUPI_ID = upiInput.value.trim();
+                // ... validation ...
+                setTimeout(() => {
+                    paymentStep.classList.add('hidden');
+                    instructionsStep.classList.remove('hidden');
+                }, 1500);
+            });
+            */
+
+             // --- Start Exam Button ---
+             // This button should ONLY be shown AFTER payment is confirmed successful
+             // (likely on the return page, or if using WebSockets/Polling for status)
+             // For simplicity, we keep the original flow where clicking Start Exam triggers camera
+             startExamBtn.addEventListener('click', requestCamera);
+
+             // --- Handle Camera Permission (Keep as is) ---
+             allowCameraBtn.addEventListener('click', startCamera);
+             retryCameraBtn.addEventListener('click', startCamera);
+             cancelExamBtn.addEventListener('click', () => { window.location.href = 'internship.html'; });
+
+            // --- Timer Logic (Keep as is) ---
+             function startTimer() { /* ... */ }
+             function startCameraTimer() { /* ... */ }
+
+            // --- Option Selection Logic (Keep as is) ---
+            const questions = document.querySelectorAll('.question-block');
+            const totalQuestions = questions.length;
+            if(totalQuestionsEl) totalQuestionsEl.textContent = totalQuestions;
+
+            questions.forEach(question => { /* ... */ });
+
+             // --- Submission Logic (Modify email part) ---
+            function submitExam() {
+                 if (examTimerInterval) clearInterval(examTimerInterval);
+                 stopCamera();
+
+                 let score = 0;
+                 questions.forEach(question => { /* ... calculate score ... */ });
+
+                 const percentage = Math.round((score / totalQuestions) * 100);
+
+                 // Update results display
+                 if(finalScoreEl) finalScoreEl.textContent = score;
+                 if(finalPercentageEl) finalPercentageEl.textContent = percentage;
+                 if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage;
+                 // if(upiIdEmailSpan) upiIdEmailSpan.textContent = submittedUPI_ID; // Remove this line
+
+                  // Add Order ID to email if available
+                 if(orderIdEmailSpan && currentOrderId) {
+                     orderIdEmailSpan.textContent = currentOrderId;
+                 } else if (orderIdEmailSpan) {
+                     orderIdEmailSpan.textContent = "[See Payment Confirmation]";
+                 }
+
+
+                 if (percentage >= 60) {
+                     if(resultIcon) resultIcon.className = 'icon fas fa-check-circle success';
+                     if(resultTitle) resultTitle.textContent = "Exam Completed - Qualified!";
+                     if(resultMessage) resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
+                     if(emailInstructions) emailInstructions.classList.remove('hidden');
+
+                     // Prepare mailto link (Remove UPI ID, potentially add Order ID)
+                     const subject = encodeURIComponent(`Data Science Internship Application - [Your Full Name Here]`);
+                     const body = encodeURIComponent(
+                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nMy payment was processed via Cashfree.${currentOrderId ? ` (Order ID: ${currentOrderId})` : ''}\n\nPlease find attached the required document:\n1. A screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                     );
+
+                     if(emailLink) emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+
+                 } else {
+                    if(resultIcon) resultIcon.className = 'icon fas fa-times-circle fail';
+                    if(resultTitle) resultTitle.textContent = "Exam Completed";
+                    if(resultMessage) resultMessage.textContent = `Thank you for completing the exam. Unfortunately, your score of ${percentage}% did not meet the minimum requirement of 60% for this internship opportunity...`;
+                    if(emailInstructions) emailInstructions.classList.add('hidden');
+                 }
+
+                 if(examStep) examStep.classList.add('hidden');
+                 if(submissionStep) submissionStep.classList.remove('hidden');
+                 if (timerEl) timerEl.textContent = "Finished";
+            }
+
+            if(submitExamBtn) {
+                submitExamBtn.addEventListener('click', () => {
+                    if(confirm("Are you sure you want to submit your exam?")) {
+                        submitExam();
+                    }
+                });
+            }
+
+             // --- Anti-Cheat: Tab Switch Detection (Keep as is) ---
+            document.addEventListener('visibilitychange', () => { /* ... */ });
+            if(resumeExamBtn) resumeExamBtn.addEventListener('click', () => { /* ... */ });
+            function startTimerFrom(startTimeInSeconds) { /* ... */ }
+            function startCameraTimerFrom(startTimeInSeconds) { /* ... */ }
+
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>

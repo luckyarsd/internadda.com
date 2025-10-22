@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Practice Test — Internadda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        .exam-container {
+            max-width: 900px; /* Wider for better question layout */
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 30px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+
+        .exam-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        #timer {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: #eef2f7;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        /* Updated Camera Popup Style */
+        #camera-popup {
+            position: fixed;
+            top: 100px; /* Below header */
+            right: 20px;
+            width: 200px; /* Slightly larger */
+            height: 150px;
+            background: #2d3748;
+            border-radius: 8px;
+            border: 3px solid #4a5568;
+            overflow: hidden; /* Hide overflow */
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex; /* Use flex to manage video and status */
+            flex-direction: column;
+        }
+
+        #camera-popup video {
+            width: 100%;
+            height: calc(100% - 30px); /* Leave space for status bar */
+            object-fit: cover;
+            transform: scaleX(-1); /* Mirror view */
+        }
+        
+        .camera-status {
+            width: 100%;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .camera-dot {
+            width: 10px;
+            height: 10px;
+            background: #f56565;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1.2s infinite ease-in-out;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        #quiz-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .question-block {
+            margin-bottom: 35px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 25px;
+        }
+        
+        .question-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .question-block h3 {
+            font-size: 1.25rem; /* Slightly smaller for more questions */
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+         .question-block h3 strong { /* Number styling */
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin-right: 12px;
+            font-size: 1rem;
+        }
+
+
+        .options .option {
+            background-color: var(--light);
+            padding: 16px 20px; /* Slightly smaller padding */
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .options .option::before { /* Radio button style */
+            content: '';
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+
+        .options .option:hover {
+            background-color: #eef2f7;
+            border-color: #cbd5e0;
+        }
+        .options .option:hover::before {
+             border-color: var(--primary);
+        }
+
+
+        .options .option.selected {
+            background-color: #ebf8ff; /* Lighter blue */
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2);
+        }
+        
+        .options .option.selected::before {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: inset 0 0 0 3px white; /* Inner dot */
+        }
+        
+        #submit-btn {
+            margin-top: 30px;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+        }
+        
+        #results-container {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f0fff4;
+            border: 1px solid var(--success);
+            border-radius: 12px;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        #results-container h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .result-message {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Message Box Styling */
+        .message-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1005;
+            text-align: center;
+            border-top: 5px solid var(--primary);
+        }
+        .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;}
+        .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;}
+        .message-box button { margin: 0 10px; }
+        .message-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1004;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+        <a href="../index.html" class="logo">
+          <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img"> 
+          <span class="logo-text">InternAdda</span>
+        </a>
+            <nav class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../courses/course.html" class="nav-link">Courses</a>
+                <a href="internship.html" class="nav-link">Internships</a>
+                <a href="../jobs.html" class="nav-link">Jobs</a>
+                <a href="../about.html" class="nav-link">About</a>
+            </nav>
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-actions">
+                <div id="authButtons">
+                    <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
+                    <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
+                </div>
+                <div class="user-profile hidden" id="userProfile">
+                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
+                    <span id="userNameHeader"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Camera Popup -->
+        <div id="camera-popup">
+             <video id="camera-feed" autoplay playsinline></video>
+             <div class="camera-status">
+                 <div class="camera-dot"></div>
+                 <span>Proctoring Active</span>
+             </div>
+        </div>
+
+        <section class="course-section">
+            <div class="exam-container">
+                <div class="exam-header">
+                    <h1>Data Science Practice Test</h1>
+                    <div id="timer">20:00</div> <!-- Updated timer for more questions -->
+                </div>
+
+                <div id="quiz-container">
+                    
+                    <!-- Question 1 -->
+                    <div class="question-block" data-answer="b">
+                        <h3><strong>1</strong>Which Python library is most commonly used for data manipulation and analysis in a DataFrame structure?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">NumPy</div>
+                            <div class="option" data-value="b">Pandas</div>
+                            <div class="option" data-value="c">Matplotlib</div>
+                            <div class="option" data-value="d">Scikit-learn</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="question-block" data-answer="c">
+                        <h3><strong>2</strong>What is the primary purpose of a 'train-test split' in machine learning?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">To make the model run faster during training.</div>
+                            <div class="option" data-value="b">To artificially increase the size of the dataset.</div>
+                            <div class="option" data-value="c">To evaluate the model's generalization performance on unseen data.</div>
+                            <div class="option" data-value="d">To select the most important features for the model.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="question-block" data-answer="a">
+                        <h3><strong>3</strong>In SQL, which clause is used to filter rows based on a specified condition?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">WHERE</div>
+                            <div class="option" data-value="b">FILTER</div>
+                            <div class="option" data-value="c">HAVING</div>
+                            <div class="option" data-value="d">CONDITION</div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="question-block" data-answer="d">
+                        <h3><strong>4</strong>Which type of plot is best suited for visualizing the relationship between two continuous numerical variables?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Bar Chart</div>
+                            <div class="option" data-value="b">Histogram</div>
+                            <div class="option" data-value="c">Box Plot</div>
+                            <div class="option" data-value="d">Scatter Plot</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 5 -->
+                     <div class="question-block" data-answer="b">
+                        <h3><strong>5</strong>What does the term 'NaN' typically represent in a Pandas DataFrame?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">A string value 'NaN'.</div>
+                            <div class="option" data-value="b">A missing or undefined numerical value.</div>
+                            <div class="option" data-value="c">Zero.</div>
+                            <div class="option" data-value="d">An outlier value.</div>
+                        </div>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="question-block" data-answer="a">
+                        <h3><strong>6</strong>Which statistical measure represents the middle value in a sorted dataset?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Median</div>
+                            <div class="option" data-value="b">Mean</div>
+                            <div class="option" data-value="c">Mode</div>
+                            <div class="option" data-value="d">Standard Deviation</div>
+                        </div>
+                    </div>
+
+                     <!-- Question 7 -->
+                     <div class="question-block" data-answer="c">
+                        <h3><strong>7</strong>What is the main goal of 'Feature Engineering' in data science?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">To reduce the number of rows in the dataset.</div>
+                            <div class="option" data-value="b">To visualize the data more effectively.</div>
+                            <div class="option" data-value="c">To create new, more informative features from existing data to improve model performance.</div>
+                            <div class="option" data-value="d">To choose the best machine learning algorithm.</div>
+                        </div>
+                    </div>
+
+                     <!-- Question 8 -->
+                    <div class="question-block" data-answer="d">
+                        <h3><strong>8</strong>Which machine learning task involves predicting a continuous numerical value (e.g., price, temperature)?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Classification</div>
+                            <div class="option" data-value="b">Clustering</div>
+                            <div class="option" data-value="c">Anomaly Detection</div>
+                            <div class="option" data-value="d">Regression</div>
+                        </div>
+                    </div>
+
+                    <!-- Question 9 -->
+                    <div class="question-block" data-answer="b">
+                        <h3><strong>9</strong>What Python function is used to display output to the console?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">display()</div>
+                            <div class="option" data-value="b">print()</div>
+                            <div class="option" data-value="c">show()</div>
+                            <div class="option" data-value="d">output()</div>
+                        </div>
+                    </div>
+
+                    <!-- Question 10 -->
+                    <div class="question-block" data-answer="a">
+                        <h3><strong>10</strong>In Pandas, how would you typically select the first 5 rows of a DataFrame named `df`?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">df.head()</div>
+                            <div class="option" data-value="b">df.first(5)</div>
+                            <div class="option" data-value="c">df.top(5)</div>
+                            <div class="option" data-value="d">df[:5]</div>
+                        </div>
+                    </div>
+
+                    
+                    <button class="btn btn-primary" id="submit-btn">Submit Practice Test</button>
+                    
+                    <div id="results-container">
+                        <h2>Practice Test Complete!</h2>
+                        <p id="score-text" class="result-message">You scored 0 out of 10.</p>
+                        <p id="feedback-text" class="result-message">Keep practicing to improve!</p>
+                        <a href="internship.html" class="btn btn-outline" style="margin-top: 20px;">Back to Internships</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- Message Box -->
+        <div id="messageOverlay" class="message-overlay"></div>
+        <div id="cameraMessageBox" class="message-box">
+             <h3>Camera Access Required</h3>
+             <p>This practice test simulates a proctored environment. Please allow camera access to continue.</p>
+             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera</button>
+        </div>
+        <div id="cameraErrorBox" class="message-box">
+             <h3>Camera Error</h3>
+             <p id="cameraErrorText">Could not access the camera. Please ensure it's not blocked and try again.</p>
+             <button id="okErrorBtn" class="btn btn-outline">OK</button>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <!-- Footer content remains the same as previous version -->
+         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">Internadda</div>
+                    <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Learn</h3>
+                    <ul class="footer-links">
+                        <li><a href="../courses/course.html">Browse Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Intern</h3>
+                    <ul class="footer-links">
+                        <li><a href="internship.html">Find Internships</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Contact & Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Internadda. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timerEl = document.getElementById('timer');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreText = document.getElementById('score-text');
+            const feedbackText = document.getElementById('feedback-text');
+            const questions = document.querySelectorAll('.question-block');
+            const totalQuestions = questions.length;
+            
+            // Camera elements
+            const cameraPopup = document.getElementById('camera-popup');
+            const cameraFeed = document.getElementById('camera-feed');
+            const messageOverlay = document.getElementById('messageOverlay');
+            const cameraMessageBox = document.getElementById('cameraMessageBox');
+            const cameraErrorBox = document.getElementById('cameraErrorBox');
+            const allowCameraBtn = document.getElementById('allowCameraBtn');
+            const okErrorBtn = document.getElementById('okErrorBtn');
+            const cameraErrorText = document.getElementById('cameraErrorText');
+            
+            let examTimerInterval;
+            let stream = null; // To hold the camera stream
+
+            // --- Camera Logic ---
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                    cameraFeed.srcObject = stream;
+                    cameraMessageBox.style.display = 'none';
+                    messageOverlay.style.display = 'none';
+                    cameraPopup.style.display = 'flex'; // Use flex now
+                    startTimer(); // Start timer only after camera is allowed
+                } catch (err) {
+                    console.error("Camera Error:", err);
+                    cameraMessageBox.style.display = 'none';
+                    cameraErrorText.textContent = `Could not access camera: ${err.name}. Please ensure permissions are granted and no other app is using it. You can proceed without the camera feed for this practice test.`;
+                    cameraErrorBox.style.display = 'block';
+                    messageOverlay.style.display = 'block';
+                    // Allow proceeding without camera for practice
+                    okErrorBtn.onclick = () => {
+                         cameraErrorBox.style.display = 'none';
+                         messageOverlay.style.display = 'none';
+                         cameraPopup.style.display = 'none'; // Keep camera popup hidden
+                         startTimer(); // Start timer even if camera fails
+                    };
+                }
+            }
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                cameraPopup.style.display = 'none';
+            }
+            
+            // Show initial prompt for camera
+            messageOverlay.style.display = 'block';
+            cameraMessageBox.style.display = 'block';
+            
+            allowCameraBtn.addEventListener('click', startCamera);
+
+
+            // --- Timer Logic ---
+             function startTimer() {
+                let time = 1200; // 20 minutes for 10 questions
+                if(timerEl) timerEl.textContent = "20:00"; // Initial display
+                
+                examTimerInterval = setInterval(() => {
+                    time--;
+                    const minutes = Math.floor(time / 60);
+                    const seconds = time % 60;
+                    if(timerEl) timerEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    if (time <= 0) {
+                         clearInterval(examTimerInterval);
+                         if (submitBtn.style.display !== 'none') { // Avoid auto-submitting if already submitted
+                            submitTest(); // Auto-submit
+                         }
+                    }
+                }, 1000);
+            }
+
+            // --- Option Selection Logic ---
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.options .option');
+                options.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        options.forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        question.dataset.selectedValue = opt.dataset.value;
+                    });
+                });
+            });
+
+             // --- Submission Logic ---
+            function submitTest() {
+                clearInterval(examTimerInterval);
+                stopCamera(); // Stop camera on submit
+                let score = 0;
+                
+                questions.forEach(question => {
+                    if (question.dataset.selectedValue === question.dataset.answer) {
+                        score++;
+                    }
+                    // Disable further selection
+                     question.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none');
+                });
+                
+                const percentage = ((score / totalQuestions) * 100).toFixed(0);
+                scoreText.textContent = `You scored ${score} out of ${totalQuestions} (${percentage}%).`;
+                
+                if (percentage >= 80) {
+                     feedbackText.textContent = "Excellent work! You're well-prepared.";
+                } else if (percentage >= 60) {
+                     feedbackText.textContent = "Good job! Review the incorrect answers to solidify your knowledge.";
+                } else {
+                     feedbackText.textContent = "Keep practicing! Review the course material and try again.";
+                }
+
+                resultsContainer.style.display = 'block';
+                submitBtn.style.display = 'none'; // Hide submit button
+                if(timerEl) timerEl.textContent = "Finished";
+            }
+
+            submitBtn.addEventListener('click', submitTest);
+
+            // Handle page visibility change (basic anti-cheat simulation)
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && examTimerInterval && submitBtn.style.display !== 'none') {
+                    // You could add a warning here for a real exam
+                    console.warn("User switched tabs during practice test.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
