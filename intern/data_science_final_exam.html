@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../style.css">
 
     <style>
+        /* CSS styles remain the same - no changes needed here based on the request */
         .exam-container {
             max-width: 900px;
             margin: 40px auto;
@@ -111,24 +112,16 @@
 
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* Payment Step */
+        /* Payment Step - Styles remain but step is removed from HTML */
         #payment-step { text-align: center; }
         #payment-step h2 { font-size: 2rem; margin-bottom: 15px; }
         #payment-step p { font-size: 1.1rem; color: var(--gray); margin-bottom: 10px; }
-        /* Removed img and input styles as they are replaced */
+        #payment-step img { margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee; }
+        #payment-step input { max-width: 400px; margin: 20px auto; text-align: center; font-size: 1.1rem; padding: 16px; }
         .payment-warning {
-            color: #4A5568; /* Changed color to be less alarming initially */
-            background: #EBF8FF; /* Light blue background */
-            padding: 15px; border-radius: 8px;
-            margin-top: 25px; font-weight: 500; border: 1px solid #BEE3F8; /* Light blue border */
-            text-align: center; /* Centered warning text */
+            color: #c53030; background: #fff5f5; padding: 15px; border-radius: 8px;
+            margin-top: 25px; font-weight: 500; border: 1px solid #fbb2b2; text-align: left;
         }
-        #payment-message { /* Style for status messages */
-             margin-top: 15px;
-             font-weight: bold;
-             min-height: 20px; /* Prevent layout shift */
-        }
-
 
         /* Instructions Step */
         #instructions-step h2 { text-align: center; font-size: 2rem; margin-bottom: 25px; }
@@ -231,7 +224,7 @@
          .email-instructions strong { font-weight: 600; }
          .email-instructions ul li { margin-bottom: 8px; }
          .email-instructions ul { margin-bottom: 15px; }
-         #email-link { display: inline-block; margin-top: 15px; }
+        #email-link { display: inline-block; margin-top: 15px; }
 
          /* Message Box Styling */
         .message-box {
@@ -269,7 +262,7 @@
 <body>
 
     <header>
-        <div class="container header-container">
+         <div class="container header-container">
         <a href="../index.html" class="logo">
           <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img">
           <span class="logo-text">InternAdda</span>
@@ -314,21 +307,7 @@
         <section class="course-section">
             <div class="exam-container">
 
-                <div id="payment-step" class="exam-step">
-                    <h2>Final Exam Registration</h2>
-                    <p>Complete the payment of <strong>₹99</strong> (non-refundable) to access the final internship qualification exam.</p>
-
-                    <div id="payment-message"></div>
-
-                    <button class="btn btn-primary" id="pay-btn" style="padding: 16px 30px; font-size: 1.1rem; margin-top: 20px;">Pay ₹99 Now</button>
-
-                    <div class="payment-warning">
-                        <strong><i class="fas fa-lock"></i> Secure Payment via Cashfree</strong>
-                        <p style="font-size: 0.9em; color: var(--gray); margin-top: 5px;">You will be redirected to Cashfree's secure payment page to complete the transaction.</p>
-                        </div>
-                </div>
-                <div id="instructions-step" class="exam-step hidden">
-                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions</h2>
+                <div id="instructions-step" class="exam-step"> <h2><i class="fas fa-scroll"></i> Final Exam Instructions</h2>
                     <div class="instructions-list">
                         <ul>
                             <li><strong>Duration:</strong> This is a timed exam of <strong>30 minutes</strong>.</li>
@@ -342,7 +321,7 @@
                         </ul>
                     </div>
                      <div class="strict-disclaimer">
-                        <i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> By starting this exam, you agree to adhere to the highest standards of academic honesty. Any violation detected through proctoring review (including suspicious eye movements, background noise, use of unauthorized aids, or tab switching) will lead to immediate disqualification without refund and a permanent ban from Internadda internships.
+                        <i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> By starting this exam, you agree to adhere to the highest standards of academic honesty. Any violation detected through proctoring review (including suspicious eye movements, background noise, use of unauthorized aids, or tab switching) will lead to immediate disqualification and a permanent ban from Internadda internships.
                     </div>
                     <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
@@ -591,6 +570,7 @@ import pyplot as plt</pre>
                             </div>
                         </div>
 
+
                         <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
                     </div>
                 </div>
@@ -612,10 +592,8 @@ import pyplot as plt</pre>
 
 I have successfully completed the Data Science Final Exam with a score of <span class="final-score-email">--</span>%. My registered email is [Your Registered Email Address Here].
 
-My payment has been processed successfully via Cashfree. (Order ID if available from return URL: <span id="order-id-email">[Order ID Here or leave blank]</span>).
+Please find attached a screenshot of my exam result page showing the score.
 
-Please find attached the required document:
-1. A screenshot of my exam result page showing the score.
 I look forward to hearing about the next steps in the internship selection process.
 
 Thank you,
@@ -624,16 +602,18 @@ Thank you,
 [Your Contact Number Here]
 [Link to your LinkedIn Profile, if available - Optional]</pre>
                             </li>
-                             <li><strong>Mandatory Attachment:</strong> <br>1. Screenshot of this results page (showing score).
+                             <li><strong>Mandatory Attachment:</strong>
+                                 <br>1. Screenshot of this results page (showing your score).
                              </li>
                          </ul>
-                         <p><strong>Verification Timeline:</strong> You will receive an update on your application status via email within <strong>72 business hours</strong> after we successfully verify your score, payment, and proctoring session.</p>
+                         <p><strong>Verification Timeline:</strong> You will receive an update on your application status via email within <strong>72 business hours</strong> after we successfully verify your score and proctoring session.</p>
                          <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
 
                     <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
                 </div>
-                </div>
+
+            </div>
         </section>
 
         <div id="messageOverlay" class="message-overlay"></div>
@@ -692,35 +672,27 @@ Thank you,
         </div>
     </footer>
 
-    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script> <script src="../script.js"></script> <script>
-        // All the specific exam logic JavaScript goes here
-        // (including the new Cashfree payment button listener)
-
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Step DIVs
-            const paymentStep = document.getElementById('payment-step');
+            // const paymentStep = document.getElementById('payment-step'); // Removed
             const instructionsStep = document.getElementById('instructions-step');
             const examStep = document.getElementById('exam-step');
             const submissionStep = document.getElementById('submission-step');
 
-            // --- NEW PAYMENT ELEMENTS ---
-            const payButton = document.getElementById('pay-btn');
-            const paymentMessage = document.getElementById('payment-message');
-            // --- END NEW PAYMENT ELEMENTS ---
-
-            // Old payment button (keep for reference if needed, but not used)
-            // const verifyPaymentBtn = document.getElementById('verify-payment-btn');
-            // const upiInput = document.getElementById('upi-id'); // Removed from HTML, keep variable if logic depends on it elsewhere initially
-
             // Buttons
+            // const verifyPaymentBtn = document.getElementById('verify-payment-btn'); // Removed
             const startExamBtn = document.getElementById('start-exam-btn');
             const submitExamBtn = document.getElementById('submit-exam-btn');
+
+            // Inputs
+            // const upiInput = document.getElementById('upi-id'); // Removed
 
             // Proctoring Elements
             const timerEl = document.getElementById('timer');
             const cameraPopup = document.getElementById('camera-popup');
             const cameraFeed = document.getElementById('camera-feed');
-            const cameraTimerEl = document.getElementById('camera-timer');
+            const cameraTimerEl = document.getElementById('camera-timer'); // Camera recording timer
 
             // Message Boxes & Overlay
             const messageOverlay = document.getElementById('messageOverlay');
@@ -744,212 +716,243 @@ Thank you,
             const emailInstructions = document.getElementById('email-instructions');
             const emailLink = document.getElementById('email-link');
             const finalScoreEmailSpan = document.querySelector('.final-score-email');
-            // const upiIdEmailSpan = document.querySelector('.upi-id-email'); // Removed UPI ID display
-
-             // --- NEW --- For storing order ID if available on return
-             const orderIdEmailSpan = document.getElementById('order-id-email');
-             let currentOrderId = null; // To store order ID if needed
-
+            // const upiIdEmailSpan = document.querySelector('.upi-id-email'); // Removed
 
             let examTimerInterval;
-            let cameraTimerInterval;
+            let cameraTimerInterval; // Separate interval for camera timer
             let stream = null;
-            // let submittedUPI_ID = ''; // No longer needed
+            // let submittedUPI_ID = ''; // Removed
             let tabSwitchCount = 0;
             const MAX_TAB_SWITCHES = 2;
-            let examStartTime = 0;
+            let examStartTime = 0; // To track elapsed time for camera timer
 
-            // --- Helper: Format Time ---
+             // --- Helper: Format Time ---
              function formatTime(seconds) {
                 const mins = Math.floor(seconds / 60);
                 const secs = seconds % 60;
                 return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
             }
 
-            // --- NEW: Cashfree Payment Logic ---
-            if (typeof Cashfree === 'undefined') {
-                console.error("Cashfree SDK not loaded!");
-                if(paymentMessage) paymentMessage.textContent = "Error: Payment library failed to load.";
-                if(payButton) payButton.disabled = true;
-            } else {
-                const cashfree = new Cashfree();
+            // --- Camera Logic ---
+            async function requestCamera() {
+                 messageOverlay.style.display = 'block';
+                 cameraMessageBox.style.display = 'block';
+            }
 
-                if (payButton) {
-                    payButton.addEventListener('click', async () => {
-                        payButton.textContent = 'Processing...';
-                        payButton.disabled = true;
-                        if(paymentMessage) paymentMessage.textContent = 'Initiating secure payment...';
+            async function startCamera() {
+                cameraMessageBox.style.display = 'none'; // Hide prompt
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                    cameraFeed.srcObject = stream;
+                    messageOverlay.style.display = 'none'; // Hide overlay on success
+                    cameraPopup.classList.remove('hidden'); // Show camera feed
 
-                        try {
-                            // 1. Call your Vercel function to create the order
-                            const orderResponse = await fetch('/api/create-payment-order', { // Assumes function is at this path
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                // Add user details if available (e.g., from Firebase Auth)
-                                // body: JSON.stringify({ email: user.email, phone: user.phoneNumber }),
-                            });
+                    // Proceed to exam start
+                    instructionsStep.classList.add('hidden');
+                    examStep.classList.remove('hidden');
+                    startTimer(); // Start main exam timer
+                    startCameraTimer(); // Start camera recording timer
 
-                            if (!orderResponse.ok) {
-                                const errorData = await orderResponse.json();
-                                throw new Error(errorData.error || 'Failed to create payment order.');
-                            }
-
-                            const orderData = await orderResponse.json();
-
-                            if (!orderData.payment_session_id) {
-                                throw new Error('Payment session ID not received.');
-                            }
-
-                             // Store the order ID if returned by your backend (useful for the return URL)
-                            // currentOrderId = orderData.order_id; // Assuming your backend returns this
-
-                            const sessionId = orderData.payment_session_id;
-                            console.log("Received Session ID:", sessionId);
-
-                            // 2. Use Cashfree SDK to start checkout
-                            // The SDK will handle the redirect
-                            cashfree.checkout({
-                                paymentSessionId: sessionId,
-                            }).then((result) => {
-                                // This block mainly handles errors or non-redirect scenarios
-                                if (result.error) {
-                                    console.error("Cashfree Checkout Error:", result.error);
-                                    if(paymentMessage) paymentMessage.textContent = "Payment Failed: " + result.error.message;
-                                    payButton.textContent = 'Pay ₹99 Now';
-                                    payButton.disabled = false;
-                                } else if (!result.redirect) {
-                                     // Handle cases where redirect might not happen (e.g., inline payments or errors)
-                                     console.log("Cashfree Result (No Redirect):", result);
-                                     if(paymentMessage) paymentMessage.textContent = "Could not redirect to payment page. Please try again.";
-                                     payButton.textContent = 'Pay ₹99 Now';
-                                     payButton.disabled = false;
-                                }
-                            }).catch(sdkError => {
-                                 console.error("Cashfree SDK Error:", sdkError);
-                                 if(paymentMessage) paymentMessage.textContent = 'SDK Error: Could not initiate payment.';
-                                 payButton.textContent = 'Pay ₹99 Now';
-                                 payButton.disabled = false;
-                            });
-
-                        } catch (error) {
-                            console.error('Error during payment initiation:', error);
-                            if(paymentMessage) paymentMessage.textContent = 'Error: ' + error.message;
-                            payButton.textContent = 'Pay ₹99 Now';
-                            payButton.disabled = false;
-                        }
-                    });
+                } catch (err) {
+                    console.error("Camera Error:", err);
+                    cameraErrorText.textContent = `Could not access camera: ${err.name}. Please check browser permissions, ensure no other app is using the camera, and try again. Camera access is mandatory.`;
+                    cameraErrorBox.style.display = 'block';
+                    messageOverlay.style.display = 'block'; // Keep overlay
                 }
             }
-            // --- END NEW Cashfree Logic ---
 
-            // --- Existing Logic (Camera, Timers, Exam Submission, etc.) ---
-            // Needs modification to trigger based on payment success (likely handled on the return page redirect)
-            // For now, the flow is: Pay -> Redirect -> Return -> Check Status -> Show Instructions
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                if (cameraTimerInterval) clearInterval(cameraTimerInterval); // Stop camera timer
+                cameraPopup.classList.add('hidden');
+            }
 
-            // --- Camera Logic (Keep as is) ---
-            async function requestCamera() { /* ... */ }
-            async function startCamera() { /* ... */ }
-            function stopCamera() { /* ... */ }
+            // --- Payment Verification (REMOVED) ---
+            // verifyPaymentBtn event listener removed
 
-            // --- Payment Verification (OLD - REMOVE/COMMENT OUT) ---
-            /*
-            verifyPaymentBtn.addEventListener('click', () => {
-                submittedUPI_ID = upiInput.value.trim();
-                // ... validation ...
-                setTimeout(() => {
-                    paymentStep.classList.add('hidden');
-                    instructionsStep.classList.remove('hidden');
-                }, 1500);
-            });
-            */
+            // --- Start Exam (triggers camera check) ---
+            startExamBtn.addEventListener('click', requestCamera);
 
-             // --- Start Exam Button ---
-             // This button should ONLY be shown AFTER payment is confirmed successful
-             // (likely on the return page, or if using WebSockets/Polling for status)
-             // For simplicity, we keep the original flow where clicking Start Exam triggers camera
-             startExamBtn.addEventListener('click', requestCamera);
-
-             // --- Handle Camera Permission (Keep as is) ---
+             // --- Handle Camera Permission ---
              allowCameraBtn.addEventListener('click', startCamera);
              retryCameraBtn.addEventListener('click', startCamera);
              cancelExamBtn.addEventListener('click', () => { window.location.href = 'internship.html'; });
 
-            // --- Timer Logic (Keep as is) ---
-             function startTimer() { /* ... */ }
-             function startCameraTimer() { /* ... */ }
+            // --- Timer Logic ---
+             function startTimer() {
+                let time = 1800; // 30 minutes
+                timerEl.textContent = formatTime(time); // Initial display
+                examStartTime = Date.now(); // Record start time for camera timer
 
-            // --- Option Selection Logic (Keep as is) ---
+                examTimerInterval = setInterval(() => {
+                    if (document.hidden) return; // Pause timer if tab is not active
+
+                    time--;
+                    if (timerEl) timerEl.textContent = formatTime(time);
+
+                    if (time <= 0) {
+                         clearInterval(examTimerInterval);
+                         if (examStep.classList.contains('hidden') === false) {
+                            submitExam(); // Auto-submit
+                         }
+                    }
+                }, 1000);
+            }
+
+            // --- Camera Recording Timer ---
+            function startCameraTimer() {
+                 let elapsedSeconds = 0;
+                 cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                 cameraTimerInterval = setInterval(() => {
+                     if (document.hidden) return; // Pause if tab is hidden
+                     elapsedSeconds++;
+                     cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                 }, 1000);
+            }
+
+
+            // --- Option Selection Logic ---
             const questions = document.querySelectorAll('.question-block');
             const totalQuestions = questions.length;
-            if(totalQuestionsEl) totalQuestionsEl.textContent = totalQuestions;
+            totalQuestionsEl.textContent = totalQuestions; // Update total questions display
 
-            questions.forEach(question => { /* ... */ });
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.options .option');
+                options.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        options.forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        question.dataset.selectedValue = opt.dataset.value;
+                    });
+                });
+            });
 
-             // --- Submission Logic (Modify email part) ---
+             // --- Submission Logic ---
             function submitExam() {
                  if (examTimerInterval) clearInterval(examTimerInterval);
-                 stopCamera();
+                 stopCamera(); // Stop camera and its timer on submit
 
                  let score = 0;
-                 questions.forEach(question => { /* ... calculate score ... */ });
+                 questions.forEach(question => {
+                     if (question.dataset.selectedValue === question.dataset.answer) {
+                         score++;
+                     }
+                     question.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none');
+                 });
 
                  const percentage = Math.round((score / totalQuestions) * 100);
 
                  // Update results display
-                 if(finalScoreEl) finalScoreEl.textContent = score;
-                 if(finalPercentageEl) finalPercentageEl.textContent = percentage;
+                 finalScoreEl.textContent = score;
+                 finalPercentageEl.textContent = percentage;
                  if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage;
-                 // if(upiIdEmailSpan) upiIdEmailSpan.textContent = submittedUPI_ID; // Remove this line
-
-                  // Add Order ID to email if available
-                 if(orderIdEmailSpan && currentOrderId) {
-                     orderIdEmailSpan.textContent = currentOrderId;
-                 } else if (orderIdEmailSpan) {
-                     orderIdEmailSpan.textContent = "[See Payment Confirmation]";
-                 }
-
+                 // if(upiIdEmailSpan) upiIdEmailSpan.textContent = submittedUPI_ID; // Removed
 
                  if (percentage >= 60) {
-                     if(resultIcon) resultIcon.className = 'icon fas fa-check-circle success';
-                     if(resultTitle) resultTitle.textContent = "Exam Completed - Qualified!";
-                     if(resultMessage) resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
-                     if(emailInstructions) emailInstructions.classList.remove('hidden');
+                     resultIcon.className = 'icon fas fa-check-circle success';
+                     resultTitle.textContent = "Exam Completed - Qualified!";
+                     resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
+                     emailInstructions.classList.remove('hidden');
 
-                     // Prepare mailto link (Remove UPI ID, potentially add Order ID)
+                     // Prepare mailto link (Updated: removed UPI ID, payment attachment requirement)
                      const subject = encodeURIComponent(`Data Science Internship Application - [Your Full Name Here]`);
                      const body = encodeURIComponent(
-                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nMy payment was processed via Cashfree.${currentOrderId ? ` (Order ID: ${currentOrderId})` : ''}\n\nPlease find attached the required document:\n1. A screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
                      );
 
-                     if(emailLink) emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                     emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
 
                  } else {
-                    if(resultIcon) resultIcon.className = 'icon fas fa-times-circle fail';
-                    if(resultTitle) resultTitle.textContent = "Exam Completed";
-                    if(resultMessage) resultMessage.textContent = `Thank you for completing the exam. Unfortunately, your score of ${percentage}% did not meet the minimum requirement of 60% for this internship opportunity...`;
-                    if(emailInstructions) emailInstructions.classList.add('hidden');
+                     resultIcon.className = 'icon fas fa-times-circle fail';
+                     resultTitle.textContent = "Exam Completed";
+                     resultMessage.textContent = `Thank you for completing the exam. Unfortunately, your score of ${percentage}% did not meet the minimum requirement of 60% for this internship opportunity. We encourage you to review the course materials and consider retaking the exam if available in the future.`;
+                     emailInstructions.classList.add('hidden');
                  }
 
-                 if(examStep) examStep.classList.add('hidden');
-                 if(submissionStep) submissionStep.classList.remove('hidden');
+                 examStep.classList.add('hidden');
+                 submissionStep.classList.remove('hidden');
                  if (timerEl) timerEl.textContent = "Finished";
             }
 
-            if(submitExamBtn) {
-                submitExamBtn.addEventListener('click', () => {
-                    if(confirm("Are you sure you want to submit your exam?")) {
-                        submitExam();
+            submitExamBtn.addEventListener('click', () => {
+                // Confirm submission
+                if(confirm("Are you sure you want to submit your exam? You cannot change your answers after submitting.")) {
+                    submitExam();
+                }
+            });
+
+             // --- Anti-Cheat: Tab Switch Detection ---
+            document.addEventListener('visibilitychange', () => {
+                if (!examStep.classList.contains('hidden') && document.hidden) { // Exam active and tab hidden
+                    tabSwitchCount++;
+                    console.warn(`Tab switch detected. Count: ${tabSwitchCount}`);
+                    if (examTimerInterval) clearInterval(examTimerInterval);
+                    if (cameraTimerInterval) clearInterval(cameraTimerInterval); // Pause camera timer too
+
+                    if (tabSwitchCount > MAX_TAB_SWITCHES) {
+                         stopCamera();
+                         resultIcon.className = 'icon fas fa-exclamation-triangle fail';
+                         resultTitle.textContent = "Exam Disqualified";
+                         resultMessage.textContent = "Multiple instances of navigating away from the exam tab were detected. Your exam has been disqualified due to a violation of the proctoring rules.";
+                         scoreDisplay.textContent = "Score: N/A (Disqualified)";
+                         emailInstructions.classList.add('hidden');
+                         examStep.classList.add('hidden');
+                         submissionStep.classList.remove('hidden');
+                         if (timerEl) timerEl.textContent = "Disqualified";
+                    } else {
+                         messageOverlay.style.display = 'block';
+                         tabSwitchWarningBox.style.display = 'block';
                     }
-                });
+                }
+            });
+
+            // Resume exam after tab switch warning
+            resumeExamBtn.addEventListener('click', () => {
+                tabSwitchWarningBox.style.display = 'none';
+                messageOverlay.style.display = 'none';
+                // Recalculate remaining time and resume timers
+                const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000);
+                 const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; // 1800 seconds = 30 mins
+                 startTimerFrom(remainingTime); // Use a function to restart timer with remaining time
+                 startCameraTimerFrom(elapsedSinceStart); // Resume camera timer
+            });
+
+            // Function to restart timer from a specific point
+            function startTimerFrom(startTimeInSeconds) {
+                let time = startTimeInSeconds;
+                 if (examTimerInterval) clearInterval(examTimerInterval); // Clear any existing interval
+
+                 timerEl.textContent = formatTime(time); // Update display immediately
+
+                 examTimerInterval = setInterval(() => {
+                     if (document.hidden) return;
+                     time--;
+                     if (timerEl) timerEl.textContent = formatTime(time);
+                     if (time <= 0) {
+                          clearInterval(examTimerInterval);
+                          if (examStep.classList.contains('hidden') === false) {
+                             submitExam();
+                          }
+                     }
+                 }, 1000);
             }
 
-             // --- Anti-Cheat: Tab Switch Detection (Keep as is) ---
-            document.addEventListener('visibilitychange', () => { /* ... */ });
-            if(resumeExamBtn) resumeExamBtn.addEventListener('click', () => { /* ... */ });
-            function startTimerFrom(startTimeInSeconds) { /* ... */ }
-            function startCameraTimerFrom(startTimeInSeconds) { /* ... */ }
+            // Function to restart camera timer from specific point
+            function startCameraTimerFrom(startTimeInSeconds) {
+                 let elapsedSeconds = startTimeInSeconds;
+                 if (cameraTimerInterval) clearInterval(cameraTimerInterval);
 
-        }); // End DOMContentLoaded
+                 cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                 cameraTimerInterval = setInterval(() => {
+                     if (document.hidden) return;
+                     elapsedSeconds++;
+                     cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                 }, 1000);
+            }
+
+        });
     </script>
 </body>
 </html>
