@@ -1,9 +1,15 @@
 // api/create-payment-order.js
 
-// --- CORRECTED IMPORT attempt 3: Access nested property ---
+// --- Import and Log Structure ---
 const cashfreePackage = require('cashfree-pg');
-const PGCashfreeConstructor = cashfreePackage.PGCashfree; // Attempt to access the constructor this way
-// --- END CORRECTED IMPORT ---
+console.log('--- Debugging cashfree-pg Import ---');
+console.log('Type of import:', typeof cashfreePackage);
+console.log('Imported object:', JSON.stringify(cashfreePackage, null, 2)); // See the structure
+console.log('Keys available:', Object.keys(cashfreePackage)); // See available keys
+// --- Try accessing 'Cashfree' property (common pattern) ---
+const CashfreeConstructor = cashfreePackage.Cashfree;
+console.log('Type of CashfreeConstructor (cashfreePackage.Cashfree):', typeof CashfreeConstructor);
+// --- End Import and Log Structure ---
 
 console.log("Function: /api/create-payment-order invoked."); // Log start
 
@@ -19,13 +25,12 @@ let cashfreeInstance; // Variable to hold the SDK instance
 // --- Initialization Check & SDK Instantiation ---
 if (!cashfreeAppId || !cashfreeSecretKey) {
     console.error("FATAL CONFIG ERROR: Cashfree credentials (CASHFREE_APP_ID or CASHFREE_SECRET_KEY) are missing.");
-} else if (!PGCashfreeConstructor) { // Check if the constructor was found
-    console.error("FATAL IMPORT ERROR: Could not find PGCashfree constructor in the imported 'cashfree-pg' module.");
-}
-else {
+} else if (typeof CashfreeConstructor !== 'function') { // Check if the constructor is actually a function
+    console.error(`FATAL IMPORT ERROR: Expected 'CashfreeConstructor' to be a function, but got: ${typeof CashfreeConstructor}. Check import logs above.`);
+} else {
     try {
-        // --- Use the potentially nested constructor ---
-        cashfreeInstance = new PGCashfreeConstructor({
+        // --- Use the potentially nested constructor 'CashfreeConstructor' ---
+        cashfreeInstance = new CashfreeConstructor({
             clientId: cashfreeAppId,
             clientSecret: cashfreeSecretKey,
             environment: cashfreeEnvironment, // Pass the string "sandbox" or "production"
@@ -52,8 +57,7 @@ module.exports = async (req, res) => {
     }
     // Check if SDK initialization failed earlier
     if (!cashfreeInstance) { // Check the instance variable
-         // Include a more specific error if the constructor wasn't even found
-         const sdkErrorReason = !PGCashfreeConstructor ? "Could not find SDK constructor." : "Initialization failed (check credentials/environment).";
+         const sdkErrorReason = typeof CashfreeConstructor !== 'function' ? "Could not find SDK constructor (check import logs)." : "Initialization failed (check credentials/environment).";
         console.error(`Handler Error: Cashfree SDK not initialized. Reason: ${sdkErrorReason}`);
         return res.status(500).json({ success: false, error: `Server configuration error: Payment SDK failed to initialize. ${sdkErrorReason}` });
     }
