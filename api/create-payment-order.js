@@ -1,7 +1,9 @@
 // api/create-payment-order.js
 
-// Import the main class
-const { PGCashfree } = require('cashfree-pg');
+// --- CORRECTED IMPORT for v5.x - Use Default Export ---
+// Assume the default export is the constructor
+const Cashfree = require('cashfree-pg');
+// --- END CORRECTED IMPORT ---
 
 console.log("Function: /api/create-payment-order invoked."); // Log start
 
@@ -9,29 +11,27 @@ console.log("Function: /api/create-payment-order invoked."); // Log start
 const cashfreeAppId = process.env.CASHFREE_APP_ID;
 const cashfreeSecretKey = process.env.CASHFREE_SECRET_KEY;
 
-// --- FORCED PRODUCTION Environment ---
-// Since Production keys are used, explicitly set the environment to "production"
-const cashfreeEnvironment = "production";
-console.log("Forcing Cashfree environment to: production"); // Log the forced environment
-// --- END FORCED Environment ---
+// --- Environment Determination ---
+// Use string literals based on the environment variable
+const cashfreeEnvironment = process.env.CASHFREE_ENVIRONMENT === 'PRODUCTION' ? "production" : "sandbox";
 
-let cashfree; // Variable to hold the SDK instance
+let cashfreeInstance; // Variable to hold the SDK instance
 
 // --- Initialization Check & SDK Instantiation ---
 if (!cashfreeAppId || !cashfreeSecretKey) {
     console.error("FATAL CONFIG ERROR: Cashfree credentials (CASHFREE_APP_ID or CASHFREE_SECRET_KEY) are missing in environment variables.");
 } else {
     try {
-        // Initialize the SDK instance using the FORCED production environment string
-        cashfree = new PGCashfree({
+        // --- Use the default export 'Cashfree' as the constructor ---
+        cashfreeInstance = new Cashfree({
             clientId: cashfreeAppId,
             clientSecret: cashfreeSecretKey,
-            environment: cashfreeEnvironment, // Pass the string "production"
+            environment: cashfreeEnvironment, // Pass the string "sandbox" or "production"
         });
         console.log(`Cashfree SDK initialized successfully for environment: ${cashfreeEnvironment.toUpperCase()}.`);
     } catch (initError) {
         console.error("FATAL SDK INIT ERROR: Failed to initialize Cashfree SDK:", initError);
-        // cashfree will remain undefined if initialization fails
+        // cashfreeInstance will remain undefined if initialization fails
     }
 }
 
@@ -47,8 +47,8 @@ module.exports = async (req, res) => {
         console.error("Handler Error: Credentials missing inside handler.");
         return res.status(500).json({ success: false, error: "Server configuration error: Payment credentials missing." });
     }
-    // Check if SDK initialization failed earlier (most likely cause of the previous error)
-    if (!cashfree) {
+    // Check if SDK initialization failed earlier
+    if (!cashfreeInstance) { // Check the renamed instance variable
         console.error("Handler Error: Cashfree SDK not initialized. Check credentials and environment matching in Vercel logs.");
         return res.status(500).json({ success: false, error: "Server configuration error: Payment SDK failed to initialize." });
     }
@@ -76,7 +76,6 @@ module.exports = async (req, res) => {
                 customer_phone: req.body?.phone || "9999999999",
             },
             order_meta: {
-                // Ensure these URLs are correct for your DEPLOYED application
                 notify_url: process.env.PAYMENT_NOTIFY_URL || "https://internadda.com/api/payment-webhook", // Replace if needed
                 return_url: process.env.PAYMENT_RETURN_URL || `https://internadda.com/intern/payment-status.html?order_id={order_id}`, // Replace if needed
             },
@@ -86,7 +85,8 @@ module.exports = async (req, res) => {
         console.log(`Creating Cashfree Order (Order ID: ${uniqueOrderId}) with API version ${CASHFREE_API_VERSION}`);
         console.log("Request Payload being sent:", JSON.stringify(request, null, 2));
 
-        const cfResponse = await cashfree.PGCreateOrder(CASHFREE_API_VERSION, request);
+        // --- Use the initialized instance 'cashfreeInstance' ---
+        const cfResponse = await cashfreeInstance.PGCreateOrder(CASHFREE_API_VERSION, request);
 
         console.log(`Cashfree PGCreateOrder Raw Response Status Code:`, cfResponse?.status);
         console.log(`Cashfree PGCreateOrder Response Data Snippet:`, {
