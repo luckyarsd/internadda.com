@@ -3,6 +3,8 @@
 // CORRECT Import for Cashfree SDK v5.x
 const { PGCashfree } = require('cashfree-pg/dist/api/pg');
 
+console.log("Function: /api/create-payment-order invoked."); // Log start
+
 // Use environment variables for security
 const cashfreeAppId = process.env.CASHFREE_APP_ID;
 const cashfreeSecretKey = process.env.CASHFREE_SECRET_KEY;
@@ -10,39 +12,60 @@ const cashfreeSecretKey = process.env.CASHFREE_SECRET_KEY;
 // Check if keys are loaded (critical for serverless function)
 if (!cashfreeAppId || !cashfreeSecretKey) {
   console.error("FATAL ERROR: Cashfree credentials (CASHFREE_APP_ID or CASHFREE_SECRET_KEY) are missing in environment variables.");
-  // Important: Return error response immediately if keys are missing
-  // Using return here prevents the rest of the function from executing without credentials
-  return (res) => res.status(500).json({ error: "Server configuration error: Payment credentials missing." });
+  // IMPORTANT: For Vercel, the handler function needs to be exported. We'll return the response within the handler.
+  // We can't return directly here. We will check inside the handler.
+} else {
+  console.log("Cashfree credentials seem present in environment variables.");
 }
 
-// CORRECT Initialization for Cashfree SDK v5.x
-const cashfree = new PGCashfree({
-    clientId: cashfreeAppId,
-    clientSecret: cashfreeSecretKey,
-    // Specify Environment: PGCashfree.Environment.SANDBOX or PGCashfree.Environment.PRODUCTION
-    environment: PGCashfree.Environment.SANDBOX, // START WITH SANDBOX FOR TESTING! Change to PRODUCTION later.
-});
+// CORRECT Initialization for Cashfree SDK v5.x - DO THIS OUTSIDE THE HANDLER IF POSSIBLE
+// It's generally better to initialize outside if the function might be reused (warm starts)
+let cashfree;
+try {
+    cashfree = new PGCashfree({
+        clientId: cashfreeAppId,
+        clientSecret: cashfreeSecretKey,
+        // Specify Environment: PGCashfree.Environment.SANDBOX or PGCashfree.Environment.PRODUCTION
+        environment: PGCashfree.Environment.SANDBOX, // START WITH SANDBOX FOR TESTING!
+    });
+    console.log("Cashfree SDK initialized successfully.");
+} catch (initError) {
+    console.error("FATAL ERROR: Failed to initialize Cashfree SDK:", initError);
+    // SDK initialization failure is critical.
+}
+
 
 // Define the API version (used in the createOrder call)
 const CASHFREE_API_VERSION = "2023-08-01";
 
 module.exports = async (req, res) => {
-  // Double-check keys are loaded before processing each request (good practice)
+  console.log("Handler started for request method:", req.method);
+
+  // Re-check keys within the handler - crucial safety check
   if (!cashfreeAppId || !cashfreeSecretKey) {
+    console.error("Handler Error: Credentials missing inside handler.");
     return res.status(500).json({ error: "Server configuration error: Payment credentials missing." });
   }
 
+  // Check if SDK failed to initialize earlier
+  if (!cashfree) {
+       console.error("Handler Error: Cashfree SDK not initialized.");
+       return res.status(500).json({ error: "Server configuration error: Payment SDK failed to initialize." });
+  }
+
+
   if (req.method !== 'POST') {
+    console.log("Handler Error: Method not allowed:", req.method);
     res.setHeader('Allow', ['POST']);
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   try {
-    const orderAmount = 99.00; // Fixed amount for the exam
-    const uniqueOrderId = `INTADD_EXAM_${Date.now()}`; // Generate a unique ID
-    const customerId = `CUST_${Date.now()}`; // Simple customer ID
+    const orderAmount = 99.00;
+    const uniqueOrderId = `INTADD_EXAM_${Date.now()}`;
+    const customerId = `CUST_${Date.now()}`;
 
-    // --- Prepare Order Details for Cashfree (Structure remains similar) ---
+    // --- Prepare Order Details ---
     const request = {
       order_id: uniqueOrderId,
       order_amount: orderAmount,
@@ -53,40 +76,47 @@ module.exports = async (req, res) => {
         customer_phone: req.body?.phone || "9999999999",
       },
       order_meta: {
-  // --- IMPORTANT: Ensure these URLs are correct ---
-  notify_url: "https://internadda.com/api/payment-webhook", // <-- IS THIS EXACTLY CORRECT?
-  return_url: "https://internadda.com/intern/payment-status.html?order_id={order_id}", // <-- Check this too
-},
+        // --- !!! DOUBLE CHECK THESE URLs !!! ---
+        notify_url: "https://internadda.com/api/payment-webhook", // Verify this matches your webhook setup
+        return_url: "https://internadda.com/intern/payment-status.html?order_id={order_id}", // Verify this is your status page
+      },
+      order_note: "Internadda Final Exam Fee"
+    };
 
     console.log(`Creating Cashfree Order (Order ID: ${uniqueOrderId}) with API version ${CASHFREE_API_VERSION}`);
+    console.log("Request Payload being sent:", JSON.stringify(request, null, 2)); // Log the exact payload
 
-    // --- CORRECT Call Cashfree API using the SDK v5.x instance method ---
+    // --- Call Cashfree API ---
+    console.log("Attempting cashfree.PGCreateOrder...");
     const cfResponse = await cashfree.PGCreateOrder(CASHFREE_API_VERSION, request);
+    console.log("Cashfree API call completed.");
+    console.log(`Cashfree PGCreateOrder Raw Response Status:`, cfResponse?.status);
+    console.log(`Cashfree PGCreateOrder Raw Response Data:`, JSON.stringify(cfResponse?.data, null, 2)); // Log the full response data
 
-    console.log(`Cashfree PGCreateOrder Response Status for Order ID ${uniqueOrderId}:`, cfResponse?.status); // Use optional chaining
 
-    // --- Send the Payment Session ID back to the Frontend ---
-    if (cfResponse?.data?.payment_session_id) { // Use optional chaining
-       console.log(`Successfully created payment session for Order ID ${uniqueOrderId}`);
-       res.status(200).json({
+    // --- Send the Payment Session ID back ---
+    if (cfResponse?.data?.payment_session_id) {
+       console.log(`Successfully created payment session for Order ID ${uniqueOrderId}. Session ID: ${cfResponse.data.payment_session_id}`);
+       // ✅ SUCCESS: Return JSON
+       return res.status(200).json({
            payment_session_id: cfResponse.data.payment_session_id,
            order_id: uniqueOrderId
        });
     } else {
-       // Log the actual response data if available for debugging
-       console.error(`Cashfree Error for Order ID ${uniqueOrderId}: payment_session_id not found in response. Response Data:`, cfResponse?.data);
+       console.error(`Cashfree Error for Order ID ${uniqueOrderId}: payment_session_id not found in response.`);
        const errorMessage = cfResponse?.data?.message || "Payment session ID not found in Cashfree response.";
-       // Ensure a specific error status code if possible, default to 500
        const errorStatusCode = cfResponse?.status || 500;
-       res.status(errorStatusCode).json({ error: errorMessage, details: cfResponse?.data }); // Send back more details if available
+        // ✅ ERROR (but valid JSON): Return JSON
+       return res.status(errorStatusCode).json({ error: true, message: errorMessage, details: cfResponse?.data });
     }
 
   } catch (error) {
-    console.error("Cashfree API call or processing error in create-payment-order:", error);
-    // Try to extract specific error message from Cashfree's response data if it exists
-    const errorDetails = error.response?.data?.message || error.message || "Unknown error";
-    // If the error object has a status code (e.g., from Axios error), use it, otherwise default to 500
+    console.error("!!! CATCH BLOCK ERROR in create-payment-order:", error); // Log the full error object
+    // Extract details if possible (e.g., from Axios error structure)
+    const errorDetails = error.response?.data?.message || error.message || "Unknown server error";
     const errorStatusCode = error.response?.status || error.status || 500;
-    res.status(errorStatusCode).json({ error: "Failed to create payment order", details: errorDetails });
+    console.error(`Responding with status ${errorStatusCode} and details: ${errorDetails}`);
+     // ✅ ERROR (but valid JSON): Return JSON
+    return res.status(errorStatusCode).json({ error: true, message: "Failed to create payment order", details: errorDetails });
   }
 };
