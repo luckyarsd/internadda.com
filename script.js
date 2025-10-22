@@ -72,7 +72,6 @@ const userDataList = document.getElementById('userDataList');
 // New profile elements
 const profileName = document.getElementById('profileName');
 const profileGender = document.getElementById('profileGender');
-// const profilePhotoUrl = document.getElementById('profilePhotoUrl'); // Seems unused, maybe remove?
 const interestedDomain = document.getElementById('interestedDomain');
 const saveProfileBtn = document.getElementById('saveProfileBtn');
 const profileTabContent = document.getElementById('profileTabContent'); // Reference if needed
@@ -108,6 +107,7 @@ function createCourseSlug(title) {
 // Course data for client-side search (for course.html)
 const allCourses = [
     // Populate this array if search is needed on course.html
+    // Example: { title: 'Cloud & DevOps Essentials', instructor: 'Created by AI', image: '../images/Cloud-DevOps-Essentials.png', url: "courses/courses/Cloud-DevOps-Essentials.html" }
 ];
 
 // Course data for index.html search
@@ -119,50 +119,125 @@ const popularCourses = [
 ];
 
 const coursesGrid = document.getElementById('coursesGrid'); // Assuming this exists on course.html
-// const courseTitles = document.querySelectorAll('.course-title'); // Less flexible than filtering data
 
 // Function to render courses (Used on course.html potentially)
 function renderCourses(courses) {
-    // ... (keep existing renderCourses function) ...
+    if (!coursesGrid) return;
+    coursesGrid.innerHTML = ''; // Clear existing
+    courses.forEach(course => {
+        const card = document.createElement('a');
+        card.href = course.url;
+        card.className = 'course-card';
+        card.style.textDecoration = 'none';
+        card.style.color = 'inherit';
+        card.innerHTML = `
+            <div class="course-image">
+                <img src="${course.image}" alt="${course.title}">
+            </div>
+            <div class="course-content">
+                <h3 class="course-title">${course.title}</h3>
+                <p class="course-author">Instructed by ${course.instructor}</p>
+                <div class="course-price">
+                    <span class="original-price">₹${course.originalPrice || '1,999'}</span>
+                    <span class="badge free">FREE</span>
+                 </div>
+            </div>
+        `;
+        coursesGrid.appendChild(card);
+    });
 }
 
 // Function to generate star rating HTML
 function generateStarRating(rating) {
     // ... (keep existing generateStarRating function) ...
+    let stars = '';
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    for (let i = 0; i < fullStars; i++) stars += '<i class="fas fa-star"></i>';
+    if (halfStar) stars += '<i class="fas fa-star-half-alt"></i>';
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) stars += '<i class="far fa-star"></i>'; // Use far for empty stars
+    return `<div class="rating-stars">${stars}</div>`;
 }
 
 // Function to get the correct avatar based on progress or user upload
 function getAvatarUrl(progress, userUploadedImage) {
-    // ... (keep existing getAvatarUrl function) ...
+     // ... (keep existing getAvatarUrl function) ...
+     return userUploadedImage || 'https://placehold.co/40x40/5624d0/ffffff?text=U';
 }
 
 // Function to handle image preview from file input
 function handleImagePreview(event) {
-    // ... (keep existing handleImagePreview function) ...
+     // ... (keep existing handleImagePreview function) ...
+     const file = event.target.files[0];
+     if (file && userAvatarPreview) {
+         const reader = new FileReader();
+         reader.onload = (e) => { userAvatarPreview.src = e.target.result; };
+         reader.readAsDataURL(file);
+     }
 }
 
 // Function to check against the simulated Google Sheet for verification (Keep or remove if unused)
 function checkVerificationStatus(userEmail, userName) {
     // ... (keep existing checkVerificationStatus function) ...
+    return verifiedInterns.some(intern => intern.email === userEmail && intern.testPassed);
 }
 
 // Utility Functions
 function showSection(sectionElement) {
-    // ... (keep existing showSection function) ...
+    if (!sectionElement) return;
+    const parentModalContent = sectionElement.closest('.modal-content');
+    if (parentModalContent) {
+        parentModalContent.querySelectorAll('.auth-section').forEach(sec => sec.classList.remove('active'));
+    }
+    sectionElement.classList.add('active');
 }
 
 function showError(element, message) {
-    // ... (keep existing showError function) ...
+    if (!element) return;
+    element.textContent = message;
+    element.style.display = 'block';
+    setTimeout(() => { element.style.display = 'none'; }, 5000); // Hide after 5 seconds
 }
 
 function showLoading(element, show) {
-    // ... (keep existing showLoading function) ...
+    if (!element) return;
+    element.style.display = show ? 'block' : 'none';
 }
 
 // Function to display search results
 function showSearchResults(results) {
-    // ... (keep existing showSearchResults function) ...
+    const resultsContainer = document.getElementById('searchResults');
+    if (!resultsContainer) return;
+    resultsContainer.innerHTML = ''; // Clear previous results
+
+    if (results.length > 0) {
+        resultsContainer.classList.remove('hidden');
+        results.forEach(result => {
+            const resultItem = document.createElement('a'); // Make item clickable
+            resultItem.href = result.url || '#'; // Link to course URL
+            resultItem.className = 'search-result-item'; // Use existing styles
+            resultItem.style.display = 'flex'; // Ensure flex layout
+            resultItem.style.alignItems = 'center';
+            resultItem.style.gap = '15px';
+            resultItem.style.textDecoration = 'none'; // Remove underline
+            resultItem.style.color = 'inherit'; // Inherit text color
+
+            resultItem.innerHTML = `
+                <img src="${result.image || 'images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                <div style="flex-grow: 1;">
+                    <h4 style="margin: 0; font-size: 1em;">${result.title}</h4>
+                    <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${result.instructor}</p>
+                </div>
+            `;
+            resultsContainer.appendChild(resultItem);
+        });
+    } else {
+        resultsContainer.classList.remove('hidden'); // Show container even for "no results"
+        resultsContainer.innerHTML = '<p style="padding: 15px; text-align: center; color: var(--gray);">No results found.</p>';
+    }
 }
+
 
 // --- Event Listeners Setup ---
 document.addEventListener('DOMContentLoaded', function() {
@@ -231,6 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if(dashboardSection) showSection(dashboardSection);
             if(userDropdown) userDropdown.classList.remove('active'); // Close dropdown
             document.body.style.overflow = 'hidden';
+            // Ensure the profile tab is active when opening from header
+             const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]');
+             if (profileTabBtn) profileTabBtn.click();
         });
     }
 
@@ -246,7 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Email Login
     if (emailLoginBtn && loginEmail && loginPassword && loginError && loginLoading) {
         emailLoginBtn.addEventListener('click', async () => {
-            // ... (keep existing email login logic) ...
             const email = loginEmail.value.trim();
             const password = loginPassword.value;
             if (!email || !password) { showError(loginError, 'Please fill in all fields'); return; }
@@ -263,7 +340,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Email Signup
     if (emailSignupBtn && signupEmail && signupPassword && signupError && signupLoading) {
         emailSignupBtn.addEventListener('click', async () => {
-            // ... (keep existing email signup logic) ...
             const email = signupEmail.value.trim();
             const password = signupPassword.value;
             if (!email || !password) { showError(signupError, 'Please fill in all fields'); return; }
@@ -280,7 +356,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Google Login/Signup
     async function signInWithGoogle() {
-        // ... (keep existing Google sign-in logic) ...
         try {
             await auth.signInWithPopup(googleProvider);
             if(authModal) authModal.classList.remove('active'); document.body.style.overflow = '';
@@ -294,7 +369,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Logout
     const handleLogout = async () => {
-        // ... (keep existing logout logic) ...
         try { await auth.signOut(); } catch (error) { console.error('Logout error:', error); }
     };
     if (logoutBtnHeader) logoutBtnHeader.addEventListener('click', handleLogout);
@@ -303,8 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Profile Management ---
     // Update Profile UI
     function updateProfileUI(profileData) {
-        // ... (keep existing updateProfileUI function) ...
-         const avatarUrl = profileData.photoUrl || 'https://placehold.co/40x40/5624d0/ffffff?text=U';
+        const avatarUrl = profileData.photoUrl || 'https://placehold.co/40x40/5624d0/ffffff?text=U';
         if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
         if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
         if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
@@ -319,32 +392,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Profile Tabs
     if (tabButtons.length > 0) {
         tabButtons.forEach(button => {
-            // ... (keep existing tab button logic) ...
              button.addEventListener('click', () => {
                 const tab = button.dataset.tab;
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
                 const contentEl = document.getElementById(`${tab}TabContent`);
-                if(contentEl) contentEl.classList.remove('hidden'); // .active class might be unnecessary
+                if(contentEl) contentEl.classList.remove('hidden');
+                // Special handling for profile tab to show display/edit correctly
+                 if(tab === 'profile') {
+                     if (profileEditSection && !profileEditSection.classList.contains('hidden')) {
+                         // If edit is shown, keep it shown
+                     } else if (profileDisplaySection) {
+                          profileDisplaySection.classList.remove('hidden');
+                          if (profileEditSection) profileEditSection.classList.add('hidden');
+                     }
+                 }
             });
         });
-         // Activate the first tab by default if dashboard is shown
-        if(dashboardSection && dashboardSection.classList.contains('active') && tabButtons.length > 0) {
-             tabButtons[0].click();
-        }
+        // Set 'profile' as default active tab visually if dashboard is open
+        const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]');
+        if (profileTabBtn) profileTabBtn.classList.add('active'); // Default visual state
+        // Actual content display happens in Auth state change or profileBtn click
     }
+
 
     // Edit Profile Button
     if (editProfileBtn && profileDisplaySection && profileEditSection) {
         editProfileBtn.addEventListener('click', () => {
-            // ... (keep existing edit profile button logic) ...
             profileDisplaySection.classList.add('hidden');
             profileEditSection.classList.remove('hidden');
              // Pre-fill edit form (redundant if Auth state does it, but safe)
             const user = auth.currentUser;
             if(user && profileName) profileName.value = user.displayName || '';
-            // Pre-filling gender/domain requires fetching from Firestore again or storing it
+            // Pre-filling gender/domain requires fetching from Firestore again or storing it locally
+            // Example of how you might retrieve and set if stored:
+            // const storedProfileData = getCurrentStoredProfile(); // Assuming you have a way to get this
+            // if (storedProfileData) {
+            //     if(profileGender) profileGender.value = storedProfileData.gender || '';
+            //     if(interestedDomain) interestedDomain.value = storedProfileData.interestedDomain || '';
+            // }
         });
     }
 
@@ -352,20 +439,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if(profileImageInput && userAvatarPreview) {
         profileImageInput.addEventListener('change', handleImagePreview);
     }
-     function handleImagePreview(event) {
-        // ... (keep existing handleImagePreview function) ...
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => { userAvatarPreview.src = e.target.result; };
-            reader.readAsDataURL(file);
-        }
-    }
 
     // Save Profile Button
     if (saveProfileBtn && profileName && profileGender && interestedDomain && profileImageInput) {
         saveProfileBtn.addEventListener('click', async () => {
-            // ... (keep existing save profile logic) ...
              const user = auth.currentUser; if (!user) return;
              saveProfileBtn.disabled = true; saveProfileBtn.textContent = "Saving...";
 
@@ -377,10 +454,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
              // --- Simulate Image Upload ---
              // In a real app, upload 'file' to Firebase Storage here and get the downloadURL
-             // For now, if a file exists, we'll use a local preview URL (won't persist)
              if (file) {
                  photoURL = userAvatarPreview.src; // Use the preview src (won't work long term without real upload)
                  console.warn("Using preview URL. Implement Firebase Storage upload for persistence.");
+                 // TODO: Replace with actual Firebase Storage upload
+                 // const storageRef = firebase.storage().ref(`profileImages/${user.uid}/${file.name}`);
+                 // const uploadTask = await storageRef.put(file);
+                 // photoURL = await uploadTask.ref.getDownloadURL();
              } else {
                  // Try to keep existing Firestore URL if no new file
                  try { const doc = await db.collection('userProfiles').doc(user.uid).get(); if (doc.exists) photoURL = doc.data().photoUrl || photoURL; } catch(e) {}
@@ -394,13 +474,13 @@ document.addEventListener('DOMContentLoaded', function() {
                  const userDocRef = db.collection('userProfiles').doc(user.uid);
                  await userDocRef.set({
                      name: displayName, gender: gender, photoUrl: photoURL, interestedDomain: interestedDomainValue,
-                     lastUpdated: firebase.firestore.FieldValue.serverTimestamp(), email: user.email
+                     lastUpdated: firebase.firestore.FieldValue.serverTimestamp(), email: user.email // Store email for easier lookup if needed
                  }, { merge: true });
 
                  alert('Profile saved successfully!');
 
                  // Show seats popup
-                 if (interestedDomainValue) { /* ... showSeatsPopup logic ... */ }
+                 if (interestedDomainValue) { showSeatsPopup(interestedDomainValue, Math.floor(Math.random() * 10) + 1); } // Random seats
 
                  // Switch back to display view
                  if (profileEditSection && profileDisplaySection) {
@@ -408,10 +488,8 @@ document.addEventListener('DOMContentLoaded', function() {
                      profileDisplaySection.classList.remove('hidden');
                  }
 
-                 // Refresh UI
-                 const updatedUserDoc = await userDocRef.get();
-                 if (updatedUserDoc.exists) { updateProfileUI(updatedUserDoc.data()); }
-                 else { updateProfileUI({ name: user.displayName, photoUrl: user.photoURL, email: user.email }); }
+                 // Refresh UI immediately with new data
+                 updateProfileUI({ name: displayName, photoUrl: photoURL, email: user.email, gender: gender, interestedDomain: interestedDomainValue });
 
              } catch (error) { console.error('Error saving profile:', error); alert('Failed to save profile.'); }
              finally { saveProfileBtn.disabled = false; saveProfileBtn.textContent = "Save Profile"; }
@@ -422,7 +500,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Notes (User Data) Section ---
     if (saveDataBtn && dataInput) {
         saveDataBtn.addEventListener('click', async () => {
-             // ... (keep existing save data logic) ...
              const data = dataInput.value.trim(); const user = auth.currentUser; if (!data || !user) return;
              saveDataBtn.disabled = true; saveDataBtn.textContent = 'Saving...';
              try {
@@ -436,39 +513,79 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Delete Data (Make it globally accessible for inline onclick)
     window.deleteData = async function(docId) {
-        // ... (keep existing delete data logic) ...
+         if (!confirm("Are you sure you want to delete this note?")) return;
          try { await db.collection('userData').doc(docId).delete(); } catch (error) { console.error('Error deleting data:', error); }
     };
 
     // Load User Data/Notes Listener Setup
+    let notesUnsubscribe = null; // To detach listener on logout
     function setupDataListener() {
-        // ... (keep existing setupDataListener function) ...
-         const user = auth.currentUser; if (!user || !userDataList) { if(userDataList) userDataList.innerHTML = ''; return; }
-         const userNotesRef = db.collection('userData').where('userId', '==', user.uid).orderBy('timestamp', 'desc').limit(10);
-         userNotesRef.onSnapshot(snapshot => {
-             userDataList.innerHTML = ''; if (snapshot.empty) { userDataList.innerHTML = '<p>No notes yet.</p>'; return; }
+        // Detach previous listener if exists
+        if (notesUnsubscribe) { notesUnsubscribe(); notesUnsubscribe = null;}
+
+        const user = auth.currentUser;
+        if (!user || !userDataList) {
+             if(userDataList) userDataList.innerHTML = '<p>Please log in to see your notes.</p>';
+             return;
+        }
+
+        const userNotesRef = db.collection('userData').where('userId', '==', user.uid).orderBy('timestamp', 'desc').limit(15); // Increased limit
+
+        // Attach new listener and store the unsubscribe function
+        notesUnsubscribe = userNotesRef.onSnapshot(snapshot => {
+             userDataList.innerHTML = '';
+             if (snapshot.empty) {
+                 userDataList.innerHTML = '<p>No notes yet. Add one above!</p>';
+                 return;
+             }
              snapshot.forEach(doc => {
-                 const data = doc.data(); const item = document.createElement('div'); item.className = 'data-item';
-                 item.innerHTML = `<span>${data.data}</span><button onclick="window.deleteData('${doc.id}')">Delete</button>`;
+                 const data = doc.data();
+                 const item = document.createElement('div');
+                 item.className = 'data-item';
+                 item.innerHTML = `<span>${escapeHTML(data.data)}</span><button onclick="window.deleteData('${doc.id}')"><i class="fas fa-trash-alt"></i></button>`; // Added icon
                  userDataList.appendChild(item);
              });
-         }, err => { console.error('Error getting notes:', err); });
+         }, err => {
+             console.error('Error getting notes:', err);
+             userDataList.innerHTML = '<p>Error loading notes.</p>';
+         });
     }
+
+     // Helper to escape HTML to prevent XSS from notes
+     function escapeHTML(str) {
+         const div = document.createElement('div');
+         div.appendChild(document.createTextNode(str));
+         return div.innerHTML;
+     }
 
     // --- Seats Popup ---
     function showSeatsPopup(domain, seats) {
-        // ... (keep existing showSeatsPopup function) ...
-        // Ensure only one popup exists
         const existingPopup = document.querySelector('.seats-popup');
         if (existingPopup) existingPopup.remove();
 
-        const popup = document.createElement('div'); popup.className = 'seats-popup';
-        popup.innerHTML = `<i class="fas fa-times close-btn"></i><div class="seats-popup-content"><i class="fa-solid fa-fire"></i><p>Only <span>${seats} seats</span> left for <span>${domain}</span> internship!</p></div>`;
+        const popup = document.createElement('div');
+        popup.className = 'seats-popup';
+        popup.innerHTML = `
+            <i class="fas fa-times close-btn"></i>
+            <div class="seats-popup-content">
+                <i class="fa-solid fa-fire"></i>
+                <p class="seats-popup-text">Only <span>${seats} seats</span> left for <span>${domain}</span> internship!</p>
+            </div>
+        `;
         document.body.appendChild(popup);
         setTimeout(() => popup.classList.add('show'), 100);
-        popup.querySelector('.close-btn').addEventListener('click', () => { popup.classList.remove('show'); setTimeout(() => popup.remove(), 500); });
-        // Optional: Auto-close after some time
-        // setTimeout(() => { popup.classList.remove('show'); setTimeout(() => popup.remove(), 500); }, 8000);
+
+        popup.querySelector('.close-btn').addEventListener('click', () => {
+            popup.classList.remove('show');
+            setTimeout(() => popup.remove(), 500);
+        });
+        // Auto-close after 8 seconds
+        setTimeout(() => {
+            if (popup.classList.contains('show')) { // Check if still visible
+                 popup.classList.remove('show');
+                 setTimeout(() => popup.remove(), 500);
+            }
+        }, 8000);
     }
 
     // --- Hero Slider ---
@@ -484,8 +601,6 @@ document.addEventListener('DOMContentLoaded', function() {
              if (!slides.length || !dots.length) return;
              slides.forEach((slide, i) => slide.style.opacity = (i === index) ? '1' : '0'); // Use opacity for fade
              dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-             // Removed translateX as we are using opacity fade now
-             // sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
         }
         function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; showSlide(currentSlide); }
         function startSlider() { stopSlider(); slideInterval = setInterval(nextSlide, 5000); }
@@ -513,9 +628,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Search Functionality ---
     function filterCourses(query) {
-        // ... (keep existing filterCourses function) ...
          const lowerCaseQuery = query.toLowerCase();
-         const allAvailableCourses = [...allCourses, ...popularCourses]; // Combine lists for searching
+         // Combine all known courses for searching
+         const allAvailableCourses = [...allCourses, ...popularCourses]; // Adjust `allCourses` source if needed
          return allAvailableCourses.filter(course =>
              (course.title && course.title.toLowerCase().includes(lowerCaseQuery)) ||
              (course.instructor && course.instructor.toLowerCase().includes(lowerCaseQuery))
@@ -523,60 +638,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (searchInput) {
-        searchInput.addEventListener('input', () => { // Changed to 'input' for live search
+        searchInput.addEventListener('input', () => { // Live search
              const query = searchInput.value.trim();
              const resultsContainer = document.getElementById('searchResults');
              if (query.length > 1) { // Only search if query is > 1 char
                  const filteredResults = filterCourses(query);
-                 showSearchResults(filteredResults); // Assumes showSearchResults handles display
+                 showSearchResults(filteredResults);
              } else {
                  if (resultsContainer) resultsContainer.classList.add('hidden'); // Hide if query is short
              }
         });
-         // Keep Enter key functionality if needed
-         searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { /* Optional: maybe navigate to a search page */ } });
     }
-     // Modified showSearchResults to better fit live search style
-     function showSearchResults(results) {
-        const resultsContainer = document.getElementById('searchResults');
-        if (!resultsContainer) return;
-        resultsContainer.innerHTML = ''; // Clear previous results
-
-        if (results.length > 0) {
-            resultsContainer.classList.remove('hidden');
-            // Optional: Add heading
-            // const heading = document.createElement('h3'); heading.textContent = 'Search Results'; resultsContainer.appendChild(heading);
-
-            results.forEach(result => {
-                const resultItem = document.createElement('a'); // Make item clickable
-                resultItem.href = result.url || '#'; // Link to course URL
-                resultItem.className = 'search-result-item'; // Use existing styles
-                resultItem.style.display = 'flex'; // Ensure flex layout
-                resultItem.style.alignItems = 'center';
-                resultItem.style.gap = '15px';
-                resultItem.style.textDecoration = 'none'; // Remove underline
-                resultItem.style.color = 'inherit'; // Inherit text color
-
-
-                resultItem.innerHTML = `
-                    <img src="${result.image || 'images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
-                    <div style="flex-grow: 1;">
-                        <h4 style="margin: 0; font-size: 1em;">${result.title}</h4>
-                        <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${result.instructor}</p>
-                    </div>
-                `;
-                resultsContainer.appendChild(resultItem);
-            });
-        } else {
-            resultsContainer.classList.remove('hidden'); // Show container even for "no results"
-            resultsContainer.innerHTML = '<p style="padding: 15px; text-align: center; color: var(--gray);">No results found.</p>';
-        }
-    }
-
 
     // --- Click Outside Search to Close ---
     document.addEventListener('click', (e) => {
-        // ... (keep existing click outside search logic) ...
         const searchContainer = document.querySelector('.search-container');
         const searchResultsContainer = document.getElementById('searchResults');
         if (searchResultsContainer && searchContainer && !searchContainer.contains(e.target) && !searchResultsContainer.contains(e.target)) {
@@ -588,213 +663,84 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- General Styling / Initial Load Effects ---
     const header = document.querySelector('header');
     if(header) {
-        // ... (keep existing header scroll shadow logic) ...
-         window.addEventListener('scroll', function() { /* ... */ });
-    }
-
-    const courseCards = document.querySelectorAll('.course-card');
-    if (courseCards.length > 0) {
-        // ... (keep existing course card hover effect logic) ...
-        courseCards.forEach(card => { /* ... */ });
+        window.addEventListener('scroll', function() {
+             if (window.scrollY > 10) { header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)'; }
+             else { header.style.boxShadow = 'var(--shadow)'; } // Revert to original shadow
+        });
     }
 
     // --- RENDER COURSES (If on course page) ---
-    if (coursesGrid) { // Assuming coursesGrid is ONLY on course.html
+    // Make sure 'allCourses' is populated correctly if this script runs on course.html
+    if (coursesGrid && typeof allCourses !== 'undefined' && allCourses.length > 0) {
         renderCourses(allCourses); // Render the list for the courses page
     }
 
-
-// --- CASHFREE PAYMENT INTEGRATION (UPDATED SECTION) ---
-    const payButton = document.getElementById('pay-btn'); // Button on exam pages
-    const paymentMessage = document.getElementById('payment-message'); // Div for messages on exam page
-
-    if (payButton) {
-        if (typeof Cashfree === 'undefined') {
-            // Handle case where Cashfree SDK didn't load
-            console.error("Cashfree SDK not loaded! Payment button disabled.");
-            if (paymentMessage) {
-                paymentMessage.textContent = "Error loading payment library. Please refresh.";
-                paymentMessage.style.color = '#c53030'; // Error color
-            }
-            payButton.disabled = true;
-            payButton.textContent = 'Payment Unavailable';
-        } else {
-            // Cashfree SDK is loaded, proceed with setup
-            const cashfree = new Cashfree();
-
-            payButton.addEventListener('click', async () => {
-                payButton.textContent = 'Processing...';
-                payButton.disabled = true;
-                if (paymentMessage) {
-                    paymentMessage.textContent = 'Initiating secure payment...';
-                    paymentMessage.style.color = 'var(--gray)'; // Neutral color
-                }
-
-                try {
-                    // 1. Call your Vercel function to create the order
-                    console.log("Calling /api/create-payment-order");
-                    const orderResponse = await fetch('/api/create-payment-order', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        // Optionally send user details if logged in and needed by backend
-                        // body: JSON.stringify({ email: auth.currentUser?.email }),
-                    });
-
-                    console.log("Order response status code:", orderResponse.status);
-
-                    // --- Improved Response Handling ---
-                    if (!orderResponse.ok) {
-                        // Attempt to get error message from JSON response first
-                        let errorMsg = `Server error ${orderResponse.status}. Please try again later.`;
-                        try {
-                            const errorData = await orderResponse.json();
-                            // Use the error message from the backend's JSON response
-                            errorMsg = errorData.error || errorData.details || `Payment initiation failed (${orderResponse.status}).`;
-                            console.error("Order creation failed (JSON parsed):", errorData);
-                        } catch (jsonError) {
-                            // If response is not JSON (e.g., HTML error page or plain text)
-                            const textResponse = await orderResponse.text(); // Read as text
-                            errorMsg = `Payment initiation failed. Server responded unexpectedly.`; // Generic message for non-JSON
-                            console.error("Order creation failed (Non-JSON response):", textResponse); // Log the raw text
-                        }
-                        throw new Error(errorMsg); // Throw the error to be caught below
-                    }
-                    // --- End Improved Response Handling ---
-
-                    // If response is OK (2xx status), parse JSON
-                    const orderData = await orderResponse.json();
-
-                    // Check if the backend indicated success and returned session ID
-                    if (!orderData.success || !orderData.payment_session_id) {
-                        console.error("Session ID missing or backend reported failure:", orderData);
-                        throw new Error(orderData.error || 'Payment session ID not received from server.');
-                    }
-
-                    const sessionId = orderData.payment_session_id;
-                    console.log("Received Session ID:", sessionId);
-                    // Optionally store order_id if needed: currentOrderId = orderData.order_id;
-
-                    // 2. Use Cashfree SDK to start checkout
-                    cashfree.checkout({
-                        paymentSessionId: sessionId,
-                    }).then((result) => {
-                        console.log("Cashfree checkout result:", result);
-                        if (result.error) {
-                            console.error("Cashfree Checkout Error:", result.error);
-                            if (paymentMessage) {
-                                paymentMessage.textContent = "Payment Failed/Cancelled: " + (result.error.message || "Please try again.");
-                                paymentMessage.style.color = '#c53030'; // Error color
-                            }
-                            // Re-enable button immediately on checkout error/cancel
-                            payButton.textContent = 'Pay ₹99 Now';
-                            payButton.disabled = false;
-                        }
-                        // IMPORTANT: Successful payment redirects handled by Cashfree via `return_url`.
-                        // No automatic progression here. The user lands on payment-status.html.
-                        else if (!result.redirect) {
-                            // This case is less common but handle if SDK returns without error or redirect
-                            console.warn("Cashfree Result (No Redirect):", result);
-                            if (paymentMessage) {
-                                paymentMessage.textContent = "Please complete payment via the opened window/app or try again.";
-                                paymentMessage.style.color = 'var(--warning)';
-                            }
-                            // Re-enable button after a delay if stuck
-                            setTimeout(() => {
-                                if (payButton.disabled) { // Check if still disabled
-                                    payButton.textContent = 'Pay ₹99 Now';
-                                    payButton.disabled = false;
-                                }
-                            }, 5000); // 5 seconds delay
-                        }
-                    }).catch(sdkError => {
-                        // Error during cashfree.checkout() call itself
-                        console.error("Cashfree SDK checkout initiation error:", sdkError);
-                        if (paymentMessage) {
-                            paymentMessage.textContent = 'SDK Error: Could not start payment checkout.';
-                            paymentMessage.style.color = '#c53030';
-                        }
-                        payButton.textContent = 'Pay ₹99 Now';
-                        payButton.disabled = false;
-                    });
-
-                } catch (error) {
-                    // Catch errors from fetch call or manual throws
-                    console.error('Payment initiation fetch/process error:', error);
-                    if (paymentMessage) {
-                        // Display the error message thrown (more specific now)
-                        paymentMessage.textContent = 'Error: ' + error.message;
-                        paymentMessage.style.color = '#c53030';
-                    }
-                    payButton.textContent = 'Pay ₹99 Now';
-                    payButton.disabled = false;
-                }
-            });
-        }
-    }
-    // --- END CASHFREE PAYMENT INTEGRATION ---
+    // --- REMOVED CASHFREE PAYMENT INTEGRATION ---
+    // The section handling Cashfree logic and payButton has been removed.
 
 }); // End DOMContentLoaded
 
 
 // --- Auth State Observer ---
 auth.onAuthStateChanged(async (user) => {
-    // ... (keep existing auth state change logic) ...
-    // This function handles showing/hiding login buttons vs user profile,
-    // loading user data into the dashboard/profile, and setting up the notes listener.
     if (user) {
+        // --- User is signed in ---
         if(authButtons) authButtons.classList.add('hidden');
         if(userProfile) userProfile.classList.remove('hidden');
-        if(userNameHeader) userNameHeader.textContent = user.displayName ? user.displayName.split(' ')[0] : 'User';
+        if(userNameHeader) userNameHeader.textContent = user.displayName ? user.displayName.split(' ')[0] : 'User'; // Show first name
 
         if (authModal && authModal.classList.contains('active')) {
             if(dashboardSection) showSection(dashboardSection);
-             // Ensure the first tab is active when opening dashboard
-             if(tabButtons.length > 0) tabButtons[0].click();
+            // Ensure the profile tab is active when opening dashboard
+             const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]');
+             if (profileTabBtn) profileTabBtn.click();
+             else if (tabButtons.length > 0) tabButtons[0].click(); // Fallback to first tab
         }
 
         // Load profile data from Firestore
         const userDocRef = db.collection('userProfiles').doc(user.uid);
         try {
             const userDoc = await userDocRef.get();
-            let profileData = {};
+            let profileData = { name: user.displayName, photoUrl: user.photoURL, email: user.email }; // Default to auth data
+
             if (userDoc.exists) {
-                profileData = userDoc.data();
+                profileData = { ...profileData, ...userDoc.data() }; // Merge Firestore data
+                // Pre-fill edit form fields only if they exist on the page
                 if(profileName) profileName.value = profileData.name || '';
                 if(profileGender) profileGender.value = profileData.gender || '';
                 if(interestedDomain) interestedDomain.value = profileData.interestedDomain || '';
             } else {
-                 profileData = { name: user.displayName, photoUrl: user.photoURL, email: user.email };
+                 // Pre-fill edit form fields from auth if they exist
                  if(profileName) profileName.value = user.displayName || '';
             }
             updateProfileUI(profileData); // Update header, dashboard display etc.
 
-            // Show seats popup if applicable
-            if (profileData.interestedDomain) {
-                // ... (add showSeatsPopup logic here if needed on login) ...
-            }
+            // Show seats popup if applicable (optional, maybe only on save)
+            // if (profileData.interestedDomain) { showSeatsPopup(profileData.interestedDomain, ...); }
 
         } catch (error) {
              console.error("Error loading profile data:", error);
-             // Fallback UI update
+             // Fallback UI update using only auth data
              updateProfileUI({ name: user.displayName, photoUrl: user.photoURL, email: user.email });
         }
 
-
         setupDataListener(); // Refresh notes listener
 
-        // Clear login/signup forms
+        // Clear login/signup forms (optional, but good practice)
         if(loginEmail) loginEmail.value = ''; if(loginPassword) loginPassword.value = '';
         if(signupEmail) signupEmail.value = ''; if(signupPassword) signupPassword.value = '';
 
-    } else { // User signed out
+    } else {
+        // --- User is signed out ---
         if(authButtons) authButtons.classList.remove('hidden');
         if(userProfile) userProfile.classList.add('hidden');
         if (authModal && authModal.classList.contains('active')) {
-            if(loginSection) showSection(loginSection);
+            if(loginSection) showSection(loginSection); // Show login by default if modal was open
         }
-         if(userDataList) userDataList.innerHTML = ''; // Clear notes
+         if(notesUnsubscribe) notesUnsubscribe(); // Detach notes listener
+         if(userDataList) userDataList.innerHTML = '<p>Please log in to see your notes.</p>'; // Clear notes display
     }
 });
 
 
-console.log('🚀 Internadda Script Loaded!');
+console.log('🚀 Internadda Script Loaded! (Payment logic removed)');
