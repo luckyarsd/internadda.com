@@ -1,8 +1,8 @@
 // api/create-payment-order.js
 
-// --- CORRECTED IMPORT ---
-// Import directly from the package name
-const { PGCashfree } = require('cashfree-pg');
+// --- CORRECTED IMPORT for v5.x ---
+// Import PGCashfree class AND Environment constants separately
+const { PGCashfree, Environment } = require('cashfree-pg');
 // --- END CORRECTED IMPORT ---
 
 console.log("Function: /api/create-payment-order invoked."); // Log start
@@ -10,10 +10,10 @@ console.log("Function: /api/create-payment-order invoked."); // Log start
 // --- Environment Variables ---
 const cashfreeAppId = process.env.CASHFREE_APP_ID;
 const cashfreeSecretKey = process.env.CASHFREE_SECRET_KEY;
-// Determine environment (default to SANDBOX)
+// Determine environment using the imported Environment constants
 const environment = process.env.CASHFREE_ENVIRONMENT === 'PRODUCTION'
-    ? PGCashfree.Environment.PRODUCTION
-    : PGCashfree.Environment.SANDBOX;
+    ? Environment.PRODUCTION // Use imported Environment
+    : Environment.SANDBOX;    // Use imported Environment (Default)
 
 let cashfree; // Variable to hold the SDK instance
 
@@ -27,9 +27,10 @@ if (!cashfreeAppId || !cashfreeSecretKey) {
         cashfree = new PGCashfree({
             clientId: cashfreeAppId,
             clientSecret: cashfreeSecretKey,
-            environment: environment, // Use determined environment
+            environment: environment, // Pass the determined environment
         });
-        console.log(`Cashfree SDK initialized successfully for environment: ${environment === PGCashfree.Environment.PRODUCTION ? 'PRODUCTION' : 'SANDBOX'}.`);
+        // Use imported Environment for logging check
+        console.log(`Cashfree SDK initialized successfully for environment: ${environment === Environment.PRODUCTION ? 'PRODUCTION' : 'SANDBOX'}.`);
     } catch (initError) {
         console.error("FATAL SDK INIT ERROR: Failed to initialize Cashfree SDK:", initError);
         // cashfree will remain undefined if initialization fails
