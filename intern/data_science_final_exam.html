@@ -297,6 +297,12 @@
         #verifyAppNumberBtn {
             width: 100%;
         }
+        /* Loading state for verify button */
+        #verifyAppNumberBtn:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+        }
+
 
         /* Button Styles (assuming from style.css) */
         .btn {
@@ -710,23 +716,6 @@ Thank you,
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // ======================================================
-            // ==== EDIT THIS LIST WITH YOUR APPLICATION NUMBERS ====
-            // ======================================================
-            // These numbers are visible to anyone who views your website's source code.
-            const VALID_APP_NUMBERS = [
-                '2025101', 
-                '2025102', 
-                '2025103', 
-                '2025104', 
-                '2025105', 
-                '2025106'
-                // Add your 5-6 numbers here, inside quotes and separated by commas
-            ];
-            // ======================================================
-            // ======================================================
-
 
             // --- Get all HTML Elements ---
             const paymentStep = document.getElementById('payment-step');
@@ -788,25 +777,56 @@ Thank you,
                 appNumberModal.style.display = 'block';
                 appNumberInput.value = ''; // Clear input
                 appNumberError.textContent = ''; // Clear errors
+                verifyAppNumberBtn.disabled = false;
+                verifyAppNumberBtn.textContent = 'Verify & Proceed';
                 appNumberInput.focus();
             });
             
 
-            // --- 2. Verify Application Number ---
-            verifyAppNumberBtn.addEventListener('click', () => {
-                const appNumber = appNumberInput.value.trim();
+            // --- 2. Verify Application Number (SECURE API CALL) ---
+            verifyAppNumberBtn.addEventListener('click', async () => {
+                const appNumber = appNumberInput.value.trim().toUpperCase();
+                
+                if (!appNumber) {
+                    appNumberError.textContent = 'Please enter an application number.';
+                    return;
+                }
 
-                if (VALID_APP_NUMBERS.includes(appNumber)) {
-                    // --- SUCCESS ---
-                    appNumberError.textContent = '';
-                    appNumberModal.style.display = 'none';
-                    messageOverlay.style.display = 'none';
-                    
-                    paymentStep.classList.add('hidden');
-                    instructionsStep.classList.remove('hidden');
-                } else {
-                    // --- FAILURE ---
-                    appNumberError.textContent = 'Invalid Application Number. Please try again.';
+                // Show loading state
+                verifyAppNumberBtn.disabled = true;
+                verifyAppNumberBtn.textContent = 'Verifying...';
+                appNumberError.textContent = '';
+
+                try {
+                    // This calls your /api/verify-application.js file
+                    const response = await fetch('/api/verify-application', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ applicationNumber: appNumber }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.valid === true) {
+                        // --- SUCCESS ---
+                        appNumberModal.style.display = 'none';
+                        messageOverlay.style.display = 'none';
+                        paymentStep.classList.add('hidden');
+                        instructionsStep.classList.remove('hidden');
+                    } else {
+                        // --- FAILURE (Invalid Number) ---
+                        appNumberError.textContent = data.message || 'Invalid Application Number. Please try again.';
+                        verifyAppNumberBtn.disabled = false;
+                        verifyAppNumberBtn.textContent = 'Verify & Proceed';
+                    }
+                } catch (error) {
+                    // --- FAILURE (Network or Server Error) ---
+                    console.error('Verification failed:', error);
+                    appNumberError.textContent = 'Could not connect to server. Check your internet.';
+                    verifyAppNumberBtn.disabled = false;
+                    verifyAppNumberBtn.textContent = 'Verify & Proceed';
                 }
             });
             
@@ -931,7 +951,7 @@ Thank you,
 
                      const subject = encodeURIComponent(`Data Science Internship Application - [Your Full Name Here]`);
                      const body = encodeURIComponent(
-                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result. \n\nI look forward to hearing about the next steps.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]`
                      );
                      emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
 
