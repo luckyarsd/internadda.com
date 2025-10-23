@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & ML Practice Test — Internadda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* Re-use the exact same styles from data_science_practice_test.html */
+        .exam-container { max-width: 900px; margin: 40px auto; position: relative; }
+        .exam-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 20px 30px; background: #fff; border-radius: 12px; box-shadow: var(--shadow); border-left: 5px solid var(--primary); }
+        .exam-header h1 { font-size: 1.8rem; font-weight: 700; }
+        #timer { font-size: 1.8rem; font-weight: 700; color: var(--primary); background-color: #eef2f7; padding: 8px 16px; border-radius: 8px; }
+        #camera-popup { position: fixed; top: 100px; right: 20px; width: 200px; height: 150px; background: #2d3748; border-radius: 8px; border: 3px solid #4a5568; overflow: hidden; z-index: 1001; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+        #camera-popup video { width: 100%; height: calc(100% - 30px); object-fit: cover; transform: scaleX(-1); }
+        .camera-status { width: 100%; height: 30px; background-color: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; color: #e2e8f0; font-size: 0.9rem; font-weight: 500; }
+        .camera-dot { width: 10px; height: 10px; background: #f56565; border-radius: 50%; margin-right: 8px; animation: blink 1.2s infinite ease-in-out; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        #quiz-container { background: #fff; padding: 40px; border-radius: 12px; box-shadow: var(--shadow); }
+        .question-block { margin-bottom: 35px; border-bottom: 1px solid #e2e8f0; padding-bottom: 25px; }
+        .question-block:last-child { border-bottom: none; margin-bottom: 0; }
+        .question-block h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; line-height: 1.6; }
+        .question-block h3 strong { display: inline-block; background: var(--primary); color: white; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; text-align: center; margin-right: 12px; font-size: 1rem; }
+        .options .option { background-color: var(--light); padding: 16px 20px; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: var(--transition); margin-bottom: 10px; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+        .options .option::before { content: ''; display: inline-block; width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; }
+        .options .option:hover { background-color: #eef2f7; border-color: #cbd5e0; }
+        .options .option:hover::before { border-color: var(--primary); }
+        .options .option.selected { background-color: #ebf8ff; color: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2); }
+        .options .option.selected::before { background-color: var(--primary); border-color: var(--primary); box-shadow: inset 0 0 0 3px white; }
+        #submit-btn { margin-top: 30px; width: 100%; padding: 18px; font-size: 1.1rem; }
+        #results-container { display: none; margin-top: 30px; padding: 30px; background: #f0fff4; border: 1px solid var(--success); border-radius: 12px; text-align: center; animation: fadeIn 0.5s; }
+        #results-container h2 { color: var(--accent); margin-bottom: 15px; }
+        .result-message { font-size: 1.1rem; margin-bottom: 20px; }
+        .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 5px solid var(--primary); }
+        .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;}
+        .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;}
+        .message-box button { margin: 0 10px; }
+        .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 1004; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <a href="../index.html" class="logo">
+              <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img">
+              <span class="logo-text">InternAdda</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../courses/course.html" class="nav-link">Courses</a>
+                <a href="internship.html" class="nav-link">Internships</a>
+                <a href="../jobs.html" class="nav-link">Jobs</a>
+                <a href="../about.html" class="nav-link">About</a>
+            </nav>
+            <button class="hamburger-menu" id="hamburgerMenu"><span></span><span></span><span></span></button>
+            <div class="header-actions">
+                <div id="authButtons">
+                    <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
+                    <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
+                </div>
+                <div class="user-profile hidden" id="userProfile">
+                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
+                    <span id="userNameHeader"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="camera-popup"><video id="camera-feed" autoplay playsinline></video><div class="camera-status"><div class="camera-dot"></div><span>Proctoring Active</span></div></div>
+
+        <section class="course-section">
+            <div class="exam-container">
+                <div class="exam-header">
+                    <h1>AI & Machine Learning Practice Test</h1>
+                    <div id="timer">20:00</div>
+                </div>
+
+                <div id="quiz-container">
+                    <div class="question-block" data-answer="b">
+                        <h3><strong>1</strong>Which type of machine learning uses labeled data to train models?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Unsupervised Learning</div>
+                            <div class="option" data-value="b">Supervised Learning</div>
+                            <div class="option" data-value="c">Reinforcement Learning</div>
+                            <div class="option" data-value="d">Semi-supervised Learning</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="a">
+                        <h3><strong>2</strong>What is the primary goal of a classification algorithm?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">To assign data points to predefined categories.</div>
+                            <div class="option" data-value="b">To predict a continuous numerical value.</div>
+                            <div class="option" data-value="c">To find hidden structures or groups in data.</div>
+                            <div class="option" data-value="d">To learn through trial and error based on rewards.</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="d">
+                        <h3><strong>3</strong>Which algorithm is commonly used for clustering (grouping similar data points)?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Linear Regression</div>
+                            <div class="option" data-value="b">Support Vector Machine (SVM)</div>
+                            <div class="option" data-value="c">Decision Tree</div>
+                            <div class="option" data-value="d">K-Means</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="c">
+                        <h3><strong>4</strong>In Natural Language Processing (NLP), what does 'tokenization' mean?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Translating text from one language to another.</div>
+                            <div class="option" data-value="b">Summarizing a long piece of text.</div>
+                            <div class="option" data-value="c">Breaking down text into smaller units like words or sentences.</div>
+                            <div class="option" data-value="d">Identifying the sentiment (positive/negative) of text.</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="b">
+                        <h3><strong>5</strong>What is 'Overfitting' in the context of machine learning models?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">The model is too simple and cannot capture the underlying patterns.</div>
+                            <div class="option" data-value="b">The model learns the training data too well, including noise, and performs poorly on new data.</div>
+                            <div class="option" data-value="c">The model fails to converge during training.</div>
+                            <div class="option" data-value="d">The dataset used for training is too small.</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="a">
+                        <h3><strong>6</strong>Which Python library is fundamental for numerical computing and underlies many ML libraries like TensorFlow and PyTorch?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">NumPy</div>
+                            <div class="option" data-value="b">Pandas</div>
+                            <div class="option" data-value="c">Matplotlib</div>
+                            <div class="option" data-value="d">Scikit-learn</div>
+                        </div>
+                    </div>
+
+                     <div class="question-block" data-answer="d">
+                        <h3><strong>7</strong>What does a 'Confusion Matrix' help visualize in a classification problem?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">The correlation between different features.</div>
+                            <div class="option" data-value="b">The distribution of data points in clusters.</div>
+                            <div class="option" data-value="c">The feature importance scores.</div>
+                            <div class="option" data-value="d">The performance of the model in terms of true positives, true negatives, false positives, and false negatives.</div>
+                        </div>
+                    </div>
+
+                     <div class="question-block" data-answer="c">
+                        <h3><strong>8</strong>Which activation function is commonly used in the output layer of a binary classification neural network?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">ReLU (Rectified Linear Unit)</div>
+                            <div class="option" data-value="b">Tanh (Hyperbolic Tangent)</div>
+                            <div class="option" data-value="c">Sigmoid</div>
+                            <div class="option" data-value="d">Linear</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="b">
+                        <h3><strong>9</strong>What is the primary advantage of using a 'Validation Set' during model training?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">To increase the training speed.</div>
+                            <div class="option" data-value="b">To tune hyperparameters and prevent overfitting on the test set.</div>
+                            <div class="option" data-value="c">To visualize the final results.</div>
+                            <div class="option" data-value="d">To perform feature engineering.</div>
+                        </div>
+                    </div>
+
+                    <div class="question-block" data-answer="a">
+                        <h3><strong>10</strong>Gradient Descent is an algorithm commonly used for what purpose in machine learning?</h3>
+                        <div class="options">
+                            <div class="option" data-value="a">Optimizing the model's parameters by minimizing a loss function.</div>
+                            <div class="option" data-value="b">Splitting the data into training and testing sets.</div>
+                            <div class="option" data-value="c">Selecting the most important features.</div>
+                            <div class="option" data-value="d">Evaluating the model's accuracy.</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="submit-btn">Submit Practice Test</button>
+
+                    <div id="results-container">
+                        <h2>Practice Test Complete!</h2>
+                        <p id="score-text" class="result-message">You scored 0 out of 10.</p>
+                        <p id="feedback-text" class="result-message">Keep practicing to improve!</p>
+                        <a href="internship.html" class="btn btn-outline" style="margin-top: 20px;">Back to Internships</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="messageOverlay" class="message-overlay"></div>
+        <div id="cameraMessageBox" class="message-box">
+             <h3>Camera Access Required</h3>
+             <p>This practice test simulates a proctored environment. Please allow camera access to continue.</p>
+             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera</button>
+        </div>
+        <div id="cameraErrorBox" class="message-box">
+             <h3>Camera Error</h3>
+             <p id="cameraErrorText">Could not access the camera. Please ensure it's not blocked and try again.</p>
+             <button id="okErrorBtn" class="btn btn-outline">OK</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+           <div class="footer-grid">
+                <div class="footer-brand"><div class="footer-logo">Internadda</div><p class="footer-description">...</p></div>
+                <div class="footer-links-column"><h3 class="footer-links-title">Learn</h3><ul class="footer-links"><li><a href="../courses/course.html">Browse Courses</a></li></ul></div>
+                <div class="footer-links-column"><h3 class="footer-links-title">Intern</h3><ul class="footer-links"><li><a href="internship.html">Find Internships</a></li></ul></div>
+                <div class="footer-links-column"><h3 class="footer-links-title">Contact & Legal</h3><ul class="footer-links"><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact Us</a></li><li><a href="../privacy.html">Privacy Policy</a></li></ul></div>
+           </div>
+           <div class="footer-bottom"><p>© 2025 Internadda. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Re-use the exact same JavaScript logic from data_science_practice_test.html
+        document.addEventListener('DOMContentLoaded', () => {
+            const timerEl = document.getElementById('timer');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreText = document.getElementById('score-text');
+            const feedbackText = document.getElementById('feedback-text');
+            const questions = document.querySelectorAll('.question-block');
+            const totalQuestions = questions.length;
+            const cameraPopup = document.getElementById('camera-popup');
+            const cameraFeed = document.getElementById('camera-feed');
+            const messageOverlay = document.getElementById('messageOverlay');
+            const cameraMessageBox = document.getElementById('cameraMessageBox');
+            const cameraErrorBox = document.getElementById('cameraErrorBox');
+            const allowCameraBtn = document.getElementById('allowCameraBtn');
+            const okErrorBtn = document.getElementById('okErrorBtn');
+            const cameraErrorText = document.getElementById('cameraErrorText');
+            let examTimerInterval;
+            let stream = null;
+
+            async function startCamera() { /* ... same as data science ... */
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                    cameraFeed.srcObject = stream;
+                    cameraMessageBox.style.display = 'none';
+                    messageOverlay.style.display = 'none';
+                    cameraPopup.style.display = 'flex';
+                    startTimer();
+                } catch (err) {
+                    console.error("Camera Error:", err);
+                    cameraMessageBox.style.display = 'none';
+                    cameraErrorText.textContent = `Could not access camera: ${err.name}. You can proceed without camera for practice.`;
+                    cameraErrorBox.style.display = 'block';
+                    messageOverlay.style.display = 'block';
+                    okErrorBtn.onclick = () => {
+                         cameraErrorBox.style.display = 'none';
+                         messageOverlay.style.display = 'none';
+                         cameraPopup.style.display = 'none';
+                         startTimer();
+                    };
+                }
+            }
+            function stopCamera() { /* ... same as data science ... */
+                if (stream) { stream.getTracks().forEach(track => track.stop()); }
+                cameraPopup.style.display = 'none';
+            }
+            messageOverlay.style.display = 'block';
+            cameraMessageBox.style.display = 'block';
+            allowCameraBtn.addEventListener('click', startCamera);
+
+            function startTimer() { /* ... same as data science ... */
+                let time = 1200; // 20 minutes
+                if(timerEl) timerEl.textContent = "20:00";
+                examTimerInterval = setInterval(() => {
+                    time--;
+                    const minutes = Math.floor(time / 60);
+                    const seconds = time % 60;
+                    if(timerEl) timerEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    if (time <= 0) {
+                         clearInterval(examTimerInterval);
+                         if (submitBtn.style.display !== 'none') { submitTest(); }
+                    }
+                }, 1000);
+            }
+
+            questions.forEach(question => { /* ... same as data science ... */
+                const options = question.querySelectorAll('.options .option');
+                options.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        options.forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        question.dataset.selectedValue = opt.dataset.value;
+                    });
+                });
+            });
+
+            function submitTest() { /* ... same as data science ... */
+                clearInterval(examTimerInterval);
+                stopCamera();
+                let score = 0;
+                questions.forEach(question => {
+                    if (question.dataset.selectedValue === question.dataset.answer) score++;
+                    question.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none');
+                });
+                const percentage = ((score / totalQuestions) * 100).toFixed(0);
+                scoreText.textContent = `You scored ${score} out of ${totalQuestions} (${percentage}%).`;
+                if (percentage >= 80) feedbackText.textContent = "Excellent work!";
+                else if (percentage >= 60) feedbackText.textContent = "Good job! Review incorrect answers.";
+                else feedbackText.textContent = "Keep practicing!";
+                resultsContainer.style.display = 'block';
+                submitBtn.style.display = 'none';
+                if(timerEl) timerEl.textContent = "Finished";
+            }
+            submitBtn.addEventListener('click', submitTest);
+
+            document.addEventListener('visibilitychange', () => { /* ... same as data science ... */
+                 if (document.hidden && examTimerInterval && submitBtn.style.display !== 'none') {
+                    console.warn("User switched tabs during AI/ML practice test.");
+                 }
+            });
+        });
+    </script>
+</body>
+</html>
