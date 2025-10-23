@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI & ML Final Exam — Internadda</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <title>AI & ML Final Exam — Internadda</title> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* Re-use the exact same styles from data_science_final_exam.html */
+        /* General Exam Styles - Copied Exactly */
         .exam-container { max-width: 900px; margin: 40px auto; position: relative; }
         .exam-step { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .hidden { display: none !important; }
@@ -53,9 +52,8 @@
                 </div>
 
                 <div id="instructions-step" class="exam-step hidden">
-                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions (AI & ML)</h2>
-                    <div class="instructions-list">
-                        <ul>
+                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions (AI & ML)</h2> <div class="instructions-list">
+                         <ul>
                             <li><strong>Duration:</strong> <strong>30 minutes</strong>.</li>
                             <li><strong>Passing Score:</strong> <strong class="passing-score">60%</strong>.</li>
                             <li><strong>Proctoring:</strong> Camera MUST be on. Session is recorded.</li>
@@ -66,41 +64,40 @@
                             <li><strong>Submission:</strong> Auto-submits at time up or submit manually. No changes after submission.</li>
                         </ul>
                     </div>
-                    <div class="strict-disclaimer"><i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> Starting confirms you accept these rules. Violations will lead to disqualification and a ban.</div>
+                     <div class="strict-disclaimer"><i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> Starting confirms you accept these rules. Violations will lead to disqualification and a ban.</div>
                     <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
 
                 <div id="exam-step" class="exam-step hidden">
                     <div class="exam-header">
-                        <h1>AI & Machine Learning Final Exam</h1>
-                        <div id="timer">30:00</div>
+                        <h1>AI & Machine Learning Final Exam</h1> <div id="timer">30:00</div>
                     </div>
                     <div id="quiz-container">
-                        <div class="question-block" data-answer="b"><h3><strong>1</strong>What is the primary difference between supervised and unsupervised learning?</h3><div class="options"><div class="option" data-value="a">Speed of training</div><div class="option" data-value="b">Use of labeled vs unlabeled data</div><div class="option" data-value="c">Type of algorithm used</div><div class="option" data-value="d">Amount of data required</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><strong>2</strong>Which metric is generally preferred for evaluating classification models when dealing with imbalanced datasets?</h3><div class="options"><div class="option" data-value="a">Accuracy</div><div class="option" data-value="b">Mean Squared Error (MSE)</div><div class="option" data-value="c">R-squared</div><div class="option" data-value="d">F1-Score or AUC-ROC</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><strong>3</strong>TensorFlow and PyTorch are popular frameworks primarily used for:</h3><div class="options"><div class="option" data-value="a">Deep Learning</div><div class="option" data-value="b">Data Visualization</div><div class="option" data-value="c">Database Management</div><div class="option" data-value="d">Web Development</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>4</strong>In the context of neural networks, what is 'backpropagation'?</h3><div class="options"><div class="option" data-value="a">The process of feeding input data forward through the network.</div><div class="option" data-value="b">Initializing the weights of the network randomly.</div><div class="option" data-value="c">Calculating gradients and updating weights to minimize error.</div><div class="option" data-value="d">Adding more layers to the network.</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><strong>5</strong>What type of problem is predicting the stock price for tomorrow based on historical data?</h3><div class="options"><div class="option" data-value="a">Classification</div><div class="option" data-value="b">Regression (Time Series Forecasting)</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Anomaly Detection</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><strong>6</strong>'Dimensionality Reduction' techniques like PCA (Principal Component Analysis) are used to:</h3><div class="options"><div class="option" data-value="a">Reduce the number of input features while preserving important information.</div><div class="option" data-value="b">Increase the number of training examples.</div><div class="option" data-value="c">Handle missing values in the data.</div><div class="option" data-value="d">Choose the best model architecture.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><strong>7</strong>What is a 'hyperparameter' in machine learning?</h3><div class="options"><div class="option" data-value="a">A parameter learned by the model during training (like weights).</div><div class="option" data-value="b">The input data used for training.</div><div class="option" data-value="c">The target variable we want to predict.</div><div class="option" data-value="d">A parameter set before training that controls the learning process (e.g., learning rate).</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>8</strong>Which algorithm builds a model in the form of a tree structure, breaking down data based on feature values?</h3><div class="options"><div class="option" data-value="a">K-Nearest Neighbors (KNN)</div><div class="option" data-value="b">Naive Bayes</div><div class="option" data-value="c">Decision Tree</div><div class="option" data-value="d">Logistic Regression</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><strong>9</strong>What does 'NLP' stand for in the context of AI?</h3><div class="options"><div class="option" data-value="a">Network Learning Protocol</div><div class="option" data-value="b">Natural Language Processing</div><div class="option" data-value="c">Neural Logic Programming</div><div class="option" data-value="d">Numerical Linear Procedures</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><strong>10</strong>A Convolutional Neural Network (CNN) is particularly effective for which type of data?</h3><div class="options"><div class="option" data-value="a">Images</div><div class="option" data-value="b">Tabular Data</div><div class="option" data-value="c">Time Series Data</div><div class="option" data-value="d">Text Data (though RNNs/Transformers are often used too)</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><strong>11</strong>Regularization techniques (like L1 or L2) are added to machine learning models primarily to:</h3><div class="options"><div class="option" data-value="a">Speed up training time.</div><div class="option" data-value="b">Increase model complexity.</div><div class="option" data-value="c">Handle categorical features.</div><div class="option" data-value="d">Prevent overfitting by penalizing large weights.</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>12</strong>What is 'Transfer Learning'?</h3><div class="options"><div class="option" data-value="a">Training a model from scratch on a new dataset.</div><div class="option" data-value="b">Combining multiple models into an ensemble.</div><div class="option" data-value="c">Using a pre-trained model on a new, related task, often with fine-tuning.</div><div class="option" data-value="d">Splitting data into multiple folds for cross-validation.</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><strong>13</strong>Which evaluation metric calculates the proportion of correctly predicted positive instances out of all instances actually predicted as positive? (TP / (TP + FP))</h3><div class="options"><div class="option" data-value="a">Recall</div><div class="option" data-value="b">Precision</div><div class="option" data-value="c">Accuracy</div><div class="option" data-value="d">Specificity</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><strong>14</strong>Which activation function suffers from the "vanishing gradient" problem in deep networks?</h3><div class="options"><div class="option" data-value="a">Sigmoid / Tanh</div><div class="option" data-value="b">ReLU</div><div class="option" data-value="c">Leaky ReLU</div><div class="option" data-value="d">Softmax</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><strong>15</strong>What is the primary purpose of 'Cross-Validation'?</h3><div class="options"><div class="option" data-value="a">To make the model interpret itself.</div><div class="option" data-value="b">To select features automatically.</div><div class="option" data-value="c">To visualize the decision boundaries.</div><div class="option" data-value="d">To get a more reliable estimate of model performance on unseen data by using multiple train/validation splits.</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><strong>16</strong>An 'Epoch' in training a neural network refers to:</h3><div class="options"><div class="option" data-value="a">Processing a single batch of data.</div><div class="option" data-value="b">One complete pass through the entire training dataset.</div><div class="option" data-value="c">Updating the weights once.</div><div class="option" data-value="d">The time taken for training to complete.</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>17</strong>Which algorithm is based on Bayes' Theorem and assumes independence between features?</h3><div class="options"><div class="option" data-value="a">Support Vector Machine (SVM)</div><div class="option" data-value="b">K-Nearest Neighbors (KNN)</div><div class="option" data-value="c">Naive Bayes</div><div class="option" data-value="d">Random Forest</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><strong>18</strong>What is the role of the 'learning rate' in Gradient Descent?</h3><div class="options"><div class="option" data-value="a">It controls the step size taken during each iteration of weight updates.</div><div class="option" data-value="b">It determines the number of layers in the network.</div><div class="option" data-value="c">It measures the final accuracy of the model.</div><div class="option" data-value="d">It defines the batch size used during training.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><strong>19</strong>Bagging and Boosting are techniques used in:</h3><div class="options"><div class="option" data-value="a">Feature Scaling</div><div class="option" data-value="b">Data Visualization</div><div class="option" data-value="c">Dimensionality Reduction</div><div class="option" data-value="d">Ensemble Methods (combining multiple models)</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>20</strong>Which type of neural network is specifically designed to handle sequential data, like text or time series?</h3><div class="options"><div class="option" data-value="a">Convolutional Neural Network (CNN)</div><div class="option" data-value="b">Multilayer Perceptron (MLP)</div><div class="option" data-value="c">Recurrent Neural Network (RNN) or LSTM/GRU</div><div class="option" data-value="d">Autoencoder</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><strong>21</strong>What does 'Feature Scaling' (e.g., Standardization or Normalization) achieve?</h3><div class="options"><div class="option" data-value="a">It removes irrelevant features.</div><div class="option" data-value="b">It brings features to a similar scale, preventing some features from dominating distance-based algorithms or gradient descent.</div><div class="option" data-value="c">It converts categorical features to numerical ones.</div><div class="option" data-value="d">It handles missing values.</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><strong>22</strong>If a model has high bias, it typically means:</h3><div class="options"><div class="option" data-value="a">The model is too simple and is underfitting the data.</div><div class="option" data-value="b">The model is too complex and is overfitting the data.</div><div class="option" data-value="c">The model is sensitive to small changes in the training data.</div><div class="option" data-value="d">The model has learned the training data perfectly.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><strong>23</strong>A 'Generative Adversarial Network' (GAN) consists of which two main components?</h3><div class="options"><div class="option" data-value="a">Encoder and Decoder</div><div class="option" data-value="b">Classifier and Regressor</div><div class="option" data-value="c">Agent and Environment</div><div class="option" data-value="d">Generator and Discriminator</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>24</strong>Which Python library provides a high-level interface for training and evaluating many common machine learning algorithms?</h3><div class="options"><div class="option" data-value="a">NumPy</div><div class="option" data-value="b">Pandas</div><div class="option" data-value="c">Scikit-learn (sklearn)</div><div class="option" data-value="d">Matplotlib</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><strong>25</strong>What is the 'Softmax' function typically used for in a neural network?</h3><div class="options"><div class="option" data-value="a">Feature normalization in hidden layers.</div><div class="option" data-value="b">Converting output scores into probabilities for multi-class classification.</div><div class="option" data-value="c">Regularizing the network weights.</div><div class="option" data-value="d">Calculating the loss function for regression.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>1</strong> You train a classification model that achieves 99% accuracy on the training set but only 65% on the test set. This is a clear sign of:</h3><div class="options"><div class="option" data-value="a">Underfitting</div><div class="option" data-value="b">Overfitting</div><div class="option" data-value="c">Data Leakage</div><div class="option" data-value="d">High Bias</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>2</strong> Which activation function is commonly used in the output layer of a multi-class classification neural network to produce probability distributions?</h3><div class="options"><div class="option" data-value="a">Sigmoid</div><div class="option" data-value="b">ReLU</div><div class="option" data-value="c">Softmax</div><div class="option" data-value="d">Tanh</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>3</strong> In Reinforcement Learning, an 'agent' learns to make decisions by receiving what from the 'environment'?</h3><div class="options"><div class="option" data-value="a">Labeled Data</div><div class="option" data-value="b">Feature Vectors</div><div class="option" data-value="c">Class Probabilities</div><div class="option" data-value="d">Rewards or Penalties</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>4</strong> What is the primary purpose of using word embeddings (like Word2Vec or GloVe) in Natural Language Processing?</h3><div class="options"><div class="option" data-value="a">To represent words as dense vectors capturing semantic relationships.</div><div class="option" data-value="b">To count the frequency of each word in a document.</div><div class="option" data-value="c">To split sentences into individual words.</div><div class="option" data-value="d">To correct spelling errors in text.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>5</strong> Consider a scenario where correctly identifying fraudulent transactions (True Positives) is crucial, even if some legitimate transactions are flagged (False Positives). Which evaluation metric should be prioritized?</h3><div class="options"><div class="option" data-value="a">Precision</div><div class="option" data-value="b">Recall (Sensitivity)</div><div class="option" data-value="c">Accuracy</div><div class="option" data-value="d">Specificity</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>6</strong> Which of the following is an example of an unsupervised learning task?</h3><div class="options"><div class="option" data-value="a">Predicting house prices based on features.</div><div class="option" data-value="b">Classifying images of cats vs. dogs.</div><div class="option" data-value="c">Grouping customers into segments based on purchasing behavior without prior labels.</div><div class="option" data-value="d">Identifying spam emails based on labeled examples.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>7</strong> You are building an image recognition model. Which technique helps the model become robust to variations in object position, scale, and rotation?</h3><div class="options"><div class="option" data-value="a">Using a smaller learning rate.</div><div class="option" data-value="b">Adding more layers to the network.</div><div class="option" data-value="c">Using One-Hot Encoding for labels.</div><div class="option" data-value="d">Data Augmentation (e.g., rotating, flipping, zooming images).</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>8</strong> What is the "curse of dimensionality"?</h3><div class="options"><div class="option" data-value="a">The phenomenon where data becomes sparse and algorithms perform poorly as the number of features increases significantly.</div><div class="option" data-value="b">The difficulty in visualizing data with more than three dimensions.</div><div class="option" data-value="c">The tendency of models to overfit when using too many dimensions.</div><div class="option" data-value="d">The computational cost associated with high-dimensional matrix operations.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>9</strong> In deep learning, what is the main advantage of using ReLU (Rectified Linear Unit) over Sigmoid or Tanh in hidden layers?</h3><div class="options"><div class="option" data-value="a">It outputs values between 0 and 1.</div><div class="option" data-value="b">It helps mitigate the vanishing gradient problem and is computationally efficient.</div><div class="option" data-value="c">It is a non-linear function suitable for complex patterns.</div><div class="option" data-value="d">It centers the output around zero.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>10</strong> Which type of bias occurs when the training data does not accurately represent the real-world environment where the model will be deployed?</h3><div class="options"><div class="option" data-value="a">Algorithmic Bias</div><div class="option" data-value="b">Confirmation Bias</div><div class="option" data-value="c">Sampling Bias (or Representation Bias)</div><div class="option" data-value="d">Measurement Bias</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>11</strong> You need to evaluate a regression model's performance. Which metric measures the average squared difference between predicted and actual values?</h3><div class="options"><div class="option" data-value="a">Accuracy</div><div class="option" data-value="b">R-squared</div><div class="option" data-value="c">Mean Absolute Error (MAE)</div><div class="option" data-value="d">Mean Squared Error (MSE)</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>12</strong> What is the purpose of the 'attention mechanism' in modern NLP models like Transformers?</h3><div class="options"><div class="option" data-value="a">To allow the model to weigh the importance of different input words when processing a specific word.</div><div class="option" data-value="b">To speed up the training process by using parallel computation.</div><div class="option" data-value="c">To reduce the number of parameters in the model.</div><div class="option" data-value="d">To handle out-of-vocabulary words.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>13</strong> If a K-Means clustering algorithm is run multiple times with different random initializations, why might it produce different results?</h3><div class="options"><div class="option" data-value="a">Because the number of clusters (K) changes each time.</div><div class="option" data-value="b">Because the algorithm can converge to different local optima depending on the starting centroids.</div><div class="option" data-value="c">Because the input data changes slightly with each run.</div><div class="option" data-value="d">Because the distance metric used changes randomly.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>14</strong> Which technique involves training multiple models (often of the same type) independently on different subsets of the data and averaging their predictions?</h3><div class="options"><div class="option" data-value="a">Boosting (e.g., AdaBoost, Gradient Boosting)</div><div class="option" data-value="b">Stacking</div><div class="option" data-value="c">Bagging (e.g., Random Forest)</div><div class="option" data-value="d">Cross-Validation</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>15</strong> What is a potential drawback of using L1 regularization (Lasso) compared to L2 regularization (Ridge)?</h3><div class="options"><div class="option" data-value="a">L1 is more computationally expensive.</div><div class="option" data-value="b">L1 cannot handle correlated features well.</div><div class="option" data-value="c">L1 does not perform feature selection.</div><div class="option" data-value="d">L1 can lead to sparse models (setting some weights to exactly zero), which might discard useful features if coefficients are small.</div></div></div>
+                         <div class="question-block" data-answer="b"><h3><strong>16</strong>In computer vision, what is the role of a 'pooling' layer in a Convolutional Neural Network (CNN)?</h3><div class="options"><div class="option" data-value="a">To apply a non-linear activation function.</div><div class="option" data-value="b">To reduce the spatial dimensions (downsampling) and make the model more robust to variations.</div><div class="option" data-value="c">To increase the number of feature maps.</div><div class="option" data-value="d">To perform element-wise multiplication with input features.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>17</strong>Which statement best describes the Bias-Variance tradeoff?</h3><div class="options"><div class="option" data-value="a">Increasing model complexity tends to decrease bias but increase variance.</div><div class="option" data-value="b">Increasing model complexity tends to increase bias but decrease variance.</div><div class="option" data-value="c">Bias and variance are independent of model complexity.</div><div class="option" data-value="d">The goal is always to minimize bias, regardless of variance.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>18</strong>You have text data and want to represent documents based on the frequency of words they contain, ignoring word order. Which common NLP technique achieves this?</h3><div class="options"><div class="option" data-value="a">Word Embeddings</div><div class="option" data-value="b">Sequence-to-Sequence Models</div><div class="option" data-value="c">Bag-of-Words (BoW) or TF-IDF</div><div class="option" data-value="d">Part-of-Speech Tagging</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>19</strong>Which of these algorithms is inherently non-deterministic, meaning it can produce different outputs for the same input due to randomness in its process?</h3><div class="options"><div class="option" data-value="a">Linear Regression (with standard OLS)</div><div class="option" data-value="b">Support Vector Machine (with a fixed kernel)</div><div class="option" data-value="c">Decision Tree (without random feature subsets)</div><div class="option" data-value="d">K-Means Clustering (due to random initialization)</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>20</strong>What does the term 'gradient explosion' refer to in training deep neural networks?</h3><div class="options"><div class="option" data-value="a">Gradients becoming too small, hindering learning in early layers.</div><div class="option" data-value="b">Gradients becoming excessively large, leading to unstable weight updates.</div><div class="option" data-value="c">The process where the network perfectly memorizes the training data.</div><div class="option" data-value="d">Using too high a learning rate, causing divergence.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>21</strong>Which technique is specifically designed to handle sequential dependencies where the context from earlier parts of the sequence is important for later parts?</h3><div class="options"><div class="option" data-value="a">Recurrent Neural Networks (RNNs) / LSTMs / GRUs</div><div class="option" data-value="b">Convolutional Neural Networks (CNNs)</div><div class="option" data-value="c">Feedforward Neural Networks (MLPs)</div><div class="option" data-value="d">Principal Component Analysis (PCA)</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>22</strong>If you increase the value of 'K' in the K-Nearest Neighbors (KNN) algorithm, what is the likely effect on the decision boundary?</h3><div class="options"><div class="option" data-value="a">It becomes more complex and sensitive to noise.</div><div class="option" data-value="b">It has no effect on the decision boundary.</div><div class="option" data-value="c">It becomes smoother and less sensitive to individual data points.</div><div class="option" data-value="d">It shifts the boundary linearly.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>23</strong>Anomaly detection algorithms are primarily used for:</h3><div class="options"><div class="option" data-value="a">Predicting continuous values.</div><div class="option" data-value="b">Grouping similar data points together.</div><div class="option" data-value="c">Classifying data into known categories.</div><div class="option" data-value="d">Identifying rare or unusual data points that deviate significantly from the norm.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>24</strong>What is 'data leakage' in machine learning?</h3><div class="options"><div class="option" data-value="a">When information from outside the training dataset (e.g., from the test set or future data) is inadvertently used during model training, leading to overly optimistic performance estimates.</div><div class="option" data-value="b">When sensitive user data is exposed during model deployment.</div><div class="option" data-value="c">When the dataset contains too many missing values.</div><div class="option" data-value="d">When the model fails to generalize to unseen data due to overfitting.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>25</strong>Which popular ensemble method involves training subsequent models sequentially, where each new model focuses on correcting the errors made by the previous ones?</h3><div class="options"><div class="option" data-value="a">Random Forest</div><div class="option" data-value="b">Bagging</div><div class="option" data-value="c">Gradient Boosting (e.g., XGBoost, LightGBM)</div><div class="option" data-value="d">Voting Classifier</div></div></div>
 
                         <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
                     </div>
@@ -112,15 +109,28 @@
                     <p id="result-message"></p>
                     <div id="score-display" class="score-display">Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> (<span id="final-percentage">--</span>%)</div>
                     <div id="email-instructions" class="email-instructions hidden">
-                        <p><strong>Congratulations!</strong> You have met the minimum score requirement (60%).</p>
-                        <p>To proceed, please <strong>email us with the following details:</strong></p>
-                        <ul>
-                            <li><strong>To:</strong> official.internadda@gmail.com</li>
-                            <li><strong>Subject:</strong> AI & ML Internship Application - [Your Full Name Here]</li>
-                            <li><strong>Body:</strong> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
-                            <li><strong>Attachment:</strong> Screenshot of this results page.</li>
-                        </ul>
-                        <p>We will verify your score and proctoring session, then reply within <strong>72 business hours</strong>.</p>
+                         <p><strong>Congratulations!</strong> You have met the minimum score requirement (60%).</p>
+                         <p>To proceed with your internship application, please <strong>carefully follow these steps:</strong></p>
+                         <ul>
+                             <li><strong>Send an Email To:</strong> official.internadda@gmail.com</li>
+                             <li><strong>Subject Line:</strong> AI & ML Internship Application - [Your Full Name Here]</li> <li><strong>Email Body (Copy and paste, then fill in your details):</strong>
+                                  <pre style="background: #fff; padding: 10px; border-radius: 4px; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word;">Dear Internadda Team,
+
+I have successfully completed the AI & Machine Learning Final Exam with a score of <span class="final-score-email">--</span>%. My registered email is [Your Registered Email Address Here].
+
+Please find attached a screenshot of my exam result page showing the score.
+
+I look forward to hearing about the next steps in the internship selection process.
+
+Thank you,
+
+[Your Full Name Here]
+[Your Contact Number Here]
+[Link to your LinkedIn Profile, if available - Optional]</pre>
+                            </li>
+                             <li><strong>Mandatory Attachment:</strong><br>1. Screenshot of this results page (showing your score).</li>
+                         </ul>
+                         <p><strong>Verification Timeline:</strong> You will receive an update via email within <strong>72 business hours</strong> after verification.</p>
                         <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
                     <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
@@ -150,8 +160,8 @@
 
     <footer style="background-color: #f7fafc; padding: 40px 0; border-top: 1px solid #e2e8f0; text-align: center;"><div class="container"><p>© 2025 Internadda. All rights reserved.</p></div></footer>
 
-    <script>
-        // Re-use the exact same JavaScript logic from data_science_final_exam.html
+     <script>
+        // --- EXACT SAME JavaScript logic as data_science_final_exam.html ---
         document.addEventListener('DOMContentLoaded', () => {
             // Get Elements
             const paymentStep = document.getElementById('payment-step');
@@ -184,7 +194,7 @@
             const finalPercentageEl = document.getElementById('final-percentage');
             const emailInstructions = document.getElementById('email-instructions');
             const emailLink = document.getElementById('email-link');
-            const finalScoreEmailSpan = document.querySelector('.final-score-email');
+            const finalScoreEmailSpan = document.querySelector('.final-score-email'); // Ensure this span exists in the email text
 
             // State
             let examTimerInterval; let cameraTimerInterval; let stream = null; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
@@ -198,8 +208,8 @@
             // Payment -> App Number Modal
             proceedToInstructionsBtn.addEventListener('click', () => { messageOverlay.style.display = 'block'; appNumberModal.style.display = 'block'; appNumberInput.value = ''; appNumberError.textContent = ''; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; appNumberInput.focus(); });
 
-            // Verify App Number (Simulated)
-            verifyAppNumberBtn.addEventListener('click', async () => { /* ... same verify logic using /api/verify-application ... */
+            // Verify App Number
+            verifyAppNumberBtn.addEventListener('click', async () => {
                 const appNumber = appNumberInput.value.trim().toUpperCase();
                 if (!appNumber) { appNumberError.textContent = 'Please enter an application number.'; return; }
                 verifyAppNumberBtn.disabled = true; verifyAppNumberBtn.textContent = 'Verifying...'; appNumberError.textContent = '';
@@ -218,34 +228,38 @@
             startExamBtn.addEventListener('click', requestCamera);
             async function requestCamera() { messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block'; }
             allowCameraBtn.addEventListener('click', startCamera);
-            async function startCamera() { /* ... same camera start logic ... */
+            async function startCamera() {
                  cameraMessageBox.style.display = 'none';
                  try {
                      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; proceedToExam();
                  } catch (err) { console.warn("Camera Error:", err.name); cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); proceedToExam(); }
             }
             function proceedToExam() { messageOverlay.style.display = 'none'; cameraPopup.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.remove('hidden'); startTimer(); startCameraTimer(); }
-            function stopCamera() { /* ... same camera stop logic ... */ if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
+            function stopCamera() { if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
 
             // Exam Timers
-            function startTimer() { /* ... same timer logic (30 mins = 1800s) ... */ let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
-            function startCameraTimer() { /* ... same camera timer logic ... */ let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+            function startTimer() { let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimer() { let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
 
             // Question Selection
             const questions = document.querySelectorAll('.question-block'); const totalQuestions = questions.length; totalQuestionsEl.textContent = totalQuestions;
-            questions.forEach(q => { /* ... same option selection logic ... */ const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
+            questions.forEach(q => { const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
 
             // Submission
-            function submitExam() { /* ... same submission logic ... */
+            function submitExam() {
                 if (examTimerInterval) clearInterval(examTimerInterval); stopCamera(); let score = 0;
                 questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); });
                 const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
-                finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage; finalScoreEmailSpan.textContent = percentage; // Update span in email text too
+                finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage;
+                 if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; // Update span in email text too
+
                 if (percentage >= 60) {
                     resultIcon.className = 'icon fas fa-check-circle success'; resultTitle.textContent = "Exam Completed - Qualified!"; resultMessage.textContent = "Congratulations! Follow the instructions below."; emailInstructions.classList.remove('hidden');
                     // --- Update Email Link for AI/ML ---
-                    const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`);
-                    const body = encodeURIComponent(`Dear Internadda Team,\n\nI completed the AI & ML Final Exam with ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nScreenshot attached.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]`);
+                    const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); // Corrected Subject
+                    const body = encodeURIComponent(
+                         `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                     ); // Corrected Body Text
                     emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
                 } else {
                     resultIcon.className = 'icon fas fa-times-circle fail'; resultTitle.textContent = "Exam Completed"; resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; emailInstructions.classList.add('hidden');
@@ -255,7 +269,7 @@
             submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
 
             // Anti-Cheat
-            document.addEventListener('visibilitychange', () => { /* ... same visibility change logic ... */
+            document.addEventListener('visibilitychange', () => {
                  if (!examStep.classList.contains('hidden') && document.hidden) {
                      tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval);
                      if (tabSwitchCount >= MAX_TAB_SWITCHES) {
@@ -263,11 +277,11 @@
                      } else { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; }
                  }
             });
-            resumeExamBtn.addEventListener('click', () => { /* ... same resume logic ... */
+            resumeExamBtn.addEventListener('click', () => {
                  tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000); const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; startTimerFrom(remainingTime); startCameraTimerFrom(elapsedSinceStart);
             });
-            function startTimerFrom(startTimeInSeconds) { /* ... same timer resume logic ... */ let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
-            function startCameraTimerFrom(startTimeInSeconds) { /* ... same camera timer resume logic ... */ let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+            function startTimerFrom(startTimeInSeconds) { let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimerFrom(startTimeInSeconds) { let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
 
         }); // End DOMContentLoaded
     </script>
