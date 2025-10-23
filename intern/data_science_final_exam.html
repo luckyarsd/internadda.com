@@ -133,10 +133,13 @@
         #payment-step h2 { font-size: 2rem; margin-bottom: 15px; }
         #payment-step p { font-size: 1.1rem; color: var(--gray, #4a5568); margin-bottom: 15px; max-width: 700px; margin-left: auto; margin-right: auto;}
         #payment-step img { margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee; }
-        .payment-warning {
-            color: #c53030; background: #fff5f5; padding: 15px; border-radius: 8px;
-            margin-top: 25px; font-weight: 500; border: 1px solid #fbb2b2; text-align: left; max-width: 700px; margin-left: auto; margin-right: auto;
+        /* REMOVED .payment-warning */
+        /* ADDED Motivational text style */
+        .motivational-text {
+             color: var(--primary, #2b6cb0); background: #ebf8ff; padding: 15px; border-radius: 8px;
+             margin-top: 25px; font-weight: 500; border: 1px solid #bee3f8; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.05rem;
         }
+        .motivational-text i { margin-right: 8px; }
 
         /* Instructions Step */
         #instructions-step h2 { text-align: center; font-size: 2rem; margin-bottom: 25px; }
@@ -365,14 +368,17 @@
             <div class="exam-container">
 
                 <div id="payment-step" class="exam-step">
-                    <h2><i class="fas fa-credit-card"></i> Exam Fee Payment Required</h2>
-                    <p>To proceed to the final proctored exam for internship consideration, a non-refundable examination fee is required. This fee covers the proctoring and administrative costs.</p>
-                    <p>Please scan the QR code below using your preferred UPI app to complete the payment.</p>
+                    <!-- UPDATED Heading and Text -->
+                    <h2><i class="fas fa-rocket"></i> Begin Your Internship Journey</h2>
+                    <p>This exam is the first step towards securing a valuable internship. The required fee covers proctoring and ensures a fair evaluation process for all candidates.</p>
+                    <p>Scan the QR code below to complete the fee payment via your UPI app.</p>
                     <img src="../images/qr.jpg" alt="Scan QR Code for Payment" style="margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee;">
-                    <p>After successful payment, click the button below and enter your Application Number to proceed.</p>
-                     <div class="payment-warning">
-                         <strong>Important:</strong> This exam fee is strictly non-refundable as per our policy. Ensure you meet all system requirements and are ready before making the payment.
-                     </div>
+                    <p>After successful payment, click the button below and enter your Application Number to unlock the exam instructions.</p>
+                    <!-- REMOVED Original Red Warning -->
+                    <!-- ADDED New Motivational Text -->
+                    <div class="motivational-text">
+                        <i class="fas fa-award"></i> Invest in your future! Passing this exam opens doors to real-world experience and potential career opportunities. Good luck!
+                    </div>
                     <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Payment Completed - Verify Application</button>
                 </div>
 
@@ -403,81 +409,16 @@
                     </div>
 
                     <div id="quiz-container">
-                        <div class="question-block" data-answer="d">
-                            <h3><strong>1</strong>What is 'Overfitting' in machine learning?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Model too simple.</div>
-                                <div class="option" data-value="b">Performs equally on train/test.</div>
-                                <div class="option" data-value="c">Insufficient training data.</div>
-                                <div class="option" data-value="d">Good on train, poor on test.</div>
-                            </div>
-                        </div>
-                        <div class="question-block" data-answer="b">
-                            <h3><strong>2</strong>Which plot is LEAST suitable for showing data distribution?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Histogram</div>
-                                <div class="option" data-value="b">Pie Chart</div>
-                                <div class="option" data-value="c">Box Plot</div>
-                                <div class="option" data-value="d">KDE Plot</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="c">
-                            <h3><strong>3</strong>What does SQL stand for?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Strong Question Language</div>
-                                <div class="option" data-value="b">Simple Query Logic</div>
-                                <div class="option" data-value="c">Structured Query Language</div>
-                                <div class="option" data-value="d">Sequential Query Language</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="a">
-                            <h3><strong>4</strong>Pandas is primarily built on top of which other Python library for numerical operations?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">NumPy</div>
-                                <div class="option" data-value="b">Matplotlib</div>
-                                <div class="option" data-value="c">SciPy</div>
-                                <div class="option" data-value="d">Requests</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="b">
-                            <h3><strong>5</strong>You have a column 'Age' with some missing values (`NaN`). Which is generally the most robust method to fill these missing values if the data has outliers?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Fill with 0.</div>
-                                <div class="option" data-value="b">Fill with the median age.</div>
-                                <div class="option" data-value="c">Fill with the mean age.</div>
-                                <div class="option" data-value="d">Drop the rows with missing age.</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="c">
-                            <h3><strong>6</strong>What is the purpose of the `GROUP BY` clause combined with an aggregate function (like `COUNT()` or `AVG()`) in SQL?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">To sort the results based on the aggregated value.</div>
-                                <div class="option" data-value="b">To filter rows before aggregation.</div>
-                                <div class="option" data-value="c">To perform calculations across subsets of rows based on column values.</div>
-                                <div class="option" data-value="d">To join multiple tables before aggregation.</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="a">
-                            <h3><strong>7</strong>You need to predict whether an email is 'spam' or 'not spam'. What type of machine learning problem is this?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Binary Classification</div>
-                                <div class="option" data-value="b">Regression</div>
-                                <div class="option" data-value="c">Clustering</div>
-                                <div class="option" data-value="d">Dimensionality Reduction</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="d">
-                            <h3><strong>8</strong>If a classification model correctly identifies 90 out of 100 positive instances, but incorrectly flags 10 negative instances as positive, what metric specifically measures its ability to correctly identify the positives?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Accuracy</div>
-                                <div class="option" data-value="b">Precision</div>
-                                <div class="option" data-value="c">Specificity</div>
-                                <div class="option" data-value="d">Recall (Sensitivity)</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="b">
-                            <h3><strong>9</strong>Which Python code snippet correctly imports the Matplotlib library for plotting?</h3>
-                            <pre># Option A
+                         <!-- Original Data Science Questions 1-25 -->
+                        <div class="question-block" data-answer="d"><h3><strong>1</strong>What is 'Overfitting' in machine learning?</h3><div class="options"><div class="option" data-value="a">Model too simple.</div><div class="option" data-value="b">Performs equally on train/test.</div><div class="option" data-value="c">Insufficient training data.</div><div class="option" data-value="d">Good on train, poor on test.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>2</strong>Which plot is LEAST suitable for showing data distribution?</h3><div class="options"><div class="option" data-value="a">Histogram</div><div class="option" data-value="b">Pie Chart</div><div class="option" data-value="c">Box Plot</div><div class="option" data-value="d">KDE Plot</div></div></div>
+                         <div class="question-block" data-answer="c"><h3><strong>3</strong>What does SQL stand for?</h3><div class="options"><div class="option" data-value="a">Strong Question Language</div><div class="option" data-value="b">Simple Query Logic</div><div class="option" data-value="c">Structured Query Language</div><div class="option" data-value="d">Sequential Query Language</div></div></div>
+                         <div class="question-block" data-answer="a"><h3><strong>4</strong>Pandas is primarily built on top of which other Python library for numerical operations?</h3><div class="options"><div class="option" data-value="a">NumPy</div><div class="option" data-value="b">Matplotlib</div><div class="option" data-value="c">SciPy</div><div class="option" data-value="d">Requests</div></div></div>
+                         <div class="question-block" data-answer="b"><h3><strong>5</strong>You have a column 'Age' with some missing values (`NaN`). Which is generally the most robust method to fill these missing values if the data has outliers?</h3><div class="options"><div class="option" data-value="a">Fill with 0.</div><div class="option" data-value="b">Fill with the median age.</div><div class="option" data-value="c">Fill with the mean age.</div><div class="option" data-value="d">Drop the rows with missing age.</div></div></div>
+                         <div class="question-block" data-answer="c"><h3><strong>6</strong>What is the purpose of the `GROUP BY` clause combined with an aggregate function (like `COUNT()` or `AVG()`) in SQL?</h3><div class="options"><div class="option" data-value="a">To sort the results based on the aggregated value.</div><div class="option" data-value="b">To filter rows before aggregation.</div><div class="option" data-value="c">To perform calculations across subsets of rows based on column values.</div><div class="option" data-value="d">To join multiple tables before aggregation.</div></div></div>
+                         <div class="question-block" data-answer="a"><h3><strong>7</strong>You need to predict whether an email is 'spam' or 'not spam'. What type of machine learning problem is this?</h3><div class="options"><div class="option" data-value="a">Binary Classification</div><div class="option" data-value="b">Regression</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Dimensionality Reduction</div></div></div>
+                         <div class="question-block" data-answer="d"><h3><strong>8</strong>If a classification model correctly identifies 90 out of 100 positive instances, but incorrectly flags 10 negative instances as positive, what metric specifically measures its ability to correctly identify the positives?</h3><div class="options"><div class="option" data-value="a">Accuracy</div><div class="option" data-value="b">Precision</div><div class="option" data-value="c">Specificity</div><div class="option" data-value="d">Recall (Sensitivity)</div></div></div>
+                         <div class="question-block" data-answer="b"><h3><strong>9</strong>Which Python code snippet correctly imports the Matplotlib library for plotting?</h3><pre># Option A
 import plot as plt
 
 # Option B
@@ -487,158 +428,23 @@ import matplotlib.pyplot as plt
 from matplotlib import plot
 
 # Option D
-import pyplot as plt</pre>
-                            <div class="options">
-                                <div class="option" data-value="a">Option A</div>
-                                <div class="option" data-value="b">Option B</div>
-                                <div class="option" data-value="c">Option C</div>
-                                <div class="option" data-value="d">Option D</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="a">
-                            <h3><strong>10</strong>K-Means is an example of which type of machine learning algorithm?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Unsupervised Learning (Clustering)</div>
-                                <div class="option" data-value="b">Supervised Learning (Classification)</div>
-                                <div class="option" data-value="c">Supervised Learning (Regression)</div>
-                                <div class="option" data-value="d">Reinforcement Learning</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="c">
-                            <h3><strong>11</strong>How do you select a column named 'user_id' from a Pandas DataFrame called `df`?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">`df.column('user_id')`</div>
-                                <div class="option" data-value="b">`df.get('user_id')`</div>
-                                <div class="option" data-value="c">`df['user_id']` or `df.user_id`</div>
-                                <div class="option" data-value="d">`select user_id from df`</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="d">
-                            <h3><strong>12</strong>An e-commerce site wants to test if changing a button color from blue to green increases clicks. What is this process called?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Regression Analysis</div>
-                                <div class="option" data-value="b">Feature Engineering</div>
-                                <div class="option" data-value="c">Data Cleaning</div>
-                                <div class="option" data-value="d">A/B Testing</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="a">
-                            <h3><strong>13</strong>In hypothesis testing, if the p-value is 0.03 and the significance level (alpha) is 0.05, what is the conclusion?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Reject the null hypothesis (result is statistically significant).</div>
-                                <div class="option" data-value="b">Fail to reject the null hypothesis (result is not statistically significant).</div>
-                                <div class="option" data-value="c">Accept the alternative hypothesis.</div>
-                                <div class="option" data-value="d">The test is inconclusive.</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="b">
-                            <h3><strong>14</strong>Which technique transforms categorical features (like 'City': ['Delhi', 'Mumbai']) into numerical format using binary columns ('City_Delhi', 'City_Mumbai')?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Label Encoding</div>
-                                <div class="option" data-value="b">One-Hot Encoding</div>
-                                <div class="option" data-value="c">Normalization</div>
-                                <div class="option" data-value="d">Binning</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="c">
-                            <h3><strong>15</strong>You plot house prices vs. square footage and see a clear upward trend. This indicates a...?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Negative Correlation</div>
-                                <div class="option" data-value="b">No Correlation</div>
-                                <div class="option" data-value="c">Positive Correlation</div>
-                                <div class="option" data-value="d">Causation</div>
-                            </div>
-                        </div>
-                        <div class="question-block" data-answer="d">
-                            <h3><strong>16</strong>What Python data structure is ordered, immutable (cannot be changed after creation), and allows duplicate elements?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">List</div>
-                                <div class="option" data-value="b">Dictionary</div>
-                                <div class="option" data-value="c">Set</div>
-                                <div class="option" data-value="d">Tuple</div>
-                            </div>
-                        </div>
-                        <div class="question-block" data-answer="a">
-                            <h3><strong>17</strong>Which SQL statement modifies existing records in a table?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">UPDATE</div>
-                                <div class="option" data-value="b">MODIFY</div>
-                                <div class="option" data-value="c">INSERT INTO</div>
-                                <div class="option" data-value="d">ALTER TABLE</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="c">
-                            <h3><strong>18</strong>You have two tables: `Customers` (CustomerID, Name) and `Orders` (OrderID, CustomerID, Product). Which SQL clause combines rows from both tables based on `CustomerID`?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">UNION</div>
-                                <div class="option" data-value="b">GROUP BY</div>
-                                <div class="option" data-value="c">JOIN (e.g., INNER JOIN)</div>
-                                <div class="option" data-value="d">WHERE</div>
-                            </div>
-                        </div>
-                        <div class="question-block" data-answer="b">
-                            <h3><strong>19</strong>What does AUC (Area Under the ROC Curve) primarily measure for a binary classifier?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">The speed of the model.</div>
-                                <div class="option" data-value="b">The model's ability to distinguish between positive and negative classes across various thresholds.</div>
-                                <div class="option" data-value="c">The number of features used by the model.</div>
-                                <div class="option" data-value="d">The accuracy on the training set.</div>
-                            </div>
-                        </div>
-                        <div class="question-block" data-answer="a">
-                            <h3><strong>20</strong>Which of these is typically the FIRST step in the data science workflow after understanding the business problem?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Data Collection / Acquisition</div>
-                                <div class="option" data-value="b">Model Building</div>
-                                <div class="option" data-value="c">Data Visualization</div>
-                                <div class="option" data-value="d">Feature Engineering</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="d">
-                            <h3><strong>21</strong>Which Pandas method removes rows containing missing values (`NaN`)?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">`.fillna()`</div>
-                                <div class="option" data-value="b">`.remove_na()`</div>
-                                <div class="option" data-value="c">`.clean()`</div>
-                                <div class="option" data-value="d">`.dropna()`</div>
-                            </div>
-                        </div>
-                        <div class="question-block" data-answer="b">
-                            <h3><strong>22</strong>A model predicts 'rain' 80 times and 'no rain' 20 times. It rained 70 times and didn't rain 30 times. How many True Positives (predicting rain when it rained) are possible at maximum?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">80</div>
-                                <div class="option" data-value="b">70</div>
-                                <div class="option" data-value="c">30</div>
-                                <div class="option" data-value="d">20</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="c">
-                            <h3><strong>23</strong>Which plot type is most effective for comparing the distribution of a numerical variable across different categories?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Line Chart</div>
-                                <div class="option" data-value="b">Scatter Plot</div>
-                                <div class="option" data-value="c">Box Plot (or Violin Plot)</div>
-                                <div class="option" data-value="d">Pie Chart</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="a">
-                            <h3><strong>24</strong>What is the primary goal when selecting features for a machine learning model?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">To choose variables that are relevant and predictive of the target outcome.</div>
-                                <div class="option" data-value="b">To include as many variables as possible.</div>
-                                <div class="option" data-value="c">To choose only numerical variables.</div>
-                                <div class="option" data-value="d">To select features randomly.</div>
-                            </div>
-                        </div>
-                         <div class="question-block" data-answer="d">
-                            <h3><strong>25</strong>If your linear regression model has a very high R-squared value on the training data but performs poorly on the test data, what is the likely issue?</h3>
-                            <div class="options">
-                                <div class="option" data-value="a">Underfitting</div>
-                                <div class="option" data-value="b">High Bias</div>
-                                <div class="option" data-value="c">Data Leakage</div>
-                                <div class="option" data-value="d">Overfitting</div>
-                            </div>
-                        </div>
+import pyplot as plt</pre><div class="options"><div class="option" data-value="a">Option A</div><div class="option" data-value="b">Option B</div><div class="option" data-value="c">Option C</div><div class="option" data-value="d">Option D</div></div></div>
+                         <div class="question-block" data-answer="a"><h3><strong>10</strong>K-Means is an example of which type of machine learning algorithm?</h3><div class="options"><div class="option" data-value="a">Unsupervised Learning (Clustering)</div><div class="option" data-value="b">Supervised Learning (Classification)</div><div class="option" data-value="c">Supervised Learning (Regression)</div><div class="option" data-value="d">Reinforcement Learning</div></div></div>
+                         <div class="question-block" data-answer="c"><h3><strong>11</strong>How do you select a column named 'user_id' from a Pandas DataFrame called `df`?</h3><div class="options"><div class="option" data-value="a">`df.column('user_id')`</div><div class="option" data-value="b">`df.get('user_id')`</div><div class="option" data-value="c">`df['user_id']` or `df.user_id`</div><div class="option" data-value="d">`select user_id from df`</div></div></div>
+                         <div class="question-block" data-answer="d"><h3><strong>12</strong>An e-commerce site wants to test if changing a button color from blue to green increases clicks. What is this process called?</h3><div class="options"><div class="option" data-value="a">Regression Analysis</div><div class="option" data-value="b">Feature Engineering</div><div class="option" data-value="c">Data Cleaning</div><div class="option" data-value="d">A/B Testing</div></div></div>
+                         <div class="question-block" data-answer="a"><h3><strong>13</strong>In hypothesis testing, if the p-value is 0.03 and the significance level (alpha) is 0.05, what is the conclusion?</h3><div class="options"><div class="option" data-value="a">Reject the null hypothesis (result is statistically significant).</div><div class="option" data-value="b">Fail to reject the null hypothesis (result is not statistically significant).</div><div class="option" data-value="c">Accept the alternative hypothesis.</div><div class="option" data-value="d">The test is inconclusive.</div></div></div>
+                         <div class="question-block" data-answer="b"><h3><strong>14</strong>Which technique transforms categorical features (like 'City': ['Delhi', 'Mumbai']) into numerical format using binary columns ('City_Delhi', 'City_Mumbai')?</h3><div class="options"><div class="option" data-value="a">Label Encoding</div><div class="option" data-value="b">One-Hot Encoding</div><div class="option" data-value="c">Normalization</div><div class="option" data-value="d">Binning</div></div></div>
+                         <div class="question-block" data-answer="c"><h3><strong>15</strong>You plot house prices vs. square footage and see a clear upward trend. This indicates a...?</h3><div class="options"><div class="option" data-value="a">Negative Correlation</div><div class="option" data-value="b">No Correlation</div><div class="option" data-value="c">Positive Correlation</div><div class="option" data-value="d">Causation</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>16</strong>What Python data structure is ordered, immutable (cannot be changed after creation), and allows duplicate elements?</h3><div class="options"><div class="option" data-value="a">List</div><div class="option" data-value="b">Dictionary</div><div class="option" data-value="c">Set</div><div class="option" data-value="d">Tuple</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>17</strong>Which SQL statement modifies existing records in a table?</h3><div class="options"><div class="option" data-value="a">UPDATE</div><div class="option" data-value="b">MODIFY</div><div class="option" data-value="c">INSERT INTO</div><div class="option" data-value="d">ALTER TABLE</div></div></div>
+                         <div class="question-block" data-answer="c"><h3><strong>18</strong>You have two tables: `Customers` (CustomerID, Name) and `Orders` (OrderID, CustomerID, Product). Which SQL clause combines rows from both tables based on `CustomerID`?</h3><div class="options"><div class="option" data-value="a">UNION</div><div class="option" data-value="b">GROUP BY</div><div class="option" data-value="c">JOIN (e.g., INNER JOIN)</div><div class="option" data-value="d">WHERE</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>19</strong>What does AUC (Area Under the ROC Curve) primarily measure for a binary classifier?</h3><div class="options"><div class="option" data-value="a">The speed of the model.</div><div class="option" data-value="b">The model's ability to distinguish between positive and negative classes across various thresholds.</div><div class="option" data-value="c">The number of features used by the model.</div><div class="option" data-value="d">The accuracy on the training set.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>20</strong>Which of these is typically the FIRST step in the data science workflow after understanding the business problem?</h3><div class="options"><div class="option" data-value="a">Data Collection / Acquisition</div><div class="option" data-value="b">Model Building</div><div class="option" data-value="c">Data Visualization</div><div class="option" data-value="d">Feature Engineering</div></div></div>
+                         <div class="question-block" data-answer="d"><h3><strong>21</strong>Which Pandas method removes rows containing missing values (`NaN`)?</h3><div class="options"><div class="option" data-value="a">`.fillna()`</div><div class="option" data-value="b">`.remove_na()`</div><div class="option" data-value="c">`.clean()`</div><div class="option" data-value="d">`.dropna()`</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>22</strong>A model predicts 'rain' 80 times and 'no rain' 20 times. It rained 70 times and didn't rain 30 times. How many True Positives (predicting rain when it rained) are possible at maximum?</h3><div class="options"><div class="option" data-value="a">80</div><div class="option" data-value="b">70</div><div class="option" data-value="c">30</div><div class="option" data-value="d">20</div></div></div>
+                         <div class="question-block" data-answer="c"><h3><strong>23</strong>Which plot type is most effective for comparing the distribution of a numerical variable across different categories?</h3><div class="options"><div class="option" data-value="a">Line Chart</div><div class="option" data-value="b">Scatter Plot</div><div class="option" data-value="c">Box Plot (or Violin Plot)</div><div class="option" data-value="d">Pie Chart</div></div></div>
+                         <div class="question-block" data-answer="a"><h3><strong>24</strong>What is the primary goal when selecting features for a machine learning model?</h3><div class="options"><div class="option" data-value="a">To choose variables that are relevant and predictive of the target outcome.</div><div class="option" data-value="b">To include as many variables as possible.</div><div class="option" data-value="c">To choose only numerical variables.</div><div class="option" data-value="d">To select features randomly.</div></div></div>
+                         <div class="question-block" data-answer="d"><h3><strong>25</strong>If your linear regression model has a very high R-squared value on the training data but performs poorly on the test data, what is the likely issue?</h3><div class="options"><div class="option" data-value="a">Underfitting</div><div class="option" data-value="b">High Bias</div><div class="option" data-value="c">Data Leakage</div><div class="option" data-value="d">Overfitting</div></div></div>
                         <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
                     </div>
                 </div>
@@ -656,7 +462,7 @@ import pyplot as plt</pre>
                              <li><strong>Send an Email To:</strong> official.internadda@gmail.com</li>
                              <li><strong>Subject Line:</strong> Data Science Internship Application - [Your Full Name Here]</li>
                              <li><strong>Email Body (Copy and paste, then fill in your details):</strong>
-                                 <pre style="background: #fff; padding: 10px; border-radius: 4px; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word;">Dear Internadda Team,
+                                  <pre style="background: #fff; padding: 10px; border-radius: 4px; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word;">Dear Internadda Team,
 
 I have successfully completed the Data Science Final Exam with a score of <span class="final-score-email">--</span>%. My registered email is [Your Registered Email Address Here].
 
@@ -699,7 +505,7 @@ Thank you,
              <p>This is a proctored exam. You <strong>must</strong> allow camera access to start. Ensure your face is clearly visible throughout the exam.</p>
              <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
         </div>
-        
+
         <div id="tabSwitchWarningBox" class="message-box">
              <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
              <p>You have navigated away from the exam tab. This action has been logged. Continuous or prolonged focus loss will result in automatic disqualification.</p>
@@ -715,6 +521,7 @@ Thank you,
     </footer>
 
     <script>
+        // --- EXACT SAME JavaScript logic ---
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- Get all HTML Elements ---
@@ -781,12 +588,12 @@ Thank you,
                 verifyAppNumberBtn.textContent = 'Verify & Proceed';
                 appNumberInput.focus();
             });
-            
+
 
             // --- 2. Verify Application Number (SECURE API CALL) ---
             verifyAppNumberBtn.addEventListener('click', async () => {
                 const appNumber = appNumberInput.value.trim().toUpperCase();
-                
+
                 if (!appNumber) {
                     appNumberError.textContent = 'Please enter an application number.';
                     return;
@@ -829,7 +636,7 @@ Thank you,
                     verifyAppNumberBtn.textContent = 'Verify & Proceed';
                 }
             });
-            
+
             // --- 3. Start Exam Button (Triggers camera check) ---
              startExamBtn.addEventListener('click', requestCamera);
 
@@ -859,7 +666,7 @@ Thank you,
                      proceedToExam();
                  }
             }
-            
+
             function proceedToExam() {
                 messageOverlay.style.display = 'none';
                 cameraPopup.classList.remove('hidden');
@@ -881,15 +688,15 @@ Thank you,
               function startTimer() {
                  let time = 1800; // 30 minutes
                  timerEl.textContent = formatTime(time);
-                 examStartTime = Date.now(); 
+                 examStartTime = Date.now();
 
                  examTimerInterval = setInterval(() => {
-                     if (document.hidden) return;
+                     if (document.hidden) return; // Pause timer if tab not visible
                      time--;
                      timerEl.textContent = formatTime(time);
                      if (time <= 0) {
                          clearInterval(examTimerInterval);
-                         if (!examStep.classList.contains('hidden')) {
+                         if (!examStep.classList.contains('hidden')) { // Check if exam is still active
                              submitExam(); // Auto-submit
                          }
                      }
@@ -901,7 +708,7 @@ Thank you,
                  let elapsedSeconds = 0;
                  cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  cameraTimerInterval = setInterval(() => {
-                     if (document.hidden) return;
+                      if (document.hidden) return; // Pause timer if tab not visible
                      elapsedSeconds++;
                      cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  }, 1000);
@@ -933,6 +740,7 @@ Thank you,
                      if (question.dataset.selectedValue === question.dataset.answer) {
                          score++;
                      }
+                     // Disable options after submission
                      question.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none');
                  });
 
@@ -941,7 +749,8 @@ Thank you,
                  // Update results display
                  finalScoreEl.textContent = score;
                  finalPercentageEl.textContent = percentage;
-                 finalScoreEmailSpan.textContent = percentage;
+                 if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; // Update span in email text too
+
 
                  if (percentage >= 60) {
                      resultIcon.className = 'icon fas fa-check-circle success';
@@ -949,9 +758,10 @@ Thank you,
                      resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
                      emailInstructions.classList.remove('hidden');
 
+                     // --- IMPORTANT: Update Subject/Body for the SPECIFIC EXAM (Data Science here) ---
                      const subject = encodeURIComponent(`Data Science Internship Application - [Your Full Name Here]`);
                      const body = encodeURIComponent(
-                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result. \n\nI look forward to hearing about the next steps.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]`
+                         `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
                      );
                      emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
 
@@ -968,6 +778,7 @@ Thank you,
              }
 
              submitExamBtn.addEventListener('click', () => {
+                 // Confirmation before submitting
                  if(confirm("Are you sure you want to submit your exam? You cannot change your answers after submitting.")) {
                      submitExam();
                  }
@@ -975,14 +786,16 @@ Thank you,
 
               // --- Anti-Cheat: Tab Switch Detection ---
              document.addEventListener('visibilitychange', () => {
+                 // Check if the exam step is currently visible and the document is hidden
                  if (!examStep.classList.contains('hidden') && document.hidden) {
                      tabSwitchCount++;
-                     
+
+                     // Stop timers when focus is lost
                      if (examTimerInterval) clearInterval(examTimerInterval);
                      if (cameraTimerInterval) clearInterval(cameraTimerInterval);
 
                      if (tabSwitchCount >= MAX_TAB_SWITCHES) {
-                         // Disqualify
+                         // Disqualify on second or later switch
                          stopCamera();
                          resultIcon.className = 'icon fas fa-exclamation-triangle fail';
                          resultTitle.textContent = "Exam Disqualified";
@@ -992,52 +805,56 @@ Thank you,
                          examStep.classList.add('hidden');
                          submissionStep.classList.remove('hidden');
                          timerEl.textContent = "Disqualified";
-                         
+
+                         // Hide any active popups
                          messageOverlay.style.display = 'none';
                          tabSwitchWarningBox.style.display = 'none';
 
                      } else {
-                         // Show warning (only on 1st switch)
+                         // Show warning only on the first switch
                          messageOverlay.style.display = 'block';
                          tabSwitchWarningBox.style.display = 'block';
                      }
                  }
              });
 
+             // --- Resume Exam after Warning ---
              resumeExamBtn.addEventListener('click', () => {
                  tabSwitchWarningBox.style.display = 'none';
                  messageOverlay.style.display = 'none';
 
-                 // Resume timers
+                 // Resume timers by calculating remaining time based on start time
                  const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000);
-                 const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0;
+                 const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; // 1800s = 30 mins
                  startTimerFrom(remainingTime);
-                 startCameraTimerFrom(elapsedSinceStart);
+                 startCameraTimerFrom(elapsedSinceStart); // Resume camera timer too
              });
 
+             // --- Helper Function to Resume Timer ---
              function startTimerFrom(startTimeInSeconds) {
                  let time = startTimeInSeconds;
-                 if (examTimerInterval) clearInterval(examTimerInterval);
+                 if (examTimerInterval) clearInterval(examTimerInterval); // Clear any existing just in case
                  timerEl.textContent = formatTime(time);
                  examTimerInterval = setInterval(() => {
-                     if (document.hidden) return;
+                     if (document.hidden) return; // Still pause if hidden
                      time--;
                      timerEl.textContent = formatTime(time);
                      if (time <= 0) {
                          clearInterval(examTimerInterval);
-                         if (!examStep.classList.contains('hidden')) {
+                         if (!examStep.classList.contains('hidden')) { // Check if exam is still active
                              submitExam();
                          }
                      }
                  }, 1000);
              }
 
+             // --- Helper Function to Resume Camera Timer ---
              function startCameraTimerFrom(startTimeInSeconds) {
                  let elapsedSeconds = startTimeInSeconds;
-                 if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                  if (cameraTimerInterval) clearInterval(cameraTimerInterval); // Clear any existing
                  cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  cameraTimerInterval = setInterval(() => {
-                     if (document.hidden) return;
+                      if (document.hidden) return; // Still pause if hidden
                      elapsedSeconds++;
                      cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  }, 1000);
