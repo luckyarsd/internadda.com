@@ -76,6 +76,27 @@
             transform: scaleX(-1); /* Mirror view */
         }
 
+        /* NEW: Camera Failed Preview Style */
+        #camera-failed-preview {
+            width: 100%;
+            height: calc(100% - 30px);
+            background: #1a202c; /* Dark background */
+            color: #718096;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box; /* Ensure padding doesn't break layout */
+        }
+
+        #camera-failed-preview i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
         /* Updated Camera Status */
         .camera-status {
             width: 100%;
@@ -240,6 +261,7 @@
             text-align: center;
             border-top: 5px solid var(--primary);
             max-width: 500px;
+            width: 90%; /* Responsive width */
         }
         .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;}
         .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;}
@@ -254,6 +276,33 @@
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(5px);
             z-index: 1004;
+        }
+
+        /* NEW: App Number Modal Styles */
+        #appNumberInput {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e0;
+            box-sizing: border-box; /* Important */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        #appNumberInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2);
+        }
+        #appNumberError {
+            color: #c53030;
+            font-weight: 600;
+            min-height: 1.2em; /* Prevents layout jump */
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        #verifyAppNumberBtn {
+            width: 100%;
         }
 
     </style>
@@ -294,10 +343,14 @@
     <main>
         <div id="camera-popup" class="hidden">
              <video id="camera-feed" autoplay playsinline></video>
+             <div id="camera-failed-preview" class="hidden">
+                <i class="fas fa-video-slash"></i>
+                Proctoring Active
+             </div>
              <div class="camera-status">
                  <div class="recording-indicator">
-                    <div class="camera-dot"></div>
-                    <span>REC</span>
+                     <div class="camera-dot"></div>
+                     <span>REC</span>
                  </div>
                  <span id="camera-timer">00:00</span>
              </div>
@@ -311,12 +364,13 @@
                     <p>To proceed to the final proctored exam for internship consideration, a non-refundable examination fee is required. This fee covers the proctoring and administrative costs.</p>
                     <p>Please scan the QR code below using your preferred UPI app to complete the payment.</p>
                     <img src="../images/qr.jpg" alt="Scan QR Code for Payment" style="margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee;">
-                    <p>After successful payment, click the button below to proceed to the exam instructions.</p>
+                    <p>After successful payment, click the button below and enter your Application Number to proceed.</p>
                      <div class="payment-warning">
-                        <strong>Important:</strong> This exam fee is strictly non-refundable as per our policy. Ensure you meet all system requirements and are ready before making the payment.
-                    </div>
-                    <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Payment Completed - Proceed to Instructions</button>
+                         <strong>Important:</strong> This exam fee is strictly non-refundable as per our policy. Ensure you meet all system requirements and are ready before making the payment.
+                     </div>
+                    <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Payment Completed - Verify Application</button>
                 </div>
+
                 <div id="instructions-step" class="exam-step hidden"> <h2><i class="fas fa-scroll"></i> Final Exam Instructions</h2>
                     <div class="instructions-list">
                         <ul>
@@ -331,8 +385,8 @@
                         </ul>
                     </div>
                      <div class="strict-disclaimer">
-                        <i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> By starting this exam, you agree to adhere to the highest standards of academic honesty. Any violation detected through proctoring review (including suspicious eye movements, background noise, use of unauthorized aids, or tab switching) will lead to immediate disqualification and a permanent ban from Internadda internships.
-                    </div>
+                         <i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> By starting this exam, you agree to adhere to the highest standards of academic honesty. Any violation detected through proctoring review (including suspicious eye movements, background noise, use of unauthorized aids, or tab switching) will lead to immediate disqualification and a permanent ban from Internadda internships.
+                     </div>
                     <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
 
@@ -580,7 +634,6 @@ import pyplot as plt</pre>
                             </div>
                         </div>
 
-
                         <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
                     </div>
                 </div>
@@ -614,10 +667,10 @@ Thank you,
                             </li>
                              <li><strong>Mandatory Attachment:</strong>
                                  <br>1. Screenshot of this results page (showing your score).
-                             </li>
+                            </li>
                          </ul>
                          <p><strong>Verification Timeline:</strong> You will receive an update on your application status via email within <strong>72 business hours</strong> after we successfully verify your score and proctoring session.</p>
-                         <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
+                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
 
                     <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
@@ -627,12 +680,22 @@ Thank you,
         </section>
 
         <div id="messageOverlay" class="message-overlay"></div>
+
+        <div id="appNumberModal" class="message-box">
+             <h3><i class="fas fa-ticket-alt"></i> Verify Your Application</h3>
+             <p>Please enter the Application Number you received after payment to proceed.</p>
+             <div id="appNumberError"></div>
+             <input type="text" id="appNumberInput" placeholder="Enter Application Number">
+             <button id="verifyAppNumberBtn" class="btn btn-primary">Verify & Proceed</button>
+        </div>
+
         <div id="cameraMessageBox" class="message-box">
              <h3><i class="fas fa-video"></i> Camera Access Required</h3>
              <p>This is a proctored exam. You <strong>must</strong> allow camera access to start. Ensure your face is clearly visible throughout the exam.</p>
              <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
         </div>
-        <div id="cameraErrorBox" class="message-box">
+        
+        <div id="cameraErrorBox" class="message-box hidden">
              <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Camera Error</h3>
              <p id="cameraErrorText">Could not access the camera. Please ensure permissions are granted in your browser settings and that no other application is using the camera. <br><br><strong>You cannot proceed without a working camera.</strong></p>
              <button id="retryCameraBtn" class="btn btn-primary">Retry Camera Check</button>
@@ -642,7 +705,7 @@ Thank you,
              <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
              <p>You have navigated away from the exam tab. This action has been logged. Continuous or prolonged focus loss will result in automatic disqualification.</p>
              <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
-        </div>
+         </div>
 
 
     </main>
@@ -651,30 +714,30 @@ Thank you,
         <div class="container">
             <div class="footer-grid">
                  <div class="footer-brand">
-                    <div class="footer-logo">Internadda</div>
-                    <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
-                </div>
-                <div class="footer-links-column">
-                    <h3 class="footer-links-title">Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links-column">
-                    <h3 class="footer-links-title">Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="../terms.html">Terms & Conditions</a></li>
-                        <li><a href="../privacy.html">Privacy Policy</a></li>
-                    </ul>
-                </div>
+                     <div class="footer-logo">Internadda</div>
+                     <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
+                 </div>
                  <div class="footer-links-column">
-                    <h3 class="footer-links-title">Contact</h3>
+                     <h3 class="footer-links-title">Company</h3>
                      <ul class="footer-links">
-                        <li><a href="mailto:support@internadda.com">support@internadda.com</a></li>
-                        <li>New Delhi, India</li>
-                    </ul>
-                </div>
+                         <li><a href="../about.html">About Us</a></li>
+                         <li><a href="../contact.html">Contact Us</a></li>
+                     </ul>
+                 </div>
+                 <div class="footer-links-column">
+                     <h3 class="footer-links-title">Legal</h3>
+                     <ul class="footer-links">
+                         <li><a href="../terms.html">Terms & Conditions</a></li>
+                         <li><a href="../privacy.html">Privacy Policy</a></li>
+                     </ul>
+                 </div>
+                 <div class="footer-links-column">
+                     <h3 class="footer-links-title">Contact</h3>
+                      <ul class="footer-links">
+                         <li><a href="mailto:support@internadda.com">support@internadda.com</a></li>
+                         <li>New Delhi, India</li>
+                     </ul>
+                 </div>
             </div>
             <div class="footer-bottom">
                 <p>© 2025 Internadda. All rights reserved.</p>
@@ -684,14 +747,22 @@ Thank you,
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- NEW: Simulated Secure Application Numbers ---
+            // In a real app, this check is done on a server.
+            // For Vercel, you would use a Serverless Function.
+            const VALID_APP_NUMBERS = [
+                'INT251001', 'INT251002', 'INT251003', 'INT251004', 'INT251005',
+                'INT251006', 'INT251007', 'INT251008', 'INT251009', 'INT251010'
+            ];
+
             // Step DIVs
-            const paymentStep = document.getElementById('payment-step'); // New
+            const paymentStep = document.getElementById('payment-step');
             const instructionsStep = document.getElementById('instructions-step');
             const examStep = document.getElementById('exam-step');
             const submissionStep = document.getElementById('submission-step');
 
             // Buttons
-            const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn'); // New
+            const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
             const startExamBtn = document.getElementById('start-exam-btn');
             const submitExamBtn = document.getElementById('submit-exam-btn');
 
@@ -699,18 +770,22 @@ Thank you,
             const timerEl = document.getElementById('timer');
             const cameraPopup = document.getElementById('camera-popup');
             const cameraFeed = document.getElementById('camera-feed');
-            const cameraTimerEl = document.getElementById('camera-timer'); // Camera recording timer
+            const cameraTimerEl = document.getElementById('camera-timer');
+            const cameraFailedPreview = document.getElementById('camera-failed-preview'); // NEW
 
             // Message Boxes & Overlay
             const messageOverlay = document.getElementById('messageOverlay');
             const cameraMessageBox = document.getElementById('cameraMessageBox');
-            const cameraErrorBox = document.getElementById('cameraErrorBox');
+            const cameraErrorBox = document.getElementById('cameraErrorBox'); // No longer primary error box
             const allowCameraBtn = document.getElementById('allowCameraBtn');
-            const retryCameraBtn = document.getElementById('retryCameraBtn');
-            const cancelExamBtn = document.getElementById('cancelExamBtn');
-            const cameraErrorText = document.getElementById('cameraErrorText');
             const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
             const resumeExamBtn = document.getElementById('resumeExamBtn');
+
+            // NEW: App Number Modal Elements
+            const appNumberModal = document.getElementById('appNumberModal');
+            const appNumberInput = document.getElementById('appNumberInput');
+            const appNumberError = document.getElementById('appNumberError');
+            const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
 
             // Submission Elements
             const resultIcon = document.getElementById('result-icon');
@@ -725,104 +800,134 @@ Thank you,
             const finalScoreEmailSpan = document.querySelector('.final-score-email');
 
             let examTimerInterval;
-            let cameraTimerInterval; // Separate interval for camera timer
+            let cameraTimerInterval;
             let stream = null;
             let tabSwitchCount = 0;
-            const MAX_TAB_SWITCHES = 2;
-            let examStartTime = 0; // To track elapsed time for camera timer
+            const MAX_TAB_SWITCHES = 2; // 1st switch = warning, 2nd = disqualify
+            let examStartTime = 0;
 
              // --- Initial State ---
-             if (paymentStep) paymentStep.classList.remove('hidden'); // Show payment first
+             if (paymentStep) paymentStep.classList.remove('hidden');
              if (instructionsStep) instructionsStep.classList.add('hidden');
              if (examStep) examStep.classList.add('hidden');
              if (submissionStep) submissionStep.classList.add('hidden');
 
              // --- Helper: Format Time ---
              function formatTime(seconds) {
-                const mins = Math.floor(seconds / 60);
-                const secs = seconds % 60;
-                return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            }
+                 const mins = Math.floor(seconds / 60);
+                 const secs = seconds % 60;
+                 return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+             }
 
-            // --- Proceed from Payment to Instructions ---
-            if (proceedToInstructionsBtn && paymentStep && instructionsStep) {
+            // --- 1. Proceed from Payment (NEW: Triggers App Number Modal) ---
+            if (proceedToInstructionsBtn) {
                 proceedToInstructionsBtn.addEventListener('click', () => {
-                    paymentStep.classList.add('hidden');       // Hide payment step
-                    instructionsStep.classList.remove('hidden'); // Show instructions step
-                    // Now the user can click the "Acknowledge and Start Exam" button
+                    messageOverlay.style.display = 'block';
+                    appNumberModal.style.display = 'block';
+                    appNumberInput.focus();
                 });
             }
 
-            // --- Camera Logic ---
-            async function requestCamera() {
+            // --- 2. Verify Application Number ---
+            if (verifyAppNumberBtn) {
+                verifyAppNumberBtn.addEventListener('click', () => {
+                    const appNumber = appNumberInput.value.trim().toUpperCase();
+                    if (VALID_APP_NUMBERS.includes(appNumber)) {
+                        // Success
+                        appNumberError.textContent = '';
+                        appNumberModal.style.display = 'none';
+                        messageOverlay.style.display = 'none';
+
+                        paymentStep.classList.add('hidden');
+                        instructionsStep.classList.remove('hidden');
+                    } else {
+                        // Fail
+                        appNumberError.textContent = 'Invalid Application Number. Please try again.';
+                    }
+                });
+            }
+
+            // --- 3. Start Exam Button (on Instructions page) triggers camera check ---
+             if (startExamBtn) {
+                 startExamBtn.addEventListener('click', requestCamera);
+             }
+
+             // --- Camera Logic ---
+             async function requestCamera() {
                  messageOverlay.style.display = 'block';
                  cameraMessageBox.style.display = 'block';
-            }
+             }
+
+            if (allowCameraBtn) allowCameraBtn.addEventListener('click', startCamera);
 
             async function startCamera() {
-                cameraMessageBox.style.display = 'none'; // Hide prompt
-                try {
-                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                    cameraFeed.srcObject = stream;
-                    messageOverlay.style.display = 'none'; // Hide overlay on success
-                    cameraPopup.classList.remove('hidden'); // Show camera feed
+                 cameraMessageBox.style.display = 'none'; // Hide prompt
+                 try {
+                     // Try to get camera
+                     stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                     cameraFeed.srcObject = stream;
+                     cameraFailedPreview.classList.add('hidden'); // Hide fallback
+                     cameraFeed.style.display = 'block'; // Show video feed
 
-                    // Proceed to exam start
-                    instructionsStep.classList.add('hidden'); // Hide instructions
-                    examStep.classList.remove('hidden');      // Show exam
-                    startTimer(); // Start main exam timer
-                    startCameraTimer(); // Start camera recording timer
+                     // --- Success ---
+                     proceedToExam();
 
-                } catch (err) {
-                    console.error("Camera Error:", err);
-                    cameraErrorText.textContent = `Could not access camera: ${err.name}. Please check browser permissions, ensure no other app is using the camera, and try again. Camera access is mandatory.`;
-                    cameraErrorBox.style.display = 'block';
-                    messageOverlay.style.display = 'block'; // Keep overlay
-                }
+                 } catch (err) {
+                     // --- NEW: CAMERA FAILED (Fear Tactic Fallback) ---
+                     console.error("Camera Error (Fallback activated):", err.name, err.message);
+                     
+                     // Show the fake preview INSTEAD of the error
+                     cameraFeed.style.display = 'none'; // Hide broken video
+                     cameraFailedPreview.classList.remove('hidden'); // Show fake preview
+
+                     // --- Proceed to exam anyway ---
+                     proceedToExam();
+                 }
+            }
+            
+            // --- Helper function to start exam (called on camera success OR failure) ---
+            function proceedToExam() {
+                messageOverlay.style.display = 'none';    // Hide overlay
+                cameraPopup.classList.remove('hidden'); // Show camera popup (with real or fake feed)
+
+                instructionsStep.classList.add('hidden'); // Hide instructions
+                examStep.classList.remove('hidden');      // Show exam
+                startTimer();                             // Start main exam timer
+                startCameraTimer();                       // Start camera recording timer
             }
 
-            function stopCamera() {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                }
-                if (cameraTimerInterval) clearInterval(cameraTimerInterval); // Stop camera timer
-                cameraPopup.classList.add('hidden');
-            }
 
+             function stopCamera() {
+                 if (stream) {
+                     stream.getTracks().forEach(track => track.stop());
+                 }
+                 if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                 cameraPopup.classList.add('hidden');
+             }
 
-            // --- Start Exam Button (on Instructions page) triggers camera check ---
-            if (startExamBtn) {
-                 startExamBtn.addEventListener('click', requestCamera);
-            }
+             // --- Timer Logic ---
+              function startTimer() {
+                 let time = 1800; // 30 minutes
+                 if (timerEl) timerEl.textContent = formatTime(time);
+                 examStartTime = Date.now(); 
 
-             // --- Handle Camera Permission Buttons ---
-             if (allowCameraBtn) allowCameraBtn.addEventListener('click', startCamera);
-             if (retryCameraBtn) retryCameraBtn.addEventListener('click', startCamera);
-             if (cancelExamBtn) cancelExamBtn.addEventListener('click', () => { window.location.href = 'internship.html'; }); // Or redirect home
+                 examTimerInterval = setInterval(() => {
+                     if (document.hidden) return; // Pause timer if tab is not active
 
-            // --- Timer Logic ---
-             function startTimer() {
-                let time = 1800; // 30 minutes
-                if (timerEl) timerEl.textContent = formatTime(time); // Initial display
-                examStartTime = Date.now(); // Record start time for camera timer
+                     time--;
+                     if (timerEl) timerEl.textContent = formatTime(time);
 
-                examTimerInterval = setInterval(() => {
-                    if (document.hidden) return; // Pause timer if tab is not active
-
-                    time--;
-                    if (timerEl) timerEl.textContent = formatTime(time);
-
-                    if (time <= 0) {
+                     if (time <= 0) {
                          clearInterval(examTimerInterval);
-                         if (examStep && !examStep.classList.contains('hidden')) { // Check if exam step is active
-                            submitExam(); // Auto-submit
+                         if (examStep && !examStep.classList.contains('hidden')) {
+                             submitExam(); // Auto-submit
                          }
-                    }
-                }, 1000);
-            }
+                     }
+                 }, 1000);
+             }
 
-            // --- Camera Recording Timer ---
-            function startCameraTimer() {
+             // --- Camera Recording Timer ---
+             function startCameraTimer() {
                  let elapsedSeconds = 0;
                  if (cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  cameraTimerInterval = setInterval(() => {
@@ -830,27 +935,27 @@ Thank you,
                      elapsedSeconds++;
                      if (cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  }, 1000);
-            }
+             }
 
 
-            // --- Option Selection Logic ---
-            const questions = document.querySelectorAll('.question-block');
-            const totalQuestions = questions.length;
-            if (totalQuestionsEl) totalQuestionsEl.textContent = totalQuestions; // Update total questions display
+             // --- Option Selection Logic ---
+             const questions = document.querySelectorAll('.question-block');
+             const totalQuestions = questions.length;
+             if (totalQuestionsEl) totalQuestionsEl.textContent = totalQuestions;
 
-            questions.forEach(question => {
-                const options = question.querySelectorAll('.options .option');
-                options.forEach(opt => {
-                    opt.addEventListener('click', () => {
-                        options.forEach(o => o.classList.remove('selected'));
-                        opt.classList.add('selected');
-                        question.dataset.selectedValue = opt.dataset.value;
-                    });
-                });
-            });
+             questions.forEach(question => {
+                 const options = question.querySelectorAll('.options .option');
+                 options.forEach(opt => {
+                     opt.addEventListener('click', () => {
+                         options.forEach(o => o.classList.remove('selected'));
+                         opt.classList.add('selected');
+                         question.dataset.selectedValue = opt.dataset.value;
+                     });
+                 });
+             });
 
-             // --- Submission Logic ---
-            function submitExam() {
+              // --- Submission Logic ---
+             function submitExam() {
                  if (examTimerInterval) clearInterval(examTimerInterval);
                  stopCamera(); // Stop camera and its timer on submit
 
@@ -859,7 +964,6 @@ Thank you,
                      if (question.dataset.selectedValue === question.dataset.answer) {
                          score++;
                      }
-                     // Disable further interaction with options
                      question.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none');
                  });
 
@@ -876,7 +980,6 @@ Thank you,
                      if (resultMessage) resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
                      if (emailInstructions) emailInstructions.classList.remove('hidden');
 
-                     // Prepare mailto link
                      const subject = encodeURIComponent(`Data Science Internship Application - [Your Full Name Here]`);
                      const body = encodeURIComponent(
                          `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
@@ -893,29 +996,26 @@ Thank you,
                  if (examStep) examStep.classList.add('hidden');
                  if (submissionStep) submissionStep.classList.remove('hidden');
                  if (timerEl) timerEl.textContent = "Finished";
-            }
+             }
 
-            if (submitExamBtn) {
-                submitExamBtn.addEventListener('click', () => {
-                    // Confirm submission
-                    if(confirm("Are you sure you want to submit your exam? You cannot change your answers after submitting.")) {
-                        submitExam();
-                    }
-                });
-            }
+             if (submitExamBtn) {
+                 submitExamBtn.addEventListener('click', () => {
+                     if(confirm("Are you sure you want to submit your exam? You cannot change your answers after submitting.")) {
+                         submitExam();
+                     }
+                 });
+             }
 
-             // --- Anti-Cheat: Tab Switch Detection ---
-            document.addEventListener('visibilitychange', () => {
-                // Check if the exam step is currently visible AND the document is hidden
-                if (examStep && !examStep.classList.contains('hidden') && document.hidden) {
-                    tabSwitchCount++;
-                    console.warn(`Tab switch detected. Count: ${tabSwitchCount}`);
+              // --- Anti-Cheat: Tab Switch Detection (This logic was already correct) ---
+             document.addEventListener('visibilitychange', () => {
+                 if (examStep && !examStep.classList.contains('hidden') && document.hidden) {
+                     tabSwitchCount++;
+                     console.warn(`Tab switch detected. Count: ${tabSwitchCount}`);
 
-                    // Pause timers
-                    if (examTimerInterval) clearInterval(examTimerInterval);
-                    if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                     if (examTimerInterval) clearInterval(examTimerInterval);
+                     if (cameraTimerInterval) clearInterval(cameraTimerInterval);
 
-                    if (tabSwitchCount > MAX_TAB_SWITCHES) {
+                     if (tabSwitchCount >= MAX_TAB_SWITCHES) { // Use >= for immediate disqualification on 2nd switch
                          // Disqualify
                          stopCamera();
                          if (resultIcon) resultIcon.className = 'icon fas fa-exclamation-triangle fail';
@@ -926,60 +1026,59 @@ Thank you,
                          if (examStep) examStep.classList.add('hidden');
                          if (submissionStep) submissionStep.classList.remove('hidden');
                          if (timerEl) timerEl.textContent = "Disqualified";
-                    } else {
-                         // Show warning
+                         
+                         // Hide any open modals
+                         if (messageOverlay) messageOverlay.style.display = 'none';
+                         if (tabSwitchWarningBox) tabSwitchWarningBox.style.display = 'none';
+
+                     } else {
+                         // Show warning (only on 1st switch)
                          if (messageOverlay) messageOverlay.style.display = 'block';
                          if (tabSwitchWarningBox) tabSwitchWarningBox.style.display = 'block';
-                    }
-                }
-            });
+                     }
+                 }
+             });
 
-            // Resume exam after tab switch warning
-            if (resumeExamBtn && tabSwitchWarningBox && messageOverlay) {
-                resumeExamBtn.addEventListener('click', () => {
-                    tabSwitchWarningBox.style.display = 'none';
-                    messageOverlay.style.display = 'none';
+             if (resumeExamBtn) {
+                 resumeExamBtn.addEventListener('click', () => {
+                     tabSwitchWarningBox.style.display = 'none';
+                     messageOverlay.style.display = 'none';
 
-                    // Calculate elapsed time precisely and restart timers
-                    const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000);
-                    const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0;
-                    startTimerFrom(remainingTime);
-                    startCameraTimerFrom(elapsedSinceStart);
-                });
-            }
+                     // Resume timers
+                     const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000);
+                     const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0;
+                     startTimerFrom(remainingTime);
+                     startCameraTimerFrom(elapsedSinceStart);
+                 });
+             }
 
-            // Function to restart timer from a specific point
-            function startTimerFrom(startTimeInSeconds) {
-                let time = startTimeInSeconds;
-                 if (examTimerInterval) clearInterval(examTimerInterval); // Clear any existing interval
-
-                 if(timerEl) timerEl.textContent = formatTime(time); // Update display immediately
-
+             function startTimerFrom(startTimeInSeconds) {
+                 let time = startTimeInSeconds;
+                 if (examTimerInterval) clearInterval(examTimerInterval);
+                 if(timerEl) timerEl.textContent = formatTime(time);
                  examTimerInterval = setInterval(() => {
                      if (document.hidden) return;
                      time--;
                      if (timerEl) timerEl.textContent = formatTime(time);
                      if (time <= 0) {
-                          clearInterval(examTimerInterval);
-                          if (examStep && !examStep.classList.contains('hidden')) {
+                         clearInterval(examTimerInterval);
+                         if (examStep && !examStep.classList.contains('hidden')) {
                              submitExam();
-                          }
+                         }
                      }
                  }, 1000);
-            }
+             }
 
-            // Function to restart camera timer from specific point
-            function startCameraTimerFrom(startTimeInSeconds) {
+             function startCameraTimerFrom(startTimeInSeconds) {
                  let elapsedSeconds = startTimeInSeconds;
                  if (cameraTimerInterval) clearInterval(cameraTimerInterval);
-
                  if(cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  cameraTimerInterval = setInterval(() => {
                      if (document.hidden) return;
                      elapsedSeconds++;
                      if (cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  }, 1000);
-            }
+             }
 
         }); // End DOMContentLoaded
     </script>
