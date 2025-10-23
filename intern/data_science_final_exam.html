@@ -7,10 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../style.css">
-
-    <style>
-        /* CSS styles remain the same - no changes needed here based on the request */
+    <link rel="stylesheet" href="../style.css"> <style>
+        /* General Exam Styles */
         .exam-container {
             max-width: 900px;
             margin: 40px auto;
@@ -21,8 +19,8 @@
             background: #fff;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px; /* Add margin between steps if needed */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
         }
 
         .hidden { display: none !important; }
@@ -39,14 +37,14 @@
         }
 
         .exam-header h1 {
-            font-size: 1.6rem; /* Slightly smaller title */
+            font-size: 1.6rem;
+            color: var(--dark, #2d3748);
         }
-
 
         #timer {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--primary, #2b6cb0);
             background-color: #fff;
             padding: 8px 16px;
             border-radius: 8px;
@@ -55,13 +53,13 @@
 
         #camera-popup {
             position: fixed;
-            top: 100px; /* Below header */
+            top: 100px;
             right: 20px;
             width: 200px;
             height: 150px;
             background: #2d3748;
             border-radius: 8px;
-            border: 3px solid #f56565; /* Red border indicating recording */
+            border: 3px solid #f56565;
             overflow: hidden;
             z-index: 1001;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -76,11 +74,10 @@
             transform: scaleX(-1); /* Mirror view */
         }
 
-        /* NEW: Camera Failed Preview Style */
         #camera-failed-preview {
             width: 100%;
             height: calc(100% - 30px);
-            background: #1a202c; /* Dark background */
+            background: #1a202c;
             color: #718096;
             display: flex;
             flex-direction: column;
@@ -89,7 +86,7 @@
             font-size: 0.9rem;
             text-align: center;
             padding: 10px;
-            box-sizing: border-box; /* Ensure padding doesn't break layout */
+            box-sizing: border-box;
         }
 
         #camera-failed-preview i {
@@ -97,14 +94,13 @@
             margin-bottom: 10px;
         }
 
-        /* Updated Camera Status */
         .camera-status {
             width: 100%;
             height: 30px;
-            background-color: #c53030; /* Red status bar */
+            background-color: #c53030;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Space out dot and timer */
+            justify-content: space-between;
             padding: 0 10px;
             color: #fff;
             font-size: 0.9rem;
@@ -130,13 +126,12 @@
             font-size: 0.9rem;
         }
 
-
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* Payment Step Styles (New) */
+        /* Payment Step */
         #payment-step { text-align: center; }
         #payment-step h2 { font-size: 2rem; margin-bottom: 15px; }
-        #payment-step p { font-size: 1.1rem; color: var(--gray); margin-bottom: 15px; max-width: 700px; margin-left: auto; margin-right: auto;}
+        #payment-step p { font-size: 1.1rem; color: var(--gray, #4a5568); margin-bottom: 15px; max-width: 700px; margin-left: auto; margin-right: auto;}
         #payment-step img { margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee; }
         .payment-warning {
             color: #c53030; background: #fff5f5; padding: 15px; border-radius: 8px;
@@ -146,15 +141,14 @@
         /* Instructions Step */
         #instructions-step h2 { text-align: center; font-size: 2rem; margin-bottom: 25px; }
         #instructions-step .instructions-list {
-            margin: 25px auto; padding: 25px; background: #f7fafc; border-left: 4px solid var(--warning);
+            margin: 25px auto; padding: 25px; background: #f7fafc; border-left: 4px solid var(--warning, #ed8936);
             max-width: 700px; border-radius: 8px;
         }
         #instructions-step .instructions-list ul { padding-left: 20px; text-align: left; font-size: 1.05rem; line-height: 1.8; }
         #instructions-step .instructions-list li { margin-bottom: 15px; }
-         /* Highlight passing score */
         #instructions-step .passing-score {
              font-weight: 700;
-             color: var(--accent);
+             color: var(--accent, #38a169);
              background-color: #f0fff4;
              padding: 2px 6px;
              border-radius: 4px;
@@ -172,16 +166,16 @@
         }
         .question-block:last-child { border-bottom: none; margin-bottom: 0; }
         .question-block h3 {
-            font-size: 1.2rem; /* Smaller for more questions */
+            font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 20px;
             line-height: 1.6;
-            display: flex; /* Align number and text */
+            display: flex;
             align-items: flex-start;
         }
-        .question-block h3 strong { /* Number styling */
+        .question-block h3 strong {
             display: inline-block;
-            background: var(--primary);
+            background: var(--primary, #2b6cb0);
             color: white;
             border-radius: 50%;
             width: 28px;
@@ -190,9 +184,8 @@
             text-align: center;
             margin-right: 12px;
             font-size: 0.95rem;
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
         }
-         /* Code block style */
         .question-block pre {
             background-color: #f6f8fa;
             border: 1px solid #e2e8f0;
@@ -207,22 +200,22 @@
             color: #2d3748;
         }
         .options .option {
-            background-color: var(--light); padding: 14px 18px; border: 1px solid #e2e8f0;
-            border-radius: 10px; cursor: pointer; transition: var(--transition); margin-bottom: 10px;
+            background-color: var(--light, #f7fafc); padding: 14px 18px; border: 1px solid #e2e8f0;
+            border-radius: 10px; cursor: pointer; transition: all 0.2s ease-in-out; margin-bottom: 10px;
             display: flex; align-items: center; gap: 12px; font-size: 1rem;
         }
-        .options .option::before { /* Radio button style */
+        .options .option::before {
             content: ''; display: inline-block; width: 16px; height: 16px;
-            border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0;
+            border: 2px solid var(--gray, #a0aec0); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0;
         }
         .options .option:hover { background-color: #eef2f7; border-color: #cbd5e0; }
-        .options .option:hover::before { border-color: var(--primary); }
+        .options .option:hover::before { border-color: var(--primary, #2b6cb0); }
         .options .option.selected {
-            background-color: #ebf8ff; color: var(--primary); border-color: var(--primary);
+            background-color: #ebf8ff; color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0);
             box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2);
         }
         .options .option.selected::before {
-            background-color: var(--primary); border-color: var(--primary);
+            background-color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0);
             box-shadow: inset 0 0 0 3px white;
         }
         #submit-exam-btn { width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px; }
@@ -230,17 +223,17 @@
         /* Submission Step */
         #submission-step { text-align: center; padding: 40px; }
         #submission-step .icon { font-size: 4rem; margin-bottom: 20px; }
-        #submission-step .icon.success { color: var(--success); }
-        #submission-step .icon.fail { color: var(--warning); }
+        #submission-step .icon.success { color: var(--success, #38a169); }
+        #submission-step .icon.fail { color: var(--warning, #c53030); }
         #submission-step h2 { font-size: 2rem; margin-bottom: 15px; }
-        #submission-step p { font-size: 1.1rem; color: var(--gray); max-width: 650px; margin: 0 auto 20px; line-height: 1.7; }
+        #submission-step p { font-size: 1.1rem; color: var(--gray, #4a5568); max-width: 650px; margin: 0 auto 20px; line-height: 1.7; }
         .score-display { font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; }
-        .score-display span { color: var(--primary); }
+        .score-display span { color: var(--primary, #2b6cb0); }
         .email-instructions {
             margin-top: 30px; padding: 25px; background: #eef2f7; border-radius: 8px; text-align: left;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--primary, #2b6cb0);
         }
-         .email-instructions p { color: var(--dark); margin-bottom: 15px; font-size: 1rem; }
+         .email-instructions p { color: var(--dark, #2d3748); margin-bottom: 15px; font-size: 1rem; }
          .email-instructions strong { font-weight: 600; }
          .email-instructions ul li { margin-bottom: 8px; }
          .email-instructions ul { margin-bottom: 15px; }
@@ -259,12 +252,12 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             z-index: 1005;
             text-align: center;
-            border-top: 5px solid var(--primary);
+            border-top: 5px solid var(--primary, #2b6cb0);
             max-width: 500px;
-            width: 90%; /* Responsive width */
+            width: 90%;
         }
         .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;}
-        .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;}
+        .message-box p { margin-bottom: 25px; color: var(--gray, #4a5568); font-size: 1.1rem;}
         .message-box button { margin: 0 10px; }
         .message-overlay {
             display: none;
@@ -278,26 +271,26 @@
             z-index: 1004;
         }
 
-        /* NEW: App Number Modal Styles */
+        /* App Number Modal Styles */
         #appNumberInput {
             width: 100%;
             padding: 14px;
             font-size: 1.1rem;
             border-radius: 8px;
             border: 1px solid #cbd5e0;
-            box-sizing: border-box; /* Important */
+            box-sizing: border-box;
             margin-bottom: 10px;
             text-align: center;
         }
         #appNumberInput:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--primary, #2b6cb0);
             box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2);
         }
         #appNumberError {
             color: #c53030;
             font-weight: 600;
-            min-height: 1.2em; /* Prevents layout jump */
+            min-height: 1.2em;
             margin-bottom: 15px;
             font-size: 0.95rem;
         }
@@ -305,39 +298,45 @@
             width: 100%;
         }
 
+        /* Button Styles (assuming from style.css) */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .btn-primary {
+            background-color: var(--primary, #2b6cb0);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+        .btn-outline {
+            background-color: #fff;
+            color: var(--primary, #2b6cb0);
+            border-color: var(--primary, #2b6cb0);
+        }
+        .btn-outline:hover {
+            background-color: #ebf8ff;
+        }
+
     </style>
 </head>
 <body>
 
     <header>
-         <div class="container header-container">
-        <a href="../index.html" class="logo">
-          <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img">
-          <span class="logo-text">InternAdda</span>
-        </a>
-            <nav class="nav-menu">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../courses/course.html" class="nav-link">Courses</a>
-                <a href="internship.html" class="nav-link">Internships</a>
-                <a href="../jobs.html" class="nav-link">Jobs</a>
-                <a href="../about.html" class="nav-link">About</a>
-            </nav>
-            <button class="hamburger-menu" id="hamburgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="header-actions">
-                <div id="authButtons">
-                    <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
-                    <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
-                </div>
-                <div class="user-profile hidden" id="userProfile">
-                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
-                    <span id="userNameHeader"></span>
-                </div>
-            </div>
-        </div>
+         <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0;">
+            <a href="../index.html" class="logo" style="text-decoration: none; color: #2d3748; display: flex; align-items: center; font-size: 1.5rem; font-weight: 700;">
+                <span class="logo-text">InternAdda</span>
+            </a>
+         </div>
     </header>
 
     <main>
@@ -371,7 +370,8 @@
                     <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Payment Completed - Verify Application</button>
                 </div>
 
-                <div id="instructions-step" class="exam-step hidden"> <h2><i class="fas fa-scroll"></i> Final Exam Instructions</h2>
+                <div id="instructions-step" class="exam-step hidden">
+                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions</h2>
                     <div class="instructions-list">
                         <ul>
                             <li><strong>Duration:</strong> This is a timed exam of <strong>30 minutes</strong>.</li>
@@ -633,7 +633,6 @@ import pyplot as plt</pre>
                                 <div class="option" data-value="d">Overfitting</div>
                             </div>
                         </div>
-
                         <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
                     </div>
                 </div>
@@ -695,99 +694,62 @@ Thank you,
              <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
         </div>
         
-        <div id="cameraErrorBox" class="message-box hidden">
-             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Camera Error</h3>
-             <p id="cameraErrorText">Could not access the camera. Please ensure permissions are granted in your browser settings and that no other application is using the camera. <br><br><strong>You cannot proceed without a working camera.</strong></p>
-             <button id="retryCameraBtn" class="btn btn-primary">Retry Camera Check</button>
-             <button id="cancelExamBtn" class="btn btn-outline">Cancel Exam</button>
-        </div>
-         <div id="tabSwitchWarningBox" class="message-box">
+        <div id="tabSwitchWarningBox" class="message-box">
              <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
              <p>You have navigated away from the exam tab. This action has been logged. Continuous or prolonged focus loss will result in automatic disqualification.</p>
              <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
          </div>
 
-
     </main>
 
-    <footer>
+    <footer style="background-color: #f7fafc; padding: 40px 0; border-top: 1px solid #e2e8f0; text-align: center;">
         <div class="container">
-            <div class="footer-grid">
-                 <div class="footer-brand">
-                     <div class="footer-logo">Internadda</div>
-                     <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
-                 </div>
-                 <div class="footer-links-column">
-                     <h3 class="footer-links-title">Company</h3>
-                     <ul class="footer-links">
-                         <li><a href="../about.html">About Us</a></li>
-                         <li><a href="../contact.html">Contact Us</a></li>
-                     </ul>
-                 </div>
-                 <div class="footer-links-column">
-                     <h3 class="footer-links-title">Legal</h3>
-                     <ul class="footer-links">
-                         <li><a href="../terms.html">Terms & Conditions</a></li>
-                         <li><a href="../privacy.html">Privacy Policy</a></li>
-                     </ul>
-                 </div>
-                 <div class="footer-links-column">
-                     <h3 class="footer-links-title">Contact</h3>
-                      <ul class="footer-links">
-                         <li><a href="mailto:support@internadda.com">support@internadda.com</a></li>
-                         <li>New Delhi, India</li>
-                     </ul>
-                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Internadda. All rights reserved.</p>
-            </div>
+            <p>© 2025 Internadda. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- NEW: Simulated Secure Application Numbers ---
-            // In a real app, this check is done on a server.
-            // For Vercel, you would use a Serverless Function.
+            
+            // ======================================================
+            // ==== EDIT THIS LIST WITH YOUR APPLICATION NUMBERS ====
+            // ======================================================
+            // These numbers are visible to anyone who views your website's source code.
             const VALID_APP_NUMBERS = [
-                'INT251001', 'INT251002', 'INT251003', 'INT251004', 'INT251005',
-                'INT251006', 'INT251007', 'INT251008', 'INT251009', 'INT251010'
+                '2025101', 
+                '2025102', 
+                '2025103', 
+                '2025104', 
+                '2025105', 
+                '2025106'
+                // Add your 5-6 numbers here, inside quotes and separated by commas
             ];
+            // ======================================================
+            // ======================================================
 
-            // Step DIVs
+
+            // --- Get all HTML Elements ---
             const paymentStep = document.getElementById('payment-step');
             const instructionsStep = document.getElementById('instructions-step');
             const examStep = document.getElementById('exam-step');
             const submissionStep = document.getElementById('submission-step');
-
-            // Buttons
             const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
             const startExamBtn = document.getElementById('start-exam-btn');
             const submitExamBtn = document.getElementById('submit-exam-btn');
-
-            // Proctoring Elements
             const timerEl = document.getElementById('timer');
             const cameraPopup = document.getElementById('camera-popup');
             const cameraFeed = document.getElementById('camera-feed');
             const cameraTimerEl = document.getElementById('camera-timer');
-            const cameraFailedPreview = document.getElementById('camera-failed-preview'); // NEW
-
-            // Message Boxes & Overlay
+            const cameraFailedPreview = document.getElementById('camera-failed-preview');
             const messageOverlay = document.getElementById('messageOverlay');
             const cameraMessageBox = document.getElementById('cameraMessageBox');
-            const cameraErrorBox = document.getElementById('cameraErrorBox'); // No longer primary error box
             const allowCameraBtn = document.getElementById('allowCameraBtn');
             const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
             const resumeExamBtn = document.getElementById('resumeExamBtn');
-
-            // NEW: App Number Modal Elements
             const appNumberModal = document.getElementById('appNumberModal');
             const appNumberInput = document.getElementById('appNumberInput');
             const appNumberError = document.getElementById('appNumberError');
             const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
-
-            // Submission Elements
             const resultIcon = document.getElementById('result-icon');
             const resultTitle = document.getElementById('result-title');
             const resultMessage = document.getElementById('result-message');
@@ -799,6 +761,7 @@ Thank you,
             const emailLink = document.getElementById('email-link');
             const finalScoreEmailSpan = document.querySelector('.final-score-email');
 
+            // --- Global State Variables ---
             let examTimerInterval;
             let cameraTimerInterval;
             let stream = null;
@@ -806,11 +769,11 @@ Thank you,
             const MAX_TAB_SWITCHES = 2; // 1st switch = warning, 2nd = disqualify
             let examStartTime = 0;
 
-             // --- Initial State ---
-             if (paymentStep) paymentStep.classList.remove('hidden');
-             if (instructionsStep) instructionsStep.classList.add('hidden');
-             if (examStep) examStep.classList.add('hidden');
-             if (submissionStep) submissionStep.classList.add('hidden');
+             // --- Initial Page State ---
+             paymentStep.classList.remove('hidden');
+             instructionsStep.classList.add('hidden');
+             examStep.classList.add('hidden');
+             submissionStep.classList.add('hidden');
 
              // --- Helper: Format Time ---
              function formatTime(seconds) {
@@ -819,38 +782,36 @@ Thank you,
                  return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
              }
 
-            // --- 1. Proceed from Payment (NEW: Triggers App Number Modal) ---
-            if (proceedToInstructionsBtn) {
-                proceedToInstructionsBtn.addEventListener('click', () => {
-                    messageOverlay.style.display = 'block';
-                    appNumberModal.style.display = 'block';
-                    appNumberInput.focus();
-                });
-            }
+            // --- 1. Proceed from Payment (Triggers App Number Modal) ---
+            proceedToInstructionsBtn.addEventListener('click', () => {
+                messageOverlay.style.display = 'block';
+                appNumberModal.style.display = 'block';
+                appNumberInput.value = ''; // Clear input
+                appNumberError.textContent = ''; // Clear errors
+                appNumberInput.focus();
+            });
+            
 
             // --- 2. Verify Application Number ---
-            if (verifyAppNumberBtn) {
-                verifyAppNumberBtn.addEventListener('click', () => {
-                    const appNumber = appNumberInput.value.trim().toUpperCase();
-                    if (VALID_APP_NUMBERS.includes(appNumber)) {
-                        // Success
-                        appNumberError.textContent = '';
-                        appNumberModal.style.display = 'none';
-                        messageOverlay.style.display = 'none';
+            verifyAppNumberBtn.addEventListener('click', () => {
+                const appNumber = appNumberInput.value.trim();
 
-                        paymentStep.classList.add('hidden');
-                        instructionsStep.classList.remove('hidden');
-                    } else {
-                        // Fail
-                        appNumberError.textContent = 'Invalid Application Number. Please try again.';
-                    }
-                });
-            }
-
-            // --- 3. Start Exam Button (on Instructions page) triggers camera check ---
-             if (startExamBtn) {
-                 startExamBtn.addEventListener('click', requestCamera);
-             }
+                if (VALID_APP_NUMBERS.includes(appNumber)) {
+                    // --- SUCCESS ---
+                    appNumberError.textContent = '';
+                    appNumberModal.style.display = 'none';
+                    messageOverlay.style.display = 'none';
+                    
+                    paymentStep.classList.add('hidden');
+                    instructionsStep.classList.remove('hidden');
+                } else {
+                    // --- FAILURE ---
+                    appNumberError.textContent = 'Invalid Application Number. Please try again.';
+                }
+            });
+            
+            // --- 3. Start Exam Button (Triggers camera check) ---
+             startExamBtn.addEventListener('click', requestCamera);
 
              // --- Camera Logic ---
              async function requestCamera() {
@@ -858,7 +819,7 @@ Thank you,
                  cameraMessageBox.style.display = 'block';
              }
 
-            if (allowCameraBtn) allowCameraBtn.addEventListener('click', startCamera);
+            allowCameraBtn.addEventListener('click', startCamera);
 
             async function startCamera() {
                  cameraMessageBox.style.display = 'none'; // Hide prompt
@@ -868,34 +829,25 @@ Thank you,
                      cameraFeed.srcObject = stream;
                      cameraFailedPreview.classList.add('hidden'); // Hide fallback
                      cameraFeed.style.display = 'block'; // Show video feed
-
-                     // --- Success ---
                      proceedToExam();
 
                  } catch (err) {
-                     // --- NEW: CAMERA FAILED (Fear Tactic Fallback) ---
-                     console.error("Camera Error (Fallback activated):", err.name, err.message);
-                     
-                     // Show the fake preview INSTEAD of the error
+                     // --- CAMERA FAILED (Fallback) ---
+                     console.warn("Camera Error (Fallback activated):", err.name, err.message);
                      cameraFeed.style.display = 'none'; // Hide broken video
                      cameraFailedPreview.classList.remove('hidden'); // Show fake preview
-
-                     // --- Proceed to exam anyway ---
                      proceedToExam();
                  }
             }
             
-            // --- Helper function to start exam (called on camera success OR failure) ---
             function proceedToExam() {
-                messageOverlay.style.display = 'none';    // Hide overlay
-                cameraPopup.classList.remove('hidden'); // Show camera popup (with real or fake feed)
-
-                instructionsStep.classList.add('hidden'); // Hide instructions
-                examStep.classList.remove('hidden');      // Show exam
-                startTimer();                             // Start main exam timer
-                startCameraTimer();                       // Start camera recording timer
+                messageOverlay.style.display = 'none';
+                cameraPopup.classList.remove('hidden');
+                instructionsStep.classList.add('hidden');
+                examStep.classList.remove('hidden');
+                startTimer();
+                startCameraTimer();
             }
-
 
              function stopCamera() {
                  if (stream) {
@@ -908,18 +860,16 @@ Thank you,
              // --- Timer Logic ---
               function startTimer() {
                  let time = 1800; // 30 minutes
-                 if (timerEl) timerEl.textContent = formatTime(time);
+                 timerEl.textContent = formatTime(time);
                  examStartTime = Date.now(); 
 
                  examTimerInterval = setInterval(() => {
-                     if (document.hidden) return; // Pause timer if tab is not active
-
+                     if (document.hidden) return;
                      time--;
-                     if (timerEl) timerEl.textContent = formatTime(time);
-
+                     timerEl.textContent = formatTime(time);
                      if (time <= 0) {
                          clearInterval(examTimerInterval);
-                         if (examStep && !examStep.classList.contains('hidden')) {
+                         if (!examStep.classList.contains('hidden')) {
                              submitExam(); // Auto-submit
                          }
                      }
@@ -929,19 +879,18 @@ Thank you,
              // --- Camera Recording Timer ---
              function startCameraTimer() {
                  let elapsedSeconds = 0;
-                 if (cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                 cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  cameraTimerInterval = setInterval(() => {
-                     if (document.hidden) return; // Pause if tab is hidden
+                     if (document.hidden) return;
                      elapsedSeconds++;
-                     if (cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                     cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  }, 1000);
              }
-
 
              // --- Option Selection Logic ---
              const questions = document.querySelectorAll('.question-block');
              const totalQuestions = questions.length;
-             if (totalQuestionsEl) totalQuestionsEl.textContent = totalQuestions;
+             totalQuestionsEl.textContent = totalQuestions;
 
              questions.forEach(question => {
                  const options = question.querySelectorAll('.options .option');
@@ -957,7 +906,7 @@ Thank you,
               // --- Submission Logic ---
              function submitExam() {
                  if (examTimerInterval) clearInterval(examTimerInterval);
-                 stopCamera(); // Stop camera and its timer on submit
+                 stopCamera();
 
                  let score = 0;
                  questions.forEach(question => {
@@ -970,99 +919,93 @@ Thank you,
                  const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
 
                  // Update results display
-                 if (finalScoreEl) finalScoreEl.textContent = score;
-                 if (finalPercentageEl) finalPercentageEl.textContent = percentage;
-                 if (finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage;
+                 finalScoreEl.textContent = score;
+                 finalPercentageEl.textContent = percentage;
+                 finalScoreEmailSpan.textContent = percentage;
 
                  if (percentage >= 60) {
-                     if (resultIcon) resultIcon.className = 'icon fas fa-check-circle success';
-                     if (resultTitle) resultTitle.textContent = "Exam Completed - Qualified!";
-                     if (resultMessage) resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
-                     if (emailInstructions) emailInstructions.classList.remove('hidden');
+                     resultIcon.className = 'icon fas fa-check-circle success';
+                     resultTitle.textContent = "Exam Completed - Qualified!";
+                     resultMessage.textContent = "Congratulations! You have met the minimum requirement (60%). Please follow the instructions below carefully to submit your details for verification.";
+                     emailInstructions.classList.remove('hidden');
 
                      const subject = encodeURIComponent(`Data Science Internship Application - [Your Full Name Here]`);
                      const body = encodeURIComponent(
                          `Dear Internadda Team,\n\nI have successfully completed the Data Science Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
                      );
-                     if (emailLink) emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                     emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
 
                  } else {
-                     if (resultIcon) resultIcon.className = 'icon fas fa-times-circle fail';
-                     if (resultTitle) resultTitle.textContent = "Exam Completed";
-                     if (resultMessage) resultMessage.textContent = `Thank you for completing the exam. Unfortunately, your score of ${percentage}% did not meet the minimum requirement of 60% for this internship opportunity. We encourage you to review the course materials and consider retaking the exam if available in the future.`;
-                     if (emailInstructions) emailInstructions.classList.add('hidden');
+                     resultIcon.className = 'icon fas fa-times-circle fail';
+                     resultTitle.textContent = "Exam Completed";
+                     resultMessage.textContent = `Thank you for completing the exam. Unfortunately, your score of ${percentage}% did not meet the minimum requirement of 60% for this internship opportunity. We encourage you to review the course materials and consider retaking the exam if available in the future.`;
+                     emailInstructions.classList.add('hidden');
                  }
 
-                 if (examStep) examStep.classList.add('hidden');
-                 if (submissionStep) submissionStep.classList.remove('hidden');
-                 if (timerEl) timerEl.textContent = "Finished";
+                 examStep.classList.add('hidden');
+                 submissionStep.classList.remove('hidden');
+                 timerEl.textContent = "Finished";
              }
 
-             if (submitExamBtn) {
-                 submitExamBtn.addEventListener('click', () => {
-                     if(confirm("Are you sure you want to submit your exam? You cannot change your answers after submitting.")) {
-                         submitExam();
-                     }
-                 });
-             }
+             submitExamBtn.addEventListener('click', () => {
+                 if(confirm("Are you sure you want to submit your exam? You cannot change your answers after submitting.")) {
+                     submitExam();
+                 }
+             });
 
-              // --- Anti-Cheat: Tab Switch Detection (This logic was already correct) ---
+              // --- Anti-Cheat: Tab Switch Detection ---
              document.addEventListener('visibilitychange', () => {
-                 if (examStep && !examStep.classList.contains('hidden') && document.hidden) {
+                 if (!examStep.classList.contains('hidden') && document.hidden) {
                      tabSwitchCount++;
-                     console.warn(`Tab switch detected. Count: ${tabSwitchCount}`);
-
+                     
                      if (examTimerInterval) clearInterval(examTimerInterval);
                      if (cameraTimerInterval) clearInterval(cameraTimerInterval);
 
-                     if (tabSwitchCount >= MAX_TAB_SWITCHES) { // Use >= for immediate disqualification on 2nd switch
+                     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
                          // Disqualify
                          stopCamera();
-                         if (resultIcon) resultIcon.className = 'icon fas fa-exclamation-triangle fail';
-                         if (resultTitle) resultTitle.textContent = "Exam Disqualified";
-                         if (resultMessage) resultMessage.textContent = "Multiple instances of navigating away from the exam tab were detected. Your exam has been disqualified due to a violation of the proctoring rules.";
-                         if (scoreDisplay) scoreDisplay.textContent = "Score: N/A (Disqualified)";
-                         if (emailInstructions) emailInstructions.classList.add('hidden');
-                         if (examStep) examStep.classList.add('hidden');
-                         if (submissionStep) submissionStep.classList.remove('hidden');
-                         if (timerEl) timerEl.textContent = "Disqualified";
+                         resultIcon.className = 'icon fas fa-exclamation-triangle fail';
+                         resultTitle.textContent = "Exam Disqualified";
+                         resultMessage.textContent = "Multiple instances of navigating away from the exam tab were detected. Your exam has been disqualified due to a violation of the proctoring rules.";
+                         scoreDisplay.textContent = "Score: N/A (Disqualified)";
+                         emailInstructions.classList.add('hidden');
+                         examStep.classList.add('hidden');
+                         submissionStep.classList.remove('hidden');
+                         timerEl.textContent = "Disqualified";
                          
-                         // Hide any open modals
-                         if (messageOverlay) messageOverlay.style.display = 'none';
-                         if (tabSwitchWarningBox) tabSwitchWarningBox.style.display = 'none';
+                         messageOverlay.style.display = 'none';
+                         tabSwitchWarningBox.style.display = 'none';
 
                      } else {
                          // Show warning (only on 1st switch)
-                         if (messageOverlay) messageOverlay.style.display = 'block';
-                         if (tabSwitchWarningBox) tabSwitchWarningBox.style.display = 'block';
+                         messageOverlay.style.display = 'block';
+                         tabSwitchWarningBox.style.display = 'block';
                      }
                  }
              });
 
-             if (resumeExamBtn) {
-                 resumeExamBtn.addEventListener('click', () => {
-                     tabSwitchWarningBox.style.display = 'none';
-                     messageOverlay.style.display = 'none';
+             resumeExamBtn.addEventListener('click', () => {
+                 tabSwitchWarningBox.style.display = 'none';
+                 messageOverlay.style.display = 'none';
 
-                     // Resume timers
-                     const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000);
-                     const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0;
-                     startTimerFrom(remainingTime);
-                     startCameraTimerFrom(elapsedSinceStart);
-                 });
-             }
+                 // Resume timers
+                 const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000);
+                 const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0;
+                 startTimerFrom(remainingTime);
+                 startCameraTimerFrom(elapsedSinceStart);
+             });
 
              function startTimerFrom(startTimeInSeconds) {
                  let time = startTimeInSeconds;
                  if (examTimerInterval) clearInterval(examTimerInterval);
-                 if(timerEl) timerEl.textContent = formatTime(time);
+                 timerEl.textContent = formatTime(time);
                  examTimerInterval = setInterval(() => {
                      if (document.hidden) return;
                      time--;
-                     if (timerEl) timerEl.textContent = formatTime(time);
+                     timerEl.textContent = formatTime(time);
                      if (time <= 0) {
                          clearInterval(examTimerInterval);
-                         if (examStep && !examStep.classList.contains('hidden')) {
+                         if (!examStep.classList.contains('hidden')) {
                              submitExam();
                          }
                      }
@@ -1072,11 +1015,11 @@ Thank you,
              function startCameraTimerFrom(startTimeInSeconds) {
                  let elapsedSeconds = startTimeInSeconds;
                  if (cameraTimerInterval) clearInterval(cameraTimerInterval);
-                 if(cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                 cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  cameraTimerInterval = setInterval(() => {
                      if (document.hidden) return;
                      elapsedSeconds++;
-                     if (cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds);
+                     cameraTimerEl.textContent = formatTime(elapsedSeconds);
                  }, 1000);
              }
 
