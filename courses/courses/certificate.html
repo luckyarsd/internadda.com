@@ -4,222 +4,226 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Professional Certificate of Achievement</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
- <style>
-  body {
-    background-color: #f0f2f5;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-  }
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600&display=wrap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-  .certificate-wrapper {
-    padding: 10px;
-    background: #fff;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-  }
+    /* --- REMOVED .certificate-wrapper padding --- */
+    .certificate-container {
+      width: 1000px; /* A4 Landscape width */
+      height: 707px; /* A4 Landscape height */
+      background: #fff;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; 
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      /* Adjusted padding for a tighter fit while staying within borders */
+      padding: 35px 55px; 
+      box-sizing: border-box;
+      border: 8px solid #0a2e5d; /* Strong outer border */
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12); /* Moved shadow here */
+    }
 
-  .certificate-container {
-    width: 1000px;
-    height: 707px;
-    background: #fff;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    padding: 30px 50px; /* reduced for proper fit */
-    box-sizing: border-box;
-    border: 8px solid #0a2e5d;
-  }
+    .certificate-container::before {
+      content: '';
+      position: absolute;
+      /* Adjusted inset for the inner border */
+      top: 20px; 
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid #c2a16d; /* Thin gold inner border */
+      z-index: 1;
+    }
 
-  .certificate-container::before {
-    content: '';
-    position: absolute;
-    top: 20px; /* reduced from 25px */
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    border: 1px solid #c2a16d;
-    z-index: 1;
-  }
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 110px;
+      font-weight: bold;
+      color: rgba(10, 46, 93, 0.05);
+      white-space: nowrap;
+      z-index: 0;
+      user-select: none;
+    }
 
-  .watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Playfair Display', serif;
-    font-size: 110px;
-    font-weight: bold;
-    color: rgba(10, 46, 93, 0.05);
-    white-space: nowrap;
-    z-index: 0;
-    user-select: none;
-  }
+    /* --- HEADER --- */
+    .header-content {
+      z-index: 2;
+      width: 100%;
+      /* Adjusted padding/margin */
+      padding-top: 5px; 
+      margin-bottom: 5px; 
+    }
 
-  /* --- HEADER --- */
-  .header-content {
-    z-index: 2;
-    width: 100%;
-    padding-top: 5px; /* reduced */
-  }
+    .logo img {
+      width: 110px; /* Slightly smaller logo */
+      height: auto;
+      margin-bottom: 8px;
+    }
 
-  .logo img {
-    width: 110px;
-    height: auto;
-    margin-bottom: 8px;
-  }
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6em; /* Slightly smaller heading */
+      font-weight: 700;
+      color: #0a2e5d;
+      margin: 0;
+      letter-spacing: 1px;
+    }
 
-  .header-text h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6em;
-    font-weight: 700;
-    color: #0a2e5d;
-    margin: 0;
-    letter-spacing: 1px;
-  }
+    .header-text p {
+      font-size: 1.2em; /* Slightly smaller sub-heading */
+      font-weight: 500;
+      color: #546e7a;
+      margin: 6px 0 0;
+      letter-spacing: 4px; /* Adjusted letter spacing */
+      text-transform: uppercase;
+    }
 
-  .header-text p {
-    font-size: 1.15em;
-    font-weight: 500;
-    color: #546e7a;
-    margin: 6px 0 0;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-  }
+    /* --- BODY (CENTER CONTENT) --- */
+    .certificate-body {
+      z-index: 2;
+      width: 100%;
+      max-width: 850px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Adjusted padding/margin */
+      padding: 0; 
+      margin: 10px 0; 
+    }
 
-  /* --- BODY --- */
-  .certificate-body {
-    z-index: 2;
-    width: 100%;
-    max-width: 850px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+    .statement {
+      font-size: 1.15em;
+      color: #546e7a;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
 
-  .statement {
-    font-size: 1.2em;
-    color: #546e7a;
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
+    .recipient-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em; /* Slightly smaller name */
+      font-weight: 700;
+      color: #212121;
+      border-bottom: 3px solid #c2a16d;
+      padding-bottom: 8px; /* Adjusted padding */
+      margin: 15px 0 25px; /* Adjusted margins */
+    }
 
-  .recipient-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 4em; /* slightly smaller */
-    font-weight: 700;
-    color: #212121;
-    border-bottom: 3px solid #c2a16d;
-    padding-bottom: 8px;
-    margin: 20px 0 25px;
-  }
+    .description-text {
+      font-size: 1.2em; /* Slightly smaller description */
+      color: #444;
+      line-height: 1.6;
+    }
 
-  .description-text {
-    font-size: 1.25em;
-    color: #444;
-    line-height: 1.6;
-  }
+    .course-name {
+      font-weight: 600;
+      color: #0a2e5d;
+    }
 
-  .course-name {
-    font-weight: 600;
-    color: #0a2e5d;
-  }
+    /* --- FOOTER --- */
+    .certificate-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 2;
+      /* Adjusted padding/margin */
+      padding-bottom: 5px;
+      padding-top: 10px;
+    }
 
-  /* --- FOOTER --- */
-  .certificate-footer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    z-index: 2;
-    margin-top: 5px; /* slight spacing fix */
-  }
+    .certificate-info-block {
+      text-align: right;
+    }
 
-  .certificate-info-block {
-    text-align: right;
-  }
+    .info-item {
+      font-size: 0.85em; /* Slightly smaller info text */
+      color: #546e7a;
+      margin: 3px 0; /* Reduced margin */
+    }
 
-  .info-item {
-    font-size: 0.9em;
-    color: #546e7a;
-    margin: 3px 0;
-  }
+    .info-item strong {
+      color: #0a2e5d;
+      font-weight: 600;
+      margin-right: 5px;
+    }
 
-  .info-item strong {
-    color: #0a2e5d;
-    font-weight: 600;
-    margin-right: 5px;
-  }
+    .stamp-area {
+      text-align: center;
+    }
 
-  .stamp-area {
-    text-align: center;
-  }
+    .stamp-area img {
+      width: 130px; /* Slightly smaller stamp image */
+      height: auto;
+      opacity: 0.9;
+      display: block;
+      margin: 0 auto;
+    }
 
-  .stamp-area img {
-    width: 130px; /* slightly reduced */
-    height: auto;
-    opacity: 0.9;
-    display: block;
-    margin: 0 auto;
-  }
-
-  .stamp-label {
-    font-size: 0.85em;
-    color: #546e7a;
-    margin-top: 6px;
-    font-weight: 500;
-  }
-</style>
-
+    .stamp-label {
+      font-size: 0.8em; /* Slightly smaller label */
+      color: #546e7a;
+      margin-top: 6px; /* Adjusted margin */
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="certificate-wrapper" id="certificate">
-    <div class="certificate-container">
-      <div class="watermark">Internadda</div>
+  <div class="certificate-container" id="certificate">
+    <div class="watermark">Internadda</div>
 
-      <div class="header-content">
-        <div class="logo">
-          <img src="../../images/logo.jpg" alt="Company Logo">
-        </div>
-        <div class="header-text">
-          <h1>Internadda</h1>
-          <p>Certificate of Completion</p>
-        </div>
+    <div class="header-content">
+      <div class="logo">
+        <img src="../../images/logo.jpg" alt="Company Logo">
       </div>
-
-      <div class="certificate-body">
-        <p class="statement">This document proudly certifies that</p>
-        <h2 class="recipient-name" id="certificateName"></h2>
-        <p class="description-text">
-          Has successfully completed the <b>Essential Data Science Intern Course</b>
-        </p>
+      <div class="header-text">
+        <h1>Internadda</h1>
+        <p>Certificate of Completion</p>
       </div>
-      
-      <div class="certificate-footer">
-        <div class="stamp-area">
-          <img src="../../images/stamp.jpg" alt="Official Seal Stamp">
-          <p class="stamp-label">Official Accreditation</p>
-        </div>
-
-        <div class="certificate-info-block">
-          <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
-          <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
-        </div>
-      </div>
-
     </div>
+
+    <div class="certificate-body">
+      <p class="statement">This document proudly certifies that</p>
+      <h2 class="recipient-name" id="certificateName"></h2>
+      <p class="description-text">
+        has successfully completed the esteemed program,
+        <strong class="course-name" id="certificateCourse"></strong>,
+        demonstrating dedication and mastery of the subject matter.
+      </p>
+    </div>
+    
+    <div class="certificate-footer">
+      <div class="stamp-area">
+        <img src="../../images/stamp.jpg" alt="Official Seal Stamp">
+        <p class="stamp-label">Official Accreditation</p>
+      </div>
+
+      <div class="certificate-info-block">
+        <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
+        <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
