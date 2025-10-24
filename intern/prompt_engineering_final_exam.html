@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Engineering Final Exam — Internadda</title> <!-- Changed Title -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <title>AI Prompt Engineering Final Exam — Internadda</title> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="../style.css">
@@ -59,8 +58,7 @@
                 </div>
 
                 <div id="instructions-step" class="exam-step hidden">
-                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions (AI Prompt Engineering)</h2> <!-- Updated Heading -->
-                    <div class="instructions-list">
+                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions (AI Prompt Engineering)</h2> <div class="instructions-list">
                          <ul>
                             <li><strong>Duration:</strong> <strong>30 minutes</strong>.</li>
                             <li><strong>Passing Score:</strong> <strong class="passing-score">60%</strong>.</li>
@@ -78,11 +76,9 @@
 
                 <div id="exam-step" class="exam-step hidden">
                     <div class="exam-header">
-                        <h1>AI Prompt Engineering Final Exam</h1> <!-- Updated Heading -->
-                        <div id="timer">30:00</div>
+                        <h1>AI Prompt Engineering Final Exam</h1> <div id="timer">30:00</div>
                     </div>
                     <div id="quiz-container">
-                        <!-- AI Prompt Engineering Questions 1-25 -->
                         <div class="question-block" data-answer="c"><h3><strong>1</strong>Which prompt component explicitly tells the AI model the desired structure or layout of the response?</h3><div class="options"><div class="option" data-value="a">Persona</div><div class="option" data-value="b">Instruction</div><div class="option" data-value="c">Format Specification</div><div class="option" data-value="d">Context</div></div></div>
                         <div class="question-block" data-answer="b"><h3><strong>2</strong>Providing examples of input/output pairs within a prompt ("Input: apple -> Output: red", "Input: banana -> Output: yellow", "Input: grape -> Output:") is an example of:</h3><div class="options"><div class="option" data-value="a">Zero-shot prompting</div><div class="option" data-value="b">Few-shot prompting</div><div class="option" data-value="c">Chain-of-thought prompting</div><div class="option" data-value="d">Role prompting</div></div></div>
                         <div class="question-block" data-answer="d"><h3><strong>3</strong>Why is iterative refinement a crucial part of prompt engineering?</h3><div class="options"><div class="option" data-value="a">AI models learn better when prompts are changed frequently.</div><div class="option" data-value="b">It guarantees the first prompt will always be perfect.</div><div class="option" data-value="c">It allows the use of shorter prompts.</div><div class="option" data-value="d">Initial prompts rarely yield the perfect output; testing and adjusting based on AI responses is necessary to improve quality.</div></div></div>
@@ -106,5 +102,183 @@
                         <div class="question-block" data-answer="b"><h3><strong>21</strong>Which prompt is better for asking ChatGPT to summarize a long article?</h3><div class="options"><div class="option" data-value="a">"Summarize this: [entire article pasted]"</div><div class="option" data-value="b">"Summarize the following article in 3 bullet points, focusing on the main conclusions: [entire article pasted]"</div><div class="option" data-value="c">"Tell me about the article."</div><div class="option" data-value="d">"Article summary."</div></div></div>
                         <div class="question-block" data-answer="a"><h3><strong>22</strong>If you ask an AI to critique a piece of writing, providing specific criteria (e.g., "Critique this essay based on clarity, argument strength, and grammar") is more effective than a general request because:</h3><div class="options"><div class="option" data-value="a">It focuses the AI's analysis and provides actionable feedback.</div><div class="option" data-value="b">It makes the AI generate a longer critique.</div><div class="option" data-value="c">It guarantees the critique will be positive.</div><div class="option" data-value="d">It requires less processing power from the AI.</div></div></div>
                         <div class="question-block" data-answer="d"><h3><strong>23</strong>What is meant by "token" in the context of Large Language Models?</h3><div class="options"><div class="option" data-value="a">A user's authentication credential.</div><div class="option" data-value="b">A single character in the text.</div><div class="option" data-value="c">A complete sentence.</div><div class="option" data-value="d">A piece of a word, a whole word, or sometimes punctuation, that the model processes as a unit.</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><strong>24</strong>Using delimiters (like 
+                        
+                        <div class="question-block" data-answer="c"><h3><strong>24</strong>Using delimiters (like `"""`, `---`, or `###`) in a prompt is a good practice because:</h3><div class="options"><div class="option" data-value="a">It makes the prompt run faster.</div><div class="option" data-value="b">It forces the AI to use a specific persona.</div><div class="option" data-value="c">It helps the AI clearly distinguish between different parts of the prompt, like instructions and text to be processed.</div><div class="option" data-value="d">It automatically formats the output as JSON.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>25</strong>What is "hallucination" in the context of LLMs?</h3><div class="options"><div class="option" data-value="a">When the AI generates an output that is stylistically creative.</div><div class="option" data-value="b">When the AI refuses to answer a question due to safety protocols.</div><div class="option" data-value="c">When the AI produces factually incorrect, nonsensical, or ungrounded information but presents it as factual.</div><div class="option" data-value="d">When the AI's output is too short to be useful.</div></div></div>
 
+                        <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
+                    </div>
+                </div>
+
+                <div id="submission-step" class="exam-step hidden">
+                    <div id="result-icon" class="icon"></div>
+                    <h2 id="result-title">Exam Submitted</h2>
+                    <p id="result-message"></p>
+                    <div id="score-display" class="score-display">Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> (<span id="final-percentage">--</span>%)</div>
+                    <div id="email-instructions" class="email-instructions hidden">
+                        <p><strong>Congratulations!</strong> You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please <strong>email us with the following details:</strong></p>
+                        <ul>
+                            <li><strong>To:</strong> official.internadda@gmail.com</li>
+                            <li><strong>Subject:</strong> AI Prompt Engineering Internship Application - [Your Full Name Here]</li>
+                            <li><strong>Body:</strong> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li><strong>Attachment:</strong> Screenshot of this results page.</li>
+                        </ul>
+                        <p>We will verify your score and proctoring session, then reply within <strong>72 business hours</strong>.</p>
+                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
+                    </div>
+                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
+                </div>
+            </div>
+        </section>
+
+        <div id="messageOverlay" class="message-overlay"></div>
+        <div id="appNumberModal" class="message-box">
+             <h3><i class="fas fa-ticket-alt"></i> Verify Your Application</h3>
+             <p>Enter the Application Number received after payment.</p>
+             <div id="appNumberError"></div>
+             <input type="text" id="appNumberInput" placeholder="Enter Application Number">
+             <button id="verifyAppNumberBtn" class="btn btn-primary">Verify & Proceed</button>
+        </div>
+        <div id="cameraMessageBox" class="message-box">
+             <h3><i class="fas fa-video"></i> Camera Access Required</h3>
+             <p>This is a proctored exam. Camera access is mandatory. Ensure your face is clearly visible.</p>
+             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
+        </div>
+        <div id="tabSwitchWarningBox" class="message-box">
+             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
+             <p>Navigating away from the exam tab is logged. Continuous focus loss will lead to disqualification.</p>
+             <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
+       </div>
+    </main>
+
+    <footer style="background-color: #f7fafc; padding: 40px 0; border-top: 1px solid #e2e8f0; text-align: center;"><div class="container"><p>© 2025 Internadda. All rights reserved.</p></div></footer>
+
+     <script>
+        // --- EXACT SAME JavaScript logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get Elements
+            const paymentStep = document.getElementById('payment-step');
+            const instructionsStep = document.getElementById('instructions-step');
+            const examStep = document.getElementById('exam-step');
+            const submissionStep = document.getElementById('submission-step');
+            const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
+            const startExamBtn = document.getElementById('start-exam-btn');
+            const submitExamBtn = document.getElementById('submit-exam-btn');
+            const timerEl = document.getElementById('timer');
+            const cameraPopup = document.getElementById('camera-popup');
+            const cameraFeed = document.getElementById('camera-feed');
+            const cameraTimerEl = document.getElementById('camera-timer');
+            const cameraFailedPreview = document.getElementById('camera-failed-preview');
+            const messageOverlay = document.getElementById('messageOverlay');
+            const cameraMessageBox = document.getElementById('cameraMessageBox');
+            const allowCameraBtn = document.getElementById('allowCameraBtn');
+            const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
+            const resumeExamBtn = document.getElementById('resumeExamBtn');
+            const appNumberModal = document.getElementById('appNumberModal');
+            const appNumberInput = document.getElementById('appNumberInput');
+            const appNumberError = document.getElementById('appNumberError');
+            const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultMessage = document.getElementById('result-message');
+            const scoreDisplay = document.getElementById('score-display');
+            const finalScoreEl = document.getElementById('final-score');
+            const totalQuestionsEl = document.getElementById('total-questions');
+            const finalPercentageEl = document.getElementById('final-percentage');
+            const emailInstructions = document.getElementById('email-instructions');
+            const emailLink = document.getElementById('email-link');
+            const finalScoreEmailSpan = document.querySelector('.final-score-email');
+
+            // State
+            let examTimerInterval; let cameraTimerInterval; let stream = null; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
+
+            // Initial State
+            paymentStep.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.add('hidden');
+
+            // Helper
+            function formatTime(seconds) { const mins = Math.floor(seconds / 60); const secs = seconds % 60; return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`; }
+
+            // Payment -> App Number Modal
+            proceedToInstructionsBtn.addEventListener('click', () => { messageOverlay.style.display = 'block'; appNumberModal.style.display = 'block'; appNumberInput.value = ''; appNumberError.textContent = ''; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; appNumberInput.focus(); });
+
+            // Verify App Number
+            verifyAppNumberBtn.addEventListener('click', async () => { /* ... same verify logic ... */
+                const appNumber = appNumberInput.value.trim().toUpperCase();
+                if (!appNumber) { appNumberError.textContent = 'Please enter an application number.'; return; }
+                verifyAppNumberBtn.disabled = true; verifyAppNumberBtn.textContent = 'Verifying...'; appNumberError.textContent = '';
+                try {
+                    const response = await fetch('/api/verify-application', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ applicationNumber: appNumber }) });
+                    const data = await response.json();
+                    if (response.ok && data.valid === true) {
+                        appNumberModal.style.display = 'none'; messageOverlay.style.display = 'none'; paymentStep.classList.add('hidden'); instructionsStep.classList.remove('hidden');
+                    } else {
+                        appNumberError.textContent = data.message || 'Invalid Application Number.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed';
+                    }
+                } catch (error) { console.error('Verification failed:', error); appNumberError.textContent = 'Verification failed. Check connection.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; }
+            });
+
+            // Instructions -> Camera Check
+            startExamBtn.addEventListener('click', requestCamera);
+            async function requestCamera() { messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block'; }
+            allowCameraBtn.addEventListener('click', startCamera);
+            async function startCamera() { /* ... same camera start logic ... */
+                 cameraMessageBox.style.display = 'none';
+                 try {
+                     stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; proceedToExam();
+                 } catch (err) { console.warn("Camera Error:", err.name); cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); proceedToExam(); }
+            }
+            function proceedToExam() { messageOverlay.style.display = 'none'; cameraPopup.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.remove('hidden'); startTimer(); startCameraTimer(); }
+            function stopCamera() { /* ... same camera stop logic ... */ if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
+
+            // Exam Timers
+            function startTimer() { /* ... same timer logic (30 mins = 1800s) ... */ let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimer() { /* ... same camera timer logic ... */ let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+
+            // Question Selection
+            const questions = document.querySelectorAll('.question-block'); const totalQuestions = questions.length; totalQuestionsEl.textContent = totalQuestions;
+            questions.forEach(q => { /* ... same option selection logic ... */ const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
+
+            // Submission
+            function submitExam() { /* ... same submission logic ... */
+                if (examTimerInterval) clearInterval(examTimerInterval); stopCamera(); let score = 0;
+                questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); });
+                const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+                finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage;
+                 if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; // Update span in email text too
+
+                if (percentage >= 60) {
+                    resultIcon.className = 'icon fas fa-check-circle success'; resultTitle.textContent = "Exam Completed - Qualified!"; resultMessage.textContent = "Congratulations! Follow the instructions below."; emailInstructions.classList.remove('hidden');
+                    
+                    // --- MODIFIED Email Link for AI Prompt Engineering ---
+                    const subject = encodeURIComponent(`AI Prompt Engineering Internship Application - [Your Full Name Here]`); // Corrected Subject
+                    const body = encodeURIComponent(
+                         `Dear Internadda Team,\n\nI have successfully completed the AI Prompt Engineering Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your Portfolio/LinkedIn Profile, if available - Optional]`
+                    ); // Corrected Body Text
+                    emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                } else {
+                    resultIcon.className = 'icon fas fa-times-circle fail'; resultTitle.textContent = "Exam Completed"; resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; emailInstructions.classList.add('hidden');
+                }
+                examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Finished";
+            }
+            submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
+
+            // Anti-Cheat
+            document.addEventListener('visibilitychange', () => { /* ... same visibility change logic ... */
+                 if (!examStep.classList.contains('hidden') && document.hidden) {
+                     tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
+                         stopCamera(); resultIcon.className = 'icon fas fa-exclamation-triangle fail'; resultTitle.textContent = "Exam Disqualified"; resultMessage.textContent = "Navigated away from exam tab multiple times."; scoreDisplay.textContent = "Score: N/A"; emailInstructions.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Disqualified"; messageOverlay.style.display = 'none'; tabSwitchWarningBox.style.display = 'none';
+                     } else { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; }
+                 }
+            });
+            resumeExamBtn.addEventListener('click', () => { /* ... same resume logic ... */
+                 tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000); const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; startTimerFrom(remainingTime); startCameraTimerFrom(elapsedSinceStart);
+            });
+            function startTimerFrom(startTimeInSeconds) { /* ... same timer resume logic ... */ let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimerFrom(startTimeInSeconds) { /* ... same camera timer resume logic ... */ let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>
