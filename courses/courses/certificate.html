@@ -33,6 +33,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      /* --- MODIFIED --- */
+      justify-content: space-between; /* Pushes header up and footer down */
       text-align: center;
       overflow: hidden;
       padding: 40px 60px; /* Increased padding */
@@ -51,7 +53,6 @@
       z-index: 1;
     }
 
-    /* Watermark */
     .watermark {
       position: absolute;
       top: 50%;
@@ -69,12 +70,13 @@
     .header-content {
       z-index: 2;
       width: 100%;
-      margin-bottom: 30px; /* More space below header */
-      padding-top: 15px; /* Slight lift */
+      /* --- MODIFIED --- */
+      margin-bottom: 10px; /* Reduced margin, space-between will handle it */
+      padding-top: 15px;
     }
 
     .logo img {
-      width: 120px; /* Slightly larger logo */
+      width: 120px;
       height: auto;
       margin-bottom: 10px;
     }
@@ -89,26 +91,28 @@
     }
 
     .header-text p {
-      font-size: 1.25em; /* More prominent */
+      font-size: 1.25em;
       font-weight: 500;
       color: #546e7a;
       margin: 8px 0 0;
-      letter-spacing: 5px; /* Wider spacing */
+      letter-spacing: 5px;
       text-transform: uppercase;
     }
 
     .certificate-body {
       z-index: 2;
       padding: 10px 20px;
-      max-width: 850px; /* Wider text block */
+      max-width: 850px;
       flex-grow: 1; /* Allows body to take available space */
       display: flex;
       flex-direction: column;
       justify-content: center; /* Center content vertically in body */
+      /* --- MODIFIED --- */
+      padding-bottom: 20px; /* Added padding to prevent overlap */
     }
 
     .statement {
-      font-size: 1.2em; /* Slightly larger */
+      font-size: 1.2em;
       color: #546e7a;
       margin-bottom: 10px;
       font-weight: 500;
@@ -116,19 +120,20 @@
 
     .recipient-name {
       font-family: 'Playfair Display', serif;
-      font-size: 4.2em; /* Significantly larger name */
+      font-size: 4.2em;
       font-weight: 700;
       color: #212121;
-      border-bottom: 3px solid #c2a16d; /* Thicker gold line */
+      border-bottom: 3px solid #c2a16d;
       padding-bottom: 10px;
-      margin: 20px 0 30px; /* More vertical spacing */
+      margin: 20px 0 30px;
     }
 
     .description-text {
-      font-size: 1.3em; /* Larger description */
+      font-size: 1.3em;
       color: #444;
       line-height: 1.7;
-      margin-bottom: 40px; /* More space below description */
+      /* --- MODIFIED --- */
+      margin-bottom: 20px; /* Reduced margin */
     }
 
     .course-name {
@@ -136,13 +141,18 @@
       color: #0a2e5d;
     }
 
-    /* Info Block moved to bottom right */
-    .certificate-info-block {
-      position: absolute;
-      bottom: 40px; /* Adjusted position */
-      right: 60px; /* Adjusted position */
-      text-align: right; /* Align text to the right */
+    /* --- NEW: Footer Wrapper --- */
+    .certificate-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end; /* Aligns items to the bottom */
       z-index: 2;
+    }
+
+    /* --- MODIFIED: Removed position: absolute --- */
+    .certificate-info-block {
+      text-align: right;
     }
 
     .info-item {
@@ -154,30 +164,26 @@
     .info-item strong {
       color: #0a2e5d;
       font-weight: 600;
-      margin-right: 5px; /* Space between label and value */
+      margin-right: 5px;
     }
 
-    /* Stamp Area (bottom left) */
+    /* --- MODIFIED: Removed position: absolute --- */
     .stamp-area {
-      position: absolute;
-      bottom: 40px; /* Adjusted position */
-      left: 60px; /* Adjusted position */
       text-align: center;
-      z-index: 2;
     }
 
     .stamp-area img {
-      width: 140px; /* Larger stamp image */
+      width: 140px;
       height: auto;
       opacity: 0.9;
-      display: block; /* Remove extra space below image */
+      display: block;
       margin: 0 auto;
     }
 
     .stamp-label {
       font-size: 0.9em;
       color: #546e7a;
-      margin-top: 8px; /* Space below stamp */
+      margin-top: 8px;
       font-weight: 500;
     }
 
@@ -191,7 +197,8 @@
 
       <div class="header-content">
         <div class="logo">
-          <img src="../../images/logo.jpg" alt="Company Logo"> </div>
+          <img src="../../images/logo.jpg" alt="Company Logo">
+        </div>
         <div class="header-text">
           <h1>Internadda</h1>
           <p>Certificate of Completion</p>
@@ -208,13 +215,16 @@
         </p>
       </div>
       
-      <div class="stamp-area">
-        <img src="../../images/stamp.jpg" alt="Official Seal Stamp"> <p class="stamp-label">Official Accreditation</p>
-      </div>
+      <div class="certificate-footer">
+        <div class="stamp-area">
+          <img src="../../images/stamp.jpg" alt="Official Seal Stamp">
+          <p class="stamp-label">Official Accreditation</p>
+        </div>
 
-      <div class="certificate-info-block">
-        <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
-        <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
+        <div class="certificate-info-block">
+          <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
+          <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
+        </div>
       </div>
 
     </div>
@@ -231,8 +241,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const name = params.get('name') || 'Recipient Name'; // Changed default to be clearer
-      const course = params.get('course') || 'Comprehensive Training Program'; // Changed default
+      const name = params.get('name') || 'Recipient Name';
+      const course = params.get('course') || 'Comprehensive Training Program';
 
       const certificateName = document.getElementById('certificateName');
       const certificateCourse = document.getElementById('certificateCourse');
@@ -248,7 +258,6 @@
         day: 'numeric'
       });
       
-      // Prefixing the ID for a more "corporate" look
       certificateId.textContent = `INT-COMP-${generateUUID().substring(0, 8).toUpperCase()}`;
 
       // --- PDF Generation ---
