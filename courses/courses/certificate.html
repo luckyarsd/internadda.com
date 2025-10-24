@@ -153,27 +153,6 @@
       margin-top: 5px;
     }
 
-    .download-button-container {
-      margin-top: 25px;
-    }
-
-    .btn-download {
-      background: linear-gradient(135deg, #0a2e5d, #c2a16d);
-      color: #fff;
-      padding: 14px 30px;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 1.1em;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-download:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    }
   </style>
 </head>
 <body>
@@ -207,14 +186,10 @@
       </div>
 
       <div class="stamp-area">
-        <img src="https://raw.githubusercontent.com/luckyarsd/skillpoint.in/main/stamp.jpg" alt="Official Seal Stamp">
+        <img src="../../images/stamp.jpg" alt="Official Seal Stamp">
         <p class="stamp-label">Official Accreditation</p>
       </div>
     </div>
-  </div>
-
-  <div class="download-button-container">
-    <button class="btn-download" id="downloadButton">Download Certificate</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -234,7 +209,7 @@
       const certificateCourse = document.getElementById('certificateCourse');
       const certificateDate = document.getElementById('certificateDate');
       const certificateId = document.getElementById('certificateId');
-      const downloadButton = document.getElementById('downloadButton');
+
 
       certificateName.textContent = decodeURIComponent(name);
       certificateCourse.textContent = decodeURIComponent(course);
@@ -244,8 +219,6 @@
         day: 'numeric'
       });
       certificateId.textContent = generateUUID();
-
-      downloadButton.addEventListener('click', () => {
         const element = document.getElementById('certificate');
         const opt = {
           margin: 0,
