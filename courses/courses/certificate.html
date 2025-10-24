@@ -32,12 +32,13 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      /* --- KEY FIX FOR ALIGNMENT --- */
+      /* This pushes header to top, footer to bottom */
+      justify-content: space-between; 
       align-items: center;
-      /* --- MODIFIED --- */
-      justify-content: space-between; /* Pushes header up and footer down */
       text-align: center;
       overflow: hidden;
-      padding: 40px 60px; /* Increased padding */
+      padding: 40px 60px; /* Generous padding */
       box-sizing: border-box;
       border: 8px solid #0a2e5d; /* Strong outer border */
     }
@@ -67,12 +68,11 @@
       user-select: none;
     }
 
+    /* --- HEADER --- */
     .header-content {
       z-index: 2;
       width: 100%;
-      /* --- MODIFIED --- */
-      margin-bottom: 10px; /* Reduced margin, space-between will handle it */
-      padding-top: 15px;
+      padding-top: 10px;
     }
 
     .logo img {
@@ -99,16 +99,16 @@
       text-transform: uppercase;
     }
 
+    /* --- BODY (CENTER CONTENT) --- */
     .certificate-body {
       z-index: 2;
-      padding: 10px 20px;
+      width: 100%;
       max-width: 850px;
-      flex-grow: 1; /* Allows body to take available space */
+      /* --- KEY FIX FOR ALIGNMENT --- */
+      flex-grow: 1; /* Takes up available space */
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Center content vertically in body */
-      /* --- MODIFIED --- */
-      padding-bottom: 20px; /* Added padding to prevent overlap */
+      justify-content: center; /* Perfectly centers content vertically */
     }
 
     .statement {
@@ -132,8 +132,6 @@
       font-size: 1.3em;
       color: #444;
       line-height: 1.7;
-      /* --- MODIFIED --- */
-      margin-bottom: 20px; /* Reduced margin */
     }
 
     .course-name {
@@ -141,16 +139,16 @@
       color: #0a2e5d;
     }
 
-    /* --- NEW: Footer Wrapper --- */
+    /* --- FOOTER --- */
     .certificate-footer {
       width: 100%;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end; /* Aligns items to the bottom */
+      /* --- KEY FIX FOR ALIGNMENT --- */
+      justify-content: space-between; /* Pushes stamp left, info right */
+      align-items: flex-end; /* Aligns both items to the bottom */
       z-index: 2;
     }
 
-    /* --- MODIFIED: Removed position: absolute --- */
     .certificate-info-block {
       text-align: right;
     }
@@ -167,7 +165,6 @@
       margin-right: 5px;
     }
 
-    /* --- MODIFIED: Removed position: absolute --- */
     .stamp-area {
       text-align: center;
     }
@@ -186,7 +183,6 @@
       margin-top: 8px;
       font-weight: 500;
     }
-
   </style>
 </head>
 <body>
