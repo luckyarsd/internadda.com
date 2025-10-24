@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Certificate</title>
+  <title>Professional Certificate of Completion</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -16,27 +16,43 @@
       min-height: 100vh;
       margin: 0;
       padding: 20px;
+      box-sizing: border-box;
     }
 
-    /* Outer border wrapper */
-    .certificate-border {
-      padding: 12px;
-      background: linear-gradient(135deg, #0a2e5d, #c2a16d, #0a2e5d);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    /* Wrapper for shadow and spacing */
+    .certificate-wrapper {
+      padding: 10px;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
     }
 
     .certificate-container {
       width: 1000px;
-      height: 707px;
+      height: 707px; /* A4 Landscape aspect ratio */
       background: #fff;
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between; /* Changed for header/footer positioning */
       align-items: center;
       text-align: center;
       overflow: hidden;
-      padding: 20px 40px;
+      padding: 40px 60px;
+      box-sizing: border-box;
+      /* --- Professional Border --- */
+      border: 10px solid #0a2e5d; 
+    }
+
+    /* --- Professional Inner Border --- */
+    .certificate-container::before {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      right: 25px;
+      bottom: 25px;
+      border: 2px solid #c2a16d;
+      z-index: 1;
     }
 
     /* Watermark */
@@ -46,9 +62,10 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-family: 'Playfair Display', serif;
-      font-size: 90px;
+      font-size: 110px;
       font-weight: bold;
-      color: rgba(192, 161, 109, 0.08);
+      /* --- More subtle watermark color --- */
+      color: rgba(10, 46, 93, 0.05); 
       white-space: nowrap;
       z-index: 0;
       user-select: none;
@@ -56,17 +73,18 @@
 
     .header-content {
       z-index: 2;
-      margin-bottom: 20px;
+      width: 100%;
     }
 
-    .logo img {
-      width: 100px;
-      margin-bottom: 10px;
+    .logo {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 10px;
     }
 
     .header-text h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 2.4em;
+      font-size: 2.8em;
       font-weight: 700;
       color: #0a2e5d;
       margin: 0;
@@ -74,99 +92,139 @@
     }
 
     .header-text p {
-      font-size: 1em;
+      font-size: 1.2em; /* Made more prominent */
       font-weight: 500;
       color: #546e7a;
       margin: 5px 0 0;
-      letter-spacing: 2px;
+      letter-spacing: 4px; /* Increased spacing */
+      text-transform: uppercase;
     }
 
     .certificate-body {
       z-index: 2;
-      padding: 20px;
+      padding: 10px 20px;
       max-width: 800px;
+      margin-top: -50px; /* Pull body up a bit */
     }
 
     .statement {
-      font-size: 1.2em;
-      color: #3f51b5;
+      font-size: 1.1em;
+      color: #546e7a; /* Muted color */
       margin-bottom: 15px;
+      font-weight: 500;
     }
 
     .recipient-name {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5em;
+      font-size: 3.8em;
       font-weight: 700;
       color: #212121;
       border-bottom: 2px solid #c2a16d;
       padding-bottom: 10px;
-      margin: 20px 0;
+      margin: 15px 0;
     }
 
     .description-text {
-      font-size: 1.2em;
+      font-size: 1.15em;
       color: #444;
       line-height: 1.6;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .course-name {
       font-weight: 600;
-      color: #c2a16d;
+      color: #0a2e5d; /* Changed to brand blue */
     }
 
-    .certificate-info-block {
+    /* --- NEW: Signature Block --- */
+    .signature-block {
       display: flex;
       justify-content: space-around;
+      align-items: flex-start;
       width: 100%;
-      padding: 10px 40px 30px;
+      padding: 0 40px;
+      z-index: 2;
+      margin-top: 20px;
+    }
+
+    .signature-item {
+      width: 40%;
+      text-align: center;
+    }
+    
+    .signature-script {
+        font-family: 'Brush Script MT', cursive;
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: -15px;
+    }
+
+    .signature-line {
+      border-top: 1px solid #777;
+      padding-top: 8px;
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #0a2e5d;
+    }
+    
+    .signature-title {
+        font-size: 0.85em;
+        color: #546e7a;
+        font-weight: 500;
+    }
+
+    /* --- MOVED: Info Block (now footer) --- */
+    .certificate-info-block {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      text-align: left;
       z-index: 2;
     }
 
     .info-item {
-      font-size: 1em;
+      font-size: 0.85em;
       color: #546e7a;
+      margin: 5px 0;
     }
 
     .info-item strong {
       color: #0a2e5d;
-      display: block;
-      margin-bottom: 5px;
+      font-weight: 600;
     }
 
     .stamp-area {
       position: absolute;
-      bottom: 40px;
+      bottom: 60px; /* Aligned with signatures */
       right: 60px;
       text-align: center;
       z-index: 2;
     }
 
-    .stamp-area img {
-      width: 120px;
+    .stamp-area .stamp-svg {
+      width: 130px;
+      height: 130px;
       opacity: 0.9;
-    }
-
-    .stamp-label {
-      font-size: 0.85em;
-      color: #546e7a;
-      margin-top: 5px;
     }
 
   </style>
 </head>
 <body>
-  <div class="certificate-border" id="certificate">
+
+  <div class="certificate-wrapper" id="certificate">
     <div class="certificate-container">
       <div class="watermark">Internadda</div>
 
       <div class="header-content">
         <div class="logo">
-          <img src="../../images/logo.jpg" alt="Company Logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="15" fill="#0a2e5d"/>
+            <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="'Playfair Display', serif" font-size="60" font-weight="700" fill="#c2a16d">I</text>
+          </svg>
         </div>
         <div class="header-text">
           <h1>Internadda</h1>
-          <p>CERTIFICATE OF COMPLETION</p>
+          <p>Certificate of Completion</p>
         </div>
       </div>
 
@@ -180,14 +238,47 @@
         </p>
       </div>
 
+      <div class="signature-block">
+        <div class="signature-item">
+          <div class="signature-script">[Signature]</div>
+          <div class="signature-line">
+            Signature
+            <div class="signature-title">Authorizing Director, Internadda</div>
+          </div>
+        </div>
+        <div class="signature-item">
+          <div class="signature-script">[Signature]</div>
+          <div class="signature-line">
+            Signature
+            <div class="signature-title">Lead Instructor</div>
+          </div>
+        </div>
+      </div>
+      
       <div class="certificate-info-block">
         <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
         <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
       </div>
 
       <div class="stamp-area">
-        <img src="../../images/stamp.jpg" alt="Official Seal Stamp">
-        <p class="stamp-label">Official Accreditation</p>
+        <svg class="stamp-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="#c2a16d" stroke-width="3"/>
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#0a2e5d" stroke-width="6"/>
+          <circle cx="100" cy="100" r="82" fill="none" stroke="#c2a16d" stroke-width="1"/>
+          <text x="100" y="45" text-anchor="middle" font-size="18" font-weight="600" fill="#0a2e5d" letter-spacing="1">OFFICIAL ACCREDITATION</text>
+          <text x="100" y="165" text-anchor="middle" font-size="18" font-weight="600" fill="#0a2e5d" letter-spacing="1">INTERNADDA</text>
+          <path d="M 60 100 A 40 40 0 0 1 140 100" fill="none"/>
+          <path d="M 60 100 A 40 40 0 0 0 140 100" fill="none"/>
+          <polygon points="100,70 108,88 128,90 112,102 118,122 100,112 82,122 88,102 72,90 92,88" fill="#c2a16d"/>
+          <g fill="#c2a16d" stroke="#c2a16d" stroke-width="1">
+            <circle cx="100" cy="25" r="3"/><circle cx="100" cy="175" r="3"/>
+            <circle cx="147" cy="38" r="3"/><circle cx="53" cy="162" r="3"/>
+            <circle cx="162" cy="53" r="3"/><circle cx="38" cy="147" r="3"/>
+            <circle cx="175" cy="100" r="3"/><circle cx="25" cy="100" r="3"/>
+            <circle cx="162" cy="147" r="3"/><circle cx="38" cy="53" r="3"/>
+            <circle cx="147" cy="162" r="3"/><circle cx="53" cy="38" r="3"/>
+          </g>
+        </svg>
       </div>
     </div>
   </div>
@@ -195,6 +286,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     function generateUUID() {
+      // Creates a random UUID
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
@@ -205,30 +297,38 @@
       const params = new URLSearchParams(window.location.search);
       const name = params.get('name') || 'Student Name';
       const course = params.get('course') || 'Professional Development Program';
+
       const certificateName = document.getElementById('certificateName');
       const certificateCourse = document.getElementById('certificateCourse');
       const certificateDate = document.getElementById('certificateDate');
       const certificateId = document.getElementById('certificateId');
 
-
+      // Set Name and Course
       certificateName.textContent = decodeURIComponent(name);
       certificateCourse.textContent = decodeURIComponent(course);
+      
+      // Set Current Date
       certificateDate.textContent = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       });
-      certificateId.textContent = generateUUID();
-        const element = document.getElementById('certificate');
-        const opt = {
-          margin: 0,
-          filename: `Certificate_${decodeURIComponent(name).replace(/\s+/g, '_')}_${decodeURIComponent(course).replace(/\s+/g, '_')}.pdf`,
-          image: { type: 'jpeg', quality: 1.0 },
-          html2canvas: { scale: 3, useCORS: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        };
-        html2pdf().set(opt).from(element).save();
-      });
+      
+      // Set Random Certificate ID
+      certificateId.textContent = `IN-${generateUUID().substring(0, 13).toUpperCase()}`; // Shortened and prefixed
+
+      // --- PDF Generation ---
+      const element = document.getElementById('certificate');
+      const opt = {
+        margin: 0,
+        filename: `Certificate_${decodeURIComponent(name).replace(/\s+/g, '_')}_${decodeURIComponent(course).replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: { scale: 3, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      };
+      
+      // Automatically generate and save the PDF
+      html2pdf().set(opt).from(element).save();
     });
   </script>
 </body>
