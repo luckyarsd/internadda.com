@@ -3,314 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Development Practice Test — Internadda</title> <!-- Changed Title -->
+    <title>Game Development Final Exam — Internadda</title> <!-- Changed Title -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="../style.css">
-
     <style>
-        /* Re-use the exact same styles from previous practice tests */
+        /* Re-use the exact same styles from previous final exams */
         .exam-container { max-width: 900px; margin: 40px auto; position: relative; }
-        .exam-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 20px 30px; background: #fff; border-radius: 12px; box-shadow: var(--shadow); border-left: 5px solid var(--primary); }
-        .exam-header h1 { font-size: 1.8rem; font-weight: 700; }
-        #timer { font-size: 1.8rem; font-weight: 700; color: var(--primary); background-color: #eef2f7; padding: 8px 16px; border-radius: 8px; }
+        .exam-step { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .hidden { display: none !important; }
-
-        /* Camera Popup Styles */
-        #camera-popup { position: fixed; top: 100px; right: 20px; width: 200px; height: 150px; background: #2d3748; border-radius: 8px; border: 3px solid var(--primary); overflow: hidden; z-index: 1001; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+        .exam-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 15px 25px; background: #eef2f7; border-radius: 8px; }
+        .exam-header h1 { font-size: 1.6rem; color: var(--dark, #2d3748); }
+        #timer { font-size: 1.8rem; font-weight: 700; color: var(--primary, #2b6cb0); background-color: #fff; padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        #camera-popup { position: fixed; top: 100px; right: 20px; width: 200px; height: 150px; background: #2d3748; border-radius: 8px; border: 3px solid #f56565; overflow: hidden; z-index: 1001; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
         #camera-popup video { width: 100%; height: calc(100% - 30px); object-fit: cover; transform: scaleX(-1); }
-         #camera-failed-preview { width: 100%; height: calc(100% - 30px); background: #1a202c; color: #718096; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; text-align: center; padding: 10px; box-sizing: border-box; }
-         #camera-failed-preview i { font-size: 2.5rem; margin-bottom: 10px; }
-        .camera-status { width: 100%; height: 30px; background-color: var(--primary); display: flex; align-items: center; justify-content: space-between; padding: 0 10px; color: #fff; font-size: 0.9rem; font-weight: 600; }
+        #camera-failed-preview { width: 100%; height: calc(100% - 30px); background: #1a202c; color: #718096; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; text-align: center; padding: 10px; box-sizing: border-box; }
+        #camera-failed-preview i { font-size: 2.5rem; margin-bottom: 10px; }
+        .camera-status { width: 100%; height: 30px; background-color: #c53030; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; color: #fff; font-size: 0.9rem; font-weight: 600; }
         .recording-indicator { display: flex; align-items: center; }
-        .camera-dot { width: 10px; height: 10px; background: #fff; border-radius: 50%; margin-right: 8px; animation: blink 1.2s infinite ease-in-out; }
+        .camera-dot { width: 10px; height: 10px; background: #fff; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite ease-in-out; }
         #camera-timer { font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        /* Quiz Container Styles */
-        #quiz-container { background: #fff; padding: 40px; border-radius: 12px; box-shadow: var(--shadow); }
-        .question-block { margin-bottom: 35px; border-bottom: 1px solid #e2e8f0; padding-bottom: 25px; }
-        .question-block:last-child { border-bottom: none; margin-bottom: 0; }
-        .question-block h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; line-height: 1.6; }
-        .question-block h3 strong { display: inline-block; background: var(--primary); color: white; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; text-align: center; margin-right: 12px; font-size: 1rem; }
+        #payment-step { text-align: center; } #payment-step h2 { font-size: 2rem; margin-bottom: 15px; } #payment-step p { font-size: 1.1rem; color: var(--gray, #4a5568); margin-bottom: 15px; max-width: 700px; margin-left: auto; margin-right: auto;} #payment-step img { margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee; }
+        .motivational-text { color: var(--primary, #2b6cb0); background: #ebf8ff; padding: 15px; border-radius: 8px; margin-top: 25px; font-weight: 500; border: 1px solid #bee3f8; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.05rem; } .motivational-text i { margin-right: 8px; }
+        #instructions-step h2 { text-align: center; font-size: 2rem; margin-bottom: 25px; } #instructions-step .instructions-list { margin: 25px auto; padding: 25px; background: #f7fafc; border-left: 4px solid var(--warning, #ed8936); max-width: 700px; border-radius: 8px; } #instructions-step .instructions-list ul { padding-left: 20px; text-align: left; font-size: 1.05rem; line-height: 1.8; } #instructions-step .instructions-list li { margin-bottom: 15px; } #instructions-step .passing-score { font-weight: 700; color: var(--accent, #38a169); background-color: #f0fff4; padding: 2px 6px; border-radius: 4px; } .strict-disclaimer { margin-top: 30px; padding: 20px; background: #fff5f5; border: 1px solid #fbb2b2; color: #c53030; font-weight: 600; border-radius: 8px; text-align: center; } .strict-disclaimer i { margin-right: 8px; }
+        #exam-step { padding-top: 20px; } .question-block { margin-bottom: 35px; border-bottom: 1px solid #e2e8f0; padding-bottom: 25px; } .question-block:last-child { border-bottom: none; margin-bottom: 0; } .question-block h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; line-height: 1.6; display: flex; align-items: flex-start; } .question-block h3 strong { display: inline-block; background: var(--primary, #2b6cb0); color: white; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center; margin-right: 12px; font-size: 0.95rem; flex-shrink: 0; }
         /* Code block style */
         .question-block pre { background-color: #f6f8fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 15px 0; line-height: 1.5; font-size: 0.95rem; color: #2d3748; }
-        .options .option { background-color: var(--light); padding: 16px 20px; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: var(--transition); margin-bottom: 10px; font-weight: 500; display: flex; align-items: center; gap: 12px; }
-        .options .option::before { content: ''; display: inline-block; width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; }
-        .options .option:hover { background-color: #eef2f7; border-color: #cbd5e0; }
-        .options .option:hover::before { border-color: var(--primary); }
-        .options .option.selected { background-color: #ebf8ff; color: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2); }
-        .options .option.selected::before { background-color: var(--primary); border-color: var(--primary); box-shadow: inset 0 0 0 3px white; }
-        #submit-btn { margin-top: 30px; width: 100%; padding: 18px; font-size: 1.1rem; }
-        #results-container { display: none; margin-top: 30px; padding: 30px; background: #f0fff4; border: 1px solid var(--success); border-radius: 12px; text-align: center; animation: fadeIn 0.5s; }
-        #results-container h2 { color: var(--accent); margin-bottom: 15px; }
-        .result-message { font-size: 1.1rem; margin-bottom: 20px; }
-
-        /* Message Box Styles */
-        .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 5px solid var(--primary); max-width: 500px; width: 90%; }
-        .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;}
-        .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;}
-        .message-box button { margin: 0 10px; }
-        .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 1004; }
+        .options .option { background-color: var(--light, #f7fafc); padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s ease-in-out; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; font-size: 1rem; } .options .option::before { content: ''; display: inline-block; width: 16px; height: 16px; border: 2px solid var(--gray, #a0aec0); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; } .options .option:hover { background-color: #eef2f7; border-color: #cbd5e0; } .options .option:hover::before { border-color: var(--primary, #2b6cb0); } .options .option.selected { background-color: #ebf8ff; color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0); box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2); } .options .option.selected::before { background-color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0); box-shadow: inset 0 0 0 3px white; } #submit-exam-btn { width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px; }
+        #submission-step { text-align: center; padding: 40px; } #submission-step .icon { font-size: 4rem; margin-bottom: 20px; } #submission-step .icon.success { color: var(--success, #38a169); } #submission-step .icon.fail { color: var(--warning, #c53030); } #submission-step h2 { font-size: 2rem; margin-bottom: 15px; } #submission-step p { font-size: 1.1rem; color: var(--gray, #4a5568); max-width: 650px; margin: 0 auto 20px; line-height: 1.7; } .score-display { font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; } .score-display span { color: var(--primary, #2b6cb0); } .email-instructions { margin-top: 30px; padding: 25px; background: #eef2f7; border-radius: 8px; text-align: left; border-left: 4px solid var(--primary, #2b6cb0); } .email-instructions p { color: var(--dark, #2d3748); margin-bottom: 15px; font-size: 1rem; } .email-instructions strong { font-weight: 600; } .email-instructions ul li { margin-bottom: 8px; } .email-instructions ul { margin-bottom: 15px; } #email-link { display: inline-block; margin-top: 15px; }
+        .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 5px solid var(--primary, #2b6cb0); max-width: 500px; width: 90%; } .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;} .message-box p { margin-bottom: 25px; color: var(--gray, #4a5568); font-size: 1.1rem;} .message-box button { margin: 0 10px; } .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 1004; }
+        #appNumberInput { width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 8px; border: 1px solid #cbd5e0; box-sizing: border-box; margin-bottom: 10px; text-align: center; } #appNumberInput:focus { outline: none; border-color: var(--primary, #2b6cb0); box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2); } #appNumberError { color: #c53030; font-weight: 600; min-height: 1.2em; margin-bottom: 15px; font-size: 0.95rem; } #verifyAppNumberBtn { width: 100%; } #verifyAppNumberBtn:disabled { background-color: #a0aec0; cursor: not-allowed; }
+        .btn { display: inline-block; padding: 12px 28px; font-size: 1rem; font-weight: 600; text-align: center; text-decoration: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; } .btn-primary { background-color: var(--primary, #2b6cb0); color: #fff; } .btn-primary:hover { background-color: #2c5282; } .btn-outline { background-color: #fff; color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0); } .btn-outline:hover { background-color: #ebf8ff; }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="container header-container">
-            <a href="../index.html" class="logo">
-              <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img">
-              <span class="logo-text">InternAdda</span>
-            </a>
-            <nav class="nav-menu">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../courses/course.html" class="nav-link">Courses</a>
-                <a href="internship.html" class="nav-link">Internships</a>
-                <a href="../jobs.html" class="nav-link">Jobs</a>
-                <a href="../about.html" class="nav-link">About</a>
-            </nav>
-            <button class="hamburger-menu" id="hamburgerMenu"><span></span><span></span><span></span></button>
-            <div class="header-actions">
-                <div id="authButtons">
-                    <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
-                    <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
-                </div>
-                <div class="user-profile hidden" id="userProfile">
-                    <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
-                    <span id="userNameHeader"></span>
-                </div>
-            </div>
-        </div>
-    </header>
+    <header> <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0;"><a href="../index.html" class="logo" style="text-decoration: none; color: #2d3748; display: flex; align-items: center; font-size: 1.5rem; font-weight: 700;"><span class="logo-text">InternAdda</span></a></div></header>
 
     <main>
-        <!-- Camera Popup -->
-        <div id="camera-popup" class="hidden">
-            <video id="camera-feed" autoplay playsinline></video>
-            <div id="camera-failed-preview" class="hidden">
-                <i class="fas fa-video-slash"></i>
-                Proctoring Simulation Active
-            </div>
-            <div class="camera-status">
-                 <div class="recording-indicator">
-                    <div class="camera-dot"></div>
-                    <span>SIM REC</span>
-                 </div>
-                 <span id="camera-timer">00:00</span>
-            </div>
-        </div>
+        <div id="camera-popup" class="hidden"><video id="camera-feed" autoplay playsinline></video><div id="camera-failed-preview" class="hidden"><i class="fas fa-video-slash"></i>Proctoring Active</div><div class="camera-status"><div class="recording-indicator"><div class="camera-dot"></div><span>REC</span></div><span id="camera-timer">00:00</span></div></div>
 
         <section class="course-section">
             <div class="exam-container">
-                <div class="exam-header">
-                    <h1>Game Development Practice Test</h1> <!-- Changed Heading -->
-                    <div id="timer">20:00</div>
+                <div id="payment-step" class="exam-step">
+                    <h2><i class="fas fa-rocket"></i> Begin Your Internship Journey</h2>
+                    <p>This exam is the first step towards securing a valuable internship. The required fee covers proctoring and ensures a fair evaluation process for all candidates.</p>
+                    <p>Scan the QR code below to complete the fee payment via your UPI app.</p>
+                    <img src="../images/qr.jpg" alt="Scan QR Code for Payment">
+                    <p>After successful payment, click the button below and enter your Application Number to unlock the exam instructions.</p>
+                    <div class="motivational-text">
+                        <i class="fas fa-award"></i> Invest in your future! Passing this exam opens doors to real-world experience and potential career opportunities. Good luck!
+                    </div>
+                    <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Payment Completed - Verify Application</button>
                 </div>
 
-                <div id="quiz-container">
-                    <!-- Game Development Questions 1-10 -->
-                    <div class="question-block" data-answer="b">
-                        <h3><strong>1</strong>Which programming language is primarily used for scripting in the Unity game engine?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">C++</div>
-                            <div class="option" data-value="b">C#</div>
-                            <div class="option" data-value="c">JavaScript (UnityScript is deprecated)</div>
-                            <div class="option" data-value="d">Python</div>
-                        </div>
+                <div id="instructions-step" class="exam-step hidden">
+                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions (Game Development)</h2> <!-- Updated Heading -->
+                    <div class="instructions-list">
+                         <ul>
+                            <li><strong>Duration:</strong> <strong>30 minutes</strong>.</li>
+                            <li><strong>Passing Score:</strong> <strong class="passing-score">60%</strong>.</li>
+                            <li><strong>Proctoring:</strong> Camera MUST be on. Session is recorded.</li>
+                            <li><strong>Environment:</strong> Quiet room, alone. No external help.</li>
+                            <li><strong>Academic Integrity:</strong> No tab switching, other apps, AI help, or looking away. Violations lead to disqualification.</li>
+                            <li><strong>Connectivity:</strong> Stable internet needed.</li>
+                            <li><strong>Questions:</strong> 25 mandatory MCQs.</li>
+                            <li><strong>Submission:</strong> Auto-submits at time up or submit manually. No changes after submission.</li>
+                        </ul>
                     </div>
-                    <div class="question-block" data-answer="d">
-                        <h3><strong>2</strong>In Unity, what is a "Prefab"?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">A built-in 3D model.</div>
-                            <div class="option" data-value="b">A type of lighting setting.</div>
-                            <div class="option" data-value="c">A script attached to a GameObject.</div>
-                            <div class="option" data-value="d">A reusable asset created from a configured GameObject hierarchy, stored in the Project view.</div>
-                        </div>
-                    </div>
-                    <div class="question-block" data-answer="a">
-                        <h3><strong>3</strong>What is the primary function of the `Update()` method in a Unity C# script (MonoBehaviour)?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">It is called once per frame, used for game logic, movement, and input checks.</div>
-                            <div class="option" data-value="b">It is called only when the script is first enabled.</div>
-                            <div class="option" data-value="c">It is called at fixed time intervals, primarily used for physics calculations.</div>
-                            <div class="option" data-value="d">It is called when the object is destroyed.</div>
-                        </div>
-                    </div>
-                    <div class="question-block" data-answer="c">
-                        <h3><strong>4</strong>Which component in Unity is essential for detecting physical collisions between GameObjects?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">Transform</div>
-                            <div class="option" data-value="b">Mesh Renderer</div>
-                            <div class="option" data-value="c">Collider (e.g., Box Collider, Sphere Collider)</div>
-                            <div class="option" data-value="d">Animator</div>
-                        </div>
-                    </div>
-                     <div class="question-block" data-answer="b">
-                        <h3><strong>5</strong>Unreal Engine primarily uses which programming language for its core logic and gameplay programming, alongside its visual scripting system (Blueprints)?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">C#</div>
-                            <div class="option" data-value="b">C++</div>
-                            <div class="option" data-value="c">Java</div>
-                            <div class="option" data-value="d">Python</div>
-                        </div>
-                    </div>
-                    <div class="question-block" data-answer="d">
-                        <h3><strong>6</strong>What is a "game loop" in game development?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">A specific type of level design.</div>
-                            <div class="option" data-value="b">The narrative structure of the game's story.</div>
-                            <div class="option" data-value="c">A marketing strategy for player retention.</div>
-                            <div class="option" data-value="d">The core cycle of processing input, updating game state, and rendering output that repeats continuously.</div>
-                        </div>
-                    </div>
-                     <div class="question-block" data-answer="a">
-                        <h3><strong>7</strong>Which game design concept refers to the actions a player can perform within the game world (e.g., jump, shoot, interact)?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">Mechanics</div>
-                            <div class="option" data-value="b">Dynamics</div>
-                            <div class="option" data-value="c">Aesthetics</div>
-                            <div class="option" data-value="d">Narrative</div>
-                        </div>
-                    </div>
-                     <div class="question-block" data-answer="c">
-                        <h3><strong>8</strong>In Unity, how would you typically move a GameObject using its physics properties?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">Directly modifying `transform.position` in `Update()`.</div>
-                            <div class="option" data-value="b">Using `transform.Translate()` in `Update()`.</div>
-                            <div class="option" data-value="c">Getting the `Rigidbody` component and applying forces or setting velocity in `FixedUpdate()`.</div>
-                            <div class="option" data-value="d">Changing the GameObject's layer.</div>
-                        </div>
-                    </div>
-                    <div class="question-block" data-answer="b">
-                        <h3><strong>9</strong>What is the purpose of a "shader" in game graphics?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">To define the collision boundaries of an object.</div>
-                            <div class="option" data-value="b">A program that runs on the GPU to determine how the surface of a 3D model should look (color, lighting, texture).</div>
-                            <div class="option" data-value="c">To manage the game's audio effects.</div>
-                            <div class="option" data-value="d">To optimize the game's loading time.</div>
-                        </div>
-                    </div>
-                    <div class="question-block" data-answer="d">
-                        <h3><strong>10</strong>What does "version control" (like Git) help game development teams manage?</h3>
-                        <div class="options">
-                            <div class="option" data-value="a">Player high scores.</div>
-                            <div class="option" data-value="b">In-game purchases.</div>
-                            <div class="option" data-value="c">Marketing campaigns.</div>
-                            <div class="option" data-value="d">Tracking changes to code and assets, collaborating effectively, and reverting to previous states if needed.</div>
-                        </div>
-                    </div>
+                     <div class="strict-disclaimer"><i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> Starting confirms you accept these rules. Violations will lead to disqualification and a ban.</div>
+                    <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Acknowledge and Start Exam</button>
+                </div>
 
-                    <button class="btn btn-primary" id="submit-btn">Submit Practice Test</button>
-
-                    <div id="results-container">
-                        <h2>Practice Test Complete!</h2>
-                        <p id="score-text" class="result-message">You scored 0 out of 10.</p>
-                        <p id="feedback-text" class="result-message">Keep practicing to improve!</p>
-                        <a href="internship.html" class="btn btn-outline" style="margin-top: 20px;">Back to Internships</a>
+                <div id="exam-step" class="exam-step hidden">
+                    <div class="exam-header">
+                        <h1>Game Development Final Exam</h1> <!-- Updated Heading -->
+                        <div id="timer">30:00</div>
                     </div>
+                    <div id="quiz-container">
+                        <!-- Game Development Questions 1-25 -->
+                        <div class="question-block" data-answer="b"><h3><strong>1</strong>Which C# keyword is used to inherit from a base class?</h3><div class="options"><div class="option" data-value="a">`implements`</div><div class="option" data-value="b">`:` (colon)</div><div class="option" data-value="c">`extends`</div><div class="option" data-value="d">`inherits`</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>2</strong>In Unity, which window is primarily used to view and manipulate the GameObjects currently in your scene?</h3><div class="options"><div class="option" data-value="a">Project Window</div><div class="option" data-value="b">Inspector Window</div><div class="option" data-value="c">Console Window</div><div class="option" data-value="d">Hierarchy Window</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>3</strong>What is the function of `Time.deltaTime` in Unity C# scripts?</h3><div class="options"><div class="option" data-value="a">It provides the time in seconds it took to complete the last frame, used for frame rate independent movement/logic.</div><div class="option" data-value="b">It returns the total time the game has been running.</div><div class="option" data-value="c">It sets the target frame rate of the game.</div><div class="option" data-value="d">It pauses the game time.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>4</strong>Which Unity component is required on a GameObject to allow it to be affected by physics forces and gravity?</h3><div class="options"><div class="option" data-value="a">Collider</div><div class="option" data-value="b">Transform</div><div class="option" data-value="c">Rigidbody</div><div class="option" data-value="d">Mesh Filter</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>5</strong>Unreal Engine's visual scripting system is called:</h3><div class="options"><div class="option" data-value="a">Bolt</div><div class="option" data-value="b">Blueprints</div><div class="option" data-value="c">Nodes</div><div class="option" data-value="d">Flowgraph</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>6</strong>What is level design primarily concerned with?</h3><div class="options"><div class="option" data-value="a">Creating character models.</div><div class="option" data-value="b">Writing the game's story.</div><div class="option" data-value="c">Optimizing the game's performance.</div><div class="option" data-value="d">Creating the game environments, challenges, and player progression within a specific area or stage.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>7</strong>Which game design document typically outlines the core concept, target audience, gameplay mechanics, and unique selling points of a game?</h3><div class="options"><div class="option" data-value="a">Game Design Document (GDD)</div><div class="option" data-value="b">Technical Design Document (TDD)</div><div class="option" data-value="c">Art Style Guide</div><div class="option" data-value="d">Marketing Plan</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>8</strong>In C#, what is the difference between a `class` and a `struct`?</h3><div class="options"><div class="option" data-value="a">Classes are for integers, structs are for strings.</div><div class="option" data-value="b">Structs support inheritance, classes do not.</div><div class="option" data-value="c">Classes are reference types (stored on the heap), while structs are value types (usually stored on the stack).</div><div class="option" data-value="d">There is no difference in C#.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>9</strong>What is texture mapping in 3D graphics?</h3><div class="options"><div class="option" data-value="a">Creating the 3D model's shape.</div><div class="option" data-value="b">Applying a 2D image (texture) to the surface of a 3D model to add detail and color.</div><div class="option" data-value="c">Setting up the lighting in a scene.</div><div class="option" data-value="d">Animating the movement of a 3D model.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>10</strong>Which Unity event function is called when a Collider first begins touching another Collider/Rigidbody?</h3><div class="options"><div class="option" data-value="a">`Update()`</div><div class="option" data-value="b">`FixedUpdate()`</div><div class="option" data-value="c">`OnCollisionStay()`</div><div class="option" data-value="d">`OnCollisionEnter()`</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>11</strong>What is the purpose of Raycasting in game engines like Unity?</h3><div class="options"><div class="option" data-value="a">To project a virtual line (ray) into the scene and detect which objects it intersects, often used for shooting or line-of-sight checks.</div><div class="option" data-value="b">To render realistic lighting effects.</div><div class="option" data-value="c">To optimize 3D model geometry.</div><div class="option" data-value="d">To manage audio playback.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>12</strong>In C#, which access modifier allows a member to be accessed only within its own class and by derived class instances?</h3><div class="options"><div class="option" data-value="a">`public`</div><div class="option" data-value="b">`private`</div><div class="option" data-value="c">`protected`</div><div class="option" data-value="d">`internal`</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>13</strong>What is a "Sprite" in 2D game development?</h3><div class="options"><div class="option" data-value="a">A type of background music.</div><div class="option" data-value="b">A 2D graphic object that can be moved and manipulated in the game scene.</div><div class="option" data-value="c">A physics component for 2D objects.</div><div class="option" data-value="d">A script controlling player input.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>14</strong>Which game design principle involves providing players with clear indications of their actions and the game's responses?</h3><div class="options"><div class="option" data-value="a">Balance</div><div class="option" data-value="b">Challenge</div><div class="option" data-value="c">Pacing</div><div class="option" data-value="d">Feedback</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>15</strong>What is the role of the "Animator" component in Unity?</h3><div class="options"><div class="option" data-value="a">To control animations on a GameObject using an Animator Controller asset.</div><div class="option" data-value="b">To create 3D models.</div><div class="option" data-value="c">To adjust the lighting in the scene.</div><div class="option" data-value="d">To manage particle effects.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>16</strong>What is "Baking" lighting in a game engine?</h3><div class="options"><div class="option" data-value="a">Calculating lighting effects in real-time during gameplay.</div><div class="option" data-value="b">Applying textures to models.</div><div class="option" data-value="c">Pre-calculating complex lighting and shadow information into textures (lightmaps) to improve performance.</div><div class="option" data-value="d">Adjusting the camera's exposure settings.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>17</strong>Which programming concept allows a class to have multiple methods with the same name but different parameters?</h3><div class="options"><div class="option" data-value="a">Inheritance</div><div class="option" data-value="b">Overloading</div><div class="option" data-value="c">Overriding</div><div class="option" data-value="d">Encapsulation</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>18</strong>In Unreal Engine, what is the primary role of an "Actor"?</h3><div class="options"><div class="option" data-value="a">A script defining game logic.</div><div class="option" data-value="b">A visual effect like fire or smoke.</div><div class="option" data-value="c">A sound cue.</div><div class="option" data-value="d">Any object that can be placed or spawned in the game world (level).</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>19</strong>What is the purpose of optimization in game development?</h3><div class="options"><div class="option" data-value="a">To improve the game's performance (e.g., frame rate, loading times) and reduce resource consumption.</div><div class="option" data-value="b">To add more graphical features to the game.</div><div class="option" data-value="c">To write the game's story.</div><div class="option" data-value="d">To design the user interface.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>20</strong>Which design pattern involves defining a family of algorithms, encapsulating each one, and making them interchangeable?</h3><div class="options"><div class="option" data-value="a">Singleton</div><div class="option" data-value="b">Observer</div><div class="option" data-value="c">Strategy</div><div class="option" data-value="d">Factory Method</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>21</strong>What does API stand for in software development?</h3><div class="options"><div class="option" data-value="a">Advanced Programming Instruction</div><div class="option" data-value="b">Application Programming Interface</div><div class="option" data-value="c">Automated Process Integration</div><div class="option" data-value="d">Asset Pipeline Implementation</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>22</strong>In Unity, Coroutines are often used for:</h3><div class="options"><div class="option" data-value="a">Handling physics interactions reliably.</div><div class="option" data-value="b">Defining the structure of GameObjects.</div><div class="option" data-value="c">Managing player input across different devices.</div><div class="option" data-value="d">Executing functions that can pause execution and resume later, useful for time-based actions or sequences.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>23</strong>Which principle of game design relates to ensuring that the challenges presented to the player are fair and appropriately matched to their skill level?</h3><div class="options"><div class="option" data-value="a">Balance</div><div class="option" data-value="b">Aesthetics</div><div class="option" data-value="c">Narrative Arc</div><div class="option" data-value="d">Feedback Loop</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>24</strong>What is a potential issue with directly modifying `transform.position` every frame for movement in Unity, especially with physics involved?</h3><div class="options"><div class="option" data-value="a">It is the most performant way to move objects.</div><div class="option" data-value="b">It automatically handles collisions perfectly.</div><div class="option" data-value="c">It can lead to unrealistic physics interactions or pass through colliders because it bypasses the physics engine's simulation step.</div><div class="option" data-value="d">It only works for 2D games.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>25</strong>What is the main advantage of using Unreal Engine's Blueprints?</h3><div class="options"><div class="option" data-value="a">They offer better performance than C++ code.</div><div class="option" data-value="b">They allow designers and artists to implement gameplay logic and interactions visually without writing traditional code.</div><div class="option" data-value="c">They are primarily used for creating user interfaces.</div><div class="option" data-value="d">They automatically optimize game assets.</div></div></div>
+
+                        <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
+                    </div>
+                </div>
+
+                <div id="submission-step" class="exam-step hidden">
+                    <div id="result-icon" class="icon"></div>
+                    <h2 id="result-title">Exam Submitted</h2>
+                    <p id="result-message"></p>
+                    <div id="score-display" class="score-display">Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> (<span id="final-percentage">--</span>%)</div>
+                    <div id="email-instructions" class="email-instructions hidden">
+                        <p><strong>Congratulations!</strong> You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please <strong>email us with the following details:</strong></p>
+                        <ul>
+                            <li><strong>To:</strong> official.internadda@gmail.com</li>
+                            <li><strong>Subject:</strong> Game Development Internship Application - [Your Full Name Here]</li> <!-- Updated Subject -->
+                            <li><strong>Body:</strong> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li><strong>Attachment:</strong> Screenshot of this results page.</li>
+                        </ul>
+                        <p>We will verify your score and proctoring session, then reply within <strong>72 business hours</strong>.</p>
+                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
+                    </div>
+                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
                 </div>
             </div>
         </section>
 
-        <!-- Message Boxes -->
         <div id="messageOverlay" class="message-overlay"></div>
+        <div id="appNumberModal" class="message-box">
+             <h3><i class="fas fa-ticket-alt"></i> Verify Your Application</h3>
+             <p>Enter the Application Number received after payment.</p>
+             <div id="appNumberError"></div>
+             <input type="text" id="appNumberInput" placeholder="Enter Application Number">
+             <button id="verifyAppNumberBtn" class="btn btn-primary">Verify & Proceed</button>
+        </div>
         <div id="cameraMessageBox" class="message-box">
              <h3><i class="fas fa-video"></i> Camera Access Required</h3>
-             <p>This practice test simulates a proctored environment. Please allow camera access to start.</p>
-             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera</button>
-             <button id="proceedAnywayBtn" class="btn btn-outline">Proceed Without Camera</button>
+             <p>This is a proctored exam. Camera access is mandatory. Ensure your face is clearly visible.</p>
+             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
         </div>
-         <div id="tabSwitchWarningBox" class="message-box">
-             <h3><i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i> Warning: Focus Lost</h3>
-             <p>You navigated away from the practice test tab. In a real exam, this could lead to disqualification. Click Resume to continue.</p>
-             <button id="resumeTestBtn" class="btn btn-primary">Resume Test</button>
-         </div>
-         <div id="testCancelledBox" class="message-box">
-              <h3><i class="fas fa-ban" style="color: #c53030;"></i> Practice Test Cancelled</h3>
-              <p>Multiple instances of navigating away from the test tab were detected. To maintain fairness simulation, this practice session has been cancelled.</p>
-              <button id="backToIntBtn" class="btn btn-outline">Back to Internships</button>
+        <div id="tabSwitchWarningBox" class="message-box">
+             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
+             <p>Navigating away from the exam tab is logged. Continuous focus loss will lead to disqualification.</p>
+             <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
          </div>
     </main>
 
-    <footer>
-        <div class="container">
-           <div class="footer-grid">
-                <div class="footer-brand"><div class="footer-logo">Internadda</div><p class="footer-description">...</p></div>
-                <div class="footer-links-column"><h3 class="footer-links-title">Learn</h3><ul class="footer-links"><li><a href="../courses/course.html">Browse Courses</a></li></ul></div>
-                <div class="footer-links-column"><h3 class="footer-links-title">Intern</h3><ul class="footer-links"><li><a href="internship.html">Find Internships</a></li></ul></div>
-                <div class="footer-links-column"><h3 class="footer-links-title">Contact & Legal</h3><ul class="footer-links"><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact Us</a></li><li><a href="../privacy.html">Privacy Policy</a></li></ul></div>
-           </div>
-           <div class="footer-bottom"><p>© 2025 Internadda. All rights reserved.</p></div>
-        </div>
-    </footer>
+    <footer style="background-color: #f7fafc; padding: 40px 0; border-top: 1px solid #e2e8f0; text-align: center;"><div class="container"><p>© 2025 Internadda. All rights reserved.</p></div></footer>
 
-    <script src="../script.js"></script>
-    <script>
+     <script>
         // --- EXACT SAME JavaScript logic ---
         document.addEventListener('DOMContentLoaded', () => {
             // Get Elements
+            const paymentStep = document.getElementById('payment-step');
+            const instructionsStep = document.getElementById('instructions-step');
+            const examStep = document.getElementById('exam-step');
+            const submissionStep = document.getElementById('submission-step');
+            const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
+            const startExamBtn = document.getElementById('start-exam-btn');
+            const submitExamBtn = document.getElementById('submit-exam-btn');
             const timerEl = document.getElementById('timer');
-            const submitBtn = document.getElementById('submit-btn');
-            const resultsContainer = document.getElementById('results-container');
-            const scoreText = document.getElementById('score-text');
-            const feedbackText = document.getElementById('feedback-text');
-            const questions = document.querySelectorAll('.question-block');
-            const totalQuestions = questions.length;
-            const quizContainer = document.getElementById('quiz-container');
-
-            // Camera & Proctoring Elements
             const cameraPopup = document.getElementById('camera-popup');
             const cameraFeed = document.getElementById('camera-feed');
-            const cameraFailedPreview = document.getElementById('camera-failed-preview');
             const cameraTimerEl = document.getElementById('camera-timer');
+            const cameraFailedPreview = document.getElementById('camera-failed-preview');
             const messageOverlay = document.getElementById('messageOverlay');
             const cameraMessageBox = document.getElementById('cameraMessageBox');
             const allowCameraBtn = document.getElementById('allowCameraBtn');
-            const proceedAnywayBtn = document.getElementById('proceedAnywayBtn');
             const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
-            const resumeTestBtn = document.getElementById('resumeTestBtn');
-            const testCancelledBox = document.getElementById('testCancelledBox');
-            const backToIntBtn = document.getElementById('backToIntBtn');
+            const resumeExamBtn = document.getElementById('resumeExamBtn');
+            const appNumberModal = document.getElementById('appNumberModal');
+            const appNumberInput = document.getElementById('appNumberInput');
+            const appNumberError = document.getElementById('appNumberError');
+            const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultMessage = document.getElementById('result-message');
+            const scoreDisplay = document.getElementById('score-display');
+            const finalScoreEl = document.getElementById('final-score');
+            const totalQuestionsEl = document.getElementById('total-questions');
+            const finalPercentageEl = document.getElementById('final-percentage');
+            const emailInstructions = document.getElementById('email-instructions');
+            const emailLink = document.getElementById('email-link');
+            const finalScoreEmailSpan = document.querySelector('.final-score-email');
 
-            // --- State Variables ---
-            let examTimerInterval; let cameraTimerInterval; let stream = null;
-            let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let testStartTime = 0;
+            // State
+            let examTimerInterval; let cameraTimerInterval; let stream = null; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
 
-            // --- Helper: Format Time ---
+            // Initial State
+            paymentStep.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.add('hidden');
+
+            // Helper
             function formatTime(seconds) { const mins = Math.floor(seconds / 60); const secs = seconds % 60; return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`; }
 
-            // --- Camera Logic ---
-            async function startCamera(showDummyOnError = true) { /* ... same ... */
-                cameraMessageBox.style.display = 'none'; messageOverlay.style.display = 'none';
+            // Payment -> App Number Modal
+            proceedToInstructionsBtn.addEventListener('click', () => { messageOverlay.style.display = 'block'; appNumberModal.style.display = 'block'; appNumberInput.value = ''; appNumberError.textContent = ''; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; appNumberInput.focus(); });
+
+            // Verify App Number
+            verifyAppNumberBtn.addEventListener('click', async () => { /* ... same verify logic ... */
+                const appNumber = appNumberInput.value.trim().toUpperCase();
+                if (!appNumber) { appNumberError.textContent = 'Please enter an application number.'; return; }
+                verifyAppNumberBtn.disabled = true; verifyAppNumberBtn.textContent = 'Verifying...'; appNumberError.textContent = '';
                 try {
-                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; cameraPopup.classList.remove('hidden'); startTimers();
-                } catch (err) { console.warn("Camera Error:", err.name); if (showDummyOnError) { cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); cameraPopup.classList.remove('hidden'); startTimers(); } else { alert("Camera access required."); } }
+                    const response = await fetch('/api/verify-application', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ applicationNumber: appNumber }) });
+                    const data = await response.json();
+                    if (response.ok && data.valid === true) {
+                        appNumberModal.style.display = 'none'; messageOverlay.style.display = 'none'; paymentStep.classList.add('hidden'); instructionsStep.classList.remove('hidden');
+                    } else {
+                        appNumberError.textContent = data.message || 'Invalid Application Number.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed';
+                    }
+                } catch (error) { console.error('Verification failed:', error); appNumberError.textContent = 'Verification failed. Check connection.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; }
+            });
+
+            // Instructions -> Camera Check
+            startExamBtn.addEventListener('click', requestCamera);
+            async function requestCamera() { messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block'; }
+            allowCameraBtn.addEventListener('click', startCamera);
+            async function startCamera() { /* ... same camera start logic ... */
+                 cameraMessageBox.style.display = 'none';
+                 try {
+                     stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; proceedToExam();
+                 } catch (err) { console.warn("Camera Error:", err.name); cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); proceedToExam(); }
             }
-            function stopCamera() { /* ... same ... */ if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
+            function proceedToExam() { messageOverlay.style.display = 'none'; cameraPopup.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.remove('hidden'); startTimer(); startCameraTimer(); }
+            function stopCamera() { /* ... same camera stop logic ... */ if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
 
-            // --- Timer Logic ---
-             function startTimers() { /* ... same ... */ startExamTimer(1200); startCameraTimer(); testStartTime = Date.now(); }
-             function startExamTimer(startTimeInSeconds) { /* ... same ... */ let time = startTimeInSeconds; if(timerEl) timerEl.textContent = formatTime(time); if (examTimerInterval) clearInterval(examTimerInterval); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; if(timerEl) timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!quizContainer.classList.contains('hidden') && submitBtn.style.display !== 'none') { submitTest(true); } } }, 1000); }
-             function startCameraTimer(startTimeInSeconds = 0) { /* ... same ... */ let elapsedSeconds = startTimeInSeconds; if(cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds); if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; if(cameraTimerEl) cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+            // Exam Timers
+            function startTimer() { /* ... same timer logic (30 mins = 1800s) ... */ let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimer() { /* ... same camera timer logic ... */ let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
 
-            // --- Option Selection --- (Same)
-            questions.forEach(question => { /* ... same ... */ const options = question.querySelectorAll('.options .option'); options.forEach(opt => { opt.addEventListener('click', () => { if (!quizContainer.classList.contains('hidden') && submitBtn.style.display !== 'none'){ options.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); question.dataset.selectedValue = opt.dataset.value; } }); }); });
+            // Question Selection
+            const questions = document.querySelectorAll('.question-block'); const totalQuestions = questions.length; totalQuestionsEl.textContent = totalQuestions;
+            questions.forEach(q => { /* ... same option selection logic ... */ const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
 
-             // --- Submission --- (Same)
-            function submitTest(autoSubmitted = false) { /* ... same ... */ if (!autoSubmitted && !confirm("Submit practice test?")) return; clearInterval(examTimerInterval); stopCamera(); let score = 0; questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); }); const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0; scoreText.textContent = `You scored ${score} out of ${totalQuestions} (${percentage}%).`; if (percentage >= 80) feedbackText.textContent = "Excellent work!"; else if (percentage >= 60) feedbackText.textContent = "Good job!"; else feedbackText.textContent = "Keep practicing!"; resultsContainer.style.display = 'block'; submitBtn.style.display = 'none'; if(timerEl) timerEl.textContent = "Finished"; messageOverlay.style.display = 'none'; tabSwitchWarningBox.style.display = 'none'; testCancelledBox.style.display = 'none'; }
+            // Submission
+            function submitExam() { /* ... same submission logic ... */
+                if (examTimerInterval) clearInterval(examTimerInterval); stopCamera(); let score = 0;
+                questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); });
+                const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+                finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage;
+                 if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; // Update span in email text too
 
-            // --- Cancellation --- (Same)
-            function cancelTest() { /* ... same ... */ clearInterval(examTimerInterval); stopCamera(); quizContainer.classList.add('hidden'); resultsContainer.style.display = 'none'; submitBtn.style.display = 'none'; if(timerEl) timerEl.textContent = "Cancelled"; messageOverlay.style.display = 'block'; testCancelledBox.style.display = 'block'; tabSwitchWarningBox.style.display = 'none'; cameraMessageBox.style.display = 'none'; }
+                if (percentage >= 60) {
+                    resultIcon.className = 'icon fas fa-check-circle success'; resultTitle.textContent = "Exam Completed - Qualified!"; resultMessage.textContent = "Congratulations! Follow the instructions below."; emailInstructions.classList.remove('hidden');
+                    // --- Update Email Link for Game Development ---
+                    const subject = encodeURIComponent(`Game Development Internship Application - [Your Full Name Here]`); // Corrected Subject
+                    const body = encodeURIComponent(
+                         `Dear Internadda Team,\n\nI have successfully completed the Game Development Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your Portfolio/LinkedIn Profile, if available - Optional]`
+                     ); // Corrected Body Text
+                    emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                } else {
+                    resultIcon.className = 'icon fas fa-times-circle fail'; resultTitle.textContent = "Exam Completed"; resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; emailInstructions.classList.add('hidden');
+                }
+                examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Finished";
+            }
+            submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
 
-            // --- Event Listeners --- (Same)
-            messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block';
-            allowCameraBtn.addEventListener('click', () => startCamera(true));
-            proceedAnywayBtn.addEventListener('click', () => { cameraMessageBox.style.display = 'none'; messageOverlay.style.display = 'none'; cameraPopup.classList.add('hidden'); startTimers(); });
-            submitBtn.addEventListener('click', () => submitTest(false));
-            resumeTestBtn.addEventListener('click', () => { tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedMillis = Date.now() - testStartTime; const elapsedSeconds = Math.floor(elapsedMillis / 1000); const totalDuration = 1200; const remainingTime = (totalDuration - elapsedSeconds > 0) ? totalDuration - elapsedSeconds : 0; startExamTimer(remainingTime); startCameraTimer(elapsedSeconds); });
-            backToIntBtn.addEventListener('click', () => { window.location.href = 'internship.html'; });
-            document.addEventListener('visibilitychange', () => { if (!quizContainer.classList.contains('hidden') && submitBtn.style.display !== 'none' && document.hidden) { tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval); if (tabSwitchCount >= MAX_TAB_SWITCHES) { cancelTest(); } else if (tabSwitchCount === 1) { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; } } });
+            // Anti-Cheat
+            document.addEventListener('visibilitychange', () => { /* ... same visibility change logic ... */
+                 if (!examStep.classList.contains('hidden') && document.hidden) {
+                     tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
+                         stopCamera(); resultIcon.className = 'icon fas fa-exclamation-triangle fail'; resultTitle.textContent = "Exam Disqualified"; resultMessage.textContent = "Navigated away from exam tab multiple times."; scoreDisplay.textContent = "Score: N/A"; emailInstructions.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Disqualified"; messageOverlay.style.display = 'none'; tabSwitchWarningBox.style.display = 'none';
+                     } else { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; }
+                 }
+            });
+            resumeExamBtn.addEventListener('click', () => { /* ... same resume logic ... */
+                 tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000); const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; startTimerFrom(remainingTime); startCameraTimerFrom(elapsedSinceStart);
+            });
+            function startTimerFrom(startTimeInSeconds) { /* ... same timer resume logic ... */ let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimerFrom(startTimeInSeconds) { /* ... same camera timer resume logic ... */ let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
 
         }); // End DOMContentLoaded
     </script>
