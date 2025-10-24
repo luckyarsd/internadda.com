@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web & Mobile Development Final Exam — Internadda</title> <!-- Changed Title -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Re-use the exact same styles from previous final exams */
+        .exam-container { max-width: 900px; margin: 40px auto; position: relative; }
+        .exam-step { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .hidden { display: none !important; }
+        .exam-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 15px 25px; background: #eef2f7; border-radius: 8px; }
+        .exam-header h1 { font-size: 1.6rem; color: var(--dark, #2d3748); }
+        #timer { font-size: 1.8rem; font-weight: 700; color: var(--primary, #2b6cb0); background-color: #fff; padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        #camera-popup { position: fixed; top: 100px; right: 20px; width: 200px; height: 150px; background: #2d3748; border-radius: 8px; border: 3px solid #f56565; overflow: hidden; z-index: 1001; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+        #camera-popup video { width: 100%; height: calc(100% - 30px); object-fit: cover; transform: scaleX(-1); }
+        #camera-failed-preview { width: 100%; height: calc(100% - 30px); background: #1a202c; color: #718096; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; text-align: center; padding: 10px; box-sizing: border-box; }
+        #camera-failed-preview i { font-size: 2.5rem; margin-bottom: 10px; }
+        .camera-status { width: 100%; height: 30px; background-color: #c53030; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; color: #fff; font-size: 0.9rem; font-weight: 600; }
+        .recording-indicator { display: flex; align-items: center; }
+        .camera-dot { width: 10px; height: 10px; background: #fff; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite ease-in-out; }
+        #camera-timer { font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        #payment-step { text-align: center; } #payment-step h2 { font-size: 2rem; margin-bottom: 15px; } #payment-step p { font-size: 1.1rem; color: var(--gray, #4a5568); margin-bottom: 15px; max-width: 700px; margin-left: auto; margin-right: auto;} #payment-step img { margin: 25px auto; display: block; border-radius: 8px; width: 220px; height: 220px; border: 1px solid #eee; }
+        .motivational-text { color: var(--primary, #2b6cb0); background: #ebf8ff; padding: 15px; border-radius: 8px; margin-top: 25px; font-weight: 500; border: 1px solid #bee3f8; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.05rem; } .motivational-text i { margin-right: 8px; }
+        #instructions-step h2 { text-align: center; font-size: 2rem; margin-bottom: 25px; } #instructions-step .instructions-list { margin: 25px auto; padding: 25px; background: #f7fafc; border-left: 4px solid var(--warning, #ed8936); max-width: 700px; border-radius: 8px; } #instructions-step .instructions-list ul { padding-left: 20px; text-align: left; font-size: 1.05rem; line-height: 1.8; } #instructions-step .instructions-list li { margin-bottom: 15px; } #instructions-step .passing-score { font-weight: 700; color: var(--accent, #38a169); background-color: #f0fff4; padding: 2px 6px; border-radius: 4px; } .strict-disclaimer { margin-top: 30px; padding: 20px; background: #fff5f5; border: 1px solid #fbb2b2; color: #c53030; font-weight: 600; border-radius: 8px; text-align: center; } .strict-disclaimer i { margin-right: 8px; }
+        #exam-step { padding-top: 20px; } .question-block { margin-bottom: 35px; border-bottom: 1px solid #e2e8f0; padding-bottom: 25px; } .question-block:last-child { border-bottom: none; margin-bottom: 0; } .question-block h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; line-height: 1.6; display: flex; align-items: flex-start; } .question-block h3 strong { display: inline-block; background: var(--primary, #2b6cb0); color: white; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center; margin-right: 12px; font-size: 0.95rem; flex-shrink: 0; }
+        /* Code block style */
+        .question-block pre { background-color: #f6f8fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 15px 0; line-height: 1.5; font-size: 0.95rem; color: #2d3748; }
+        .options .option { background-color: var(--light, #f7fafc); padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s ease-in-out; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; font-size: 1rem; } .options .option::before { content: ''; display: inline-block; width: 16px; height: 16px; border: 2px solid var(--gray, #a0aec0); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; } .options .option:hover { background-color: #eef2f7; border-color: #cbd5e0; } .options .option:hover::before { border-color: var(--primary, #2b6cb0); } .options .option.selected { background-color: #ebf8ff; color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0); box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2); } .options .option.selected::before { background-color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0); box-shadow: inset 0 0 0 3px white; } #submit-exam-btn { width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px; }
+        #submission-step { text-align: center; padding: 40px; } #submission-step .icon { font-size: 4rem; margin-bottom: 20px; } #submission-step .icon.success { color: var(--success, #38a169); } #submission-step .icon.fail { color: var(--warning, #c53030); } #submission-step h2 { font-size: 2rem; margin-bottom: 15px; } #submission-step p { font-size: 1.1rem; color: var(--gray, #4a5568); max-width: 650px; margin: 0 auto 20px; line-height: 1.7; } .score-display { font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; } .score-display span { color: var(--primary, #2b6cb0); } .email-instructions { margin-top: 30px; padding: 25px; background: #eef2f7; border-radius: 8px; text-align: left; border-left: 4px solid var(--primary, #2b6cb0); } .email-instructions p { color: var(--dark, #2d3748); margin-bottom: 15px; font-size: 1rem; } .email-instructions strong { font-weight: 600; } .email-instructions ul li { margin-bottom: 8px; } .email-instructions ul { margin-bottom: 15px; } #email-link { display: inline-block; margin-top: 15px; }
+        .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 5px solid var(--primary, #2b6cb0); max-width: 500px; width: 90%; } .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;} .message-box p { margin-bottom: 25px; color: var(--gray, #4a5568); font-size: 1.1rem;} .message-box button { margin: 0 10px; } .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 1004; }
+        #appNumberInput { width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 8px; border: 1px solid #cbd5e0; box-sizing: border-box; margin-bottom: 10px; text-align: center; } #appNumberInput:focus { outline: none; border-color: var(--primary, #2b6cb0); box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2); } #appNumberError { color: #c53030; font-weight: 600; min-height: 1.2em; margin-bottom: 15px; font-size: 0.95rem; } #verifyAppNumberBtn { width: 100%; } #verifyAppNumberBtn:disabled { background-color: #a0aec0; cursor: not-allowed; }
+        .btn { display: inline-block; padding: 12px 28px; font-size: 1rem; font-weight: 600; text-align: center; text-decoration: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; } .btn-primary { background-color: var(--primary, #2b6cb0); color: #fff; } .btn-primary:hover { background-color: #2c5282; } .btn-outline { background-color: #fff; color: var(--primary, #2b6cb0); border-color: var(--primary, #2b6cb0); } .btn-outline:hover { background-color: #ebf8ff; }
+    </style>
+</head>
+<body>
+    <header> <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0;"><a href="../index.html" class="logo" style="text-decoration: none; color: #2d3748; display: flex; align-items: center; font-size: 1.5rem; font-weight: 700;"><span class="logo-text">InternAdda</span></a></div></header>
+
+    <main>
+        <div id="camera-popup" class="hidden"><video id="camera-feed" autoplay playsinline></video><div id="camera-failed-preview" class="hidden"><i class="fas fa-video-slash"></i>Proctoring Active</div><div class="camera-status"><div class="recording-indicator"><div class="camera-dot"></div><span>REC</span></div><span id="camera-timer">00:00</span></div></div>
+
+        <section class="course-section">
+            <div class="exam-container">
+                <div id="payment-step" class="exam-step">
+                    <h2><i class="fas fa-rocket"></i> Begin Your Internship Journey</h2>
+                    <p>This exam is the first step towards securing a valuable internship. The required fee covers proctoring and ensures a fair evaluation process for all candidates.</p>
+                    <p>Scan the QR code below to complete the fee payment via your UPI app.</p>
+                    <img src="../images/qr.jpg" alt="Scan QR Code for Payment">
+                    <p>After successful payment, click the button below and enter your Application Number to unlock the exam instructions.</p>
+                    <div class="motivational-text">
+                        <i class="fas fa-award"></i> Invest in your future! Passing this exam opens doors to real-world experience and potential career opportunities. Good luck!
+                    </div>
+                    <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Payment Completed - Verify Application</button>
+                </div>
+
+                <div id="instructions-step" class="exam-step hidden">
+                    <h2><i class="fas fa-scroll"></i> Final Exam Instructions (Web & Mobile Dev)</h2> <!-- Updated Heading -->
+                    <div class="instructions-list">
+                         <ul>
+                            <li><strong>Duration:</strong> <strong>30 minutes</strong>.</li>
+                            <li><strong>Passing Score:</strong> <strong class="passing-score">60%</strong>.</li>
+                            <li><strong>Proctoring:</strong> Camera MUST be on. Session is recorded.</li>
+                            <li><strong>Environment:</strong> Quiet room, alone. No external help.</li>
+                            <li><strong>Academic Integrity:</strong> No tab switching, other apps, AI help, or looking away. Violations lead to disqualification.</li>
+                            <li><strong>Connectivity:</strong> Stable internet needed.</li>
+                            <li><strong>Questions:</strong> 25 mandatory MCQs.</li>
+                            <li><strong>Submission:</strong> Auto-submits at time up or submit manually. No changes after submission.</li>
+                        </ul>
+                    </div>
+                     <div class="strict-disclaimer"><i class="fas fa-user-secret"></i> <strong>Strict Anti-Cheating Policy:</strong> Starting confirms you accept these rules. Violations will lead to disqualification and a ban.</div>
+                    <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 30px;">Acknowledge and Start Exam</button>
+                </div>
+
+                <div id="exam-step" class="exam-step hidden">
+                    <div class="exam-header">
+                        <h1>Web & Mobile Development Final Exam</h1> <!-- Updated Heading -->
+                        <div id="timer">30:00</div>
+                    </div>
+                    <div id="quiz-container">
+                        <!-- Web & Mobile Dev Questions 1-25 -->
+                        <div class="question-block" data-answer="b"><h3><strong>1</strong>Which HTML5 semantic element is most appropriate for containing introductory content or navigational links?</h3><div class="options"><div class="option" data-value="a">&lt;section&gt;</div><div class="option" data-value="b">&lt;header&gt;</div><div class="option" data-value="c">&lt;article&gt;</div><div class="option" data-value="d">&lt;aside&gt;</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>2</strong>In CSS, what is the purpose of the `z-index` property?</h3><div class="options"><div class="option" data-value="a">To control the horizontal alignment of an element.</div><div class="option" data-value="b">To set the opacity of an element.</div><div class="option" data-value="c">To define the spacing between letters.</div><div class="option" data-value="d">To control the stacking order (depth) of positioned elements.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>3</strong>What is the difference between `null` and `undefined` in JavaScript?</h3><div class="options"><div class="option" data-value="a">They are identical.</div><div class="option" data-value="b">`null` means a variable exists but has no value; `undefined` means it's an error.</div><div class="option" data-value="c">`undefined` usually means a variable has been declared but not assigned a value; `null` is an assignment value representing no value or no object.</div><div class="option" data-value="d">`undefined` is 0; `null` is an empty string.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>4</strong>Which CSS selector targets all `<a>` elements that have an `href` attribute starting with "https://"?</h3><div class="options"><div class="option" data-value="a">`a[href^="https://"]`</div><div class="option" data-value="b">`a[href$="https://"]`</div><div class="option" data-value="c">`a[href*="https://"]`</div><div class="option" data-value="d">`a[href="https://"]`</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>5</strong>What does the JavaScript `async` keyword before a function declaration signify?</h3><div class="options"><div class="option" data-value="a">The function will execute synchronously.</div><div class="option" data-value="b">The function will always return a Promise, and allows the use of `await` inside it.</div><div class="option" data-value="c">The function can only be called once.</div><div class="option" data-value="d">The function requires asynchronous modules.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>6</strong>In the context of REST APIs, which HTTP method is idempotent, meaning making the same request multiple times yields the same result? (Select the BEST example)</h3><div class="options"><div class="option" data-value="a">POST</div><div class="option" data-value="b">GET</div><div class="option" data-value="c">DELETE</div><div class="option" data-value="d">PUT (usually idempotent), GET, DELETE</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>7</strong>What is the primary role of the `package.json` file in a Node.js project?</h3><div class="options"><div class="option" data-value="a">To store the main application code.</div><div class="option" data-value="b">To configure the web server.</div><div class="option" data-value="c">To list project dependencies, scripts, and metadata.</div><div class="option" data-value="d">To define environment variables.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>8</strong>Which CSS technique is commonly used to create layouts that adapt to different screen sizes, often involving breakpoints?</h3><div class="options"><div class="option" data-value="a">Media Queries</div><div class="option" data-value="b">CSS Variables</div><div class="option" data-value="c">CSS Grid `auto-fit`</div><div class="option" data-value="d">Flexbox `flex-wrap`</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>9</strong>In React, what is the purpose of `useState`?</h3><div class="options"><div class="option" data-value="a">To fetch data from an API.</div><div class="option" data-value="b">To add state variables to functional components, allowing them to manage and update data.</div><div class="option" data-value="c">To handle routing between different pages.</div><div class="option" data-value="d">To define the component's structure (JSX).</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>10</strong>What is CORS (Cross-Origin Resource Sharing)?</h3><div class="options"><div class="option" data-value="a">A JavaScript framework for building user interfaces.</div><div class="option" data-value="b">A method for compressing web assets.</div><div class="option" data-value="c">A CSS preprocessor.</div><div class="option" data-value="d">A security mechanism implemented by browsers that controls how web pages in one domain can request resources from another domain.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>11</strong>Which JavaScript array method creates a new array populated with the results of calling a provided function on every element in the calling array?</h3><div class="options"><div class="option" data-value="a">`.forEach()`</div><div class="option" data-value="b">`.filter()`</div><div class="option" data-value="c">`.map()`</div><div class="option" data-value="d">`.reduce()`</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>12</strong>What is the "event loop" in JavaScript?</h3><div class="options"><div class="option" data-value="a">A mechanism that allows JavaScript (single-threaded) to handle asynchronous operations without blocking the main thread.</div><div class="option" data-value="b">A type of `for` loop used for iterating over events.</div><div class="option" data-value="c">A security feature preventing infinite loops.</div><div class="option" data-value="d">A way to handle user interface events like clicks.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>13</strong>In mobile development, what is a key difference between Native Apps and Progressive Web Apps (PWAs)?</h3><div class="options"><div class="option" data-value="a">Native apps run only on iOS, PWAs only on Android.</div><div class="option" data-value="b">Native apps are typically installed via an app store and have deeper access to device hardware; PWAs run in the browser but can offer app-like features (offline access, push notifications).</div><div class="option" data-value="c">PWAs are written in Java/Kotlin/Swift; Native apps use HTML/CSS/JS.</div><div class="option" data-value="d">PWAs always require an internet connection; Native apps do not.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>14</strong>What is the purpose of the `box-sizing: border-box;` CSS rule?</h3><div class="options"><div class="option" data-value="a">It makes the element behave like an inline element.</div><div class="option" data-value="b">It adds a border around the element automatically.</div><div class="option" data-value="c">It centers the element within its parent.</div><div class="option" data-value="d">It includes the padding and border in the element's total width and height, rather than adding them on top.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>15</strong>Which Git command is used to switch between different branches in a repository?</h3><div class="options"><div class="option" data-value="a">`git merge <branch>`</div><div class="option" data-value="b">`git branch <branch>`</div><div class="option" data-value="c">`git checkout <branch>` (or `git switch <branch>` in newer versions)</div><div class="option" data-value="d">`git commit -b <branch>`</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>16</strong>What does the term "stateless" mean in the context of REST APIs?</h3><div class="options"><div class="option" data-value="a">Each request from a client to the server must contain all the information needed to understand and process the request; the server does not store client session state between requests.</div><div class="option" data-value="b">The API does not return any data.</div><div class="option" data-value="c">The API can only handle one request at a time.</div><div class="option" data-value="d">The API uses UDP instead of TCP.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>17</strong>Which JavaScript framework uses a Virtual DOM to optimize updates to the actual DOM?</h3><div class="options"><div class="option" data-value="a">Angular</div><div class="option" data-value="b">React (and Vue.js)</div><div class="option" data-value="c">jQuery</div><div class="option" data-value="d">Svelte</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>18</strong>What is the primary function of CSS Preprocessors like Sass or Less?</h3><div class="options"><div class="option" data-value="a">To compress CSS files for faster loading.</div><div class="option" data-value="b">To automatically add vendor prefixes to CSS properties.</div><div class="option" data-value="c">To validate CSS code for errors.</div><div class="option" data-value="d">To add features like variables, nesting, mixins, and functions to CSS, which are then compiled into standard CSS.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>19</strong>Which attribute is essential for accessibility, providing a label for form inputs for screen readers?</h3><div class="options"><div class="option" data-value="a">`aria-label` or associating with a `<label>` tag using `for`/`id`</div><div class="option" data-value="b">`title`</div><div class="option" data-value="c">`placeholder`</div><div class="option" data-value="d">`name`</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>20</strong>What is the purpose of `localStorage` in web browsers?</h3><div class="options"><div class="option" data-value="a">To store data on the server associated with a user session.</div><div class="option" data-value="b">To store large files like images or videos temporarily.</div><div class="option" data-value="c">To store key-value pairs persistently in the user's browser, available even after the browser is closed.</div><div class="option" data-value="d">To handle real-time communication using WebSockets.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>21</strong>Which CSS unit is relative to the font-size of the root (html) element?</h3><div class="options"><div class="option" data-value="a">em</div><div class="option" data-value="b">rem</div><div class="option" data-value="c">px</div><div class="option" data-value="d">vw</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>22</strong>In Node.js, what is Express.js commonly used for?</h3><div class="options"><div class="option" data-value="a">Managing front-end state.</div><div class="option" data-value="b">Interacting with databases directly via SQL.</div><div class="option" data-value="c">Running Python code within Node.js.</div><div class="option" data-value="d">Building web application backends and APIs, providing routing and middleware functionality.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>23</strong>What does the term "callback hell" refer to in asynchronous JavaScript?</h3><div class="options"><div class="option" data-value="a">Deeply nested callback functions, making code difficult to read and maintain.</div><div class="option" data-value="b">An error that occurs when a callback function is not defined.</div><div class="option" data-value="c">Using too many `await` keywords in an `async` function.</div><div class="option" data-value="d">When a Promise is rejected unexpectedly.</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>24</strong>Which meta tag is crucial for ensuring proper rendering and touch zooming on mobile devices?</h3><div class="options"><div class="option" data-value="a">`<meta charset="UTF-8">`</div><div class="option" data-value="b">`<meta name="description" content="...">`</div><div class="option" data-value="c">`<meta name="viewport" content="width=device-width, initial-scale=1.0">`</div><div class="option" data-value="d">`<meta http-equiv="X-UA-Compatible" content="IE=edge">`</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>25</strong>What is the primary benefit of using a component-based architecture (like in React, Angular, Vue)?</h3><div class="options"><div class="option" data-value="a">It guarantees better performance than traditional methods.</div><div class="option" data-value="b">It promotes reusability, maintainability, and organization by breaking down the UI into independent, manageable pieces.</div><div class="option" data-value="c">It eliminates the need for CSS entirely.</div><div class="option" data-value="d">It simplifies server-side rendering.</div></div></div>
+
+                        <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
+                    </div>
+                </div>
+
+                <div id="submission-step" class="exam-step hidden">
+                    <div id="result-icon" class="icon"></div>
+                    <h2 id="result-title">Exam Submitted</h2>
+                    <p id="result-message"></p>
+                    <div id="score-display" class="score-display">Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> (<span id="final-percentage">--</span>%)</div>
+                    <div id="email-instructions" class="email-instructions hidden">
+                        <p><strong>Congratulations!</strong> You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please <strong>email us with the following details:</strong></p>
+                        <ul>
+                            <li><strong>To:</strong> official.internadda@gmail.com</li>
+                            <li><strong>Subject:</strong> Web & Mobile Development Internship Application - [Your Full Name Here]</li> <!-- Updated Subject -->
+                            <li><strong>Body:</strong> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li><strong>Attachment:</strong> Screenshot of this results page.</li>
+                        </ul>
+                        <p>We will verify your score and proctoring session, then reply within <strong>72 business hours</strong>.</p>
+                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
+                    </div>
+                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
+                </div>
+            </div>
+        </section>
+
+        <div id="messageOverlay" class="message-overlay"></div>
+        <div id="appNumberModal" class="message-box">
+             <h3><i class="fas fa-ticket-alt"></i> Verify Your Application</h3>
+             <p>Enter the Application Number received after payment.</p>
+             <div id="appNumberError"></div>
+             <input type="text" id="appNumberInput" placeholder="Enter Application Number">
+             <button id="verifyAppNumberBtn" class="btn btn-primary">Verify & Proceed</button>
+        </div>
+        <div id="cameraMessageBox" class="message-box">
+             <h3><i class="fas fa-video"></i> Camera Access Required</h3>
+             <p>This is a proctored exam. Camera access is mandatory. Ensure your face is clearly visible.</p>
+             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
+        </div>
+        <div id="tabSwitchWarningBox" class="message-box">
+             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
+             <p>Navigating away from the exam tab is logged. Continuous focus loss will lead to disqualification.</p>
+             <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
+         </div>
+    </main>
+
+    <footer style="background-color: #f7fafc; padding: 40px 0; border-top: 1px solid #e2e8f0; text-align: center;"><div class="container"><p>© 2025 Internadda. All rights reserved.</p></div></footer>
+
+     <script>
+        // --- EXACT SAME JavaScript logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get Elements
+            const paymentStep = document.getElementById('payment-step');
+            const instructionsStep = document.getElementById('instructions-step');
+            const examStep = document.getElementById('exam-step');
+            const submissionStep = document.getElementById('submission-step');
+            const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
+            const startExamBtn = document.getElementById('start-exam-btn');
+            const submitExamBtn = document.getElementById('submit-exam-btn');
+            const timerEl = document.getElementById('timer');
+            const cameraPopup = document.getElementById('camera-popup');
+            const cameraFeed = document.getElementById('camera-feed');
+            const cameraTimerEl = document.getElementById('camera-timer');
+            const cameraFailedPreview = document.getElementById('camera-failed-preview');
+            const messageOverlay = document.getElementById('messageOverlay');
+            const cameraMessageBox = document.getElementById('cameraMessageBox');
+            const allowCameraBtn = document.getElementById('allowCameraBtn');
+            const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
+            const resumeExamBtn = document.getElementById('resumeExamBtn');
+            const appNumberModal = document.getElementById('appNumberModal');
+            const appNumberInput = document.getElementById('appNumberInput');
+            const appNumberError = document.getElementById('appNumberError');
+            const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultMessage = document.getElementById('result-message');
+            const scoreDisplay = document.getElementById('score-display');
+            const finalScoreEl = document.getElementById('final-score');
+            const totalQuestionsEl = document.getElementById('total-questions');
+            const finalPercentageEl = document.getElementById('final-percentage');
+            const emailInstructions = document.getElementById('email-instructions');
+            const emailLink = document.getElementById('email-link');
+            const finalScoreEmailSpan = document.querySelector('.final-score-email');
+
+            // State
+            let examTimerInterval; let cameraTimerInterval; let stream = null; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
+
+            // Initial State
+            paymentStep.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.add('hidden');
+
+            // Helper
+            function formatTime(seconds) { const mins = Math.floor(seconds / 60); const secs = seconds % 60; return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`; }
+
+            // Payment -> App Number Modal
+            proceedToInstructionsBtn.addEventListener('click', () => { messageOverlay.style.display = 'block'; appNumberModal.style.display = 'block'; appNumberInput.value = ''; appNumberError.textContent = ''; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; appNumberInput.focus(); });
+
+            // Verify App Number
+            verifyAppNumberBtn.addEventListener('click', async () => { /* ... same verify logic ... */
+                const appNumber = appNumberInput.value.trim().toUpperCase();
+                if (!appNumber) { appNumberError.textContent = 'Please enter an application number.'; return; }
+                verifyAppNumberBtn.disabled = true; verifyAppNumberBtn.textContent = 'Verifying...'; appNumberError.textContent = '';
+                try {
+                    const response = await fetch('/api/verify-application', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ applicationNumber: appNumber }) });
+                    const data = await response.json();
+                    if (response.ok && data.valid === true) {
+                        appNumberModal.style.display = 'none'; messageOverlay.style.display = 'none'; paymentStep.classList.add('hidden'); instructionsStep.classList.remove('hidden');
+                    } else {
+                        appNumberError.textContent = data.message || 'Invalid Application Number.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed';
+                    }
+                } catch (error) { console.error('Verification failed:', error); appNumberError.textContent = 'Verification failed. Check connection.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; }
+            });
+
+            // Instructions -> Camera Check
+            startExamBtn.addEventListener('click', requestCamera);
+            async function requestCamera() { messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block'; }
+            allowCameraBtn.addEventListener('click', startCamera);
+            async function startCamera() { /* ... same camera start logic ... */
+                 cameraMessageBox.style.display = 'none';
+                 try {
+                     stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; proceedToExam();
+                 } catch (err) { console.warn("Camera Error:", err.name); cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); proceedToExam(); }
+            }
+            function proceedToExam() { messageOverlay.style.display = 'none'; cameraPopup.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.remove('hidden'); startTimer(); startCameraTimer(); }
+            function stopCamera() { /* ... same camera stop logic ... */ if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
+
+            // Exam Timers
+            function startTimer() { /* ... same timer logic (30 mins = 1800s) ... */ let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimer() { /* ... same camera timer logic ... */ let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+
+            // Question Selection
+            const questions = document.querySelectorAll('.question-block'); const totalQuestions = questions.length; totalQuestionsEl.textContent = totalQuestions;
+            questions.forEach(q => { /* ... same option selection logic ... */ const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
+
+            // Submission
+            function submitExam() { /* ... same submission logic ... */
+                if (examTimerInterval) clearInterval(examTimerInterval); stopCamera(); let score = 0;
+                questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); });
+                const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+                finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage;
+                if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; // Update span in email text too
+
+                if (percentage >= 60) {
+                    resultIcon.className = 'icon fas fa-check-circle success'; resultTitle.textContent = "Exam Completed - Qualified!"; resultMessage.textContent = "Congratulations! Follow the instructions below."; emailInstructions.classList.remove('hidden');
+                    // --- Update Email Link for Web & Mobile Dev ---
+                    const subject = encodeURIComponent(`Web & Mobile Development Internship Application - [Your Full Name Here]`); // Corrected Subject
+                    const body = encodeURIComponent(
+                         `Dear Internadda Team,\n\nI have successfully completed the Web & Mobile Development Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                     ); // Corrected Body Text
+                    emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                } else {
+                    resultIcon.className = 'icon fas fa-times-circle fail'; resultTitle.textContent = "Exam Completed"; resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; emailInstructions.classList.add('hidden');
+                }
+                examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Finished";
+            }
+            submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
+
+            // Anti-Cheat
+            document.addEventListener('visibilitychange', () => { /* ... same visibility change logic ... */
+                 if (!examStep.classList.contains('hidden') && document.hidden) {
+                     tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
+                         stopCamera(); resultIcon.className = 'icon fas fa-exclamation-triangle fail'; resultTitle.textContent = "Exam Disqualified"; resultMessage.textContent = "Navigated away from exam tab multiple times."; scoreDisplay.textContent = "Score: N/A"; emailInstructions.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Disqualified"; messageOverlay.style.display = 'none'; tabSwitchWarningBox.style.display = 'none';
+                     } else { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; }
+                 }
+            });
+            resumeExamBtn.addEventListener('click', () => { /* ... same resume logic ... */
+                 tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000); const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; startTimerFrom(remainingTime); startCameraTimerFrom(elapsedSinceStart);
+            });
+            function startTimerFrom(startTimeInSeconds) { /* ... same timer resume logic ... */ let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+            function startCameraTimerFrom(startTimeInSeconds) { /* ... same camera timer resume logic ... */ let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>
