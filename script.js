@@ -230,9 +230,9 @@ function showSearchResults(results) {
             resultItem.style.textDecoration = 'none'; // Remove underline
             resultItem.style.color = 'inherit'; // Inherit text color
 
-            // --- UPDATED PATH ---
+            // --- CORRECTED LINE (Comment Removed) ---
             resultItem.innerHTML = `
-                <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;"> {/* Use absolute path */}
+                <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
                 <div style="flex-grow: 1;">
                     <h4 style="margin: 0; font-size: 1em;">${result.title}</h4>
                     <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${result.instructor}</p>
