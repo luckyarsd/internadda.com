@@ -105,17 +105,22 @@ function createCourseSlug(title) {
 }
 
 // Course data for client-side search (for course.html)
+// --- UPDATED PATHS ---
 const allCourses = [
-    // Populate this array if search is needed on course.html
-    // Example: { title: 'Cloud & DevOps Essentials', instructor: 'Created by AI', image: '../images/Cloud-DevOps-Essentials.png', url: "courses/courses/Cloud-DevOps-Essentials.html" }
+    { title: 'Data Science Intern Course', instructor: 'Instructed by Lucky Kumar', image: '/images/Essential Data Science Intern Course.png', url: "/courses/courses/Essential Data Science Intern Course.html" },
+    { title: 'Generative AI & Prompt Engineering', instructor: 'Instructed by Lucky Kumar', image: '/images/Generative-AI-Prompt-Engineering-Masterclass.png', url: "/courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
+    { title: 'Ethical Hacking Mastery', instructor: 'Instructed by Lucky Kumar', image: '/images/Ethical-Hacking-Mastery.png', url: "/courses/courses/Ethical-Hacking-Mastery.html" },
+    { title: 'Python Essentials for All', instructor: 'Instructed by Lucky Kumar', image: '/images/Python-Essentials-for-All.png', url: "/courses/courses/Python-Essentials-for-All.html" },
+    { title: 'Cloud & DevOps Essentials', instructor: 'Instructed by Lucky Kumar', image: '/images/Cloud-DevOps-Essentials.png', url: "/courses/courses/Cloud-DevOps-Essentials.html" }
 ];
 
 // Course data for index.html search
+// --- UPDATED PATHS ---
 const popularCourses = [
-    { title: 'Data Science Intern Course', instructor: 'Created by AI', image: 'images/Essential Data Science Intern Course.png', url: "courses/courses/Essential Data Science Intern Course.html" },
-    { title: 'Generative AI & Prompt Engineering', instructor: 'Created by AI', image: 'images/Generative-AI-Prompt-Engineering-Masterclass.png', url: "courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
-    { title: 'Python Essentials for All', instructor: 'Created by AI', image: 'images/Python-Essentials-for-All.png', url: "courses/courses/Python-Essentials-for-All.html" },
-    { title: 'Cybersecurity Fundamentals', instructor: 'Created by AI', image: 'images/Ethical-Hacking-Mastery.png', url: "courses/courses/Ethical-Hacking-Mastery.html" },
+    { title: 'Data Science Intern Course', instructor: 'Created by AI', image: '/images/Essential Data Science Intern Course.png', url: "/courses/courses/Essential Data Science Intern Course.html" },
+    { title: 'Generative AI & Prompt Engineering', instructor: 'Created by AI', image: '/images/Generative-AI-Prompt-Engineering-Masterclass.png', url: "/courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
+    { title: 'Python Essentials for All', instructor: 'Created by AI', image: '/images/Python-Essentials-for-All.png', url: "/courses/courses/Python-Essentials-for-All.html" },
+    { title: 'Cybersecurity Fundamentals', instructor: 'Created by AI', image: '/images/Ethical-Hacking-Mastery.png', url: "/courses/courses/Ethical-Hacking-Mastery.html" },
 ];
 
 const coursesGrid = document.getElementById('coursesGrid'); // Assuming this exists on course.html
@@ -126,13 +131,13 @@ function renderCourses(courses) {
     coursesGrid.innerHTML = ''; // Clear existing
     courses.forEach(course => {
         const card = document.createElement('a');
-        card.href = course.url;
+        card.href = course.url; // Use the absolute URL
         card.className = 'course-card';
         card.style.textDecoration = 'none';
         card.style.color = 'inherit';
         card.innerHTML = `
             <div class="course-image">
-                <img src="${course.image}" alt="${course.title}">
+                <img src="${course.image}" alt="${course.title}"> {/* Use the absolute image path */}
             </div>
             <div class="course-content">
                 <h3 class="course-title">${course.title}</h3>
@@ -162,8 +167,10 @@ function generateStarRating(rating) {
 
 // Function to get the correct avatar based on progress or user upload
 function getAvatarUrl(progress, userUploadedImage) {
-     // ... (keep existing getAvatarUrl function) ...
-     return userUploadedImage || 'https://placehold.co/40x40/5624d0/ffffff?text=U';
+     // ... (keep existing getAvatarUrl function - Note: The placeholder.co URL is already absolute) ...
+     // --- UPDATED PATH ---
+     const defaultAvatar = '/images/no_image.png'; // Absolute path for default
+     return userUploadedImage || defaultAvatar; // Use uploaded if available, else default
 }
 
 // Function to handle image preview from file input
@@ -215,7 +222,7 @@ function showSearchResults(results) {
         resultsContainer.classList.remove('hidden');
         results.forEach(result => {
             const resultItem = document.createElement('a'); // Make item clickable
-            resultItem.href = result.url || '#'; // Link to course URL
+            resultItem.href = result.url || '#'; // Link to course URL (already absolute)
             resultItem.className = 'search-result-item'; // Use existing styles
             resultItem.style.display = 'flex'; // Ensure flex layout
             resultItem.style.alignItems = 'center';
@@ -223,8 +230,9 @@ function showSearchResults(results) {
             resultItem.style.textDecoration = 'none'; // Remove underline
             resultItem.style.color = 'inherit'; // Inherit text color
 
+            // --- UPDATED PATH ---
             resultItem.innerHTML = `
-                <img src="${result.image || 'images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;"> {/* Use absolute path */}
                 <div style="flex-grow: 1;">
                     <h4 style="margin: 0; font-size: 1em;">${result.title}</h4>
                     <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${result.instructor}</p>
@@ -377,7 +385,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Profile Management ---
     // Update Profile UI
     function updateProfileUI(profileData) {
-        const avatarUrl = profileData.photoUrl || 'https://placehold.co/40x40/5624d0/ffffff?text=U';
+        // --- UPDATED PATH ---
+        const avatarUrl = profileData.photoUrl || '/images/no_image.png'; // Use absolute default path
         if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
         if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
         if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
@@ -426,12 +435,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const user = auth.currentUser;
             if(user && profileName) profileName.value = user.displayName || '';
             // Pre-filling gender/domain requires fetching from Firestore again or storing it locally
-            // Example of how you might retrieve and set if stored:
-            // const storedProfileData = getCurrentStoredProfile(); // Assuming you have a way to get this
-            // if (storedProfileData) {
-            //     if(profileGender) profileGender.value = storedProfileData.gender || '';
-            //     if(interestedDomain) interestedDomain.value = storedProfileData.interestedDomain || '';
-            // }
+            // Example: Fetch and set from Firestore if needed here
+            if (user) {
+                db.collection('userProfiles').doc(user.uid).get().then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if(profileGender) profileGender.value = data.gender || '';
+                        if(interestedDomain) interestedDomain.value = data.interestedDomain || '';
+                    }
+                }).catch(error => console.error("Error fetching profile for edit:", error));
+            }
         });
     }
 
@@ -462,8 +475,16 @@ document.addEventListener('DOMContentLoaded', function() {
                  // const uploadTask = await storageRef.put(file);
                  // photoURL = await uploadTask.ref.getDownloadURL();
              } else {
-                 // Try to keep existing Firestore URL if no new file
-                 try { const doc = await db.collection('userProfiles').doc(user.uid).get(); if (doc.exists) photoURL = doc.data().photoUrl || photoURL; } catch(e) {}
+                 // Try to keep existing Firestore URL if no new file and user had one
+                 try {
+                     const doc = await db.collection('userProfiles').doc(user.uid).get();
+                     if (doc.exists && doc.data().photoUrl) {
+                        photoURL = doc.data().photoUrl; // Keep existing Firestore URL
+                     } else if (!photoURL) {
+                        // --- UPDATED PATH ---
+                        photoURL = '/images/no_image.png'; // Fallback to absolute default if nothing exists
+                     }
+                 } catch(e) { console.error("Error checking existing photoURL:", e); }
              }
 
              try {
@@ -581,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         // Auto-close after 8 seconds
         setTimeout(() => {
-            if (popup.classList.contains('show')) { // Check if still visible
+            if (popup && popup.classList.contains('show')) { // Check if still visible and exists
                  popup.classList.remove('show');
                  setTimeout(() => popup.remove(), 500);
             }
@@ -630,8 +651,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterCourses(query) {
          const lowerCaseQuery = query.toLowerCase();
          // Combine all known courses for searching
-         const allAvailableCourses = [...allCourses, ...popularCourses]; // Adjust `allCourses` source if needed
-         return allAvailableCourses.filter(course =>
+         // Use the updated absolute paths from the arrays at the top
+         const allAvailableCourses = [...allCourses, ...popularCourses];
+         // Make sure courses have unique URLs or titles if combining, otherwise duplicates might appear.
+         // A simple way to deduplicate if needed:
+         const uniqueCourses = Array.from(new Map(allAvailableCourses.map(course => [course.url, course])).values());
+
+         return uniqueCourses.filter(course =>
              (course.title && course.title.toLowerCase().includes(lowerCaseQuery)) ||
              (course.instructor && course.instructor.toLowerCase().includes(lowerCaseQuery))
          );
@@ -672,11 +698,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- RENDER COURSES (If on course page) ---
     // Make sure 'allCourses' is populated correctly if this script runs on course.html
     if (coursesGrid && typeof allCourses !== 'undefined' && allCourses.length > 0) {
-        renderCourses(allCourses); // Render the list for the courses page
+        // Only render if we are likely on the course listing page (check if coursesGrid exists)
+        renderCourses(allCourses);
     }
-
-    // --- REMOVED CASHFREE PAYMENT INTEGRATION ---
-    // The section handling Cashfree logic and payButton has been removed.
 
 }); // End DOMContentLoaded
 
@@ -701,10 +725,15 @@ auth.onAuthStateChanged(async (user) => {
         const userDocRef = db.collection('userProfiles').doc(user.uid);
         try {
             const userDoc = await userDocRef.get();
-            let profileData = { name: user.displayName, photoUrl: user.photoURL, email: user.email }; // Default to auth data
+            // --- UPDATED PATH ---
+            let profileData = { name: user.displayName, photoUrl: user.photoURL || '/images/no_image.png', email: user.email }; // Default to auth data + absolute default avatar
 
             if (userDoc.exists) {
                 profileData = { ...profileData, ...userDoc.data() }; // Merge Firestore data
+                 // Ensure photoUrl from Firestore isn't empty, otherwise use default
+                 // --- UPDATED PATH ---
+                 profileData.photoUrl = profileData.photoUrl || '/images/no_image.png';
+
                 // Pre-fill edit form fields only if they exist on the page
                 if(profileName) profileName.value = profileData.name || '';
                 if(profileGender) profileGender.value = profileData.gender || '';
@@ -712,16 +741,17 @@ auth.onAuthStateChanged(async (user) => {
             } else {
                  // Pre-fill edit form fields from auth if they exist
                  if(profileName) profileName.value = user.displayName || '';
+                 // Ensure photoUrl is set even if no Firestore doc
+                 // --- UPDATED PATH ---
+                 profileData.photoUrl = profileData.photoUrl || '/images/no_image.png';
             }
             updateProfileUI(profileData); // Update header, dashboard display etc.
-
-            // Show seats popup if applicable (optional, maybe only on save)
-            // if (profileData.interestedDomain) { showSeatsPopup(profileData.interestedDomain, ...); }
 
         } catch (error) {
              console.error("Error loading profile data:", error);
              // Fallback UI update using only auth data
-             updateProfileUI({ name: user.displayName, photoUrl: user.photoURL, email: user.email });
+             // --- UPDATED PATH ---
+             updateProfileUI({ name: user.displayName, photoUrl: user.photoURL || '/images/no_image.png', email: user.email });
         }
 
         setupDataListener(); // Refresh notes listener
@@ -743,4 +773,4 @@ auth.onAuthStateChanged(async (user) => {
 });
 
 
-console.log('🚀 Internadda Script Loaded! (Payment logic removed)');
+console.log('🚀 Internadda Script Loaded! (Paths Updated)');
