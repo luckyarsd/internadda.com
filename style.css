@@ -492,45 +492,78 @@ header {
 
 /* Search results container */
 .search-results-container {
-    margin-top: 28px;
-    padding: 28px;
+    margin-top: 10px; /* Reduced margin */
+    padding: 10px; /* Reduced padding */
     background-color: var(--white);
     border-radius: 14px;
     box-shadow: var(--shadow);
+    position: absolute; /* Position it below the search input */
+    width: 320px; /* Match search input width */
+    left: 0; /* Align with search input (adjust if needed based on header layout) */
+    z-index: 101; /* Ensure it's above other elements */
+    max-height: 400px; /* Limit height */
+    overflow-y: auto; /* Add scroll if needed */
 }
 
-.search-results-container h3 {
-    margin-bottom: 24px;
-    font-size: 24px;
-    font-weight: 700;
+/* Updated positioning relative to header container */
+.header-container .search-container {
+    position: relative; /* Ensure the container is positioned relatively */
 }
+.header-container .search-results-container {
+    /* Adjust top position based on search input height and desired gap */
+    top: calc(100% + 8px);
+    /* Adjust left position if search input isn't fully left-aligned */
+    /* left: ...; */
+    width: 100%; /* Make dropdown match container width */
+}
+
 
 .search-result-item {
-    background-color: var(--light);
-    padding: 24px;
-    border-radius: 12px;
-    margin-bottom: 14px;
-    border: var(--border);
-    transition: var(--transition);
+    background-color: transparent; /* Changed background */
+    padding: 10px 15px; /* Adjusted padding */
+    border-radius: 8px; /* Slightly smaller radius */
+    margin-bottom: 5px; /* Reduced margin */
+    border: none; /* Removed border */
+    transition: background-color 0.2s ease; /* Transition background */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .search-result-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    background-color: var(--light); /* Add hover background */
+    transform: none; /* Removed transform */
+    box-shadow: none; /* Removed shadow */
 }
 
-.search-result-item a {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--primary);
-    text-decoration: none;
+.search-result-item img {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.search-result-item div {
+    flex-grow: 1;
+}
+
+.search-result-item h4 {
+    margin: 0;
+    font-size: 1em; /* Adjusted size */
+    font-weight: 600; /* Added weight */
+    color: var(--dark); /* Changed color */
 }
 
 .search-result-item p {
-    font-size: 16px;
+    margin: 0;
+    font-size: 0.9em; /* Adjusted size */
     color: var(--gray);
-    margin-top: 10px;
+    margin-top: 2px; /* Small top margin */
 }
+
 
 /* Value Proposition */
 .value-prop {
@@ -650,7 +683,10 @@ header {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    text-decoration: none; /* Ensure links don't have underline */
+    color: inherit; /* Ensure text color isn't blue */
 }
+
 
 .course-card:hover {
     transform: translateY(-10px);
@@ -688,7 +724,7 @@ header {
     overflow: hidden;
 }
 
-.course-instructor {
+.course-instructor, .course-author { /* Added .course-author */
     font-size: 15px;
     color: var(--gray);
     margin-bottom: 12px;
@@ -739,6 +775,12 @@ header {
     font-size: 14px;
     font-weight: 600;
 }
+
+.badge.free { /* Added style for free badge */
+    background-color: var(--accent);
+    color: var(--white);
+}
+
 
 .bestseller {
     background-color: #fefcbf;
@@ -1606,6 +1648,266 @@ select#profileGender, select#interestedDomain {
     display: none;
 }
 
+/* ============================
+   NEW BLOG SECTION STYLES
+   ============================ */
+
+/* Blog Listing Page (/blog/index.html) */
+.blog-post-card {
+    background: var(--white);
+    border-radius: 14px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex; /* Layout image and text side-by-side */
+    min-height: 200px;
+}
+.blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+.blog-card-image {
+    flex: 0 0 35%; /* Image takes ~1/3 width */
+    overflow: hidden;
+    background-color: var(--light); /* Placeholder bg */
+}
+.blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.blog-post-card:hover .blog-card-image img {
+    transform: scale(1.05);
+}
+.blog-card-content {
+    padding: 25px 30px; /* Increased padding */
+    flex: 1; /* Text takes remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.blog-card-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary);
+    text-decoration: none;
+    line-height: 1.4;
+}
+.blog-card-title:hover {
+    color: var(--secondary);
+}
+.blog-card-excerpt {
+    color: var(--gray);
+    margin-bottom: 15px;
+    line-height: 1.6;
+    /* Limit excerpt lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.blog-card-meta {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-top: auto; /* Push meta to bottom */
+    padding-top: 10px;
+}
+ .blog-card-meta span { margin-right: 15px; }
+ .blog-card-meta i { margin-right: 5px; }
+.blog-cta { margin: 30px 0; text-align: right; } /* Adjusted alignment */
+#loadingPosts { text-align: center; padding: 40px; color: var(--gray); font-size: 1.1rem;}
+
+/* Single Post Page (/blog/post.html) */
+.blog-post-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 40px 50px; /* Increased padding */
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+.blog-post-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    color: var(--primary);
+}
+.blog-post-meta {
+    color: var(--gray);
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    font-size: 0.95rem; /* Slightly larger */
+}
+.blog-post-meta span { margin-right: 20px; }
+.blog-post-meta i { margin-right: 6px; }
+.blog-post-image {
+    text-align: center; /* Center image if needed */
+}
+.blog-post-image img {
+    width: 100%;
+    max-height: 450px; /* Increased max height */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.blog-post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--dark);
+}
+.blog-post-content h1, /* Style H1 if used in content */
+.blog-post-content h2 {
+    font-size: 1.8rem;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    color: var(--dark);
+    font-weight: 700;
+    line-height: 1.4;
+}
+.blog-post-content h3 {
+    font-size: 1.4rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: var(--dark);
+    font-weight: 600;
+}
+.blog-post-content p { margin-bottom: 20px; }
+.blog-post-content ul, .blog-post-content ol { margin-left: 25px; margin-bottom: 20px; padding-left: 10px;}
+.blog-post-content li { margin-bottom: 10px; }
+.blog-post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 25px auto; /* Center images */
+    display: block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.blog-post-content a { color: var(--primary); text-decoration: none; font-weight: 500;}
+.blog-post-content a:hover { text-decoration: underline; color: var(--secondary); }
+.blog-post-content pre { /* Inherit existing pre style */ }
+.blog-post-content blockquote {
+    border-left: 4px solid var(--primary);
+    margin: 25px 0;
+    padding: 15px 20px;
+    background-color: var(--light);
+    color: var(--gray);
+    font-style: italic;
+}
+#loadingPost { text-align: center; padding: 50px; color: var(--gray); font-size: 1.2rem; }
+
+/* Create Post Page (/blog/create.html) */
+.create-post-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+.create-post-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary);
+    font-weight: 700;
+}
+.create-post-container .form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--dark);
+}
+.create-post-container .form-group input[type="text"],
+.create-post-container .form-group textarea {
+    width: 100%;
+    padding: 14px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 25px; /* Increased margin */
+    font-family: inherit; /* Ensure consistent font */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.create-post-container .form-group input[type="text"]:focus,
+.create-post-container .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
+}
+.create-post-container .form-group textarea {
+    min-height: 350px; /* Make textarea larger */
+    resize: vertical;
+    line-height: 1.6;
+}
+.create-post-container .form-group small {
+    display: block;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: var(--gray);
+}
+/* Simple Rich Text Editor Buttons (Optional) */
+.editor-toolbar button {
+    padding: 6px 12px;
+    margin-right: 6px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.editor-toolbar button:hover {
+    background: #e0e0e0;
+}
+#submitPostBtn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 16px; /* Larger button */
+    font-size: 1.1rem;
+}
+#submitPostBtn:disabled {
+    background: var(--gray);
+    cursor: not-allowed;
+}
+#submissionStatus {
+    margin-top: 20px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+}
+#submissionStatus:empty {
+    padding: 0; /* Hide padding if empty */
+}
+/* Login prompt styling */
+.login-prompt {
+    text-align: center;
+    color: var(--dark); /* Changed color */
+    font-weight: 500; /* Adjusted weight */
+    padding: 40px;
+    background-color: #ebf8ff; /* Light blue background */
+    border: 1px solid var(--primary); /* Blue border */
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+.login-prompt a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+}
+.login-prompt a:hover {
+    color: var(--secondary);
+}
+
+/* ============================
+   END BLOG SECTION STYLES
+   ============================ */
+
 
 /* =================================
    Responsive Design (UPDATED SECTION)
@@ -1669,6 +1971,11 @@ select#profileGender, select#interestedDomain {
     .footer-grid {
         grid-template-columns: 1fr 1fr;
     }
+     /* Search dropdown positioning adjustment */
+    .header-container .search-results-container {
+        width: calc(100% - 64px); /* Adjust width considering container padding */
+        left: 32px; /* Align with container padding */
+    }
 }
 
 @media (max-width: 768px) {
@@ -1717,5 +2024,28 @@ select#profileGender, select#interestedDomain {
     .data-item button {
         align-self: flex-end;
     }
-}
+    /* Blog adjustments */
+     .blog-post-card {
+        flex-direction: column;
+    }
+    .blog-card-image {
+        flex-basis: 200px; /* Fixed height for image on mobile */
+    }
+    .blog-post-container {
+        padding: 25px; /* Reduce padding on mobile */
+    }
+    .blog-post-title {
+        font-size: 2rem;
+    }
+    .blog-post-content h2 { font-size: 1.6rem; }
+    .blog-post-content h3 { font-size: 1.3rem; }
+    /* Ensure search dropdown doesn't overflow */
+     .header-container .search-results-container {
+        width: calc(100% - 48px); /* Adjust width */
+        left: 24px; /* Adjust position */
+    }
+     .create-post-container {
+         padding: 25px;
+     }
 
+}
