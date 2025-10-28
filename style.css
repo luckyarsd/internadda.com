@@ -57,7 +57,9 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 24px 0;
+    position: relative; /* Needed for absolute positioning of search results */
 }
+
 
 /* Logo Styling */
 .logo {
@@ -212,8 +214,9 @@ header {
 }
 
 .search-container {
-    position: relative;
+    position: relative; /* Crucial for positioning the dropdown */
 }
+
 
 .search-input {
     padding: 14px 18px 14px 48px;
@@ -492,52 +495,66 @@ header {
 
 /* Search results container */
 .search-results-container {
-    margin-top: 10px; /* Reduced margin */
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     background-color: var(--white);
     border-radius: 14px;
     box-shadow: var(--shadow);
-    position: absolute; /* Position it below the search input */
-    width: 320px; /* Match search input width */
-    left: 0; /* Align with search input (adjust if needed based on header layout) */
-    z-index: 101; /* Ensure it's above other elements */
-    max-height: 400px; /* Limit height */
-    overflow-y: auto; /* Add scroll if needed */
+    position: absolute;
+    width: 320px;
+    z-index: 101;
+    max-height: 400px;
+    overflow-y: auto;
+    /* Position below the search input */
+    top: calc(100% + 8px); /* Adjust gap as needed */
+    left: 0; /* Align with search container's left edge */
 }
 
-/* Updated positioning relative to header container */
-.header-container .search-container {
-    position: relative; /* Ensure the container is positioned relatively */
-}
-.header-container .search-results-container {
-    /* Adjust top position based on search input height and desired gap */
-    top: calc(100% + 8px);
-    /* Adjust left position if search input isn't fully left-aligned */
-    /* left: ...; */
-    width: 100%; /* Make dropdown match container width */
+/* Relative positioning for the parent */
+.search-container {
+    position: relative;
 }
 
-
+/* Search result item base style */
 .search-result-item {
-    background-color: transparent; /* Changed background */
-    padding: 10px 15px; /* Adjusted padding */
-    border-radius: 8px; /* Slightly smaller radius */
-    margin-bottom: 5px; /* Reduced margin */
-    border: none; /* Removed border */
-    transition: background-color 0.2s ease; /* Transition background */
+    margin-bottom: 8px;
+    border-radius: 8px;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    padding: 0; /* Reset padding, will be handled internally */
+}
+
+/* Hover effect for all items */
+.search-result-item:hover {
+    background-color: var(--light);
+}
+
+/* Course result item (is an <a> tag) */
+.search-result-item.course-result {
     display: flex;
     align-items: center;
     gap: 15px;
     text-decoration: none;
     color: inherit;
+    padding: 10px 15px; /* Add padding here */
 }
 
-.search-result-item:hover {
-    background-color: var(--light); /* Add hover background */
-    transform: none; /* Removed transform */
-    box-shadow: none; /* Removed shadow */
+/* Internship result item (is a <div> tag) */
+.search-result-item.internship-result {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
 }
 
+/* Inner padding for internship top section */
+.search-result-item.internship-result > div:first-child {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Image styles */
 .search-result-item img {
     width: 60px;
     height: 40px;
@@ -546,22 +563,63 @@ header {
     flex-shrink: 0;
 }
 
+/* Text container styles */
 .search-result-item div {
     flex-grow: 1;
 }
 
 .search-result-item h4 {
     margin: 0;
-    font-size: 1em; /* Adjusted size */
-    font-weight: 600; /* Added weight */
-    color: var(--dark); /* Changed color */
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--dark);
 }
 
 .search-result-item p {
-    margin: 0;
-    font-size: 0.9em; /* Adjusted size */
+    margin: 2px 0 0;
+    font-size: 0.9em;
     color: var(--gray);
-    margin-top: 2px; /* Small top margin */
+}
+
+/* Internship action links container */
+.search-result-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 15px 10px;
+    border-top: 1px solid #eee; /* Separator line */
+    margin-top: 5px; /* Add some space above the line */
+}
+
+/* Styles for action links within dropdown */
+.search-action-link.btn {
+    padding: 6px 12px !important;
+    font-size: 0.85em !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+    margin: 0 5px;
+    text-align: center;
+    text-decoration: none;
+    flex-grow: 1;
+    white-space: nowrap;
+    line-height: 1.5; /* Ensure text fits */
+}
+
+.search-action-link.btn-outline {
+    border: 1px solid var(--primary); /* Explicitly set border */
+    color: var(--primary);
+    background: transparent; /* Ensure no background */
+}
+.search-action-link.btn-outline:hover {
+    background-color: #ebf8ff;
+    color: var(--primary);
+    transform: none; /* Remove hover transform */
+    box-shadow: none; /* Remove hover shadow */
+}
+
+.search-action-link.btn-primary:hover {
+     background: linear-gradient(135deg, var(--secondary), var(--primary));
+     transform: none; /* Remove hover transform */
+     box-shadow: none; /* Remove hover shadow */
 }
 
 
@@ -683,8 +741,8 @@ header {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    text-decoration: none; /* Ensure links don't have underline */
-    color: inherit; /* Ensure text color isn't blue */
+    text-decoration: none;
+    color: inherit;
 }
 
 
@@ -724,7 +782,7 @@ header {
     overflow: hidden;
 }
 
-.course-instructor, .course-author { /* Added .course-author */
+.course-instructor, .course-author {
     font-size: 15px;
     color: var(--gray);
     margin-bottom: 12px;
@@ -776,7 +834,7 @@ header {
     font-weight: 600;
 }
 
-.badge.free { /* Added style for free badge */
+.badge.free {
     background-color: var(--accent);
     color: var(--white);
 }
@@ -986,9 +1044,7 @@ header {
     transform: translateY(-3px);
 }
 
-/* ==================
-    Team Section Styles
-    ================== */
+/* Team Section Styles */
 .team-section {
     padding: 60px 0;
     background-color: var(--light);
@@ -1131,7 +1187,7 @@ footer {
     font-size: 15px;
 }
 
-/* Auth Modal Styles (Updated to a side panel) */
+/* Auth Modal Styles (Side Panel) */
 .modal {
     display: none;
     position: fixed;
@@ -1426,7 +1482,7 @@ h3.section-title-small {
     transform: translateY(-2px);
 }
 
-/* New Profile Section and Tab Styles */
+/* Profile Section and Tab Styles */
 .user-info-profile {
     display: flex;
     align-items: center;
@@ -1507,7 +1563,7 @@ select#profileGender, select#interestedDomain {
     to { transform: scale(1); opacity: 1; }
 }
 
-/* New File Upload Styles */
+/* File Upload Styles */
 .file-upload-wrapper {
     position: relative;
     display: inline-block;
@@ -1541,7 +1597,7 @@ select#profileGender, select#interestedDomain {
 }
 
 
-/* New style for profile information */
+/* Profile Information display */
 .profile-details {
     margin-bottom: 20px;
 }
@@ -1649,7 +1705,7 @@ select#profileGender, select#interestedDomain {
 }
 
 /* ============================
-   NEW BLOG SECTION STYLES
+   BLOG SECTION STYLES
    ============================ */
 
 /* Blog Listing Page (/blog/index.html) */
@@ -1703,7 +1759,6 @@ select#profileGender, select#interestedDomain {
     color: var(--gray);
     margin-bottom: 15px;
     line-height: 1.6;
-    /* Limit excerpt lines */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -1717,7 +1772,7 @@ select#profileGender, select#interestedDomain {
 }
  .blog-card-meta span { margin-right: 15px; }
  .blog-card-meta i { margin-right: 5px; }
-.blog-cta { margin: 30px 0; text-align: right; } /* Adjusted alignment */
+.blog-cta { margin: 30px 0; text-align: right; }
 #loadingPosts { text-align: center; padding: 40px; color: var(--gray); font-size: 1.1rem;}
 
 /* Single Post Page (/blog/post.html) */
@@ -1725,7 +1780,7 @@ select#profileGender, select#interestedDomain {
     max-width: 800px;
     margin: 40px auto;
     background: var(--white);
-    padding: 40px 50px; /* Increased padding */
+    padding: 40px 50px;
     border-radius: 14px;
     box-shadow: var(--shadow);
 }
@@ -1741,16 +1796,16 @@ select#profileGender, select#interestedDomain {
     margin-bottom: 30px;
     border-bottom: 1px solid #eee;
     padding-bottom: 15px;
-    font-size: 0.95rem; /* Slightly larger */
+    font-size: 0.95rem;
 }
 .blog-post-meta span { margin-right: 20px; }
 .blog-post-meta i { margin-right: 6px; }
 .blog-post-image {
-    text-align: center; /* Center image if needed */
+    text-align: center;
 }
 .blog-post-image img {
     width: 100%;
-    max-height: 450px; /* Increased max height */
+    max-height: 450px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 30px;
@@ -1760,7 +1815,7 @@ select#profileGender, select#interestedDomain {
     line-height: 1.8;
     color: var(--dark);
 }
-.blog-post-content h1, /* Style H1 if used in content */
+.blog-post-content h1,
 .blog-post-content h2 {
     font-size: 1.8rem;
     margin-top: 40px;
@@ -1783,13 +1838,17 @@ select#profileGender, select#interestedDomain {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin: 25px auto; /* Center images */
+    margin: 25px auto;
     display: block;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .blog-post-content a { color: var(--primary); text-decoration: none; font-weight: 500;}
 .blog-post-content a:hover { text-decoration: underline; color: var(--secondary); }
-.blog-post-content pre { /* Inherit existing pre style */ }
+.blog-post-content pre { /* Inherit existing pre style from other pages if defined */
+    background-color: #f6f8fa; border: 1px solid #e2e8f0; border-radius: 8px;
+    padding: 12px 16px; overflow-x: auto; white-space: pre-wrap;
+    word-wrap: break-word; margin: 15px 0; line-height: 1.5;
+    font-size: 0.95rem; color: #2d3748; }
 .blog-post-content blockquote {
     border-left: 4px solid var(--primary);
     margin: 25px 0;
@@ -1824,12 +1883,12 @@ select#profileGender, select#interestedDomain {
 .create-post-container .form-group input[type="text"],
 .create-post-container .form-group textarea {
     width: 100%;
-    padding: 14px; /* Increased padding */
+    padding: 14px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
-    margin-bottom: 25px; /* Increased margin */
-    font-family: inherit; /* Ensure consistent font */
+    margin-bottom: 25px;
+    font-family: inherit;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 .create-post-container .form-group input[type="text"]:focus,
@@ -1839,7 +1898,7 @@ select#profileGender, select#interestedDomain {
     box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
 }
 .create-post-container .form-group textarea {
-    min-height: 350px; /* Make textarea larger */
+    min-height: 350px;
     resize: vertical;
     line-height: 1.6;
 }
@@ -1867,7 +1926,7 @@ select#profileGender, select#interestedDomain {
 #submitPostBtn {
     margin-top: 20px;
     width: 100%;
-    padding: 16px; /* Larger button */
+    padding: 16px;
     font-size: 1.1rem;
 }
 #submitPostBtn:disabled {
@@ -1887,11 +1946,11 @@ select#profileGender, select#interestedDomain {
 /* Login prompt styling */
 .login-prompt {
     text-align: center;
-    color: var(--dark); /* Changed color */
-    font-weight: 500; /* Adjusted weight */
+    color: var(--dark);
+    font-weight: 500;
     padding: 40px;
-    background-color: #ebf8ff; /* Light blue background */
-    border: 1px solid var(--primary); /* Blue border */
+    background-color: #ebf8ff;
+    border: 1px solid var(--primary);
     border-radius: 8px;
     font-size: 1.1rem;
 }
@@ -1910,13 +1969,13 @@ select#profileGender, select#interestedDomain {
 
 
 /* =================================
-   Responsive Design (UPDATED SECTION)
+   Responsive Design
    ================================= */
 @media (max-width: 1024px) {
     /* Hide desktop-specific elements */
-    .search-container,
+    .search-container, /* Hide desktop search */
     .nav-menu,
-    .header-actions .btn { /* Hides original Login/Signup buttons */
+    .header-actions #authButtons { /* Hides original Login/Signup buttons in header actions */
         display: none;
     }
 
@@ -1932,7 +1991,7 @@ select#profileGender, select#interestedDomain {
         align-items: center;
         gap: 20px;
         position: absolute;
-        top: 80px; /* Adjust this based on your header's height */
+        top: 80px; /* Adjust based on header height */
         left: 0;
         width: 100%;
         background-color: var(--white);
@@ -1945,19 +2004,21 @@ select#profileGender, select#interestedDomain {
     /* Show and style the mobile login/signup buttons inside the menu */
     .nav-menu.active .nav-actions-mobile {
         display: flex;
-        flex-direction: column; /* Stack buttons vertically */
+        flex-direction: column;
         gap: 16px;
         width: 100%;
         max-width: 300px;
         margin-top: 20px;
         padding-top: 24px;
-        border-top: 1px solid #e2e8f0; /* Adds a separator line */
+        border-top: 1px solid #e2e8f0;
     }
 
+     /* Ensure mobile buttons are visible inside active menu */
     .nav-menu.active .nav-actions-mobile .btn {
+        display: inline-flex; /* Use flex to make them visible */
         width: 100%;
         text-align: center;
-        padding: 16px; /* Larger buttons for mobile */
+        padding: 16px;
     }
 
     /* Other responsive adjustments */
@@ -1972,15 +2033,26 @@ select#profileGender, select#interestedDomain {
         grid-template-columns: 1fr 1fr;
     }
      /* Search dropdown positioning adjustment */
-    .header-container .search-results-container {
-        width: calc(100% - 64px); /* Adjust width considering container padding */
-        left: 32px; /* Align with container padding */
+     .search-results-container {
+         /* Need to adjust positioning based on potential header changes */
+        width: calc(100% - 64px); /* Adjust based on container padding */
+        left: 32px; /* Adjust based on container padding */
+         /* Ensure it's correctly positioned if header structure changes */
+         /* You might need JS to calculate position dynamically */
     }
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 24px; /* Adjust container padding */
+    }
     .header-container {
         padding: 16px 0;
+        /* Might need flex-wrap if items don't fit */
+    }
+    .logo {
+        /* Ensure logo doesn't take up too much space */
+        flex-shrink: 0;
     }
     .logo-img {
         height: 40px;
@@ -1988,6 +2060,15 @@ select#profileGender, select#interestedDomain {
     .logo-text {
         font-size: 1.8rem;
     }
+    .header-actions {
+        /* Hide user profile potentially or simplify */
+         gap: 16px; /* Reduce gap */
+    }
+    /* Ensure hamburger is always visible */
+    .hamburger-menu {
+        display: flex;
+    }
+
     .hero-heading {
         font-size: 36px;
     }
@@ -2029,10 +2110,10 @@ select#profileGender, select#interestedDomain {
         flex-direction: column;
     }
     .blog-card-image {
-        flex-basis: 200px; /* Fixed height for image on mobile */
+        flex-basis: 200px;
     }
     .blog-post-container {
-        padding: 25px; /* Reduce padding on mobile */
+        padding: 25px;
     }
     .blog-post-title {
         font-size: 2rem;
@@ -2040,9 +2121,10 @@ select#profileGender, select#interestedDomain {
     .blog-post-content h2 { font-size: 1.6rem; }
     .blog-post-content h3 { font-size: 1.3rem; }
     /* Ensure search dropdown doesn't overflow */
-     .header-container .search-results-container {
+     .search-results-container {
         width: calc(100% - 48px); /* Adjust width */
         left: 24px; /* Adjust position */
+        top: calc(100% + 4px); /* Smaller gap */
     }
      .create-post-container {
          padding: 25px;
