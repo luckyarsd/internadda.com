@@ -218,7 +218,7 @@ header {
 
 /* Search Container */
 .search-container {
-    position: relative;
+    position: relative; /* Crucial for positioning the dropdown */
 }
 
 
@@ -369,7 +369,8 @@ header {
    NAVIGATION DROPDOWN STYLES
    ============================ */
 .nav-item.dropdown { position: relative; }
-.nav-link.dropdown-toggle { display: flex; align-items: center; gap: 6px; }
+.nav-link.dropdown-toggle { display: flex; align-items: center; gap: 6px; cursor: default; /* Make it not act like a direct link */}
+.nav-link.dropdown-toggle::after { display: none; /* Hide underline for dropdown toggle */}
 .dropdown-arrow { font-size: 0.7em; transition: transform 0.3s ease; }
 .dropdown-content { display: none; position: absolute; top: calc(100% + 10px); left: 0; background-color: var(--white); min-width: 180px; box-shadow: 0 8px 16px rgba(0,0,0,0.15); border-radius: 8px; z-index: 100; padding: 10px 0; animation: fadeIn 0.3s ease-out; }
 .dropdown-link { display: block; padding: 12px 20px; color: var(--dark); text-decoration: none; font-size: 15px; font-weight: 500; transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; white-space: nowrap; }
@@ -377,11 +378,7 @@ header {
 .nav-item.dropdown:hover .dropdown-content { display: block; }
 .nav-item.dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 .nav-link.mobile-only-link { display: none; width: 100%; text-align: center; padding: 12px 0; }
-.nav-menu.active .nav-item.dropdown { display: none; }
-.nav-menu.active .nav-link.mobile-only-link { display: block; }
-.nav-menu.active .nav-actions-mobile { border-top: none; padding-top: 0; margin-top: 10px; }
-.nav-menu.active .mobile-only-link { border-top: 1px solid #eee; }
-.nav-menu.active .mobile-only-link:first-of-type { margin-top: 15px; }
+/* Hide mobile auth buttons on desktop initially */
 .nav-actions-mobile { display: none; }
 /* ============================
    END NAVIGATION DROPDOWN STYLES
@@ -492,7 +489,7 @@ header {
 
 /* Footer */
 footer { background-color: var(--dark); color: var(--white); padding: 100px 0 48px; }
-.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; /* Reduced gap slightly */ margin-bottom: 56px; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 56px; }
 .footer-brand { grid-column: span 1; }
 .footer-logo { font-size: 30px; font-weight: 700; margin-bottom: 24px; color: var(--white); }
 .footer-description { color: #e2e8f0; margin-bottom: 36px; font-size: 0.95rem; line-height: 1.6;}
@@ -503,7 +500,7 @@ footer { background-color: var(--dark); color: var(--white); padding: 100px 0 48
 .footer-links-title { font-size: 19px; font-weight: 600; margin-bottom: 28px; }
 .footer-links { list-style: none; padding: 0;}
 .footer-links li { margin-bottom: 18px; }
-.footer-links a { color: #e2e8f0; text-decoration: none; transition: var(--transition); display: inline-block; /* For transform */}
+.footer-links a { color: #e2e8f0; text-decoration: none; transition: var(--transition); display: inline-block; }
 .footer-links a:hover { color: var(--white); transform: translateX(6px); }
 .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 48px; text-align: center; color: #e2e8f0; font-size: 15px; }
 
@@ -649,19 +646,29 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .search-container, .nav-menu .nav-link, .nav-menu .nav-item.dropdown, .header-actions #authButtons { display: none; }
+    /* Hide desktop nav elements, show hamburger */
+    .nav-menu .nav-link, .nav-menu .nav-item.dropdown, .search-container, .header-actions #authButtons { display: none; }
     .hamburger-menu { display: flex; }
-    .nav-menu.active { display: flex; flex-direction: column; align-items: center; gap: 20px; position: absolute; top: 80px; left: 0; width: 100%; background-color: var(--white); padding: 32px; box-shadow: var(--shadow); animation: slideDown 0.4s ease-out; z-index: 99; }
-    .nav-menu.active .nav-link { display: block; width: 100%; text-align: center; padding: 12px 0; }
-    .nav-menu.active .nav-link.mobile-only-link { display: block; }
-    .nav-menu.active .nav-actions-mobile { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 300px; margin-top: 10px; padding-top: 0; border-top: none;}
-    .nav-menu.active .nav-actions-mobile .btn { display: inline-flex; width: 100%; text-align: center; padding: 16px; }
-    .nav-menu.active .mobile-only-link { border-top: 1px solid #eee; }
-    .nav-menu.active .mobile-only-link:first-of-type { margin-top: 15px; }
-    .hero-container, .internship-container { flex-direction: column; text-align: center; }
-    .value-cards { grid-template-columns: 1fr 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .search-results-container { width: calc(100% - 64px); left: 32px; }
+
+    /* Style the opened mobile navigation menu */
+    .nav-menu.active { display: flex; flex-direction: column; align-items: center; gap: 15px; /* Reduced gap */ position: absolute; top: 100%; /* Position below header */ left: 0; width: 100%; background-color: var(--white); padding: 24px; box-shadow: var(--shadow); animation: slideDown 0.4s ease-out; z-index: 99; }
+    /* Show mobile links inside active menu */
+    .nav-menu.active .nav-link { display: block; width: 100%; text-align: center; padding: 10px 0; /* Reduced padding */ font-size: 17px; /* Slightly larger */}
+     /* Show mobile-only community links */
+    .nav-menu.active .nav-link.mobile-only-link { display: block; border-top: 1px solid #eee; }
+    .nav-menu.active .nav-link.mobile-only-link:first-of-type { margin-top: 15px; }
+
+    /* Mobile Auth buttons inside active menu */
+    .nav-menu.active .nav-actions-mobile { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 300px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
+    .nav-menu.active .nav-actions-mobile .btn { display: inline-flex; width: 100%; text-align: center; padding: 14px; /* Adjusted padding */ }
+
+
+    /* Other responsive adjustments */
+    .hero-container, .internship-container { flex-direction: column; text-align: center; gap: 30px;}
+    .hero-heading { font-size: 44px; }
+    .value-cards { grid-template-columns: 1fr 1fr; gap: 24px;}
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px;}
+    .search-results-container { width: calc(100% - 64px); left: 32px; /* Adjust based on container padding */ }
 }
 
 @media (max-width: 768px) {
@@ -677,7 +684,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .hero-cta, .cta-buttons { flex-direction: column; }
     .value-cards, .courses-grid, .testimonials-grid, .footer-grid, .team-grid, .partners-grid { grid-template-columns: 1fr; }
     .modal-content { width: 100%; }
-    .auth-section { padding: 28px; }
+    .auth-section { padding: 32px 24px; /* Adjust padding */}
     .form-group-note { flex-direction: column; }
     .btn-note { width: 100%; }
     .data-item { flex-direction: column; align-items: stretch; }
@@ -689,8 +696,13 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .blog-post-title { font-size: 2rem; }
     .blog-post-content h2 { font-size: 1.6rem; }
     .blog-post-content h3 { font-size: 1.3rem; }
+    .search-input { width: 200px; /* Further reduce size */ padding: 12px 15px 12px 40px;} /* Adjust padding */
+    .search-icon { left: 15px; }
     .search-results-container { width: calc(100% - 48px); left: 24px; top: calc(100% + 4px); }
     .create-post-container { padding: 25px; }
-    .search-input { width: 250px; }
-    .footer-grid { grid-template-columns: 1fr; /* Stack footer columns */ }
+    .footer-grid { grid-template-columns: 1fr; /* Stack footer columns */ gap: 40px;}
+    .footer-brand { grid-column: span 1; text-align: center; } /* Center brand */
+    .social-links { justify-content: center; }
+    .footer-links-column { text-align: center;} /* Center footer links */
+    .nav-menu { gap: 20px; } /* Reduce gap in desktop nav slightly if needed */
 }
