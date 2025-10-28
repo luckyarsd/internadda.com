@@ -57,9 +57,8 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 24px 0;
-    position: relative;
+    position: relative; /* Added for search dropdown positioning */
 }
-
 
 /* Logo Styling */
 .logo {
@@ -101,7 +100,7 @@ header {
 .nav-menu {
     display: flex;
     gap: 36px;
-    align-items: center;
+    align-items: center; /* Vertically align items */
 }
 
 .nav-link {
@@ -111,7 +110,7 @@ header {
     font-size: 16px;
     position: relative;
     transition: var(--transition);
-    padding: 10px 0;
+    padding: 10px 0; /* Added padding for hover area */
 }
 
 .nav-link::after {
@@ -119,13 +118,13 @@ header {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -6px;
+    bottom: -6px; /* Position underline below text */
     left: 0;
     background: var(--gradient);
     transition: width 0.4s ease;
 }
 
-.nav-link:not(.dropdown-toggle):hover::after {
+.nav-link:not(.dropdown-toggle):hover::after { /* Don't underline dropdown toggle */
     width: 100%;
 }
 
@@ -218,9 +217,8 @@ header {
 
 /* Search Container */
 .search-container {
-    position: relative; /* Crucial for positioning the dropdown */
+    position: relative;
 }
-
 
 .search-input {
     padding: 14px 18px 14px 48px;
@@ -252,14 +250,14 @@ header {
     transform: translateY(-50%) scale(1.1);
 }
 
-/* Search results container */
+/* Search results container (Updated Positioning) */
 .search-results-container {
     padding: 10px;
     background-color: var(--white);
     border-radius: 14px;
     box-shadow: var(--shadow);
     position: absolute;
-    width: 100%; /* Make dropdown match container width */
+    width: 100%; /* Match parent search-container width */
     z-index: 101;
     max-height: 400px;
     overflow-y: auto;
@@ -267,13 +265,14 @@ header {
     left: 0;
 }
 
+
 /* Search result item base style */
 .search-result-item {
     margin-bottom: 8px;
     border-radius: 8px;
     background-color: transparent;
     transition: background-color 0.2s ease;
-    padding: 0;
+    padding: 0; /* Reset padding */
 }
 .search-result-item:last-child {
     margin-bottom: 0;
@@ -289,7 +288,7 @@ header {
     gap: 15px;
     text-decoration: none;
     color: inherit;
-    padding: 10px 15px;
+    padding: 10px 15px; /* Add padding here */
 }
 
 /* Internship result item (<div> tag) */
@@ -299,12 +298,14 @@ header {
     align-items: stretch;
     gap: 10px;
 }
+/* Inner padding for internship top section */
 .search-result-item.internship-result > div:first-child {
     padding: 10px 15px;
     display: flex;
     align-items: center;
     gap: 15px;
 }
+/* Image styles */
 .search-result-item img {
     width: 60px;
     height: 40px;
@@ -312,6 +313,7 @@ header {
     border-radius: 4px;
     flex-shrink: 0;
 }
+/* Text container styles */
 .search-result-item div { flex-grow: 1; }
 .search-result-item h4 { margin: 0; font-size: 1em; font-weight: 600; color: var(--dark); }
 .search-result-item p { margin: 2px 0 0; font-size: 0.9em; color: var(--gray); }
@@ -324,6 +326,7 @@ header {
     border-top: 1px solid #eee;
     margin-top: 5px;
 }
+/* Styles for action links within dropdown */
 .search-action-link.btn {
     padding: 6px 12px !important;
     font-size: 0.85em !important;
@@ -377,8 +380,8 @@ header {
 .dropdown-link:hover { background-color: var(--light); color: var(--primary); transform: translateX(5px); }
 .nav-item.dropdown:hover .dropdown-content { display: block; }
 .nav-item.dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-.nav-link.mobile-only-link { display: none; width: 100%; text-align: center; padding: 12px 0; }
-/* Hide mobile auth buttons on desktop initially */
+/* Hide mobile specific links/buttons on desktop */
+.nav-link.mobile-only-link,
 .nav-actions-mobile { display: none; }
 /* ============================
    END NAVIGATION DROPDOWN STYLES
@@ -647,21 +650,63 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 /* Responsive Design */
 @media (max-width: 1024px) {
     /* Hide desktop nav elements, show hamburger */
-    .nav-menu .nav-link, .nav-menu .nav-item.dropdown, .search-container, .header-actions #authButtons { display: none; }
-    .hamburger-menu { display: flex; }
+    .nav-menu .nav-link:not(.mobile-only-link), /* Hide direct links */
+    .nav-menu .nav-item.dropdown, /* Hide desktop dropdown */
+    .search-container,
+    .header-actions #authButtons { /* Hide desktop auth buttons */
+        display: none;
+    }
+    .hamburger-menu { display: flex; } /* Show hamburger */
 
     /* Style the opened mobile navigation menu */
-    .nav-menu.active { display: flex; flex-direction: column; align-items: center; gap: 15px; /* Reduced gap */ position: absolute; top: 100%; /* Position below header */ left: 0; width: 100%; background-color: var(--white); padding: 24px; box-shadow: var(--shadow); animation: slideDown 0.4s ease-out; z-index: 99; }
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center items */
+        gap: 0; /* Remove gap, use padding/borders */
+        position: absolute;
+        top: 100%; /* Position below header */
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        padding: 16px 0; /* Vertical padding only */
+        box-shadow: var(--shadow);
+        animation: slideDown 0.4s ease-out;
+        z-index: 99;
+    }
     /* Show mobile links inside active menu */
-    .nav-menu.active .nav-link { display: block; width: 100%; text-align: center; padding: 10px 0; /* Reduced padding */ font-size: 17px; /* Slightly larger */}
+    .nav-menu.active .nav-link {
+        display: block; /* Make sure they are block */
+        width: 100%;
+        text-align: center;
+        padding: 14px 20px; /* Consistent padding */
+        font-size: 17px;
+        border-top: 1px solid #eee; /* Separator */
+        margin: 0; /* Remove any margin */
+    }
+    .nav-menu.active .nav-link:first-child {
+        border-top: none; /* No border for the first link */
+    }
      /* Show mobile-only community links */
-    .nav-menu.active .nav-link.mobile-only-link { display: block; border-top: 1px solid #eee; }
-    .nav-menu.active .nav-link.mobile-only-link:first-of-type { margin-top: 15px; }
+    .nav-menu.active .nav-link.mobile-only-link { display: block; }
 
     /* Mobile Auth buttons inside active menu */
-    .nav-menu.active .nav-actions-mobile { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 300px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
-    .nav-menu.active .nav-actions-mobile .btn { display: inline-flex; width: 100%; text-align: center; padding: 14px; /* Adjusted padding */ }
-
+    .nav-menu.active .nav-actions-mobile {
+        display: flex; /* Make visible */
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        max-width: 300px; /* Limit width */
+        margin: 16px auto 0; /* Add margin top */
+        padding: 16px 20px 0; /* Padding top */
+        border-top: 1px solid #eee; /* Separator */
+    }
+    .nav-menu.active .nav-actions-mobile .btn {
+        display: inline-flex;
+        width: 100%;
+        text-align: center;
+        padding: 14px;
+    }
 
     /* Other responsive adjustments */
     .hero-container, .internship-container { flex-direction: column; text-align: center; gap: 30px;}
@@ -684,7 +729,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .hero-cta, .cta-buttons { flex-direction: column; }
     .value-cards, .courses-grid, .testimonials-grid, .footer-grid, .team-grid, .partners-grid { grid-template-columns: 1fr; }
     .modal-content { width: 100%; }
-    .auth-section { padding: 32px 24px; /* Adjust padding */}
+    .auth-section { padding: 32px 24px; }
     .form-group-note { flex-direction: column; }
     .btn-note { width: 100%; }
     .data-item { flex-direction: column; align-items: stretch; }
@@ -696,13 +741,12 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .blog-post-title { font-size: 2rem; }
     .blog-post-content h2 { font-size: 1.6rem; }
     .blog-post-content h3 { font-size: 1.3rem; }
-    .search-input { width: 200px; /* Further reduce size */ padding: 12px 15px 12px 40px;} /* Adjust padding */
+    .search-input { width: 200px; padding: 12px 15px 12px 40px;}
     .search-icon { left: 15px; }
     .search-results-container { width: calc(100% - 48px); left: 24px; top: calc(100% + 4px); }
     .create-post-container { padding: 25px; }
-    .footer-grid { grid-template-columns: 1fr; /* Stack footer columns */ gap: 40px;}
-    .footer-brand { grid-column: span 1; text-align: center; } /* Center brand */
+    .footer-grid { grid-template-columns: 1fr; gap: 40px;}
+    .footer-brand { grid-column: span 1; text-align: center; }
     .social-links { justify-content: center; }
-    .footer-links-column { text-align: center;} /* Center footer links */
-    .nav-menu { gap: 20px; } /* Reduce gap in desktop nav slightly if needed */
+    .footer-links-column { text-align: center;}
 }
