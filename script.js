@@ -74,11 +74,11 @@ const profileName = document.getElementById('profileName');
 const profileGender = document.getElementById('profileGender');
 const interestedDomain = document.getElementById('interestedDomain');
 const saveProfileBtn = document.getElementById('saveProfileBtn');
-const profileTabContent = document.getElementById('profileTabContent'); // Reference if needed
-const notesTabContent = document.getElementById('notesTabContent');     // Reference if needed
-const settingsTabContent = document.getElementById('settingsTabContent'); // Reference if needed
+const profileTabContent = document.getElementById('profileTabContent');
+const notesTabContent = document.getElementById('notesTabContent');
+const settingsTabContent = document.getElementById('settingsTabContent');
 const tabButtons = document.querySelectorAll('.tab-btn');
-const profileAvatarDisplay = document.getElementById('profileAvatarDisplay'); // Reference if needed
+const profileAvatarDisplay = document.getElementById('profileAvatarDisplay');
 const editProfileBtn = document.getElementById('editProfileBtn');
 const profileDisplaySection = document.getElementById('profileDisplaySection');
 const profileEditSection = document.getElementById('profileEditSection');
@@ -91,12 +91,11 @@ const signupLoading = document.getElementById('signupLoading');
 const loginError = document.getElementById('loginError');
 const signupError = document.getElementById('signupError');
 
-// Hardcoded data to simulate Google Sheet (Keep for reference or remove if unused)
+// Hardcoded data to simulate Google Sheet
 const verifiedInterns = [
     { name: "Pranjal Singh", email: "pranjal@example.com", testPassed: true },
     { name: "Anuj Singh", email: "anuj@example.com", testPassed: true },
     { name: "Sumit Pandey", email: "sumit@example.com", testPassed: true },
-    // Add more verified interns here
 ];
 
 // Helper function to create a URL-friendly slug
@@ -119,23 +118,23 @@ const popularCourses = [
     { title: 'Cybersecurity Fundamentals', instructor: 'Created by AI', image: '/images/Ethical-Hacking-Mastery.png', url: "/courses/courses/Ethical-Hacking-Mastery.html" },
 ];
 
-const coursesGrid = document.getElementById('coursesGrid'); // Assuming this exists on course.html
+const coursesGrid = document.getElementById('coursesGrid'); // Reference for course listing page
 
 
-// --- Internship Data (Used only for internship page search logic) ---
+// --- Internship Data (Used for internship page search) ---
 const allInternships = [
-    { title: 'Data Science & Analytics', roles: 'Data Analyst, Data Scientist Intern', skills: 'Python, SQL, Tableau', image: '/images/test_data Science.png' },
-    { title: 'Artificial Intelligence & Machine Learning', roles: 'AI Intern, ML Intern', skills: 'Python, TensorFlow, ML Algorithms', image: '/images/test_Artificial Intelligence.png' },
-    { title: 'Python Development & Software Engineering', roles: 'Python Developer Intern, Backend Developer Intern', skills: 'Python, Flask/Django, SQL', image: '/images/test_Python Development.png' },
-    { title: 'Cloud Computing & DevOps', roles: 'Cloud Engineer Intern, DevOps Intern', skills: 'AWS, Docker, CI/CD', image: '/images/test_Cloud Computing.png' },
-    { title: 'Cybersecurity & Ethical Hacking', roles: 'Security Analyst Intern, Ethical Hacking Intern', skills: 'Networking, Linux, Penetration Testing', image: '/images/test_Cybersecurity & Ethical Hacking.png' },
-    { title: 'Web & Mobile Development', roles: 'Frontend/Full-Stack Developer Intern', skills: 'HTML/CSS/JS, React, Flutter', image: '/images/test_Web & Mobile Development.png' },
-    { title: 'Blockchain & Web3', roles: 'Blockchain Developer Intern, Smart Contract Developer', skills: 'Solidity, Ethereum', image: '/images/test_Blockchain & Web3.png' },
-    { title: 'UI/UX & Product Design', roles: 'UI/UX Intern, Product Design Intern', skills: 'Figma, Wireframing', image: '/images/test_UIUX Design & Product Design.png' },
-    { title: 'Content Creation & Video Editing', roles: 'Content Creator Intern, Video Editing Intern', skills: 'Canva, CapCut, Adobe Premiere Pro, Scriptwriting', image: '/images/test_Content Creation & Video Editing.png' },
-    { title: 'Prompt Engineering Internship', roles: 'AI Prompt Engineer Intern, ChatGPT Specialist Intern', skills: 'ChatGPT, Midjourney, Generative AI, Prompt Design', image: '/images/test_Prompt Engineering.png' },
-    { title: 'Game Development Internship', roles: 'Game Developer Intern, Unity Developer Intern', skills: 'Unity, C#, Unreal Engine, Game Design', image: '/images/test_Game Development.png' },
-    { title: 'Digital Marketing & Growth Hacking', roles: 'Digital Marketing Intern, SEO/SEM Intern', skills: 'SEO, Content Marketing', image: '/images/test_Digital Marketing & Growth Hacking.png' }
+    { title: 'Data Science & Analytics', roles: 'Data Analyst, Data Scientist Intern', skills: 'Python, SQL, Tableau', image: '/images/test_data Science.png', url: '/intern/data_science_practice_test.html' },
+    { title: 'Artificial Intelligence & Machine Learning', roles: 'AI Intern, ML Intern', skills: 'Python, TensorFlow, ML Algorithms', image: '/images/test_Artificial Intelligence.png', url: '/intern/ai_ml_practice_test.html' },
+    { title: 'Python Development & Software Engineering', roles: 'Python Developer Intern, Backend Developer Intern', skills: 'Python, Flask/Django, SQL', image: '/images/test_Python Development.png', url: '/intern/python_dev_practice_test.html' },
+    { title: 'Cloud Computing & DevOps', roles: 'Cloud Engineer Intern, DevOps Intern', skills: 'AWS, Docker, CI/CD', image: '/images/test_Cloud Computing.png', url: '/intern/cloud_devops_practice_test.html' },
+    { title: 'Cybersecurity & Ethical Hacking', roles: 'Security Analyst Intern, Ethical Hacking Intern', skills: 'Networking, Linux, Penetration Testing', image: '/images/test_Cybersecurity & Ethical Hacking.png', url: '/intern/cybersecurity_practice_test.html' },
+    { title: 'Web & Mobile Development', roles: 'Frontend/Full-Stack Developer Intern', skills: 'HTML/CSS/JS, React, Flutter', image: '/images/test_Web & Mobile Development.png', url: '/intern/web_mobile_practice_test.html' },
+    { title: 'Blockchain & Web3', roles: 'Blockchain Developer Intern, Smart Contract Developer', skills: 'Solidity, Ethereum', image: '/images/test_Blockchain & Web3.png', url: '/intern/blockchain_practice_test.html' },
+    { title: 'UI/UX & Product Design', roles: 'UI/UX Intern, Product Design Intern', skills: 'Figma, Wireframing', image: '/images/test_UIUX Design & Product Design.png', url: '/intern/uiux_practice_test.html' },
+    { title: 'Content Creation & Video Editing', roles: 'Content Creator Intern, Video Editing Intern', skills: 'Canva, CapCut, Adobe Premiere Pro, Scriptwriting', image: '/images/test_Content Creation & Video Editing.png', url: '/intern/content_creation_practice_test.html' },
+    { title: 'Prompt Engineering Internship', roles: 'AI Prompt Engineer Intern, ChatGPT Specialist Intern', skills: 'ChatGPT, Midjourney, Generative AI, Prompt Design', image: '/images/test_Prompt Engineering.png', url: '/intern/prompt_engineering_practice_test.html' },
+    { title: 'Game Development Internship', roles: 'Game Developer Intern, Unity Developer Intern', skills: 'Unity, C#, Unreal Engine, Game Design', image: '/images/test_Game Development.png', url: '/intern/game_dev_practice_test.html' },
+    { title: 'Digital Marketing & Growth Hacking', roles: 'Digital Marketing Intern, SEO/SEM Intern', skills: 'SEO, Content Marketing', image: '/images/test_Digital Marketing & Growth Hacking.png', url: '/intern/digital_marketing_practice_test.html' }
 ];
 
 // Function to render courses (Used on course.html potentially)
@@ -144,7 +143,7 @@ function renderCourses(courses) {
     coursesGrid.innerHTML = ''; // Clear existing
     courses.forEach(course => {
         const card = document.createElement('a');
-        card.href = course.url; // Use the absolute URL
+        card.href = course.url;
         card.className = 'course-card';
         card.style.textDecoration = 'none';
         card.style.color = 'inherit';
@@ -179,8 +178,8 @@ function generateStarRating(rating) {
 
 // Function to get the correct avatar
 function getAvatarUrl(progress, userUploadedImage) {
-     const defaultAvatar = '/images/no_image.png'; // Absolute path for default
-     return userUploadedImage || defaultAvatar; // Use uploaded if available, else default
+     const defaultAvatar = '/images/no_image.png';
+     return userUploadedImage || defaultAvatar;
 }
 
 // Function to handle image preview from file input
@@ -220,8 +219,8 @@ function showLoading(element, show) {
     element.style.display = show ? 'block' : 'none';
 }
 
-// --- COURSE Search Results Display (for non-internship pages) ---
-function showCourseSearchResults(results) {
+// UNIFIED Search Results Display Function
+function showSearchResultsDropdown(results, resultType = 'course') {
     const resultsContainer = document.getElementById('searchResults');
     if (!resultsContainer) return;
     resultsContainer.innerHTML = ''; // Clear previous results
@@ -238,19 +237,34 @@ function showCourseSearchResults(results) {
             resultItem.style.textDecoration = 'none';
             resultItem.style.color = 'inherit';
 
+            let detailsText = '';
+            if (resultType === 'internship') {
+                detailsText = `${result.roles || ''}`; // Simplified details for internship search results
+            } else { // Course
+                detailsText = result.instructor || '';
+            }
+
             resultItem.innerHTML = `
                 <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
                 <div style="flex-grow: 1;">
                     <h4 style="margin: 0; font-size: 1em;">${result.title}</h4>
-                    <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${result.instructor}</p>
+                    <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${detailsText}</p>
                 </div>
             `;
             resultsContainer.appendChild(resultItem);
         });
     } else {
         resultsContainer.classList.remove('hidden');
-        resultsContainer.innerHTML = '<p style="padding: 15px; text-align: center; color: var(--gray);">No courses found.</p>';
+        resultsContainer.innerHTML = `<p style="padding: 15px; text-align: center; color: var(--gray);">No ${resultType === 'internship' ? 'internships' : 'courses'} found.</p>`;
     }
+}
+
+// Helper to escape HTML to prevent XSS
+function escapeHTML(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
 }
 
 
@@ -258,174 +272,301 @@ function showCourseSearchResults(results) {
 document.addEventListener('DOMContentLoaded', function() {
 
     const isOnInternshipPage = window.location.pathname.includes('/intern/internship.html');
+    const isOnCoursePage = window.location.pathname.includes('/courses/course.html');
+    const isOnBlogIndexPage = window.location.pathname.includes('/blog/index.html');
+    const isOnBlogPostPage = window.location.pathname.includes('/blog/post.html');
+    const isOnBlogCreatePage = window.location.pathname.includes('/blog/create.html');
 
-    // --- Modal Event Listeners (Same as before) ---
+    // --- Modal, Auth, Profile, Hamburger, Notes, Seats Popup, Slider (Keep all these the same as previous version) ---
+    // ... (Modal listeners) ...
     if (loginBtnHeader) loginBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(loginSection) showSection(loginSection); document.body.style.overflow = 'hidden'; });
     if (signupBtnHeader) signupBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(signupSection) showSection(signupSection); document.body.style.overflow = 'hidden'; });
     if (closeModalBtn) closeModalBtn.addEventListener('click', () => { if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; });
     if (authModal) window.addEventListener('click', (e) => { if (e.target === authModal) { authModal.classList.remove('active'); document.body.style.overflow = ''; } });
     if (showSignupLink) showSignupLink.addEventListener('click', (e) => { e.preventDefault(); if(signupSection) showSection(signupSection); });
     if (showLoginLink) showLoginLink.addEventListener('click', (e) => { e.preventDefault(); if(loginSection) showSection(loginSection); });
-
-    // --- Header User Profile Dropdown (Same as before) ---
+    // ... (Header Dropdown listeners) ...
     if (userProfile) userProfile.addEventListener('click', () => { if(userDropdown) userDropdown.classList.toggle('active'); });
     document.addEventListener('click', (e) => { if (userProfile && userDropdown && !userProfile.contains(e.target) && userDropdown.classList.contains('active')) userDropdown.classList.remove('active'); });
-
-    // --- Profile Button in Dropdown (Same as before) ---
+    // ... (Profile Button listener) ...
     if (profileBtnHeader) profileBtnHeader.addEventListener('click', () => { if(authModal) authModal.classList.add('active'); if(dashboardSection) showSection(dashboardSection); if(userDropdown) userDropdown.classList.remove('active'); document.body.style.overflow = 'hidden'; const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]'); if (profileTabBtn) profileTabBtn.click(); });
-
-    // --- Hamburger Menu (Same as before) ---
+    // ... (Hamburger Menu listener) ...
     if (hamburgerMenu && navMenu) hamburgerMenu.addEventListener('click', () => { hamburgerMenu.classList.toggle('active'); navMenu.classList.toggle('active'); });
-
-    // --- Authentication Logic (Same as before) ---
-    // Email Login
-    if (emailLoginBtn && loginEmail && loginPassword && loginError && loginLoading) { emailLoginBtn.addEventListener('click', async () => { /* ... */ }); loginPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') emailLoginBtn.click(); }); }
-    // Email Signup
-    if (emailSignupBtn && signupEmail && signupPassword && signupError && signupLoading) { emailSignupBtn.addEventListener('click', async () => { /* ... */ }); signupPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') emailSignupBtn.click(); }); }
-    // Google Login/Signup
+    // ... (Authentication listeners - Email, Google, Logout) ...
     async function signInWithGoogle() { try { await auth.signInWithPopup(googleProvider); if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; } catch (error) { if(loginError) showError(loginError, error.message); if(signupError) showError(signupError, error.message); } }
+    if (emailLoginBtn && loginEmail && loginPassword && loginError && loginLoading) { emailLoginBtn.addEventListener('click', async () => { /* ... */ }); loginPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') emailLoginBtn.click(); }); }
+    if (emailSignupBtn && signupEmail && signupPassword && signupError && signupLoading) { emailSignupBtn.addEventListener('click', async () => { /* ... */ }); signupPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') emailSignupBtn.click(); }); }
     if (googleLoginBtn) googleLoginBtn.addEventListener('click', signInWithGoogle);
     if (googleSignupBtn) googleSignupBtn.addEventListener('click', signInWithGoogle);
-    // Logout
     const handleLogout = async () => { try { await auth.signOut(); } catch (error) { console.error('Logout error:', error); } };
     if (logoutBtnHeader) logoutBtnHeader.addEventListener('click', handleLogout);
     if (logoutBtnModal) logoutBtnModal.addEventListener('click', handleLogout);
-
-    // --- Profile Management (Same as before, relies on updateProfileUI) ---
-    function updateProfileUI(profileData) { /* ... same as previous version ... */ }
-    if (tabButtons.length > 0) { /* ... same tab logic ... */ }
-    if (editProfileBtn && profileDisplaySection && profileEditSection) { /* ... same edit logic ... */ }
+    // ... (Profile Management listeners - Tabs, Edit, Save, Image Preview) ...
+    function updateProfileUI(profileData) {
+        const avatarUrl = profileData.photoUrl || '/images/no_image.png';
+        if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
+        if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
+        if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
+        if (userNameDashboard) userNameDashboard.textContent = profileData.name || 'User';
+        if (userEmailDashboard) userEmailDashboard.textContent = profileData.email;
+        const genderDisplay = document.getElementById('profileGenderDisplay');
+        const domainDisplay = document.getElementById('profileDomainDisplay');
+        if (genderDisplay) genderDisplay.textContent = profileData.gender || 'Not specified';
+        if (domainDisplay) domainDisplay.textContent = profileData.interestedDomain || 'Not specified';
+     }
+    if (tabButtons.length > 0) { tabButtons.forEach(button => { button.addEventListener('click', () => { /* ... */ }); }); const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]'); if (profileTabBtn) profileTabBtn.classList.add('active'); }
+    if (editProfileBtn && profileDisplaySection && profileEditSection) { editProfileBtn.addEventListener('click', () => { /* ... prefill logic ... */ }); }
     if(profileImageInput && userAvatarPreview) { profileImageInput.addEventListener('change', handleImagePreview); }
-    if (saveProfileBtn && profileName && profileGender && interestedDomain && profileImageInput) { saveProfileBtn.addEventListener('click', async () => { /* ... same save logic ... */ }); }
-
-    // --- Notes Section (Same as before) ---
-    if (saveDataBtn && dataInput) { /* ... same save note logic ... */ }
-    window.deleteData = async function(docId) { /* ... same delete note logic ... */ };
+    if (saveProfileBtn && profileName && profileGender && interestedDomain && profileImageInput) { saveProfileBtn.addEventListener('click', async () => { /* ... save logic ... */ }); }
+    // ... (Notes listeners - Save, Delete, Listener Setup) ...
+    if (saveDataBtn && dataInput) { /* ... save note logic ... */ }
+    window.deleteData = async function(docId) { /* ... delete note logic ... */ };
     let notesUnsubscribe = null;
-    function setupDataListener() { /* ... same note listener logic ... */ }
-    function escapeHTML(str) { /* ... same escape logic ... */ }
-
-    // --- Seats Popup (Same as before) ---
-    function showSeatsPopup(domain, seats) { /* ... same popup logic ... */ }
-
-    // --- Hero Slider (Same as before) ---
+    function setupDataListener() { /* ... note listener logic ... */ }
+    // ... (Seats Popup function) ...
+    function showSeatsPopup(domain, seats) { /* ... */ }
+    // ... (Slider listeners) ...
     const sliderWrapper = document.querySelector('.hero-image-slider .slider-wrapper');
-    if (sliderWrapper) { /* ... same slider logic ... */ }
+    if (sliderWrapper) { /* ... */ }
 
-
-    // --- *** NEW: Conditional Search Functionality *** ---
+    // --- UNIFIED Search Functionality ---
     if (searchInput) {
+        let searchDataSource = [];
+        let resultType = 'course';
+        let placeholderText = "Search for courses...";
+
         if (isOnInternshipPage) {
-            // --- Internship Page Search ---
-            searchInput.placeholder = "Search for internships..."; // Change placeholder
-            const internshipGrid = document.querySelector('#tests .courses-grid');
-            const internshipCards = internshipGrid ? internshipGrid.querySelectorAll('.course-card') : [];
-            const searchResultsContainer = document.getElementById('searchResults'); // Get the course results container
-
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.trim().toLowerCase();
-                let resultsFound = false;
-
-                 // Hide the course results dropdown when searching on internship page
-                 if (searchResultsContainer) {
-                    searchResultsContainer.classList.add('hidden');
-                 }
-
-                internshipCards.forEach(card => {
-                    const titleElement = card.querySelector('.course-title');
-                    const instructorElement = card.querySelector('.course-instructor'); // Contains roles/skills
-
-                    const title = titleElement ? titleElement.textContent.toLowerCase() : '';
-                    const details = instructorElement ? instructorElement.textContent.toLowerCase() : ''; // Roles and skills text
-
-                    // Check if query matches title, roles, or skills
-                    const isMatch = title.includes(query) || details.includes(query);
-
-                    if (isMatch) {
-                        card.style.display = 'block'; // Or 'flex', 'grid' depending on original style
-                        resultsFound = true;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // Optional: Show a "no results" message within the grid area if needed
-                // You might need a dedicated element for this message inside the #tests section.
-            });
-
+            searchDataSource = allInternships;
+            resultType = 'internship';
+            placeholderText = "Search for internships...";
         } else {
-            // --- Course Page Search (Original Logic) ---
-            searchInput.placeholder = "Search for courses..."; // Default placeholder
+            const combinedCourses = [...allCourses, ...popularCourses];
+            searchDataSource = Array.from(new Map(combinedCourses.map(course => [course.url || course.title, course])).values());
+            resultType = 'course';
+            placeholderText = "Search for courses...";
+        }
 
-            function filterCourses(query) {
-                 const lowerCaseQuery = query.toLowerCase();
-                 const allAvailableCourses = [...allCourses, ...popularCourses];
-                 const uniqueCourses = Array.from(new Map(allAvailableCourses.map(course => [course.url || course.title, course])).values()); // Use URL or title as key
-                 return uniqueCourses.filter(course =>
-                     (course.title && course.title.toLowerCase().includes(lowerCaseQuery)) ||
-                     (course.instructor && course.instructor.toLowerCase().includes(lowerCaseQuery))
-                 );
-            }
+        searchInput.placeholder = placeholderText;
 
-            searchInput.addEventListener('input', () => {
-                 const query = searchInput.value.trim();
-                 const resultsContainer = document.getElementById('searchResults');
-                 if (query.length > 1) {
-                     const filteredResults = filterCourses(query);
-                     showCourseSearchResults(filteredResults); // Use the course-specific display function
-                 } else {
-                     if (resultsContainer) resultsContainer.classList.add('hidden');
-                 }
+        function filterItems(query, items, type) {
+            const lowerCaseQuery = query.toLowerCase();
+            return items.filter(item => {
+                const titleMatch = item.title && item.title.toLowerCase().includes(lowerCaseQuery);
+                let detailsMatch = false;
+                if (type === 'internship') {
+                    const rolesMatch = item.roles && item.roles.toLowerCase().includes(lowerCaseQuery);
+                    const skillsMatch = item.skills && item.skills.toLowerCase().includes(lowerCaseQuery);
+                    detailsMatch = rolesMatch || skillsMatch;
+                } else { // Course
+                    detailsMatch = item.instructor && item.instructor.toLowerCase().includes(lowerCaseQuery);
+                }
+                return titleMatch || detailsMatch;
             });
         }
+
+        searchInput.addEventListener('input', () => {
+             const query = searchInput.value.trim();
+             const resultsContainer = document.getElementById('searchResults');
+             if (query.length > 1) {
+                 const filteredResults = filterItems(query, searchDataSource, resultType);
+                 showSearchResultsDropdown(filteredResults, resultType);
+             } else {
+                 if (resultsContainer) resultsContainer.classList.add('hidden');
+             }
+        });
     }
 
-    // --- Click Outside Search to Close (Applies to both types of search results/filtering) ---
+    // --- Click Outside Search to Close ---
     document.addEventListener('click', (e) => {
         const searchContainer = document.querySelector('.search-container');
-        const searchResultsContainer = document.getElementById('searchResults'); // Course dropdown
-
+        const searchResultsContainer = document.getElementById('searchResults');
         let clickedInsideSearch = searchContainer && searchContainer.contains(e.target);
-        let clickedInsideCourseResults = searchResultsContainer && searchResultsContainer.contains(e.target);
+        let clickedInsideResults = searchResultsContainer && searchResultsContainer.contains(e.target);
 
-        if (!clickedInsideSearch && !clickedInsideCourseResults) {
-            if (searchInput) searchInput.value = ''; // Clear input
-
-            // Hide course dropdown if it exists and is visible
+        if (!clickedInsideSearch && !clickedInsideResults) {
+            if (searchInput) searchInput.value = '';
             if (searchResultsContainer) searchResultsContainer.classList.add('hidden');
-
-            // If on internship page, reset filtering (show all cards)
-            if (isOnInternshipPage) {
-                const internshipGrid = document.querySelector('#tests .courses-grid');
-                const internshipCards = internshipGrid ? internshipGrid.querySelectorAll('.course-card') : [];
-                internshipCards.forEach(card => {
-                    card.style.display = 'block'; // Or original display type
-                });
-            }
         }
     });
 
-    // --- General Styling / Initial Load Effects (Same as before) ---
+    // --- General Styling / Initial Load Effects ---
     const header = document.querySelector('header');
     if(header) { window.addEventListener('scroll', function() { /* ... */ }); }
 
-    // --- RENDER COURSES (If on course listing page - not internship page) ---
-    if (!isOnInternshipPage && coursesGrid && typeof allCourses !== 'undefined' && allCourses.length > 0) {
+    // --- RENDER COURSES (If on course listing page) ---
+    if (isOnCoursePage && coursesGrid && typeof allCourses !== 'undefined' && allCourses.length > 0) {
         renderCourses(allCourses);
     }
 
-    // --- Mobile Button Fixes (Added previously) ---
+    // --- Mobile Button Fixes ---
     const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
     const signupBtnMobile = document.getElementById('signupBtnHeaderMobile');
     const closeHamburgerMenu = () => { if (navMenu && hamburgerMenu) { navMenu.classList.remove('active'); hamburgerMenu.classList.remove('active'); } };
     if (loginBtnMobile) { loginBtnMobile.addEventListener('click', (e) => { e.preventDefault(); if (authModal && loginSection && signupSection) { authModal.classList.add('active'); document.body.style.overflow = 'hidden'; signupSection.classList.remove('active'); loginSection.classList.add('active'); closeHamburgerMenu(); } }); }
     if (signupBtnMobile) { signupBtnMobile.addEventListener('click', (e) => { e.preventDefault(); if (authModal && loginSection && signupSection) { authModal.classList.add('active'); document.body.style.overflow = 'hidden'; loginSection.classList.remove('active'); signupSection.classList.add('active'); closeHamburgerMenu(); } }); }
 
+    // ====== BLOG FUNCTIONS ======
+
+    // --- BLOG LISTING PAGE LOGIC ---
+    const blogPostList = document.getElementById('blogPostList');
+    const loadingPosts = document.getElementById('loadingPosts');
+    const createPostBtn = document.getElementById('createPostBtn');
+
+    if (isOnBlogIndexPage && blogPostList && loadingPosts) {
+        db.collection('blogPosts')
+          .where('approved', '==', true)
+          .orderBy('createdAt', 'desc')
+          .limit(20)
+          .get()
+          .then(snapshot => {
+              loadingPosts.style.display = 'none';
+              if (snapshot.empty) {
+                  blogPostList.innerHTML = '<p style="text-align: center;">No blog posts published yet.</p>';
+                  return;
+              }
+              snapshot.forEach(doc => {
+                  const post = doc.data();
+                  const postId = doc.id;
+                  const postCard = document.createElement('div');
+                  postCard.className = 'blog-post-card';
+                  const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date unknown';
+
+                  postCard.innerHTML = `
+                      ${post.imageUrl ? `<div class="blog-card-image"><img src="${escapeHTML(post.imageUrl)}" alt="${escapeHTML(post.title)}"></div>` : ''}
+                      <div class="blog-card-content">
+                          <a href="/blog/post.html?id=${postId}" class="blog-card-title">${escapeHTML(post.title)}</a> {/* Absolute path */}
+                          <p class="blog-card-excerpt">${escapeHTML(post.excerpt)}</p>
+                          <div class="blog-card-meta">
+                              <span><i class="fas fa-user"></i> ${escapeHTML(post.authorName || 'Internadda Team')}</span>
+                              <span><i class="fas fa-calendar-alt"></i> ${date}</span>
+                          </div>
+                      </div>
+                  `;
+                  blogPostList.appendChild(postCard);
+              });
+          })
+          .catch(error => {
+              console.error("Error fetching blog posts:", error);
+              loadingPosts.textContent = 'Error loading posts.';
+          });
+
+        // Show "Write Post" button if user is logged in (inside auth observer is better, but this works too)
+         auth.onAuthStateChanged(user => {
+            if (user && createPostBtn) {
+                createPostBtn.href = "/blog/create.html"; // Absolute path
+                createPostBtn.classList.remove('hidden');
+            } else if (createPostBtn) {
+                 createPostBtn.classList.add('hidden');
+            }
+         });
+    }
+
+    // --- SINGLE POST PAGE LOGIC ---
+    const blogPostFull = document.getElementById('blogPostFull');
+    const loadingPost = document.getElementById('loadingPost');
+
+    if (isOnBlogPostPage && blogPostFull && loadingPost) {
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('id');
+
+        if (!postId) {
+            loadingPost.textContent = 'Error: Post ID not found.';
+        } else {
+            db.collection('blogPosts').doc(postId).get()
+              .then(doc => {
+                  if (doc.exists && doc.data().approved === true) { // Ensure it's approved
+                      loadingPost.style.display = 'none';
+                      const post = doc.data();
+                      const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date unknown';
+
+                      document.title = `${post.title || 'Blog Post'} | Internadda Blog`;
+                      const metaDesc = document.querySelector('meta[name="description"]');
+                      if (metaDesc) metaDesc.setAttribute('content', post.excerpt || `Read the full article: ${post.title}`);
+
+                      blogPostFull.innerHTML = `
+                          <h1 class="blog-post-title">${escapeHTML(post.title)}</h1>
+                          <div class="blog-post-meta">
+                              <span><i class="fas fa-user"></i> ${escapeHTML(post.authorName || 'Internadda Team')}</span>
+                              <span><i class="fas fa-calendar-alt"></i> ${date}</span>
+                          </div>
+                          ${post.imageUrl ? `<div class="blog-post-image"><img src="${escapeHTML(post.imageUrl)}" alt="${escapeHTML(post.title)}"></div>` : ''}
+                          <div class="blog-post-content">
+                              ${post.content} {/* WARNING: Assumes content is safe HTML. Sanitize if user input isn't trusted. */}
+                          </div>
+                      `;
+                  } else {
+                      loadingPost.textContent = 'Error: Post not found or not approved.';
+                  }
+              })
+              .catch(error => {
+                  console.error("Error fetching single post:", error);
+                  loadingPost.textContent = 'Error loading post.';
+              });
+        }
+    }
+
+    // --- CREATE POST PAGE LOGIC ---
+    const createPostForm = document.getElementById('createPostForm');
+    const loginPrompt = document.getElementById('loginPrompt');
+    const submitPostBtn = document.getElementById('submitPostBtn');
+    const submissionStatus = document.getElementById('submissionStatus');
+
+    if (isOnBlogCreatePage && createPostForm && loginPrompt && submitPostBtn && submissionStatus) {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                loginPrompt.classList.add('hidden');
+                createPostForm.classList.remove('hidden');
+            } else {
+                loginPrompt.classList.remove('hidden');
+                createPostForm.classList.add('hidden');
+            }
+        });
+
+        createPostForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) { showError(submissionStatus, 'Error: You must be logged in.'); return; }
+
+            const title = document.getElementById('postTitle').value.trim();
+            const excerpt = document.getElementById('postExcerpt').value.trim();
+            const imageUrl = document.getElementById('postImageUrl').value.trim();
+            const content = document.getElementById('postContent').value.trim();
+
+            if (!title || !excerpt || !content) { showError(submissionStatus, 'Error: Title, Excerpt, and Content are required.'); return; }
+
+            submitPostBtn.disabled = true; submitPostBtn.textContent = 'Submitting...';
+            showError(submissionStatus, ''); // Clear previous message
+
+            try {
+                await db.collection('pendingBlogPosts').add({
+                    title: title, excerpt: excerpt, content: content,
+                    imageUrl: imageUrl || null, authorId: user.uid,
+                    authorName: user.displayName || 'Anonymous User', authorEmail: user.email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(), approved: false
+                });
+                showError(submissionStatus, 'Success! Your post has been submitted for review.');
+                submissionStatus.style.color = 'var(--success)';
+                createPostForm.reset();
+            } catch (error) {
+                console.error("Error submitting post:", error);
+                showError(submissionStatus, 'Error submitting post. Please try again.');
+            } finally {
+                submitPostBtn.disabled = false; submitPostBtn.textContent = 'Submit Post for Review';
+            }
+        });
+
+        const loginLink = document.getElementById('loginLinkInPrompt');
+        const signupLink = document.getElementById('signupLinkInPrompt');
+        if (loginLink) loginLink.addEventListener('click', (e) => { e.preventDefault(); if (loginBtnHeader) loginBtnHeader.click(); });
+        if (signupLink) signupLink.addEventListener('click', (e) => { e.preventDefault(); if (signupBtnHeader) signupBtnHeader.click(); });
+    }
+    // ====== END BLOG FUNCTIONS ======
+
 
 }); // End DOMContentLoaded
 
 
-// --- Auth State Observer (Same as before) ---
+// --- Auth State Observer (Handles profile updates and showing/hiding auth elements) ---
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         // --- User is signed in ---
@@ -456,14 +597,14 @@ auth.onAuthStateChanged(async (user) => {
                  if(profileName) profileName.value = user.displayName || '';
                  profileData.photoUrl = profileData.photoUrl || '/images/no_image.png';
             }
-            updateProfileUI(profileData);
+            updateProfileUI(profileData); // Defined within DOMContentLoaded
 
         } catch (error) {
              console.error("Error loading profile data:", error);
-             updateProfileUI({ name: user.displayName, photoUrl: user.photoURL || '/images/no_image.png', email: user.email });
+             updateProfileUI({ name: user.displayName, photoUrl: user.photoURL || '/images/no_image.png', email: user.email }); // Defined within DOMContentLoaded
         }
 
-        setupDataListener(); // Refresh notes listener
+        setupDataListener(); // Refresh notes listener - Defined within DOMContentLoaded
 
         // Clear forms
         if(loginEmail) loginEmail.value = ''; if(loginPassword) loginPassword.value = '';
@@ -474,12 +615,12 @@ auth.onAuthStateChanged(async (user) => {
         if(authButtons) authButtons.classList.remove('hidden');
         if(userProfile) userProfile.classList.add('hidden');
         if (authModal && authModal.classList.contains('active')) {
-            if(loginSection) showSection(loginSection);
+            if(loginSection) showSection(loginSection); // Defined within DOMContentLoaded
         }
-         if(notesUnsubscribe) notesUnsubscribe();
+         if(notesUnsubscribe) notesUnsubscribe(); // Defined within DOMContentLoaded
          if(userDataList) userDataList.innerHTML = '<p>Please log in to see your notes.</p>';
     }
 });
 
 
-console.log('🚀 Internadda Script Loaded! (Conditional Search Added)');
+console.log('🚀 Internadda Script Loaded! (Blog + Unified Search)');
