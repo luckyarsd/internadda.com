@@ -123,18 +123,18 @@ const coursesGrid = document.getElementById('coursesGrid'); // Reference for cou
 
 // --- Internship Data (Used for internship page search) ---
 const allInternships = [
-    { title: 'Data Science & Analytics', roles: 'Data Analyst, Data Scientist Intern', skills: 'Python, SQL, Tableau', image: '/images/test_data Science.png', url: '/intern/data_science_practice_test.html' },
-    { title: 'Artificial Intelligence & Machine Learning', roles: 'AI Intern, ML Intern', skills: 'Python, TensorFlow, ML Algorithms', image: '/images/test_Artificial Intelligence.png', url: '/intern/ai_ml_practice_test.html' },
-    { title: 'Python Development & Software Engineering', roles: 'Python Developer Intern, Backend Developer Intern', skills: 'Python, Flask/Django, SQL', image: '/images/test_Python Development.png', url: '/intern/python_dev_practice_test.html' },
-    { title: 'Cloud Computing & DevOps', roles: 'Cloud Engineer Intern, DevOps Intern', skills: 'AWS, Docker, CI/CD', image: '/images/test_Cloud Computing.png', url: '/intern/cloud_devops_practice_test.html' },
-    { title: 'Cybersecurity & Ethical Hacking', roles: 'Security Analyst Intern, Ethical Hacking Intern', skills: 'Networking, Linux, Penetration Testing', image: '/images/test_Cybersecurity & Ethical Hacking.png', url: '/intern/cybersecurity_practice_test.html' },
-    { title: 'Web & Mobile Development', roles: 'Frontend/Full-Stack Developer Intern', skills: 'HTML/CSS/JS, React, Flutter', image: '/images/test_Web & Mobile Development.png', url: '/intern/web_mobile_practice_test.html' },
-    { title: 'Blockchain & Web3', roles: 'Blockchain Developer Intern, Smart Contract Developer', skills: 'Solidity, Ethereum', image: '/images/test_Blockchain & Web3.png', url: '/intern/blockchain_practice_test.html' },
-    { title: 'UI/UX & Product Design', roles: 'UI/UX Intern, Product Design Intern', skills: 'Figma, Wireframing', image: '/images/test_UIUX Design & Product Design.png', url: '/intern/uiux_practice_test.html' },
-    { title: 'Content Creation & Video Editing', roles: 'Content Creator Intern, Video Editing Intern', skills: 'Canva, CapCut, Adobe Premiere Pro, Scriptwriting', image: '/images/test_Content Creation & Video Editing.png', url: '/intern/content_creation_practice_test.html' },
-    { title: 'Prompt Engineering Internship', roles: 'AI Prompt Engineer Intern, ChatGPT Specialist Intern', skills: 'ChatGPT, Midjourney, Generative AI, Prompt Design', image: '/images/test_Prompt Engineering.png', url: '/intern/prompt_engineering_practice_test.html' },
-    { title: 'Game Development Internship', roles: 'Game Developer Intern, Unity Developer Intern', skills: 'Unity, C#, Unreal Engine, Game Design', image: '/images/test_Game Development.png', url: '/intern/game_dev_practice_test.html' },
-    { title: 'Digital Marketing & Growth Hacking', roles: 'Digital Marketing Intern, SEO/SEM Intern', skills: 'SEO, Content Marketing', image: '/images/test_Digital Marketing & Growth Hacking.png', url: '/intern/digital_marketing_practice_test.html' }
+    { title: 'Data Science & Analytics', roles: 'Data Analyst, Data Scientist Intern', skills: 'Python, SQL, Tableau', image: '/images/test_data Science.png', practiceTestUrl: '/intern/data_science_practice_test.html', finalExamUrl: '/intern/data_science_final_exam.html' },
+    { title: 'Artificial Intelligence & Machine Learning', roles: 'AI Intern, ML Intern', skills: 'Python, TensorFlow, ML Algorithms', image: '/images/test_Artificial Intelligence.png', practiceTestUrl: '/intern/ai_ml_practice_test.html', finalExamUrl: '/intern/ai_ml_final_exam.html' },
+    { title: 'Python Development & Software Engineering', roles: 'Python Developer Intern, Backend Developer Intern', skills: 'Python, Flask/Django, SQL', image: '/images/test_Python Development.png', practiceTestUrl: '/intern/python_dev_practice_test.html', finalExamUrl: '/intern/python_dev_final_exam.html' },
+    { title: 'Cloud Computing & DevOps', roles: 'Cloud Engineer Intern, DevOps Intern', skills: 'AWS, Docker, CI/CD', image: '/images/test_Cloud Computing.png', practiceTestUrl: '/intern/cloud_devops_practice_test.html', finalExamUrl: '/intern/cloud_devops_final_exam.html' },
+    { title: 'Cybersecurity & Ethical Hacking', roles: 'Security Analyst Intern, Ethical Hacking Intern', skills: 'Networking, Linux, Penetration Testing', image: '/images/test_Cybersecurity & Ethical Hacking.png', practiceTestUrl: '/intern/cybersecurity_practice_test.html', finalExamUrl: '/intern/cybersecurity_final_exam.html' },
+    { title: 'Web & Mobile Development', roles: 'Frontend/Full-Stack Developer Intern', skills: 'HTML/CSS/JS, React, Flutter', image: '/images/test_Web & Mobile Development.png', practiceTestUrl: '/intern/web_mobile_practice_test.html', finalExamUrl: '/intern/web_mobile_final_exam.html' },
+    { title: 'Blockchain & Web3', roles: 'Blockchain Developer Intern, Smart Contract Developer', skills: 'Solidity, Ethereum', image: '/images/test_Blockchain & Web3.png', practiceTestUrl: '/intern/blockchain_practice_test.html', finalExamUrl: '/intern/blockchain_final_exam.html' },
+    { title: 'UI/UX & Product Design', roles: 'UI/UX Intern, Product Design Intern', skills: 'Figma, Wireframing', image: '/images/test_UIUX Design & Product Design.png', practiceTestUrl: '/intern/uiux_practice_test.html', finalExamUrl: '/intern/uiux_final_exam.html' },
+    { title: 'Content Creation & Video Editing', roles: 'Content Creator Intern, Video Editing Intern', skills: 'Canva, CapCut, Adobe Premiere Pro, Scriptwriting', image: '/images/test_Content Creation & Video Editing.png', practiceTestUrl: '/intern/content_creation_practice_test.html', finalExamUrl: '/intern/content_creation_final_exam.html' },
+    { title: 'Prompt Engineering Internship', roles: 'AI Prompt Engineer Intern, ChatGPT Specialist Intern', skills: 'ChatGPT, Midjourney, Generative AI, Prompt Design', image: '/images/test_Prompt Engineering.png', practiceTestUrl: '/intern/prompt_engineering_practice_test.html', finalExamUrl: '/intern/prompt_engineering_final_exam.html' },
+    { title: 'Game Development Internship', roles: 'Game Developer Intern, Unity Developer Intern', skills: 'Unity, C#, Unreal Engine, Game Design', image: '/images/test_Game Development.png', practiceTestUrl: '/intern/game_dev_practice_test.html', finalExamUrl: '/intern/game_dev_final_exam.html' },
+    { title: 'Digital Marketing & Growth Hacking', roles: 'Digital Marketing Intern, SEO/SEM Intern', skills: 'SEO, Content Marketing', image: '/images/test_Digital Marketing & Growth Hacking.png', practiceTestUrl: '/intern/digital_marketing_practice_test.html', finalExamUrl: '/intern/digital_marketing_final_exam.html' }
 ];
 
 // Function to render courses (Used on course.html potentially)
@@ -228,29 +228,54 @@ function showSearchResultsDropdown(results, resultType = 'course') {
     if (results.length > 0) {
         resultsContainer.classList.remove('hidden');
         results.forEach(result => {
-            const resultItem = document.createElement('a');
-            resultItem.href = result.url || '#';
-            resultItem.className = 'search-result-item';
-            resultItem.style.display = 'flex';
-            resultItem.style.alignItems = 'center';
-            resultItem.style.gap = '15px';
-            resultItem.style.textDecoration = 'none';
-            resultItem.style.color = 'inherit';
+            let resultItem; // Declare outside the if/else
 
-            let detailsText = '';
             if (resultType === 'internship') {
-                detailsText = `${result.roles || ''}`; // Simplified details for internship search results
-            } else { // Course
-                detailsText = result.instructor || '';
+                // For internships, create a DIV and add separate links inside
+                resultItem = document.createElement('div'); // Use a DIV instead of A
+                resultItem.className = 'search-result-item internship-result'; // Add specific class
+                resultItem.style.display = 'flex';
+                resultItem.style.flexDirection = 'column'; // Stack elements vertically
+                resultItem.style.alignItems = 'stretch';  // Stretch items horizontally
+                resultItem.style.gap = '10px'; // Gap between elements
+
+                let detailsText = `${result.roles || ''}`; // Simplified details
+
+                resultItem.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px 15px;"> {/* Top section */}
+                        <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                        <div style="flex-grow: 1;">
+                            <h4 style="margin: 0; font-size: 1em; font-weight: 600; color: var(--dark);">${escapeHTML(result.title)}</h4>
+                            <p style="margin: 2px 0 0; font-size: 0.9em; color: var(--gray);">${escapeHTML(detailsText)}</p>
+                        </div>
+                    </div>
+                    <div class="search-result-actions" style="display: flex; justify-content: space-around; padding: 5px 15px 10px;"> {/* Bottom section for links */}
+                        <a href="${result.practiceTestUrl || '#'}" class="search-action-link btn btn-outline" style="padding: 6px 12px; font-size: 0.85em; flex-grow: 1; margin: 0 5px; text-align: center;">Practice Test</a>
+                        <a href="${result.finalExamUrl || '#'}" class="search-action-link btn btn-primary" style="padding: 6px 12px; font-size: 0.85em; flex-grow: 1; margin: 0 5px; text-align: center;">Final Exam</a>
+                    </div>
+                `;
+            } else {
+                // For courses, keep the original behavior (whole item is a link)
+                resultItem = document.createElement('a');
+                resultItem.href = result.url || '#';
+                resultItem.className = 'search-result-item course-result'; // Add specific class
+                resultItem.style.display = 'flex';
+                resultItem.style.alignItems = 'center';
+                resultItem.style.gap = '15px';
+                resultItem.style.textDecoration = 'none';
+                resultItem.style.color = 'inherit';
+
+                let detailsText = result.instructor || '';
+
+                resultItem.innerHTML = `
+                    <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                    <div style="flex-grow: 1;">
+                        <h4 style="margin: 0; font-size: 1em; font-weight: 600; color: var(--dark);">${escapeHTML(result.title)}</h4>
+                        <p style="margin: 2px 0 0; font-size: 0.9em; color: var(--gray);">${escapeHTML(detailsText)}</p>
+                    </div>
+                `;
             }
 
-            resultItem.innerHTML = `
-                <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
-                <div style="flex-grow: 1;">
-                    <h4 style="margin: 0; font-size: 1em;">${result.title}</h4>
-                    <p style="margin: 0; font-size: 0.9em; color: var(--gray);">${detailsText}</p>
-                </div>
-            `;
             resultsContainer.appendChild(resultItem);
         });
     } else {
@@ -277,7 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const isOnBlogPostPage = window.location.pathname.includes('/blog/post.html');
     const isOnBlogCreatePage = window.location.pathname.includes('/blog/create.html');
 
-    // --- Modal, Auth, Profile, Hamburger, Notes, Seats Popup, Slider (Keep all these the same as previous version) ---
+    // --- Modal, Auth, Profile, Hamburger, Notes, Seats Popup, Slider ---
+    // (Keep all these the same as previous complete version)
     // ... (Modal listeners) ...
     if (loginBtnHeader) loginBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(loginSection) showSection(loginSection); document.body.style.overflow = 'hidden'; });
     if (signupBtnHeader) signupBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(signupSection) showSection(signupSection); document.body.style.overflow = 'hidden'; });
@@ -434,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   postCard.innerHTML = `
                       ${post.imageUrl ? `<div class="blog-card-image"><img src="${escapeHTML(post.imageUrl)}" alt="${escapeHTML(post.title)}"></div>` : ''}
                       <div class="blog-card-content">
-                          <a href="/blog/post.html?id=${postId}" class="blog-card-title">${escapeHTML(post.title)}</a> {/* Absolute path */}
+                          <a href="/blog/post.html?id=${postId}" class="blog-card-title">${escapeHTML(post.title)}</a>
                           <p class="blog-card-excerpt">${escapeHTML(post.excerpt)}</p>
                           <div class="blog-card-meta">
                               <span><i class="fas fa-user"></i> ${escapeHTML(post.authorName || 'Internadda Team')}</span>
@@ -450,10 +476,9 @@ document.addEventListener('DOMContentLoaded', function() {
               loadingPosts.textContent = 'Error loading posts.';
           });
 
-        // Show "Write Post" button if user is logged in (inside auth observer is better, but this works too)
          auth.onAuthStateChanged(user => {
             if (user && createPostBtn) {
-                createPostBtn.href = "/blog/create.html"; // Absolute path
+                createPostBtn.href = "/blog/create.html";
                 createPostBtn.classList.remove('hidden');
             } else if (createPostBtn) {
                  createPostBtn.classList.add('hidden');
@@ -474,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             db.collection('blogPosts').doc(postId).get()
               .then(doc => {
-                  if (doc.exists && doc.data().approved === true) { // Ensure it's approved
+                  if (doc.exists && doc.data().approved === true) {
                       loadingPost.style.display = 'none';
                       const post = doc.data();
                       const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date unknown';
@@ -491,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           </div>
                           ${post.imageUrl ? `<div class="blog-post-image"><img src="${escapeHTML(post.imageUrl)}" alt="${escapeHTML(post.title)}"></div>` : ''}
                           <div class="blog-post-content">
-                              ${post.content} {/* WARNING: Assumes content is safe HTML. Sanitize if user input isn't trusted. */}
+                              ${post.content} {/* WARNING: Assumes content is safe HTML. Sanitize if needed. */}
                           </div>
                       `;
                   } else {
@@ -535,21 +560,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!title || !excerpt || !content) { showError(submissionStatus, 'Error: Title, Excerpt, and Content are required.'); return; }
 
             submitPostBtn.disabled = true; submitPostBtn.textContent = 'Submitting...';
-            showError(submissionStatus, ''); // Clear previous message
+            submissionStatus.textContent = ''; // Clear previous message explicitly
+            submissionStatus.style.color = 'var(--primary)'; // Reset color
 
             try {
                 await db.collection('pendingBlogPosts').add({
                     title: title, excerpt: excerpt, content: content,
                     imageUrl: imageUrl || null, authorId: user.uid,
-                    authorName: user.displayName || 'Anonymous User', authorEmail: user.email,
+                    authorName: user.displayName || user.email || 'Anonymous User', // Use email as fallback
+                    authorEmail: user.email,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(), approved: false
                 });
-                showError(submissionStatus, 'Success! Your post has been submitted for review.');
+                submissionStatus.textContent = 'Success! Your post has been submitted for review.'; // Use textContent for safety
                 submissionStatus.style.color = 'var(--success)';
                 createPostForm.reset();
             } catch (error) {
                 console.error("Error submitting post:", error);
-                showError(submissionStatus, 'Error submitting post. Please try again.');
+                showError(submissionStatus, 'Error submitting post. Please try again.'); // Use showError
             } finally {
                 submitPostBtn.disabled = false; submitPostBtn.textContent = 'Submit Post for Review';
             }
@@ -597,14 +624,14 @@ auth.onAuthStateChanged(async (user) => {
                  if(profileName) profileName.value = user.displayName || '';
                  profileData.photoUrl = profileData.photoUrl || '/images/no_image.png';
             }
-            updateProfileUI(profileData); // Defined within DOMContentLoaded
+            updateProfileUI(profileData);
 
         } catch (error) {
              console.error("Error loading profile data:", error);
-             updateProfileUI({ name: user.displayName, photoUrl: user.photoURL || '/images/no_image.png', email: user.email }); // Defined within DOMContentLoaded
+             updateProfileUI({ name: user.displayName, photoUrl: user.photoURL || '/images/no_image.png', email: user.email });
         }
 
-        setupDataListener(); // Refresh notes listener - Defined within DOMContentLoaded
+        setupDataListener(); // Refresh notes listener
 
         // Clear forms
         if(loginEmail) loginEmail.value = ''; if(loginPassword) loginPassword.value = '';
@@ -615,12 +642,12 @@ auth.onAuthStateChanged(async (user) => {
         if(authButtons) authButtons.classList.remove('hidden');
         if(userProfile) userProfile.classList.add('hidden');
         if (authModal && authModal.classList.contains('active')) {
-            if(loginSection) showSection(loginSection); // Defined within DOMContentLoaded
+            if(loginSection) showSection(loginSection);
         }
-         if(notesUnsubscribe) notesUnsubscribe(); // Defined within DOMContentLoaded
+         if(notesUnsubscribe) notesUnsubscribe();
          if(userDataList) userDataList.innerHTML = '<p>Please log in to see your notes.</p>';
     }
 });
 
 
-console.log('🚀 Internadda Script Loaded! (Blog + Unified Search)');
+console.log('🚀 Internadda Script Loaded! (Blog + Unified Search + Internship Links)');
