@@ -52,18 +52,27 @@
                 <span class="logo-text">InternAdda</span>
             </a>
             
-            <nav class="nav-menu">
-                <a href="#" class="nav-link">Home</a>
-                <a href="courses/course.html" class="nav-link">Courses</a>
-                <a href="intern/internship.html" class="nav-link">Internships</a>
-                <a href="jobs.html" class="nav-link">Jobs</a>
-                <a href="about.html" class="nav-link">About</a>
-                <!-- Mobile-only login/signup buttons -->
+           <nav class="nav-menu">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/courses/course.html" class="nav-link">Courses</a>
+                <a href="/intern/internship.html" class="nav-link">Internships</a>
+                <a href="/jobs.html" class="nav-link">Jobs</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Community <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <div class="dropdown-content">
+                        <a href="/blog/index.html" class="dropdown-link">Blog</a>
+                        <a href="#" class="dropdown-link">Partners</a> {/* Placeholder */}
+                        {/* Add other community links here later */}
+                    </div>
+                </div>
+                <a href="/about.html" class="nav-link">About</a>
                 <div class="nav-actions-mobile">
                      <div id="authButtonsMobile">
                         <a href="#" class="btn btn-outline" id="loginBtnHeaderMobile">Log in</a>
                         <a href="#" class="btn btn-primary" id="signupBtnHeaderMobile">Sign up</a>
                     </div>
+                     <a href="/blog/index.html" class="nav-link mobile-only-link">Blog</a>
+                     <a href="#" class="nav-link mobile-only-link">Partners</a>
                 </div>
             </nav>
 
