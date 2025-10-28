@@ -2131,3 +2131,124 @@ select#profileGender, select#interestedDomain {
      }
 
 }
+
+
+/* ============================
+   NAVIGATION DROPDOWN STYLES
+   ============================ */
+
+/* Container for dropdown item */
+.nav-item.dropdown {
+    position: relative; /* Needed for absolute positioning of content */
+}
+
+/* Style for the main dropdown link (e.g., "Community") */
+.nav-link.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Space between text and arrow */
+}
+
+/* Arrow icon */
+.dropdown-arrow {
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+}
+
+/* Content of the dropdown */
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: calc(100% + 10px); /* Position below the nav link with a small gap */
+    left: 0;
+    background-color: var(--white);
+    min-width: 180px; /* Adjust as needed */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    z-index: 100; /* Ensure it's above other elements */
+    padding: 10px 0; /* Padding top/bottom */
+    animation: fadeIn 0.3s ease-out; /* Use existing fadeIn animation */
+}
+
+/* Links inside the dropdown */
+.dropdown-link {
+    display: block;
+    padding: 12px 20px;
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 15px; /* Slightly smaller than main nav links */
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.dropdown-link:hover {
+    background-color: var(--light);
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+/* Show dropdown on hover (desktop) */
+.nav-item.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Rotate arrow on hover */
+.nav-item.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* --- Mobile Menu Adjustments --- */
+
+/* Hide dropdown structure in the main mobile nav flow */
+.nav-menu.active .nav-item.dropdown {
+    display: none; /* Hide the desktop dropdown container */
+}
+
+/* Style the separately added mobile links */
+.nav-link.mobile-only-link {
+     display: none; /* Hide by default */
+     width: 100%; /* Make them full width in mobile menu */
+     text-align: center; /* Center text */
+     padding: 12px 0; /* Adjust padding */
+}
+
+/* Show mobile-only links ONLY when the mobile menu is active */
+.nav-menu.active .nav-link.mobile-only-link {
+    display: block; /* Show them in the active mobile menu */
+}
+
+/* Optional: Add separator before mobile community links */
+.nav-menu.active .nav-actions-mobile {
+     border-top: none; /* Remove border if you want links seamless */
+     padding-top: 0;
+     margin-top: 10px;
+}
+.nav-menu.active .mobile-only-link {
+    border-top: 1px solid #eee; /* Add separator above each link */
+}
+.nav-menu.active .mobile-only-link:first-of-type {
+     margin-top: 15px; /* Add space before the first community link */
+}
+
+
+/* Hide desktop dropdown arrow and functionality on mobile */
+@media (max-width: 1024px) {
+    .nav-item.dropdown {
+        display: none; /* Hide desktop dropdown structure */
+    }
+     /* Ensure mobile-only links are styled correctly within the active menu */
+    .nav-menu.active .nav-link.mobile-only-link {
+        display: block;
+        color: var(--dark); /* Match other mobile nav links */
+        font-weight: 600;
+    }
+     .nav-menu.active .nav-link.mobile-only-link:hover {
+        color: var(--primary); /* Hover effect */
+    }
+
+}
+
+/* ============================
+   END NAVIGATION DROPDOWN STYLES
+   ============================ */
