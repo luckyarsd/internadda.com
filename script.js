@@ -230,7 +230,7 @@ function showSearchResultsDropdown(results, resultType = 'course') {
         results.forEach(result => {
             let resultItem; // Declare outside the if/else
 
-            if (resultType === 'internship') {
+if (resultType === 'internship') {
                 // For internships, create a DIV and add separate links inside
                 resultItem = document.createElement('div'); // Use a DIV instead of A
                 resultItem.className = 'search-result-item internship-result'; // Add specific class
@@ -241,21 +241,23 @@ function showSearchResultsDropdown(results, resultType = 'course') {
 
                 let detailsText = `${result.roles || ''}`; // Simplified details
 
+                // --- REMOVED HTML COMMENTS below ---
                 resultItem.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px 15px;"> {/* Top section */}
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px 15px;"> {/* Top section content */}
                         <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
                         <div style="flex-grow: 1;">
                             <h4 style="margin: 0; font-size: 1em; font-weight: 600; color: var(--dark);">${escapeHTML(result.title)}</h4>
                             <p style="margin: 2px 0 0; font-size: 0.9em; color: var(--gray);">${escapeHTML(detailsText)}</p>
                         </div>
                     </div>
-                    <div class="search-result-actions" style="display: flex; justify-content: space-around; padding: 5px 15px 10px;"> {/* Bottom section for links */}
+                    <div class="search-result-actions" style="display: flex; justify-content: space-around; padding: 5px 15px 10px;"> {/* Bottom section for links content */}
                         <a href="${result.practiceTestUrl || '#'}" class="search-action-link btn btn-outline" style="padding: 6px 12px; font-size: 0.85em; flex-grow: 1; margin: 0 5px; text-align: center;">Practice Test</a>
                         <a href="${result.finalExamUrl || '#'}" class="search-action-link btn btn-primary" style="padding: 6px 12px; font-size: 0.85em; flex-grow: 1; margin: 0 5px; text-align: center;">Final Exam</a>
                     </div>
                 `;
             } else {
-                // For courses, keep the original behavior (whole item is a link)
+                // ... (rest of the else block remains the same) ...
+                 // For courses, keep the original behavior (whole item is a link)
                 resultItem = document.createElement('a');
                 resultItem.href = result.url || '#';
                 resultItem.className = 'search-result-item course-result'; // Add specific class
