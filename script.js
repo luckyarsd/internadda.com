@@ -243,14 +243,14 @@ if (resultType === 'internship') {
 
                 // --- REMOVED HTML COMMENTS below ---
                 resultItem.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px 15px;"> {/* Top section content */}
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px 15px;">
                         <img src="${result.image || '/images/no_image.png'}" alt="${result.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
                         <div style="flex-grow: 1;">
                             <h4 style="margin: 0; font-size: 1em; font-weight: 600; color: var(--dark);">${escapeHTML(result.title)}</h4>
                             <p style="margin: 2px 0 0; font-size: 0.9em; color: var(--gray);">${escapeHTML(detailsText)}</p>
                         </div>
                     </div>
-                    <div class="search-result-actions" style="display: flex; justify-content: space-around; padding: 5px 15px 10px;"> {/* Bottom section for links content */}
+                    <div class="search-result-actions" style="display: flex; justify-content: space-around; padding: 5px 15px 10px;">
                         <a href="${result.practiceTestUrl || '#'}" class="search-action-link btn btn-outline" style="padding: 6px 12px; font-size: 0.85em; flex-grow: 1; margin: 0 5px; text-align: center;">Practice Test</a>
                         <a href="${result.finalExamUrl || '#'}" class="search-action-link btn btn-primary" style="padding: 6px 12px; font-size: 0.85em; flex-grow: 1; margin: 0 5px; text-align: center;">Final Exam</a>
                     </div>
