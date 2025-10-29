@@ -7,17 +7,16 @@
     <meta name="description" content="Browse Internadda's free courses in Data Science, AI, Web Dev, Cybersecurity, and more. Gain practical skills needed for top internships.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <link rel="stylesheet" href="../style.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-auth-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-firestore-compat.min.js"></script>
 </head>
 
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZZ3HGFM3Q"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZZ3HGFM3Q"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -26,27 +25,41 @@
   gtag('config', 'G-3ZZ3HGFM3Q');
 </script>
 
-    
+
 <body>
     <header>
         <div class="container header-container">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img"> 
+            <a href="../index.html" class="logo"> {/* <-- Updated path */}
+                <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img"> {/* <-- Updated path */}
                 <span class="logo-text">InternAdda</span>
             </a>
-            
+
             <nav class="nav-menu">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="course.html" class="nav-link">Courses</a>
-                <a href="../intern/internship.html" class="nav-link">Internships</a>
-                <a href="../jobs.html" class="nav-link">Jobs</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <!-- Mobile-only login/signup buttons -->
+                <a href="/index.html" class="nav-link">Home</a> {/* <-- Root relative path */}
+                <a href="/courses/course.html" class="nav-link">Courses</a> {/* <-- Root relative path */}
+                <a href="/intern/internship.html" class="nav-link">Internships</a> {/* <-- Root relative path */}
+                <a href="/jobs.html" class="nav-link">Jobs</a> {/* <-- Root relative path */}
+                <a href="/about.html" class="nav-link">About</a> {/* <-- Root relative path */}
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Community <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <div class="dropdown-content">
+                        <a href="/community/join.html" class="dropdown-link">Join Community</a> {/* <-- Root relative path */}
+                        <a href="/community/partners.html" class="dropdown-link">Partners</a> {/* <-- Root relative path */}
+                        <a href="/blog/index.html" class="dropdown-link">Blog</a> {/* <-- Root relative path */}
+                        <a href="/community/academy.html" class="dropdown-link">Offline Academy</a> {/* <-- Root relative path */}
+                    </div>
+                </div>
+                {/* Mobile Specific Links/Buttons */}
                 <div class="nav-actions-mobile">
                      <div id="authButtonsMobile">
                         <a href="#" class="btn btn-outline" id="loginBtnHeaderMobile">Log in</a>
                         <a href="#" class="btn btn-primary" id="signupBtnHeaderMobile">Sign up</a>
                     </div>
+                     {/* Mobile Community Links */}
+                     <a href="/community/join.html" class="nav-link mobile-only-link">Join Community</a>
+                     <a href="/community/partners.html" class="nav-link mobile-only-link">Partners</a>
+                     <a href="/blog/index.html" class="nav-link mobile-only-link">Blog</a>
+                     <a href="/community/academy.html" class="nav-link mobile-only-link">Offline Academy</a>
                 </div>
             </nav>
 
@@ -55,13 +68,14 @@
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" id="searchInput" class="search-input" placeholder="Search for courses...">
                 </div>
-                
-                <!-- Desktop-only login/signup buttons -->
+
+                {/* Desktop Auth Buttons */}
                 <div id="authButtons">
                     <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
                     <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
                 </div>
-                
+
+                {/* User Profile Dropdown */}
                 <div class="user-profile hidden" id="userProfile">
                     <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
                     <span id="userNameHeader"></span>
@@ -72,12 +86,14 @@
                 </div>
             </div>
 
+            {/* Hamburger Menu Button */}
             <button class="hamburger-menu" id="hamburgerMenu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
+        {/* Search Results Container */}
         <div id="searchResults" class="search-results-container container hidden"></div>
     </header>
 
@@ -87,183 +103,69 @@
                 <div class="courses-header">
                     <h2 class="section-title">All Courses</h2>
                 </div>
-                
-                <div class="courses-grid">
 
-                    <a href="courses/Essential Data Science Intern Course.html" 
-   class="course-card" 
-   style="text-decoration:none; color:inherit;">
-    <div class="course-image">
-        <img src="../images/Essential Data Science Intern Course.png" 
-             alt="Essential Data Science Intern Course">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Data Science Intern Course</h3>
-        <p class="course-author">Instructed by Lucky Kumar</p>
-        <div class="course-rating">
-            <div class="rating-stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
+                <div class="courses-grid" id="coursesGrid"> {/* Added ID here for script.js */}
+
+                    {/* Course cards will be rendered here by script.js */}
+                    {/* Placeholder examples (script should overwrite these) */}
+                    <a href="courses/Essential Data Science Intern Course.html"
+                       class="course-card"
+                       style="text-decoration:none; color:inherit;">
+                        <div class="course-image">
+                            <img src="../images/Essential Data Science Intern Course.png"
+                                 alt="Essential Data Science Intern Course">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Data Science Intern Course</h3>
+                            <p class="course-author">Instructed by Lucky Kumar</p>
+                            {/* ... rating, duration, price ... */}
+                             <div class="course-price">
+                                <span class="original-price">₹1,999</span>
+                                <span class="badge free">FREE</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="courses/Generative-AI-Prompt-Engineering-Masterclass.html"
+                       class="course-card"
+                       style="text-decoration:none; color:inherit;">
+                        <div class="course-image">
+                            <img src="../images/Generative-AI-Prompt-Engineering-Masterclass.png"
+                                 alt="Generative AI & Prompt Engineering Masterclass">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Generative AI & Prompt Engineering</h3>
+                            <p class="course-author">Instructed by Lucky Kumar</p>
+                            {/* ... rating, duration, price ... */}
+                             <div class="course-price">
+                                <span class="original-price">₹2,999</span>
+                                <span class="badge free">FREE</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    {/* Add other placeholders or let script handle all rendering */}
+
+                </div>
             </div>
-            <span class="rating-value">4.9</span>
-        </div>
-        <div class="course-duration">
-            <i class="far fa-clock"></i> Average Duration: 27 mins
-        </div>
-        <div class="course-price">
-            <span class="original-price">₹1,999</span>
-            <span class="badge free">FREE</span>
-        </div>
-    </div>
-</a>
-
-<a href="courses/Generative-AI-Prompt-Engineering-Masterclass.html" 
-   class="course-card" 
-   style="text-decoration:none; color:inherit;">
-    <div class="course-image">
-        <img src="../images/Generative-AI-Prompt-Engineering-Masterclass.png" 
-             alt="Generative AI & Prompt Engineering Masterclass">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Generative AI & Prompt Engineering</h3>
-        <p class="course-author">Instructed by Lucky Kumar</p>
-        <div class="course-rating">
-            <div class="rating-stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span class="rating-value">4.7</span>
-        </div>
-        <div class="course-duration">
-            <i class="far fa-clock"></i> Average Duration: 30 mins
-        </div>
-        <div class="course-price">
-            <span class="original-price">₹2,999</span>
-            <span class="badge free">FREE</span>
-        </div>
-    </div>
-</a>
-
-
-<a href="courses/Ethical-Hacking-Mastery.html" 
-   class="course-card" 
-   style="text-decoration:none; color:inherit;">
-    <div class="course-image">
-        <img src="../images/Ethical-Hacking-Mastery.png" 
-             alt="Ethical Hacking Mastery">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Ethical Hacking Mastery</h3>
-        <p class="course-author">Instructed by Lucky Kumar</p>
-        <div class="course-rating">
-            <div class="rating-stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span class="rating-value">4.8</span>
-        </div>
-        <div class="course-duration">
-            <i class="far fa-clock"></i> Average Duration: 29 mins
-        </div>
-        <div class="course-price">
-            <span class="original-price">₹4,999</span>
-            <span class="badge free">FREE</span>
-        </div>
-    </div>
-</a>
-
-
-<a href="courses/Python-Essentials-for-All.html" 
-   class="course-card" 
-   style="text-decoration:none; color:inherit;">
-    <div class="course-image">
-        <img src="../images/Python-Essentials-for-All.png" 
-             alt="Python Essentials for All">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Python Essentials for All</h3>
-        <p class="course-author">Instructed by Lucky Kumar</p>
-        <div class="course-rating">
-            <div class="rating-stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span class="rating-value">4.8</span>
-        </div>
-        <div class="course-duration">
-            <i class="far fa-clock"></i> Average Duration: 28 mins
-        </div>
-        <div class="course-price">
-            <span class="original-price">₹1,999</span>
-            <span class="badge free">FREE</span>
-        </div>
-    </div>
-</a>
-
-
-                   
-
-                    <a href="courses/Cloud-DevOps-Essentials.html" 
-   class="course-card" 
-   style="text-decoration:none; color:inherit;">
-    <div class="course-image">
-        <img src="../images/Cloud-DevOps-Essentials.png" 
-             alt="Cloud & DevOps Essentials">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Cloud & DevOps Essentials</h3>
-        <p class="course-author">Instructed by Lucky Kumar</p>
-        <div class="course-rating">
-            <div class="rating-stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span class="rating-value">4.8</span>
-        </div>
-        <div class="course-duration">
-            <i class="far fa-clock"></i> Average Duration: 26 mins
-        </div>
-        <div class="course-price">
-            <span class="original-price">₹2,999</span>
-            <span class="badge free">FREE</span>
-        </div>
-    </div>
-</a>
-
-    </div>
-</div>
-</section>
+        </section>
 
         <section class="cta-section">
             <div class="container">
                 <h2 class="cta-title">Start Your Career Journey Today</h2>
                 <p class="cta-description">Join thousands of students who have transformed their careers through Internadda's learn, intern, and earn model.</p>
                 <div class="cta-buttons">
-                    <button class="btn btn-light btn-lg">Get Started</button>
-                    <button class="btn btn-transparent btn-lg">Browse Courses</button>
+                     {/* Corrected button links */}
+                    <button class="btn btn-light btn-lg" onclick="window.location.href='/intern/internship.html'">Get Started</button>
+                    <button class="btn btn-transparent btn-lg" onclick="window.location.href='/courses/course.html'">Browse Courses</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
+     <footer>
         <div class="container">
-            <div class="footer-grid">
+             <div class="footer-grid"> {/* Copied from index.html */}
                 <div class="footer-brand">
                     <div class="footer-logo">Internadda</div>
                     <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
@@ -279,51 +181,71 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links-column">
                     <h3 class="footer-links-title">Learn</h3>
                     <ul class="footer-links">
-                        <li><a href="course.html">Browse Courses</a></li>
-                        <li><a href="#">Free Courses</a></li>
-                        <li><a href="#">For Businesses</a></li>
+                        <li><a href="/courses/course.html">Browse Courses</a></li>
+                        <li><a href="/courses/course.html">Free Courses</a></li>
+                        <li><a href="#">Paid Courses</a></li>
                         <li><a href="#">Become an Instructor</a></li>
-                        <li><a href="#">Affiliate Program</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links-column">
                     <h3 class="footer-links-title">Intern</h3>
                     <ul class="footer-links">
-                        <li><a href="../intern/internship.html">Find Internships</a></li>
+                        <li><a href="/intern/internship.html">Find Internships</a></li>
                         <li><a href="#">For Companies</a></li>
                         <li><a href="#">Success Stories</a></li>
                         <li><a href="#">Career Coaching</a></li>
-                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links-column">
-                    <h3 class="footer-links-title">Contact & Legal</h3>
+                    <h3 class="footer-links-title">Community</h3>
                     <ul class="footer-links">
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../terms.html">Terms & Conditions</a></li>
-                        <li><a href="../privacy.html">Privacy Policy</a></li>
-                        <li><a href="../refund.html">Refund Policy</a></li>
+                        <li><a href="/community/join.html">Join Community</a></li>
+                        <li><a href="/community/partners.html">Partners</a></li>
+                        <li><a href="/blog/index.html">Blog</a></li>
+                        <li><a href="/community/academy.html">Offline Academy</a></li>
+                    </ul>
+                </div>
+
+
+                     <div class="footer-links-column">
+                    <h3 class="footer-links-title">InternAdda</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="/terms.html">Terms & Conditions</a></li>
+                        <li><a href="/refund.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">More</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Affiliate Program</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">QnA</a></li>
+                        <li><a href="#">Daily Challenges</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>© 2025 Internadda. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    {/* Auth Modal (Copied from index.html) */}
     <div id="authModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
 
+            {/* Login Section */}
             <div id="loginSection" class="auth-section">
                 <h2 class="auth-title">Welcome Back</h2>
                 <div class="loading" id="loginLoading">
@@ -331,26 +253,27 @@
                     <span>Signing in...</span>
                 </div>
                 <div id="loginError" class="error"></div>
-                
+
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
                     <input type="email" id="loginEmail" placeholder="Enter your email" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
                     <input type="password" id="loginPassword" placeholder="Enter your password" required>
                 </div>
-                
+
                 <button class="btn btn-primary" id="emailLoginBtn">Sign In</button>
                 <div class="separator"><span>OR</span></div>
                 <button class="btn btn-google" id="googleLoginBtn"><i class="fab fa-google"></i> Continue with Google</button>
-                
+
                 <div class="toggle-auth">
                     <span>Don't have an account?</span> <a href="#" id="showSignup">Sign up</a>
                 </div>
             </div>
-            
+
+            {/* Signup Section */}
             <div id="signupSection" class="auth-section">
                 <h2 class="auth-title">Create Account</h2>
                 <div class="loading" id="signupLoading">
@@ -358,27 +281,29 @@
                     <span>Creating account...</span>
                 </div>
                 <div id="signupError" class="error"></div>
-                
+
                 <div class="form-group">
                     <label for="signupEmail">Email</label>
                     <input type="email" id="signupEmail" placeholder="Enter your email" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="signupPassword">Password</label>
                     <input type="password" id="signupPassword" placeholder="Create a password (6+ characters)" required>
                 </div>
-                
+
                 <button class="btn btn-primary" id="emailSignupBtn">Create Account</button>
                 <div class="separator"><span>OR</span></div>
                 <button class="btn btn-google" id="googleSignupBtn"><i class="fab fa-google"></i> Sign up with Google</button>
-                
+
                 <div class="toggle-auth">
                     <span>Already have an account?</span> <a href="#" id="showLogin">Sign in</a>
                 </div>
             </div>
-            
-            <div id="dashboardSection" class="auth-section">
+
+            {/* Dashboard Section */}
+             <div id="dashboardSection" class="auth-section">
+                {/* ... (Dashboard content - Keep it the same as index.html) ... */}
                 <div class="dashboard-content">
                     <div id="profileDisplaySection">
                         <div class="user-info-profile">
@@ -399,7 +324,7 @@
                                 <strong>Interested Domain:</strong> <span id="profileDomainDisplay">Not specified</span>
                             </div>
                         </div>
-                        <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>    
+                        <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
                     </div>
 
                     <div id="profileEditSection" class="hidden">
@@ -435,7 +360,7 @@
                         </div>
                         <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
                     </div>
-                    
+
                     <div id="notesTabContent" class="tab-content hidden">
                         <h3 class="section-title-small">📝 Your Notes</h3>
                         <div class="form-group-note">
@@ -448,16 +373,18 @@
                     <div id="settingsTabContent" class="tab-content hidden">
                         <h3 class="section-title-small">Account Settings</h3>
                         <p>Change your password, manage linked accounts, and more.</p>
+                        {/* Ensure you have a button with id="logoutBtnModal" if needed */}
                         <button class="btn btn-secondary" id="logoutBtnModal">Sign Out</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    {/* Make sure script path is correct relative to course.html */}
     <script src="../script.js"></script>
 
-    <!-- SCRIPT TO FIX MOBILE BUTTONS -->
+    {/* SCRIPT TO FIX MOBILE BUTTONS */}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
@@ -504,4 +431,3 @@
     </script>
 </body>
 </html>
-
