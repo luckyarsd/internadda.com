@@ -389,7 +389,7 @@ header {
 
 
 /* Hero Section */
-.hero { background: var(--gradient); padding: 100px 0; position: relative; overflow: hidden; }
+.hero { background: var(--gradient); padding: 100px 0; position: relative; overflow: hidden; } /* KEEP original padding */
 .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent); z-index: 0; }
 .hero-container { display: flex; align-items: center; gap: 56px; position: relative; z-index: 1; }
 .hero-content { flex: 1; }
@@ -410,8 +410,32 @@ header {
 .dot { width: 14px; height: 14px; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; cursor: pointer; transition: var(--transition); }
 .dot.active { background-color: var(--white); transform: scale(1.4); }
 
-/* Value Proposition */
-.value-prop { padding: 120px 0; }
+/* --- Consistent Section Spacing --- */
+.value-prop,
+.courses,
+.internships,
+.testimonials,
+.team-section {
+    padding: 100px 0; /* Consistent vertical padding */
+    margin: 0; /* Reset margins */
+}
+/* CTA Section Spacing (Already looks consistent, keep as is or adjust if needed) */
+.cta-section {
+    padding: 100px 0; /* Adjusted from 120px to match others */
+    margin: 0;
+    /* Other CTA styles remain */
+    background: var(--gradient); color: var(--white); text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent); z-index: 0; }
+/* Jobs Page Hero spacing */
+.jobs-hero {
+    padding: 100px 0; /* Adjusted from 120px */
+    margin: 0;
+    /* Other jobs-hero styles remain */
+    text-align: center; background-color: var(--light); min-height: 60vh; display: flex; align-items: center; justify-content: center;
+}
+/* --- End Consistent Section Spacing --- */
+
 .section-header { text-align: center; margin-bottom: 64px; }
 .section-title { font-size: 40px; font-weight: 800; margin-bottom: 24px; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .section-subtitle { font-size: 19px; color: var(--gray); max-width: 750px; margin: 0 auto; }
@@ -426,7 +450,6 @@ header {
 .value-description { color: var(--gray); font-size: 16px; }
 
 /* Courses Section */
-.courses { padding: 120px 0; background-color: var(--light); }
 .courses-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
 .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 36px; }
 .course-card { background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); text-decoration: none; color: inherit; }
@@ -449,7 +472,6 @@ header {
 .bestseller { background-color: #fefcbf; color: #744210; }
 
 /* Internship Section */
-.internships { padding: 120px 0; }
 .internship-container { display: flex; gap: 56px; align-items: center; }
 .internship-content { flex: 1; }
 .internship-image { flex: 1; }
@@ -461,7 +483,6 @@ header {
 .feature-icon { width: 32px; height: 32px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 16px; }
 
 /* Testimonials */
-.testimonials { padding: 120px 0; background-color: var(--light); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 36px; }
 .testimonial-card { background: var(--white); border-radius: 14px; padding: 36px; box-shadow: var(--shadow); transition: var(--transition); }
 .testimonial-card:hover { transform: translateY(-10px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); }
@@ -474,14 +495,12 @@ header {
 .author-role { font-size: 15px; color: var(--gray); }
 
 /* CTA Section */
-.cta-section { padding: 120px 0; background: var(--gradient); color: var(--white); text-align: center; position: relative; overflow: hidden; }
-.cta-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent); z-index: 0; }
 .cta-title { font-size: 40px; font-weight: 800; margin-bottom: 24px; position: relative; z-index: 1; }
 .cta-description { font-size: 19px; margin-bottom: 48px; max-width: 750px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
 .cta-buttons { display: flex; gap: 24px; justify-content: center; position: relative; z-index: 1; }
 
 /* Team Section Styles */
-.team-section { padding: 60px 0; background-color: var(--light); text-align: center; }
+/* .team-section has padding adjusted above */
 .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
 .team-member { background-color: var(--white); padding: 30px; border-radius: 14px; box-shadow: var(--shadow); text-align: center; transition: var(--transition); }
 .team-member:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); }
@@ -489,6 +508,21 @@ header {
 .team-member-name { font-size: 1.25rem; font-weight: 600; margin: 0 0 5px 0; color: var(--dark); }
 .team-member-title { font-size: 1rem; color: var(--primary); margin: 0 0 15px 0; font-weight: 500; }
 .team-member-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+
+/* Jobs page styles */
+/* .jobs-hero padding adjusted above */
+.jobs-content { max-width: 700px; margin: 0 auto; animation: fadeInUp 0.8s ease-out; }
+.jobs-heading { font-size: 3.5rem; font-weight: 800; margin-bottom: 24px; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.jobs-description { font-size: 1.1rem; color: var(--gray); margin-bottom: 40px; line-height: 1.8; }
+.social-follow { display: flex; justify-content: center; gap: 24px; }
+.social-btn { display: inline-flex; align-items: center; gap: 12px; padding: 14px 28px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: var(--transition); }
+.social-btn i { font-size: 1.4rem; }
+.btn-linkedin { background-color: #0077B5; color: var(--white); }
+.btn-linkedin:hover { background-color: #005582; transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0, 119, 181, 0.2); }
+.btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: var(--white); }
+.btn-instagram:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(220, 39, 67, 0.25); }
+.animation-container { margin-bottom: 30px; animation: float 4s ease-in-out infinite; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
 /* Footer */
 footer { background-color: var(--dark); color: var(--white); padding: 100px 0 48px; }
@@ -749,4 +783,19 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .footer-brand { grid-column: span 1; text-align: center; }
     .social-links { justify-content: center; }
     .footer-links-column { text-align: center;}
+
+    /* Adjust section padding for smaller screens */
+    .value-prop,
+    .courses,
+    .internships,
+    .testimonials,
+    .cta-section,
+    .team-section,
+    .jobs-hero {
+        padding: 60px 0; /* Reduced padding for mobile */
+    }
+    .hero {
+        padding: 60px 0; /* Reduced padding for mobile */
+    }
+
 }
