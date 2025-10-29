@@ -7,16 +7,15 @@
     <meta name="description" content="Qualify for paid internships (up to ₹50K/month) via Internadda tests. Explore opportunities in AI, Web Dev, Marketing, Design & more.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <link rel="stylesheet" href="../style.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-auth-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-firestore-compat.min.js"></script>
 </head>
 
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZZ3HGFM3Q"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,41 +26,52 @@
 </script>
 
 
-    
 <body>
     <header>
         <div class="container header-container">
-        <a href="../index.html" class="logo">
-          <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img"> 
-          <span class="logo-text">InternAdda</span>
-        </a>
+             <a href="/" class="logo">
+                 <img src="../images/logo.jpg" alt="InternAdda Logo" class="logo-img">
+                <span class="logo-text">InternAdda</span>
+            </a>
 
-            
             <nav class="nav-menu">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../courses/course.html" class="nav-link">Courses</a>
-                <a href="#" class="nav-link">Internships</a>
-                <a href="../jobs.html" class="nav-link">Jobs</a>
-                <a href="../about.html" class="nav-link">About</a>
+                 <a href="/" class="nav-link">Home</a>
+                <a href="/courses/course.html" class="nav-link">Courses</a>
+                <a href="/intern/internship.html" class="nav-link">Internships</a>
+                <a href="/jobs.html" class="nav-link">Jobs</a>
+                <a href="/about.html" class="nav-link">About</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Community <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <div class="dropdown-content">
+                        <a href="/community/join.html" class="dropdown-link">Join Community</a>
+                        <a href="/community/partners.html" class="dropdown-link">Partners</a>
+                        <a href="/blog/index.html" class="dropdown-link">Blog</a>
+                        <a href="/community/academy.html" class="dropdown-link">Offline Academy</a>
+                    </div>
+                </div>
+                <div class="nav-actions-mobile">
+                     <div id="authButtonsMobile">
+                        <a href="#" class="btn btn-outline" id="loginBtnHeaderMobile">Log in</a>
+                        <a href="#" class="btn btn-primary" id="signupBtnHeaderMobile">Sign up</a>
+                    </div>
+                     <a href="/community/join.html" class="nav-link mobile-only-link">Join Community</a>
+                     <a href="/community/partners.html" class="nav-link mobile-only-link">Partners</a>
+                     <a href="/blog/index.html" class="nav-link mobile-only-link">Blog</a>
+                     <a href="/community/academy.html" class="nav-link mobile-only-link">Offline Academy</a>
+                </div>
             </nav>
 
-            <button class="hamburger-menu" id="hamburgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
             <div class="header-actions">
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search for courses...">
+                     <input type="text" id="searchInput" class="search-input" placeholder="Search for internships...">
                 </div>
-                
+
                 <div id="authButtons">
                     <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
                     <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
                 </div>
-                
+
                 <div class="user-profile hidden" id="userProfile">
                     <img src="https://placehold.co/40x40/5624d0/ffffff?text=U" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
                     <span id="userNameHeader"></span>
@@ -71,6 +81,12 @@
                     </div>
                 </div>
             </div>
+
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
         <div id="searchResults" class="search-results-container container hidden"></div>
     </header>
@@ -87,18 +103,18 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                   <img src="../images/slide1.png" class="internship-img" style="border-radius: 8px;">
+                    <img src="../images/slide1.png" class="internship-img" style="border-radius: 8px;">
                 </div>
             </div>
         </section>
-        
+
         <section class="value-prop" id="benefits">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Why Our Internship Program?</h2>
                     <p class="section-subtitle">We don't just connect you, we prepare you. Our unique approach ensures you're ready to excel from day one.</p>
                 </div>
-                
+
                 <div class="value-cards">
                     <div class="value-card">
                         <div class="value-icon">
@@ -107,7 +123,7 @@
                         <h3 class="value-title">Practice Tests Available</h3>
                         <p class="value-description">Sharpen your skills with our free, domain-specific practice tests. Understand your strengths and areas for improvement before the final exam.</p>
                     </div>
-                    
+
                     <div class="value-card">
                         <div class="value-icon">
                             <i class="fas fa-money-check-alt"></i>
@@ -115,7 +131,7 @@
                         <h3 class="value-title">Paid Opportunities</h3>
                         <p class="value-description">Our partner companies offer competitive stipends of up to ₹50,000 per month, ensuring your hard work is rewarded.</p>
                     </div>
-                    
+
                     <div class="value-card">
                         <div class="value-icon">
                             <i class="fas fa-briefcase"></i>
@@ -133,234 +149,227 @@
                     <h2 class="section-title">Choose Your Domain & Prove Your Skill</h2>
                     <p class="section-subtitle">Select a domain below to take a practice test or the final internship exam.</p>
                 </div>
-                
+
                 <div class="courses-grid">
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_data Science.png" 
-                 alt="Data Science & Analytics">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Data Science & Analytics</h3>
-            <p class="course-instructor">
-                Roles: Data Analyst, Data Scientist Intern<br>
-                Skills: Python, SQL, Tableau
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="data_science_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="data_science_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                    <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_data Science.png"
+                                 alt="Data Science & Analytics">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Data Science & Analytics</h3>
+                            <p class="course-instructor">
+                                Roles: Data Analyst, Data Scientist Intern<br>
+                                Skills: Python, SQL, Tableau
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="data_science_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="data_science_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Artificial Intelligence.png" 
-                 alt="Artificial Intelligence & Machine Learning">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Artificial Intelligence & Machine Learning</h3>
-            <p class="course-instructor">
-                Roles: AI Intern, ML Intern<br>
-                Skills: Python, TensorFlow, ML Algorithms
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="ai_ml_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="ai_ml_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                    <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Artificial Intelligence.png"
+                                 alt="Artificial Intelligence & Machine Learning">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Artificial Intelligence & Machine Learning</h3>
+                            <p class="course-instructor">
+                                Roles: AI Intern, ML Intern<br>
+                                Skills: Python, TensorFlow, ML Algorithms
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="ai_ml_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="ai_ml_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Python Development.png" 
-                 alt="Python Development & Software Engineering">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Python Development & Software Engineering</h3>
-            <p class="course-instructor">
-                Roles: Python Developer Intern, Backend Developer Intern<br>
-                Skills: Python, Flask/Django, SQL
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="python_dev_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="python_dev_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                     <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Python Development.png"
+                                 alt="Python Development & Software Engineering">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Python Development & Software Engineering</h3>
+                            <p class="course-instructor">
+                                Roles: Python Developer Intern, Backend Developer Intern<br>
+                                Skills: Python, Flask/Django, SQL
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="python_dev_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="python_dev_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Cloud Computing.png" 
-                 alt="Cloud Computing & DevOps">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Cloud Computing & DevOps</h3>
-            <p class="course-instructor">
-                Roles: Cloud Engineer Intern, DevOps Intern<br>
-                Skills: AWS, Docker, CI/CD
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="cloud_devops_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="cloud_devops_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                     <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Cloud Computing.png"
+                                 alt="Cloud Computing & DevOps">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Cloud Computing & DevOps</h3>
+                            <p class="course-instructor">
+                                Roles: Cloud Engineer Intern, DevOps Intern<br>
+                                Skills: AWS, Docker, CI/CD
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="cloud_devops_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="cloud_devops_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Cybersecurity & Ethical Hacking.png" 
-                 alt="Cybersecurity & Ethical Hacking">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Cybersecurity & Ethical Hacking</h3>
-            <p class="course-instructor">
-                Roles: Security Analyst Intern, Ethical Hacking Intern<br>
-                Skills: Networking, Linux, Penetration Testing
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="cybersecurity_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="cybersecurity_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                     <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Cybersecurity & Ethical Hacking.png"
+                                 alt="Cybersecurity & Ethical Hacking">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Cybersecurity & Ethical Hacking</h3>
+                            <p class="course-instructor">
+                                Roles: Security Analyst Intern, Ethical Hacking Intern<br>
+                                Skills: Networking, Linux, Penetration Testing
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="cybersecurity_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="cybersecurity_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Web & Mobile Development.png" 
-                 alt="Web & Mobile Development">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Web & Mobile Development</h3>
-            <p class="course-instructor">
-                Roles: Frontend/Full-Stack Developer Intern<br>
-                Skills: HTML/CSS/JS, React, Flutter
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="web_mobile_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="web_mobile_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                     <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Web & Mobile Development.png"
+                                 alt="Web & Mobile Development">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Web & Mobile Development</h3>
+                            <p class="course-instructor">
+                                Roles: Frontend/Full-Stack Developer Intern<br>
+                                Skills: HTML/CSS/JS, React, Flutter
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="web_mobile_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="web_mobile_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Blockchain & Web3.png" 
-                 alt="Blockchain & Web3">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Blockchain & Web3</h3>
-            <p class="course-instructor">
-                Roles: Blockchain Developer Intern, Smart Contract Developer<br>
-                Skills: Solidity, Ethereum
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="blockchain_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="blockchain_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                     <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Blockchain & Web3.png"
+                                 alt="Blockchain & Web3">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Blockchain & Web3</h3>
+                            <p class="course-instructor">
+                                Roles: Blockchain Developer Intern, Smart Contract Developer<br>
+                                Skills: Solidity, Ethereum
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="blockchain_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="blockchain_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_UIUX Design & Product Design.png" 
-                 alt="UI/UX & Product Design">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">UI/UX & Product Design</h3>
-            <p class="course-instructor">
-                Roles: UI/UX Intern, Product Design Intern<br>
-                Skills: Figma, Wireframing
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="uiux_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="uiux_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
+                     <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_UIUX Design & Product Design.png"
+                                 alt="UI/UX & Product Design">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">UI/UX & Product Design</h3>
+                            <p class="course-instructor">
+                                Roles: UI/UX Intern, Product Design Intern<br>
+                                Skills: Figma, Wireframing
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="uiux_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="uiux_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-
-<div class="course-card">
-    <div class="course-image">
-        <img src="../images/test_Content Creation & Video Editing.png" 
-             alt="Content Creation & Video Editing">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Content Creation & Video Editing</h3>
-        <p class="course-instructor">
-            Roles: Content Creator Intern, Video Editing Intern<br>
-            Skills: Canva, CapCut, Adobe Premiere Pro, Scriptwriting
-        </p>
-        <div class="course-price" style="margin-top: 20px; justify-content: center;">
-            <a href="content_creation_practice_test.html" class="btn btn-outline">Practice Test</a>
-            <a href="content_creation_final_exam.html" class="btn btn-primary">Final Exam</a>
-        </div>
-    </div>
-</div>
-
-                    
-<div class="course-card">
-    <div class="course-image">
-        <img src="../images/test_Prompt Engineering.png" 
-             alt="Prompt Engineering Internship">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Prompt Engineering Internship</h3>
-        <p class="course-instructor">
-            Roles: AI Prompt Engineer Intern, ChatGPT Specialist Intern<br>
-            Skills: ChatGPT, Midjourney, Generative AI, Prompt Design
-        </p>
-        <div class="course-price" style="margin-top: 20px; justify-content: center;">
-            <a href="prompt_engineering_practice_test.html" class="btn btn-outline">Practice Test</a>
-            <a href="prompt_engineering_final_exam.html" class="btn btn-primary">Final Exam</a>
-        </div>
-    </div>
-</div>
+                    <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Content Creation & Video Editing.png"
+                                 alt="Content Creation & Video Editing">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Content Creation & Video Editing</h3>
+                            <p class="course-instructor">
+                                Roles: Content Creator Intern, Video Editing Intern<br>
+                                Skills: Canva, CapCut, Adobe Premiere Pro, Scriptwriting
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="content_creation_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="content_creation_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
 
+                    <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Prompt Engineering.png"
+                                 alt="Prompt Engineering Internship">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Prompt Engineering Internship</h3>
+                            <p class="course-instructor">
+                                Roles: AI Prompt Engineer Intern, ChatGPT Specialist Intern<br>
+                                Skills: ChatGPT, Midjourney, Generative AI, Prompt Design
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="prompt_engineering_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="prompt_engineering_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
-<div class="course-card">
-    <div class="course-image">
-        <img src="../images/test_Game Development.png" 
-             alt="Game Development Internship">
-    </div>
-    <div class="course-content">
-        <h3 class="course-title">Game Development Internship</h3>
-        <p class="course-instructor">
-            Roles: Game Developer Intern, Unity Developer Intern<br>
-            Skills: Unity, C#, Unreal Engine, Game Design
-        </p>
-        <div class="course-price" style="margin-top: 20px; justify-content: center;">
-            <a href="game_dev_practice_test.html" class="btn btn-outline">Practice Test</a>
-            <a href="game_dev_final_exam.html" class="btn btn-primary">Final Exam</a>
-        </div>
-    </div>
-</div>
-
-                    
-
-    <div class="course-card">
-        <div class="course-image">
-            <img src="../images/test_Digital Marketing & Growth Hacking.png" 
-                 alt="Digital Marketing & Growth Hacking">
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Digital Marketing & Growth Hacking</h3>
-            <p class="course-instructor">
-                Roles: Digital Marketing Intern, SEO/SEM Intern<br>
-                Skills: SEO, Content Marketing
-            </p>
-            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                <a href="digital_marketing_practice_test.html" class="btn btn-outline">Practice Test</a>
-                <a href="digital_marketing_final_exam.html" class="btn btn-primary">Final Exam</a>
-            </div>
-        </div>
-    </div>
-
-</div>
+                    <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Game Development.png"
+                                 alt="Game Development Internship">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Game Development Internship</h3>
+                            <p class="course-instructor">
+                                Roles: Game Developer Intern, Unity Developer Intern<br>
+                                Skills: Unity, C#, Unreal Engine, Game Design
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="game_dev_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="game_dev_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
 
 
+                    <div class="course-card">
+                        <div class="course-image">
+                             <img src="../images/test_Digital Marketing & Growth Hacking.png"
+                                 alt="Digital Marketing & Growth Hacking">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Digital Marketing & Growth Hacking</h3>
+                            <p class="course-instructor">
+                                Roles: Digital Marketing Intern, SEO/SEM Intern<br>
+                                Skills: SEO, Content Marketing
+                            </p>
+                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                                <a href="digital_marketing_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="digital_marketing_final_exam.html" class="btn btn-primary">Final Exam</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div> </div>
         </section>
 
         <section class="testimonials">
@@ -369,14 +378,14 @@
                     <h2 class="section-title">Success Stories</h2>
                     <p class="section-subtitle">Hear from our students who transformed their careers through Internadda</p>
                 </div>
-                
+
                 <div class="testimonials-container">
                     <div class="testimonials-grid">
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <p class="testimonial-text">"Internadda's internship program was a game-changer. The final exam was tough but fair, and it prepared me perfectly for my role. I now have a full-time job offer with the company I interned at!"</p>
                                 <div class="testimonial-author">
-                                    <img src="../images/no_image.png"  alt="Pranjal Singh" class="author-avatar">
+                                     <img src="../images/no_image.png"  alt="Pranjal Singh" class="author-avatar">
                                     <div class="author-details">
                                         <span class="author-name">Pranjal Singh</span>
                                         <span class="author-role">DU Graduate</span>
@@ -384,12 +393,12 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <p class="testimonial-text">"The data science internship I got through Internadda was invaluable. The experience on real projects gave me the confidence and portfolio I needed to stand out in the job market."</p>
                                 <div class="testimonial-author">
-                                    <img src="../images/no_image.png" alt="Anuj Singh" class="author-avatar">
+                                     <img src="../images/no_image.png" alt="Anuj Singh" class="author-avatar">
                                     <div class="author-details">
                                         <span class="author-name">Anuj Singh</span>
                                         <span class="author-role">BHU Graduate</span>
@@ -397,12 +406,12 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <p class="testimonial-text">"I was amazed by how comprehensive the UX design course was. The curriculum was up-to-date with industry standards, and the career coaching helped me negotiate a better salary package!"</p>
                                 <div class="testimonial-author">
-                                    <img src="../images/no_image.png"  alt="Sumit Pandey" class="author-avatar">
+                                     <img src="../images/no_image.png"  alt="Sumit Pandey" class="author-avatar">
                                     <div class="author-details">
                                         <span class="author-name">Sumit Pandey</span>
                                         <span class="author-role">DU Graduate</span>
@@ -421,7 +430,7 @@
                 <p class="cta-description">Take the first step towards a rewarding internship. Practice, prove, and get placed.</p>
                 <div class="cta-buttons">
                     <a href="#tests" class="btn btn-light btn-lg">Take a Test</a>
-                    <a href="../courses/course.html" class="btn btn-transparent btn-lg">Browse Courses</a>
+                    <a href="/courses/course.html" class="btn btn-transparent btn-lg">Browse Courses</a>
                 </div>
             </div>
         </section>
@@ -429,11 +438,11 @@
 
     <footer>
         <div class="container">
-            <div class="footer-grid">
+             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="footer-logo">Internadda</div>
                     <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
-                        <div class="social-links">
+                    <div class="social-links">
                         <a href="https://www.linkedin.com/company/internadda-india" target="_blank" class="social-link" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
@@ -445,41 +454,59 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links-column">
                     <h3 class="footer-links-title">Learn</h3>
                     <ul class="footer-links">
-                        <li><a href="../courses/course.html">Browse Courses</a></li>
-                        <li><a href="#">Free Courses</a></li>
-                        <li><a href="#">For Businesses</a></li>
+                        <li><a href="/courses/course.html">Browse Courses</a></li>
+                        <li><a href="/courses/course.html">Free Courses</a></li>
+                        <li><a href="#">Paid Courses</a></li>
                         <li><a href="#">Become an Instructor</a></li>
-                        <li><a href="#">Affiliate Program</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links-column">
                     <h3 class="footer-links-title">Intern</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Find Internships</a></li>
+                        <li><a href="/intern/internship.html">Find Internships</a></li>
                         <li><a href="#">For Companies</a></li>
                         <li><a href="#">Success Stories</a></li>
                         <li><a href="#">Career Coaching</a></li>
-                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links-column">
-                    <h3 class="footer-links-title">Contact & Legal</h3>
+                    <h3 class="footer-links-title">Community</h3>
                     <ul class="footer-links">
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../terms.html">Terms & Conditions</a></li>
-                        <li><a href="../privacy.html">Privacy Policy</a></li>
-                        <li><a href="../refund.html">Refund Policy</a></li>
+                        <li><a href="/community/join.html">Join Community</a></li>
+                        <li><a href="/community/partners.html">Partners</a></li>
+                        <li><a href="/blog/index.html">Blog</a></li>
+                        <li><a href="/community/academy.html">Offline Academy</a></li>
+                    </ul>
+                </div>
+
+
+                     <div class="footer-links-column">
+                    <h3 class="footer-links-title">InternAdda</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="/terms.html">Terms & Conditions</a></li>
+                        <li><a href="/refund.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">More</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Affiliate Program</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">QnA</a></li>
+                        <li><a href="#">Daily Challenges</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>© 2025 Internadda. All rights reserved.</p>
             </div>
@@ -497,26 +524,26 @@
                     <span>Signing in...</span>
                 </div>
                 <div id="loginError" class="error"></div>
-                
+
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
                     <input type="email" id="loginEmail" placeholder="Enter your email" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
                     <input type="password" id="loginPassword" placeholder="Enter your password" required>
                 </div>
-                
+
                 <button class="btn btn-primary" id="emailLoginBtn">Sign In</button>
                 <div class="separator"><span>OR</span></div>
                 <button class="btn btn-google" id="googleLoginBtn"><i class="fab fa-google"></i> Continue with Google</button>
-                
+
                 <div class="toggle-auth">
                     <span>Don't have an account?</span> <a href="#" id="showSignup">Sign up</a>
                 </div>
             </div>
-            
+
             <div id="signupSection" class="auth-section">
                 <h2 class="auth-title">Create Account</h2>
                 <div class="loading" id="signupLoading">
@@ -524,34 +551,33 @@
                     <span>Creating account...</span>
                 </div>
                 <div id="signupError" class="error"></div>
-                
+
                 <div class="form-group">
                     <label for="signupEmail">Email</label>
                     <input type="email" id="signupEmail" placeholder="Enter your email" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="signupPassword">Password</label>
                     <input type="password" id="signupPassword" placeholder="Create a password (6+ characters)" required>
                 </div>
-                
+
                 <button class="btn btn-primary" id="emailSignupBtn">Create Account</button>
                 <div class="separator"><span>OR</span></div>
                 <button class="btn btn-google" id="googleSignupBtn"><i class="fab fa-google"></i> Sign up with Google</button>
-                
+
                 <div class="toggle-auth">
                     <span>Already have an account?</span> <a href="#" id="showLogin">Sign in</a>
                 </div>
             </div>
-            
+
             <div id="dashboardSection" class="auth-section">
-                <div class="dashboard-content">
+                 <div class="dashboard-content">
                     <div id="profileDisplaySection">
                         <div class="user-info-profile">
                             <div class="profile-avatar-display">
                                 <img id="userAvatarDashboard" class="user-avatar" src="" alt="User Avatar">
-                                <div class="verified-badge" id="verificationBadge"></div>
-                            </div>
+                                </div>
                             <div class="user-profile-details">
                                 <h2 id="userNameDashboard"></h2>
                                 <p id="userEmailDashboard"></p>
@@ -598,6 +624,7 @@
                                 <option value="Data Science & AI">Data Science & AI</option>
                                 <option value="Digital Marketing">Digital Marketing</option>
                                 <option value="UI/UX Design">UI/UX Design</option>
+                                {/* Add other domains as needed */}
                             </select>
                         </div>
                         <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
@@ -621,7 +648,52 @@
             </div>
         </div>
     </div>
-    
+
     <script src="../script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
+            const signupBtnMobile = document.getElementById('signupBtnHeaderMobile');
+            const authModal = document.getElementById('authModal');
+            const loginSection = document.getElementById('loginSection');
+            const signupSection = document.getElementById('signupSection');
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+
+            const closeHamburgerMenu = () => {
+                if (navMenu && hamburgerMenu) {
+                    navMenu.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
+                }
+            };
+
+            if (loginBtnMobile) {
+                loginBtnMobile.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (authModal && loginSection && signupSection) {
+                        authModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        signupSection.classList.remove('active');
+                        loginSection.classList.add('active');
+                        closeHamburgerMenu();
+                    }
+                });
+            }
+
+            if (signupBtnMobile) {
+                signupBtnMobile.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (authModal && loginSection && signupSection) {
+                        authModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        loginSection.classList.remove('active');
+                        signupSection.classList.add('active');
+                        closeHamburgerMenu();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
