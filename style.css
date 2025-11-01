@@ -389,7 +389,21 @@ header {
 
 
 /* Hero Section */
-.hero { background: var(--gradient); padding: 100px 0; position: relative; overflow: hidden; }
+.hero { 
+    background: var(--gradient); 
+    padding: 100px 0; 
+    position: relative; 
+    overflow: hidden; 
+    /* NEW: Subtle animated background gradient effect */
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+}
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent); z-index: 0; }
 .hero-container { display: flex; align-items: center; gap: 56px; position: relative; z-index: 1; }
 .hero-content { flex: 1; }
@@ -677,17 +691,19 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 .coming-soon { text-align: center; font-style: italic; color: var(--gray); margin-top: 50px; font-size: 1.1rem; }
 
 
-/* --- New Partner/Trust Section CSS (for auto-scrolling) --- */
+/* --- New Partner/Trust Section CSS (Integrated and Enhanced) --- */
 .partner-logo-section {
-    padding: 80px 0;
+    padding: 30px 0;
     overflow: hidden;
     background-color: var(--white);
     text-align: center;
+    /* Added shadow to visually separate from Hero, giving a "floating" effect */
+    box-shadow: inset 0 12px 15px -15px rgba(0, 0, 0, 0.15); 
 }
 
+/* Hide the unused title style from the previous iteration */
 .partner-logo-section .section-title {
-    margin-bottom: 40px;
-    font-size: 32px;
+    display: none;
 }
 
 .logo-marquee-container {
@@ -698,9 +714,8 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     white-space: nowrap;
     overflow: hidden;
     position: relative;
-    height: 60px;
-    border-top: 1px solid #e2e8f0;
-    border-bottom: 1px solid #e2e8f0;
+    height: 80px;
+    /* Removed extra borders/shadows to keep it simple and clean */
 }
 
 .logo-marquee {
@@ -723,18 +738,22 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     align-items: center;
     justify-content: center;
     padding: 0 40px;
-    opacity: 0.5;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
     flex-shrink: 0;
-    height: 60px;
+    height: 80px;
 }
 
 .logo-item img {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease, opacity 0.3s ease;
+    height: 50px;
+    width: 50px; /* Enforce size for circle */
+    object-fit: cover;
+    border-radius: 50%; /* Make it circular */
+    /* Colorful (no filter) and polished look */
+    filter: none;
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.15); /* Subtle border using primary color as shadow */
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
 }
 
 .logo-item:hover {
@@ -742,7 +761,11 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 }
 
 .logo-item:hover img {
-    filter: grayscale(0%);
+    filter: none;
+    opacity: 1;
+    transform: scale(1.15) rotate(5deg);
+    /* Highlighted shadow using primary color */
+    box-shadow: 0 0 0 4px var(--primary), 0 8px 20px rgba(0, 0, 0, 0.2); 
 }
 
 @keyframes scroll-left {
@@ -795,7 +818,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
      /* Show mobile-only community links */
     .nav-menu.active .nav-link.mobile-only-link { display: block; }
 
-    /* Mobile Auth buttons inside active menu (EKDUM LAST ME) */
+    /* MOBILE LOGIN/SIGNUP (EKDUM LAST ME) */
     .nav-menu.active .nav-actions-mobile {
         display: flex;
         flex-direction: column;
@@ -804,7 +827,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         max-width: 300px;
         margin: 16px auto 0;
         padding: 16px 20px;
-        border-top: 1px solid #eee; /* Separator to separate from links above */
+        border-top: 1px solid #eee;
         padding-bottom: 24px;
     }
     .nav-menu.active .nav-actions-mobile .btn {
@@ -821,20 +844,13 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px;}
     .search-results-container { width: calc(100% - 64px); left: 32px; }
 
-    /* Partner Logo Section for Mobile */
-    .logo-marquee-container {
-        height: 45px;
-    }
-    .logo-marquee, .logo-marquee.duplicate {
-        animation-duration: 15s;
-    }
-    .logo-item {
-        padding: 0 15px;
-        height: 45px;
-    }
-    .logo-item img {
-        height: 30px;
-    }
+    /* Partner Logo Section for Mobile (Faster scroll, smaller logos) */
+    .partner-logo-section { padding: 30px 0; }
+    .logo-marquee-container { height: 60px; }
+    .logo-marquee, .logo-marquee.duplicate { animation-duration: 15s; }
+    .logo-item { padding: 0 15px; height: 60px; }
+    .logo-item img { height: 40px; width: 40px; }
+    .logo-item:hover img { transform: scale(1.1); }
 }
 
 @media (max-width: 768px) {
