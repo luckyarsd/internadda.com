@@ -57,7 +57,7 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 24px 0;
-    position: relative; /* Added for search dropdown positioning */
+    position: relative;
 }
 
 /* Logo Styling */
@@ -100,7 +100,7 @@ header {
 .nav-menu {
     display: flex;
     gap: 36px;
-    align-items: center; /* Vertically align items */
+    align-items: center;
 }
 
 .nav-link {
@@ -110,7 +110,7 @@ header {
     font-size: 16px;
     position: relative;
     transition: var(--transition);
-    padding: 10px 0; /* Added padding for hover area */
+    padding: 10px 0;
 }
 
 .nav-link::after {
@@ -118,13 +118,13 @@ header {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -6px; /* Position underline below text */
+    bottom: -6px;
     left: 0;
     background: var(--gradient);
     transition: width 0.4s ease;
 }
 
-.nav-link:not(.dropdown-toggle):hover::after { /* Don't underline dropdown toggle */
+.nav-link:not(.dropdown-toggle):hover::after {
     width: 100%;
 }
 
@@ -257,11 +257,11 @@ header {
     border-radius: 14px;
     box-shadow: var(--shadow);
     position: absolute;
-    width: 100%; /* Match parent search-container width */
+    width: 100%;
     z-index: 101;
     max-height: 400px;
     overflow-y: auto;
-    top: calc(100% + 8px); /* Position below search input */
+    top: calc(100% + 8px);
     left: 0;
 }
 
@@ -272,7 +272,7 @@ header {
     border-radius: 8px;
     background-color: transparent;
     transition: background-color 0.2s ease;
-    padding: 0; /* Reset padding */
+    padding: 0;
 }
 .search-result-item:last-child {
     margin-bottom: 0;
@@ -288,7 +288,7 @@ header {
     gap: 15px;
     text-decoration: none;
     color: inherit;
-    padding: 10px 15px; /* Add padding here */
+    padding: 10px 15px;
 }
 
 /* Internship result item (<div> tag) */
@@ -372,8 +372,8 @@ header {
    NAVIGATION DROPDOWN STYLES
    ============================ */
 .nav-item.dropdown { position: relative; }
-.nav-link.dropdown-toggle { display: flex; align-items: center; gap: 6px; cursor: default; /* Make it not act like a direct link */}
-.nav-link.dropdown-toggle::after { display: none; /* Hide underline for dropdown toggle */}
+.nav-link.dropdown-toggle { display: flex; align-items: center; gap: 6px; cursor: default; }
+.nav-link.dropdown-toggle::after { display: none; }
 .dropdown-arrow { font-size: 0.7em; transition: transform 0.3s ease; }
 .dropdown-content { display: none; position: absolute; top: calc(100% + 10px); left: 0; background-color: var(--white); min-width: 180px; box-shadow: 0 8px 16px rgba(0,0,0,0.15); border-radius: 8px; z-index: 100; padding: 10px 0; animation: fadeIn 0.3s ease-out; }
 .dropdown-link { display: block; padding: 12px 20px; color: var(--dark); text-decoration: none; font-size: 15px; font-weight: 500; transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; white-space: nowrap; }
@@ -389,12 +389,12 @@ header {
 
 
 /* Hero Section */
-.hero { background: var(--gradient); padding: 100px 0; position: relative; overflow: hidden; } /* KEEP original padding */
+.hero { background: var(--gradient); padding: 100px 0; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent); z-index: 0; }
 .hero-container { display: flex; align-items: center; gap: 56px; position: relative; z-index: 1; }
 .hero-content { flex: 1; }
 .hero-heading { font-size: 52px; font-weight: 800; margin-bottom: 24px; line-height: 1.2; animation: fadeInUp 0.7s ease-out; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { transform: translateY(0); opacity: 1; } }
 .hero-heading span { background: linear-gradient(90deg, var(--white), #e6fffa); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-description { font-size: 19px; color: #edf2f7; margin-bottom: 40px; max-width: 650px; font-weight: 400; }
 .hero-stats { display: flex; gap: 48px; margin-bottom: 40px; }
@@ -416,22 +416,18 @@ header {
 .internships,
 .testimonials,
 .team-section {
-    padding: 100px 0; /* Consistent vertical padding */
-    margin: 0; /* Reset margins */
-}
-/* CTA Section Spacing (Already looks consistent, keep as is or adjust if needed) */
-.cta-section {
-    padding: 100px 0; /* Adjusted from 120px to match others */
+    padding: 100px 0;
     margin: 0;
-    /* Other CTA styles remain */
+}
+.cta-section {
+    padding: 100px 0;
+    margin: 0;
     background: var(--gradient); color: var(--white); text-align: center; position: relative; overflow: hidden;
 }
 .cta-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent); z-index: 0; }
-/* Jobs Page Hero spacing */
 .jobs-hero {
-    padding: 100px 0; /* Adjusted from 120px */
+    padding: 100px 0;
     margin: 0;
-    /* Other jobs-hero styles remain */
     text-align: center; background-color: var(--light); min-height: 60vh; display: flex; align-items: center; justify-content: center;
 }
 /* --- End Consistent Section Spacing --- */
@@ -552,7 +548,7 @@ footer { background-color: var(--dark); color: var(--white); padding: 100px 0 48
 .auth-section.active { display: flex; flex-direction: column; }
 h2.auth-title { text-align: center; font-size: 2.4rem; font-weight: 800; margin-bottom: 28px; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .form-group { margin-bottom: 28px; animation: slideInLeft 0.5s ease-out; }
-@keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { transform: translateX(0); opacity: 1; } }
 label { display: block; margin-bottom: 12px; color: var(--dark); font-weight: 600; font-size: 16px; }
 input, select { width: 100%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 14px; font-size: 17px; transition: var(--transition); }
 input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(43, 108, 176, 0.15); }
@@ -681,60 +677,135 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 .coming-soon { text-align: center; font-style: italic; color: var(--gray); margin-top: 50px; font-size: 1.1rem; }
 
 
+/* --- New Partner/Trust Section CSS (for auto-scrolling) --- */
+.partner-logo-section {
+    padding: 80px 0;
+    overflow: hidden;
+    background-color: var(--white);
+    text-align: center;
+}
+
+.partner-logo-section .section-title {
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.logo-marquee-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    height: 60px;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.logo-marquee {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: scroll-left 30s linear infinite;
+    padding-right: 40px;
+    will-change: transform;
+}
+
+.logo-marquee.duplicate {
+    left: 100%;
+    animation: scroll-left 30s linear infinite;
+}
+
+.logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    flex-shrink: 0;
+    height: 60px;
+}
+
+.logo-item img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.logo-item:hover {
+    opacity: 1;
+}
+
+.logo-item:hover img {
+    filter: grayscale(0%);
+}
+
+@keyframes scroll-left {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-100%); }
+}
+/* --- End New Partner/Trust Section CSS --- */
+
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     /* Hide desktop nav elements, show hamburger */
-    .nav-menu .nav-link:not(.mobile-only-link), /* Hide direct links */
-    .nav-menu .nav-item.dropdown, /* Hide desktop dropdown */
+    .nav-menu .nav-link:not(.mobile-only-link),
+    .nav-menu .nav-item.dropdown,
     .search-container,
-    .header-actions #authButtons { /* Hide desktop auth buttons */
+    .header-actions #authButtons {
         display: none;
     }
-    .hamburger-menu { display: flex; } /* Show hamburger */
+    .hamburger-menu { display: flex; }
 
     /* Style the opened mobile navigation menu */
     .nav-menu.active {
         display: flex;
         flex-direction: column;
-        align-items: center; /* Center items */
-        gap: 0; /* Remove gap, use padding/borders */
+        align-items: center;
+        gap: 0;
         position: absolute;
-        top: 100%; /* Position below header */
+        top: 100%;
         left: 0;
         width: 100%;
         background-color: var(--white);
-        padding: 16px 0; /* Vertical padding only */
+        padding: 16px 0;
         box-shadow: var(--shadow);
         animation: slideDown 0.4s ease-out;
         z-index: 99;
     }
     /* Show mobile links inside active menu */
     .nav-menu.active .nav-link {
-        display: block; /* Make sure they are block */
+        display: block;
         width: 100%;
         text-align: center;
-        padding: 14px 20px; /* Consistent padding */
+        padding: 14px 20px;
         font-size: 17px;
-        border-top: 1px solid #eee; /* Separator */
-        margin: 0; /* Remove any margin */
+        border-top: 1px solid #eee;
+        margin: 0;
     }
     .nav-menu.active .nav-link:first-child {
-        border-top: none; /* No border for the first link */
+        border-top: none;
     }
      /* Show mobile-only community links */
     .nav-menu.active .nav-link.mobile-only-link { display: block; }
 
-    /* Mobile Auth buttons inside active menu */
+    /* Mobile Auth buttons inside active menu (EKDUM LAST ME) */
     .nav-menu.active .nav-actions-mobile {
-        display: flex; /* Make visible */
+        display: flex;
         flex-direction: column;
         gap: 16px;
         width: 100%;
-        max-width: 300px; /* Limit width */
-        margin: 16px auto 0; /* Add margin top */
-        padding: 16px 20px; /* Added horizontal padding */
-        border-top: 1px solid #eee; /* Separator */
-        padding-bottom: 24px; /* Added bottom padding for space */
+        max-width: 300px;
+        margin: 16px auto 0;
+        padding: 16px 20px;
+        border-top: 1px solid #eee; /* Separator to separate from links above */
+        padding-bottom: 24px;
     }
     .nav-menu.active .nav-actions-mobile .btn {
         display: inline-flex;
@@ -748,7 +819,22 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .hero-heading { font-size: 44px; }
     .value-cards { grid-template-columns: 1fr 1fr; gap: 24px;}
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px;}
-    .search-results-container { width: calc(100% - 64px); left: 32px; /* Adjust based on container padding */ }
+    .search-results-container { width: calc(100% - 64px); left: 32px; }
+
+    /* Partner Logo Section for Mobile */
+    .logo-marquee-container {
+        height: 45px;
+    }
+    .logo-marquee, .logo-marquee.duplicate {
+        animation-duration: 15s;
+    }
+    .logo-item {
+        padding: 0 15px;
+        height: 45px;
+    }
+    .logo-item img {
+        height: 30px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -793,109 +879,10 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .cta-section,
     .team-section,
     .jobs-hero {
-        padding: 60px 0; /* Reduced padding for mobile */
+        padding: 60px 0;
     }
     .hero {
-        padding: 60px 0; /* Reduced padding for mobile */
+        padding: 60px 0;
     }
 
-}
-
-
-/* --- New Partner/Trust Section CSS (for auto-scrolling) --- */
-.partner-logo-section {
-    padding: 80px 0;
-    overflow: hidden;
-    background-color: var(--white); /* Light background for contrast */
-}
-
-.partner-logo-section h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 32px;
-    color: var(--dark);
-    font-weight: 800;
-}
-
-.logo-marquee-container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-    /* Creating a track for the marquee items */
-    position: relative;
-    height: 60px; /* Fixed height for the track */
-}
-
-.logo-marquee {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: scroll-left 30s linear infinite; /* 30s duration, infinite loop */
-    padding-right: 40px; /* Space buffer for the loop */
-    will-change: transform; /* Performance optimization */
-}
-
-.logo-marquee.duplicate {
-    left: 100%; /* Start the duplicate where the first one ends */
-    animation: scroll-left 30s linear infinite; /* Same animation, starts from 100% */
-}
-
-.logo-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 40px;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-    flex-shrink: 0; /* Important: do not shrink items */
-    height: 60px;
-}
-
-.logo-item img {
-    height: 45px;
-    width: auto;
-    object-fit: contain;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.logo-item:hover {
-    opacity: 1;
-}
-
-.logo-item:hover img {
-    filter: grayscale(0%);
-}
-
-@keyframes scroll-left {
-    from { transform: translateX(0%); }
-    to { transform: translateX(-100%); }
-}
-
-/* Mobile adjustment for faster scroll and small logos */
-@media (max-width: 768px) {
-    .partner-logo-section {
-        padding: 40px 0;
-    }
-    .partner-logo-section h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-    .logo-marquee-container {
-        height: 45px;
-    }
-    .logo-marquee, .logo-marquee.duplicate {
-        animation-duration: 15s; /* Faster scroll on mobile */
-    }
-    .logo-item {
-        padding: 0 15px;
-        height: 45px;
-    }
-    .logo-item img {
-        height: 30px;
-    }
 }
