@@ -299,21 +299,21 @@
                 <div id="instructions-step" class="exam-step">
                     <h2><i class="fas fa-scroll"></i> Final Exam Instructions (AI & ML)</h2>
                     <p style="text-align: center; font-size: 1.1rem; color: var(--dark); margin-bottom: 30px;">
-                        Welcome to the <b>AI & Machine Learning Final Exam</b>. This test evaluates your <b>Practical, Real-World</b> knowledge in <b>Python, TensorFlow, ML Algorithms, and Deep Learning</b>. Read all rules carefully before proceeding.
+                        Welcome to the **AI & Machine Learning Final Exam**. This test evaluates your **Practical, Real-World** knowledge in **Python, TensorFlow, ML Algorithms, and Deep Learning**. Read all rules carefully before proceeding.
                     </p>
                     <div class="instructions-list">
                         <ul>
-                            <li><b>Duration:</b> <b>30 minutes</b>.</li>
-                            <li><b>Passing Score:</b> r<b>60%</b> (15 out of 25 questions).</li>
-                            <li><b>Proctoring:</b> This is r<b>NOT</b> a camera proctored exam, but integrity rules still apply.</li>
-                            <li><b>Environment:</b> You must be in a quiet room, alone. No external help is permitted.</li>
-                            <li><b>Academic Integrity:</b> No tab switching, other applications, or AI tools. Violations are logged and lead to disqualification.</li>
-                            <li><b>Connectivity:</b> A stable internet connection is mandatory.</li>
-                            <li><b>Questions:</b> 25 mandatory Multiple Choice Questions (MCQs) focusing on daily-life and business scenarios.</li>
-                            <li><b>Submission:</b> The exam auto-submits at time up or submit manually. No changes can be made after submission.</li>
+                            <li>**Duration:** **30 minutes**.</li>
+                            <li>**Passing Score:** **60%** (15 out of 25 questions).</li>
+                            <li>**Proctoring:** This is **NOT** a camera proctored exam, but integrity rules still apply.</li>
+                            <li>**Environment:** You must be in a quiet room, alone. No external help is permitted.</li>
+                            <li>**Academic Integrity:** No tab switching, other applications, or AI tools. Violations are logged and lead to disqualification.</li>
+                            <li>**Connectivity:** A stable internet connection is mandatory.</li>
+                            <li>**Questions:** 25 mandatory Multiple Choice Questions (MCQs) focusing on daily-life and business scenarios.</li>
+                            <li>**Submission:** The exam auto-submits at time up or submit manually. No changes can be made after submission.</li>
                         </ul>
                     </div>
-                    <div class="strict-disclaimer"><i class="fas fa-exclamation-triangle"></i> <b>Strict Anti-Cheating Policy:</b> Starting confirms you accept these rules. Violations will lead to disqualification and a permanent ban.</div>
+                    <div class="strict-disclaimer"><i class="fas fa-exclamation-triangle"></i> **Strict Anti-Cheating Policy:** Starting confirms you accept these rules. Violations will lead to disqualification and a permanent ban.</div>
                     <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
 
@@ -365,19 +365,19 @@
                     </div>
                     
                     <div id="email-instructions" class="email-instructions hidden">
-                        <p><b>शानदार प्रदर्शन!</b> 🎉 आपने न्यूनतम स्कोर (60%) की आवश्यकता को पूरा कर लिया है।</p>
-                        <p>अगले चरण के लिए, कृपया **इन विवरणों के साथ हमें ईमेल करें:**</p>
+                        <p>**Excellent Work!** 🎉 You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please **email us with the following details:**</p>
                         <ul>
-                            <li><b>To:</b> official.internadda@gmail.com</li>
-                            <li><b>Subject:</b> AI & ML Internship Application - [Your Full Name Here]</li>
-                            <li><b>Body:</b> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
-                            <li><b>Attachment:</b> Screenshot of this results page.</li>
+                            <li>**To:** official.internadda@gmail.com</li>
+                            <li>**Subject:** AI & ML Internship Application - [Your Full Name Here]</li>
+                            <li>**Body:** Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li>**Attachment:** Screenshot of this results page.</li>
                         </ul>
-                        <p>हम आपके स्कोर और सेशन लॉग्स को वेरीफाई करेंगे और **72 व्यावसायिक घंटों** के भीतर जवाब देंगे।</p>
-                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> ईमेल ड्राफ्ट खोलने के लिए क्लिक करें</a>
+                        <p>We will verify your score and session logs, then reply within **72 business hours**.</p>
+                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
                     
-                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">मुखपृष्ठ पर वापस जाएं</a>
+                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
                 </div>
             </div>
         </section>
@@ -408,14 +408,13 @@
             const resultIcon = document.getElementById('result-icon');
             const resultTitle = document.getElementById('result-title');
             const resultMessage = document.getElementById('result-message');
-            const scoreDisplay = document.getElementById('score-display');
             const finalScoreEl = document.getElementById('final-score');
             const totalQuestionsEl = document.getElementById('total-questions');
             const finalPercentageEl = document.getElementById('final-percentage');
             const emailInstructions = document.getElementById('email-instructions');
             const emailLink = document.getElementById('email-link');
             const finalScoreEmailSpan = document.querySelector('.final-score-email'); 
-            const confettiContainer = document.getElementById('confetti-container'); // NEW ELEMENT
+            const confettiContainer = document.getElementById('confetti-container');
  
             // State
             let examTimerInterval; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
@@ -432,7 +431,7 @@
             function proceedToExam() { 
                 instructionsStep.classList.add('hidden'); 
                 examStep.classList.remove('hidden'); 
-                fixedTimerContainer.classList.remove('hidden'); // Show fixed timer
+                fixedTimerContainer.classList.remove('hidden'); 
                 startTimer(); 
             }
  
@@ -486,8 +485,8 @@
                  if (percentage >= 60) {
                     submissionStep.classList.add('passed'); // Add success class
                     resultIcon.className = 'icon fas fa-award success'; // Changed icon for success
-                    resultTitle.textContent = "उत्कृष्ट कार्य! 🏆 परीक्षा उत्तीर्ण!"; 
-                    resultMessage.textContent = "बधाई हो! आपने AI & ML का प्रैक्टिकल एग्जाम सफलतापूर्वक पास कर लिया है। अपनी इंटर्नशिप यात्रा शुरू करने के लिए नीचे दिए गए निर्देशों का पालन करें।"; 
+                    resultTitle.textContent = "Excellent Work! 🏆 Exam Qualified!"; 
+                    resultMessage.textContent = "Congratulations! You successfully passed the Practical AI & ML Exam. Follow the instructions below to begin your internship journey."; 
                     emailInstructions.classList.remove('hidden');
 
                     // Confetti Effect Trigger
@@ -503,8 +502,8 @@
                  } else {
                     submissionStep.classList.add('failed'); // Add fail class
                     resultIcon.className = 'icon fas fa-frown fail'; // Sad icon for not meeting requirement
-                    resultTitle.textContent = "बेहतर प्रयास करें 😔"; 
-                    resultMessage.textContent = `आपका स्कोर ${percentage}% है, जो 60% की आवश्यकता को पूरा नहीं करता है। निराश न हों, आप 48 घंटे बाद फिर से प्रयास कर सकते हैं!`; 
+                    resultTitle.textContent = "Try Better Next Time 😔"; 
+                    resultMessage.textContent = `Your score is ${percentage}%, which does not meet the 60% requirement. Don't worry, you can re-attempt the exam after 48 hours!`; 
                     emailInstructions.classList.add('hidden');
                     confettiContainer.classList.add('hidden');
                  }
@@ -549,7 +548,7 @@
                           if (tabSwitchCount >= MAX_TAB_SWITCHES) {
                               resultIcon.className = 'icon fas fa-exclamation-triangle fail'; 
                               resultTitle.textContent = "Exam Disqualified"; 
-                              resultMessage.textContent = "Navigated away from exam tab multiple times."; 
+                              resultMessage.textContent = "Navigating away from exam tab multiple times. Your attempt is now invalid."; 
                               scoreDisplay.textContent = "Score: N/A"; 
                               emailInstructions.classList.add('hidden'); 
                               examStep.classList.add('hidden'); 
