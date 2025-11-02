@@ -76,6 +76,7 @@
         #instructions-step h2 { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 25px; } 
         #instructions-step .instructions-list { margin: 30px auto; padding: 30px; background: var(--hover-light); border-left: 6px solid var(--warning); max-width: 700px; border-radius: 10px; } 
         #instructions-step .instructions-list ul { padding-left: 25px; text-align: left; font-size: 1.1rem; line-height: 2; } 
+        #instructions-step .instructions-list li { margin-bottom: 12px; position: relative; } 
         #instructions-step .instructions-list li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--success); position: absolute; left: -25px; font-size: 0.9em; }
         .passing-score { font-weight: 800; color: #fff; background-color: var(--accent); padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 4px rgba(56, 161, 105, 0.4); } 
         .strict-disclaimer { margin-top: 30px; padding: 25px; background: #fff5f5; border: 2px solid #fbb2b2; color: #c53030; font-weight: 700; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(197, 48, 48, 0.1); } 
@@ -85,40 +86,8 @@
         #exam-step { padding-top: 20px; } 
         .question-block { margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 30px; opacity: 1; transform: none; }
         .question-block:last-child { border-bottom: none; margin-bottom: 0; } 
-        
-        /* FIX: Adjusted CSS for better question display */
-        .question-block h3 { 
-            font-size: 1.35rem; 
-            font-weight: 700; 
-            margin-bottom: 25px; 
-            line-height: 1.6; 
-            display: flex; 
-            align-items: flex-start; 
-            color: var(--dark); 
-            /* Added min-height to ensure consistent layout */
-            min-height: 50px; 
-            /* Removed flex-grow/shrink from the surrounding h3 to prevent unnecessary stretching */
-            flex-grow: 1;
-            flex-shrink: 1;
-        } 
-        
-        /* UPDATED: Removed blue circle from question numbers for a professional look */
-        .question-block h3 b { 
-            display: inline-block; 
-            background: transparent; /* Blue circle background removed */
-            color: var(--dark); /* Text color set to dark */
-            border-radius: 0; 
-            width: auto; 
-            height: auto; 
-            line-height: inherit; 
-            text-align: left; 
-            margin-right: 10px; /* Reduced margin slightly */
-            font-size: 1.35rem; 
-            font-weight: 800; /* Made number extra bold to stand out */
-            flex-shrink: 0; 
-            box-shadow: none; 
-        } 
-        
+        .question-block h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 25px; line-height: 1.6; display: flex; align-items: flex-start; color: var(--dark); } 
+        .question-block h3 b { display: inline-block; background: var(--primary); color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center; margin-right: 15px; font-size: 1rem; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); } 
         .options .option { background-color: var(--light); padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.25s ease-in-out; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 1.05rem; } 
         .options .option::before { content: ''; display: inline-block; width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; } 
         .options .option:hover { background-color: var(--hover-light); border-color: var(--primary); transform: translateX(5px); } 
@@ -138,11 +107,6 @@
         /* Modals/Messages (Only tab-switch retained) */
         .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 6px solid var(--primary); max-width: 500px; width: 90%; animation: modalPop 0.3s ease-out; } 
         .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); z-index: 1004; }
-        
-        /* New style for footer centering */
-        footer p {
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -169,11 +133,11 @@
                         <ul>
                             <li><b>Duration:</b> <b>30 minutes</b>.</li>
                             <li><b>Passing Score:</b> <b class="passing-score">60%</b> (15 out of 25 questions).</li>
-                            <li><b>Proctoring:</b> This is <b>NOT</b> a camera proctored exam, but integrity rules still apply.</li>
+                            <li><b>Proctoring:</b> This is **NOT** a camera proctored exam, but integrity rules still apply.</li>
                             <li><b>Environment:</b> You must be in a quiet room, alone. No external help is permitted.</li>
                             <li><b>Academic Integrity:</b> No tab switching, other applications, or AI tools. Violations are logged and lead to disqualification.</li>
                             <li><b>Connectivity:</b> A stable internet connection is mandatory.</li>
-                            <li><b>Questions:</b> 25 mandatory Multiple Choice Questions (MCQs) focusing on <b>daily-life and business scenarios</b>.</li>
+                            <li><b>Questions:</b> 25 mandatory Multiple Choice Questions (MCQs) focusing on **daily-life and business scenarios**.</li>
                             <li><b>Submission:</b> The exam auto-submits at time up or submit manually. No changes can be made after submission.</li>
                         </ul>
                     </div>
@@ -186,20 +150,20 @@
                         <h1>Practical AI & ML Final Exam</h1>
                     </div>
                     <div id="quiz-container">
-                        <div class="question-block" data-answer="b"><h3><b>1</b> A food delivery startup wants to predict which customers are likely to stop ordering next month. Which Machine Learning task is best suited for this <b>Customer Churn</b> prediction?</h3><div class="options"><div class="option" data-value="a">Regression</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Reinforcement Learning</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>2</b> You are developing an ML model to identify fraudulent credit card transactions. You discover only 0.5% of your data is fraudulent. Which metric is the <b>least reliable</b> for evaluating this highly imbalanced scenario?</h3><div class="options"><div class="option" data-value="a">Recall</div><div class="option" data-value="b">F1-Score</div><div class="option" data-value="c">Area Under Curve (AUC)</div><div class="option" data-value="d">Accuracy</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>3</b> Your e-commerce website uses a recommendation system. A user views a product, and the system instantly recommends 5 related items. Which ML approach is most likely used for this <b>real-time 'similar item' recommendation</b>?</h3><div class="options"><div class="option" data-value="a">K-Nearest Neighbors (KNN) or collaborative filtering</div><div class="option" data-value="b">Linear Regression</div><div class="option" data-value="c">Time Series Forecasting</div><div class="option" data-value="d">K-Means Clustering</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>4</b> A logistics company wants to predict the <b>ideal delivery time</b> (a continuous value in minutes) for a parcel based on traffic and weather. Which type of ML algorithm should be used?</h3><div class="options"><div class="option" data-value="a">Classification</div><div class="option" data-value="b">Clustering</div><div class="option" data-value="c">Regression</div><div class="option" data-value="d">Association Rule Mining</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>5</b> You're training a custom object detection model using TensorFlow. To make the model robust against pictures taken from slightly different angles or lighting, what technique is <b>most critical</b> to use on your input images?</h3><div class="options"><div class="option" data-value="a">Feature Scaling (Normalization)</div><div class="option" data-value="b">Data Augmentation (Rotation, Cropping, Flipping)</div><div class="option" data-value="c">One-Hot Encoding</div><div class="option" data-value="d">Principal Component Analysis (PCA)</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><b>1</b> A food delivery startup wants to predict which customers are likely to stop ordering next month. Which Machine Learning task is best suited for this **Customer Churn** prediction?</h3><div class="options"><div class="option" data-value="a">Regression</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Reinforcement Learning</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><b>2</b> You are developing an ML model to identify fraudulent credit card transactions. You discover only 0.5% of your data is fraudulent. Which metric is the **least reliable** for evaluating this highly imbalanced scenario?</h3><div class="options"><div class="option" data-value="a">Recall</div><div class="option" data-value="b">F1-Score</div><div class="option" data-value="c">Area Under Curve (AUC)</div><div class="option" data-value="d">Accuracy</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><b>3</b> Your e-commerce website uses a recommendation system. A user views a product, and the system instantly recommends 5 related items. Which ML approach is most likely used for this **real-time 'similar item' recommendation**?</h3><div class="options"><div class="option" data-value="a">K-Nearest Neighbors (KNN) or collaborative filtering</div><div class="option" data-value="b">Linear Regression</div><div class="option" data-value="c">Time Series Forecasting</div><div class="option" data-value="d">K-Means Clustering</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><b>4</b> A logistics company wants to predict the **ideal delivery time** (a continuous value in minutes) for a parcel based on traffic and weather. Which type of ML algorithm should be used?</h3><div class="options"><div class="option" data-value="a">Classification</div><div class="option" data-value="b">Clustering</div><div class="option" data-value="c">Regression</div><div class="option" data-value="d">Association Rule Mining</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><b>5</b> You're training a custom object detection model using TensorFlow. To make the model robust against pictures taken from slightly different angles or lighting, what technique is **most critical** to use on your input images?</h3><div class="options"><div class="option" data-value="a">Feature Scaling (Normalization)</div><div class="option" data-value="b">Data Augmentation (Rotation, Cropping, Flipping)</div><div class="option" data-value="c">One-Hot Encoding</div><div class="option" data-value="d">Principal Component Analysis (PCA)</div></div></div>
                         <div class="question-block" data-answer="a"><h3><b>6</b> A bank's internal memo mentions that their new loan approval ML model shows a significant 'bias' against a certain demographic. This indicates a failure in which crucial area of responsible AI?</h3><div class="options"><div class="option" data-value="a">Fairness and Transparency</div><div class="option" data-value="b">Hardware Acceleration</div><div class="option" data-value="c">Gradient Descent Optimization</div><div class="option" data-value="d">Curse of Dimensionality</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>7</b> A data scientist needs to build a model that predicts whether a stock's price will go up or down *tomorrow* based on *today's* and *yesterday's* price movements. Which architecture is best for handling this kind of <b>sequential data dependency</b>?</h3><div class="options"><div class="option" data-value="a">Feedforward Neural Network (FNN)</div><div class="option" data-value="b">K-Means Clustering</div><div class="option" data-value="c">Convolutional Neural Network (CNN)</div><div class="option" data-value="d">Recurrent Neural Network (RNN) or LSTM</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>8</b> In a large dataset for house price prediction, the 'zip code' feature has 10,000 unique values. Converting this feature using <b>One-Hot Encoding</b> will likely lead to which practical problem?</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting the labels</div><div class="option" data-value="c">Curse of Dimensionality</div><div class="option" data-value="d">High Bias</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>9</b> You are using a complex Deep Learning model that is <b>overfitting</b> badly. What is the most common technique used to regularize and prevent this problem in a neural network?</h3><div class="options"><div class="option" data-value="a">Increasing the size of the training dataset only.</div><div class="option" data-value="b">Adding Dropout layers.</div><div class="option" data-value="c">Decreasing the number of layers.</div><div class="option" data-value="d">Using a linear activation function.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>10</b> When deploying an image classification model (like identifying defects on a production line), what is the primary role of the <b>Softmax</b> activation function in the final layer?</h3><div class="options"><div class="option" data-value="a">To convert inputs into binary (0 or 1) outputs.</div><div class="option" data-value="b">To introduce non-linearity into the model.</div><div class="option" data-value="c">To perform feature extraction.</div><div class="option" data-value="d">To output a probability distribution across all possible defect types.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><b>7</b> A data scientist needs to build a model that predicts whether a stock's price will go up or down *tomorrow* based on *today's* and *yesterday's* price movements. Which architecture is best for handling this kind of **sequential data dependency**?</h3><div class="options"><div class="option" data-value="a">Feedforward Neural Network (FNN)</div><div class="option" data-value="b">K-Means Clustering</div><div class="option" data-value="c">Convolutional Neural Network (CNN)</div><div class="option" data-value="d">Recurrent Neural Network (RNN) or LSTM</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><b>8</b> In a large dataset for house price prediction, the 'zip code' feature has 10,000 unique values. Converting this feature using **One-Hot Encoding** will likely lead to which practical problem?</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting the labels</div><div class="option" data-value="c">Curse of Dimensionality</div><div class="option" data-value="d">High Bias</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><b>9</b> You are using a complex Deep Learning model that is **overfitting** badly. What is the most common technique used to regularize and prevent this problem in a neural network?</h3><div class="options"><div class="option" data-value="a">Increasing the size of the training dataset only.</div><div class="option" data-value="b">Adding Dropout layers.</div><div class="option" data-value="c">Decreasing the number of layers.</div><div class="option" data-value="d">Using a linear activation function.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><b>10</b> When deploying an image classification model (like identifying defects on a production line), what is the primary role of the **Softmax** activation function in the final layer?</h3><div class="options"><div class="option" data-value="a">To convert inputs into binary (0 or 1) outputs.</div><div class="option" data-value="b">To introduce non-linearity into the model.</div><div class="option" data-value="c">To perform feature extraction.</div><div class="option" data-value="d">To output a probability distribution across all possible defect types.</div></div></div>
                         <div class="question-block" data-answer="a"><h3><b>11</b> A movie streaming company wants to automatically categorize its new film library into genres (Action, Comedy, Drama, etc.). This is an example of what type of supervised learning?</h3><div class="options"><div class="option" data-value="a">Multi-Class Classification</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Dimension Reduction</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>12</b> In a self-driving car system using Reinforcement Learning, the reward function is designed to maximize safety. What would be the <b>strongest negative reward</b> given to the agent?</h3><div class="options"><div class="option" data-value="a">Driving slightly over the speed limit.</div><div class="option" data-value="b">Making a wide turn.</div><div class="option" data-value="c">Causing a collision.</div><div class="option" data-value="d">Arriving 5 minutes late to the destination.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>13</b> You are using <b>Transfer Learning</b> to build a custom dog breed classifier. What does this process primarily involve?</h3><div class="options"><div class="option" data-value="a">Creating a model from scratch with a small dataset.</div><div class="option" data-value="b">Using a simpler algorithm like Linear Regression.</div><div class="option" data-value="c">Training a single massive layer network.</div><div class="option" data-value="d">Re-using a pre-trained model (like VGG or ResNet) on a massive image database and fine-tuning its final layers.</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>14</b> A medical diagnostic tool is built to detect a rare disease. A <b>False Negative</b> (Failing to detect a sick patient) is extremely dangerous. Which metric should you prioritize to minimize False Negatives?</h3><div class="options"><div class="option" data-value="a">Precision</div><div class="option" data-value="b">Recall (Sensitivity)</div><div class="option" data-value="c">Specificity</div><div class="option" data-value="d">Accuracy</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><b>12</b> In a self-driving car system using Reinforcement Learning, the reward function is designed to maximize safety. What would be the **strongest negative reward** given to the agent?</h3><div class="options"><div class="option" data-value="a">Driving slightly over the speed limit.</div><div class="option" data-value="b">Making a wide turn.</div><div class="option" data-value="c">Causing a collision.</div><div class="option" data-value="d">Arriving 5 minutes late to the destination.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><b>13</b> You are using **Transfer Learning** to build a custom dog breed classifier. What does this process primarily involve?</h3><div class="options"><div class="option" data-value="a">Creating a model from scratch with a small dataset.</div><div class="option" data-value="b">Using a simpler algorithm like Linear Regression.</div><div class="option" data-value="c">Training a single massive layer network.</div><div class="option" data-value="d">Re-using a pre-trained model (like VGG or ResNet) on a massive image database and fine-tuning its final layers.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><b>14</b> A medical diagnostic tool is built to detect a rare disease. A **False Negative** (Failing to detect a sick patient) is extremely dangerous. Which metric should you prioritize to minimize False Negatives?</h3><div class="options"><div class="option" data-value="a">Precision</div><div class="option" data-value="b">Recall (Sensitivity)</div><div class="option" data-value="c">Specificity</div><div class="option" data-value="d">Accuracy</div></div></div>
                         <div class="question-block" data-answer="c"><h3><b>15</b> Your goal is to simplify a dataset with 50 highly correlated features into a smaller set of 10 uncorrelated features, while retaining most of the variance. Which technique is most appropriate?</h3><div class="options"><div class="option" data-value="a">L1 Regularization</div><div class="option" data-value="b">Feature Selection</div><div class="option" data-value="c">Principal Component Analysis (PCA)</div><div class="option" data-value="d">One-Hot Encoding</div></div></div>
                         <div class="question-block" data-answer="a"><h3><b>16</b> An online forum is constantly flooded with hate speech, and you need a system to flag new comments automatically. Which NLP technique is most effective for converting text into numerical inputs for a classifier model?</h3><div class="options"><div class="option" data-value="a">Word Embeddings (like Word2Vec, GloVe, or BERT)</div><div class="option" data-value="b">Stemming and Lemmatization only</div><div class="option" data-value="c">Viterbi Algorithm</div><div class="option" data-value="d">HMM (Hidden Markov Models)</div></div></div>
                         <div class="question-block" data-answer="d"><h3><b>17</b> You are building a model ensemble where subsequent models are trained to specifically fix the errors made by previous models. Which technique are you using?</h3><div class="options"><div class="option" data-value="a">Bagging (Random Forest)</div><div class="option" data-value="b">Stacking</div><div class="option" data-value="c">Bootstrap Aggregating</div><div class="option" data-value="d">Boosting (e.g., XGBoost, AdaBoost)</div></div></div>
@@ -208,7 +172,7 @@
                         <div class="question-block" data-answer="c"><h3><b>20</b> You notice the weights in your Deep Neural Network are becoming extremely large during training, leading to NaNs (Not a Number) in the output. This phenomenon is known as:</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting</div><div class="option" data-value="c">Gradient Explosion</div><div class="option" data-value="d">High Bias</div></div></div>
                         <div class="question-block" data-answer="b"><h3><b>21</b> An oil company wants to predict the exact oil barrel price next week. This involves predicting a future numerical value based on a sequence of past values. Which model type is required?</h3><div class="options"><div class="option" data-value="a">Standard Regression Model</div><div class="option" data-value="b">Time Series Forecasting Model (e.g., ARIMA, LSTM)</div><div class="option" data-value="c">Clustering Model</div><div class="option" data-value="d">Decision Tree Classifier</div></div></div>
                         <div class="question-block" data-answer="a"><h3><b>22</b> When designing a Convolutional Neural Network (CNN) for image processing, which component is primarily responsible for extracting local features like edges, lines, and corners from the image?</h3><div class="options"><div class="option" data-value="a">Convolutional Layer (using Kernels/Filters)</div><div class="option" data-value="b">Pooling Layer</div><div class="option" data-value="c">Fully Connected Layer</div><div class="option" data-value="d">Softmax Layer</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>23</b> During the data preprocessing stage for a new project, you accidentally include a column that contains the <b>true target value</b> for each row, but disguised in another format. This leads to unrealistically high performance on the test set. What is this common mistake called?</h3><div class="options"><div class="option" data-value="a">Overfitting</div><div class="option" data-value="b">Underfitting</div><div class="option" data-value="c">High Variance</div><div class="option" data-value="d">Data Leakage</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><b>23</b> During the data preprocessing stage for a new project, you accidentally include a column that contains the *true target value* for each row, but disguised in another format. This leads to unrealistically high performance on the test set. What is this common mistake called?</h3><div class="options"><div class="option" data-value="a">Overfitting</div><div class="option" data-value="b">Underfitting</div><div class="option" data-value="c">High Variance</div><div class="option" data-value="d">Data Leakage</div></div></div>
                         <div class="question-block" data-answer="c"><h3><b>24</b> You have a simple ML model (e.g., Linear Regression) that performs poorly on both the training data and the test data. This is a classic sign of:</h3><div class="options"><div class="option" data-value="a">High Variance (Overfitting)</div><div class="option" data-value="b">Feature Scaling Error</div><div class="option" data-value="c">High Bias (Underfitting)</div><div class="option" data-value="d">Lack of Regularization</div></div></div>
                         <div class="question-block" data-answer="a"><h3><b>25</b> A large company wants to automate its customer service responses for common inquiries. The AI needs to understand the customer's intent from their text input. This capability is known in NLP as:</h3><div class="options"><div class="option" data-value="a">Intent Classification</div><div class="option" data-value="b">Machine Translation</div><div class="option" data-value="c">Part-of-Speech Tagging</div><div class="option" data-value="d">Topic Modeling</div></div></div>
 
@@ -324,10 +288,6 @@
  
             // Submission
             function submitExam() {
-                 // Use custom message box instead of confirm()
-                 const userConfirmed = confirm('Are you sure you want to submit the exam? You cannot make changes after submission.');
-                 if (!userConfirmed) return;
-
                  if (examTimerInterval) clearInterval(examTimerInterval); 
                  let score = 0;
                  questions.forEach(q => { 
@@ -349,7 +309,7 @@
                      const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
                      const body = encodeURIComponent(
                          `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
-                         );
+                        );
                      emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
                  } else {
                      resultIcon.className = 'icon fas fa-times-circle fail'; 
@@ -362,7 +322,7 @@
                  timerEl.textContent = "Finished";
                  fixedTimerContainer.classList.add('hidden'); // Hide fixed timer
             }
-            submitExamBtn.addEventListener('click', submitExam); // Event listener changed to call function directly
+            submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
  
             // Anti-Cheat (Tab Switch)
             document.addEventListener('visibilitychange', () => {
