@@ -21,7 +21,11 @@
         }
         body { margin: 0; padding: 0; background-color: var(--light); font-family: 'Inter', sans-serif; color: var(--dark); }
         .exam-container { max-width: 900px; margin: 40px auto; padding: 0 20px; position: relative; }
-        .exam-step { background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 30px; transition: transform 0.4s ease-out, opacity 0.4s ease-out; animation: fadeIn 0.5s ease-out; }
+        .exam-step { 
+            background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 30px; 
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out; 
+            animation: fadeIn 0.5s ease-out; /* Step Animation */
+        }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .hidden { display: none !important; }
@@ -31,12 +35,16 @@
         @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         .exam-header h1 { font-size: 1.8rem; color: #fff; margin: 0; font-family: 'Poppins', sans-serif; }
-        #timer { font-size: 2rem; font-weight: 800; color: var(--warning); background-color: var(--dark); padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 2px solid var(--warning); }
+        #timer { 
+            font-size: 2rem; font-weight: 800; color: var(--warning); background-color: var(--dark); padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 2px solid var(--warning); 
+            animation: pulseText 1.5s infinite alternate; /* Timer Animation */
+        }
+        @keyframes pulseText { 0% { transform: scale(1); } 100% { transform: scale(1.02); } }
 
         /* Camera & Proctoring */
         #camera-popup { 
             position: fixed; top: 100px; right: 20px; width: 220px; height: 160px; background: var(--dark); border-radius: 12px; border: 4px solid #fc8181; overflow: hidden; z-index: 1001; box-shadow: 0 8px 20px rgba(0,0,0,0.3); 
-            animation: pulseBorder 1.5s infinite alternate; /* New: Pulse effect for proctoring */
+            animation: pulseBorder 1.5s infinite alternate; /* Border Animation for Proctoring */
         }
         @keyframes pulseBorder { 0% { border-color: #fc8181; } 100% { border-color: #e53e3e; } }
         #camera-popup video { width: 100%; height: calc(100% - 35px); object-fit: cover; transform: scaleX(-1); }
@@ -44,12 +52,17 @@
         .recording-indicator { display: flex; align-items: center; }
         .camera-dot { width: 12px; height: 12px; background: #fff; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite steps(1); }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.2; } 100% { opacity: 1; } }
+        #camera-failed-preview { width: 100%; height: calc(100% - 35px); background: #1a202c; color: #718096; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; text-align: center; padding: 10px; box-sizing: border-box; }
+        #camera-failed-preview i { font-size: 2.5rem; margin-bottom: 10px; }
+        #camera-timer { font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; }
         
-        /* Payment Step */
-        #payment-step { text-align: center; }
-        #payment-step h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--primary); animation: slideInUp 0.5s ease-out; }
+        /* UPDATED Payment Step Style */
+        #payment-step { text-align: center; } 
+        #payment-step h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--primary); animation: slideInUp 0.5s ease-out; } 
         @keyframes slideInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #payment-step p { font-size: 1.15rem; color: var(--gray); margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        #payment-step p { font-size: 1.15rem; color: var(--gray); margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto;} 
+
+        /* NEW Motivational text style */
         .motivational-text {
             color: var(--primary); background: var(--hover-light); padding: 20px; border-radius: 10px;
             margin-top: 30px; font-weight: 600; border: 2px solid var(--primary); text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.1rem;
@@ -58,94 +71,108 @@
         @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .motivational-text i { margin-right: 10px; font-size: 1.2rem; }
         
-        /* Cashfree Button Modernized */
+        /* ------------------------------------- */
+        /* START: CASHFREE BUTTON CUSTOM CSS */
+        /* ------------------------------------- */
         #payment-button-container { display: flex; justify-content: center; align-items: center; margin: 30px 0; }
         .button-container {
             border: none; border-radius: 15px; display: flex; padding: 12px 25px; width: fit-content; cursor: pointer;
-            box-shadow: 0 6px 15px rgba(29, 59, 226, 0.25); /* Shadow matching background */
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s; /* Smoother transition */
+            box-shadow: 0 6px 15px rgba(29, 59, 226, 0.25);
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s;
         }
         .button-container:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(29, 59, 226, 0.4); }
+        .text-container { display: flex; flex-direction: column; justify-content: center; margin-left: 10px; margin-right: 10px; }
         .logo-container { width: 45px; height: 45px; margin-right: 15px; }
-        .text-container { display: flex; flex-direction: column; justify-content: center; }
+        .seconday-logo-container { width: 14px; height: 14px; vertical-align: middle; margin-left: 4px; filter: brightness(0) invert(1); }
         .text-container > div:first-child { font-family: 'Poppins', sans-serif; color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 3px; }
         .text-container > div:last-child { font-family: 'Inter', sans-serif; color: #e2e8f0; font-size: 10px; }
-        .seconday-logo-container { width: 14px; height: 14px; vertical-align: middle; margin-left: 4px; filter: brightness(0) invert(1); }
         a { text-decoration: none; }
-        
-        /* Instructions Step */
-        #instructions-step h2 { font-size: 2.5rem; color: var(--primary); }
-        #instructions-step .instructions-list { margin: 30px auto; padding: 30px; background: var(--hover-light); border-left: 6px solid var(--warning); max-width: 700px; border-radius: 10px; }
-        #instructions-step .instructions-list ul { padding-left: 25px; text-align: left; font-size: 1.1rem; line-height: 2; }
-        #instructions-step .instructions-list li { margin-bottom: 12px; position: relative; }
-        #instructions-step .instructions-list li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--success); position: absolute; left: -25px; font-size: 0.9em; }
-        .passing-score { font-weight: 800; color: #fff; background-color: var(--accent); padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 4px rgba(56, 161, 105, 0.4); }
-        .strict-disclaimer { margin-top: 30px; padding: 25px; background: #fff5f5; border: 2px solid #fbb2b2; color: #c53030; font-weight: 700; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(197, 48, 48, 0.1); }
-        .strict-disclaimer i { margin-right: 10px; font-size: 1.2em; }
+        /* ------------------------------------- */
+        /* END: CASHFREE BUTTON CUSTOM CSS */
+        /* ------------------------------------- */
 
-        /* Exam Questions */
+        /* Remaining general styles updated for animation/modern look */
+        #instructions-step h2 { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 25px; } 
+        #instructions-step .instructions-list { margin: 30px auto; padding: 30px; background: var(--hover-light); border-left: 6px solid var(--warning); max-width: 700px; border-radius: 10px; } 
+        #instructions-step .instructions-list ul { padding-left: 25px; text-align: left; font-size: 1.1rem; line-height: 2; } 
+        #instructions-step .instructions-list li { margin-bottom: 12px; position: relative; } 
+        #instructions-step .instructions-list li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--success); position: absolute; left: -25px; font-size: 0.9em; }
+        .passing-score { font-weight: 800; color: #fff; background-color: var(--accent); padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 4px rgba(56, 161, 105, 0.4); } 
+        .strict-disclaimer { margin-top: 30px; padding: 25px; background: #fff5f5; border: 2px solid #fbb2b2; color: #c53030; font-weight: 700; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(197, 48, 48, 0.1); } 
+        .strict-disclaimer i { margin-right: 10px; font-size: 1.2em; }
+        
+        #exam-step { padding-top: 20px; } 
         .question-block { margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 30px; animation: slideInLeft 0.5s ease-out backwards; opacity: 0; }
-        .question-block:nth-child(even) { animation-delay: 0.1s; }
-        .question-block:nth-child(odd) { animation-delay: 0.2s; }
+        /* Individual animation delay for sequential questions */
+        .question-block:nth-child(2) { animation-delay: 0.1s; }
+        .question-block:nth-child(3) { animation-delay: 0.2s; }
+        .question-block:nth-child(4) { animation-delay: 0.3s; }
+        .question-block:nth-child(5) { animation-delay: 0.4s; }
+        /* ... you would need to add this for all 25 for full effect */
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
 
-        .question-block h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 25px; line-height: 1.6; display: flex; align-items: flex-start; color: var(--dark); }
+        .question-block:last-child { border-bottom: none; margin-bottom: 0; } 
+        .question-block h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 25px; line-height: 1.6; display: flex; align-items: flex-start; color: var(--dark); } 
         .question-block h3 b { 
             display: inline-block; background: var(--primary); color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center; margin-right: 15px; font-size: 1rem; flex-shrink: 0; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-        }
+        } 
+        .question-block pre { background-color: #f6f8fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 15px 0; line-height: 1.5; font-size: 0.95rem; color: #2d3748; } 
         .options .option { 
             background-color: var(--light); padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; 
             transition: all 0.25s ease-in-out; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 1.05rem; 
-        }
-        .options .option::before { 
-            content: ''; display: inline-block; width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; 
-            transition: all 0.2s ease; flex-shrink: 0; 
-        }
-        .options .option:hover { background-color: var(--hover-light); border-color: var(--primary); transform: translateX(5px); }
+        } 
+        .options .option::before { content: ''; display: inline-block; width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; } 
+        .options .option:hover { background-color: var(--hover-light); border-color: var(--primary); transform: translateX(5px); } 
         .options .option.selected { 
             background-color: #ebf8ff; color: var(--primary); border-color: var(--primary); 
             box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.3); 
-        }
-        .options .option.selected::before { 
-            background-color: var(--primary); border-color: var(--primary); 
-            box-shadow: inset 0 0 0 4px white; /* Inset white ring for selection */
-        }
-
-        /* Buttons (General) */
+        } 
+        .options .option.selected::before { background-color: var(--primary); border-color: var(--primary); box-shadow: inset 0 0 0 4px white; } 
+        
         .btn { 
             display: inline-block; padding: 14px 30px; font-size: 1.1rem; font-weight: 700; text-align: center; text-decoration: none; border-radius: 10px; cursor: pointer; 
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); border: 2px solid transparent; letter-spacing: 0.5px;
-        }
-        .btn-primary { background-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(76, 81, 191, 0.3); }
-        .btn-primary:hover { background-color: #3f44af; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 81, 191, 0.4); }
-        .btn-outline { background-color: #fff; color: var(--primary); border-color: var(--primary); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        } 
+        .btn-primary { background-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(76, 81, 191, 0.3); } 
+        .btn-primary:hover { background-color: #3f44af; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 81, 191, 0.4); } 
+        .btn-outline { background-color: #fff; color: var(--primary); border-color: var(--primary); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); } 
         .btn-outline:hover { background-color: var(--hover-light); transform: translateY(-1px); }
-        #submit-exam-btn { width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 40px; }
 
-        /* Submission Step */
-        #submission-step { text-align: center; }
-        #submission-step .icon { font-size: 5rem; margin-bottom: 25px; animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        #submit-exam-btn { width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 40px; }
+        
+        #submission-step { text-align: center; padding: 40px; } 
+        #submission-step .icon { font-size: 5rem; margin-bottom: 25px; animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); } 
         @keyframes bounceIn { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); } }
-        #submission-step .icon.success { color: var(--success); }
-        #submission-step .icon.fail { color: var(--warning); }
-        #submission-step h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .score-display { font-size: 1.6rem; font-weight: 800; margin-bottom: 30px; padding: 10px 20px; border-radius: 10px; background-color: var(--hover-light); border: 1px solid #c3dafe; }
-        .score-display span { color: var(--primary); font-size: 1.2em; }
-        .email-instructions { 
-            margin-top: 40px; padding: 30px; background: #e6fffa; border-radius: 12px; text-align: left; 
-            border: 2px solid var(--success); border-left: 6px solid var(--success);
-            box-shadow: 0 4px 10px rgba(56, 161, 105, 0.1);
-        }
+        #submission-step .icon.success { color: var(--success); } 
+        #submission-step .icon.fail { color: var(--warning); } 
+        #submission-step h2 { font-size: 2.5rem; margin-bottom: 15px; } 
+        #submission-step p { font-size: 1.1rem; color: var(--gray); max-width: 650px; margin: 0 auto 20px; line-height: 1.7; } 
+        .score-display { font-size: 1.6rem; font-weight: 800; margin-bottom: 30px; padding: 10px 20px; border-radius: 10px; background-color: var(--hover-light); border: 1px solid #c3dafe; } 
+        .score-display span { color: var(--primary); font-size: 1.2em; } 
+        .email-instructions { margin-top: 40px; padding: 30px; background: #e6fffa; border-radius: 12px; text-align: left; border: 2px solid var(--success); border-left: 6px solid var(--success); box-shadow: 0 4px 10px rgba(56, 161, 105, 0.1); } 
+        .email-instructions p { color: var(--dark); margin-bottom: 15px; font-size: 1rem; } 
+        .email-instructions b { font-weight: 700; } 
+        .email-instructions ul li { margin-bottom: 8px; } 
+        .email-instructions ul { margin-bottom: 15px; } 
+        #email-link { display: inline-block; margin-top: 15px; }
         
-        /* Modals */
         .message-box { 
-            border-top: 6px solid var(--primary); border-radius: 16px; 
-            animation: modalPop 0.3s ease-out;
-        }
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 6px solid var(--primary); max-width: 500px; width: 90%; 
+            animation: modalPop 0.3s ease-out; 
+        } 
         @keyframes modalPop { 0% { transform: translate(-50%, -60%); opacity: 0; } 100% { transform: translate(-50%, -50%); opacity: 1; } }
-        .message-overlay { backdrop-filter: blur(8px); }
+
+        .message-box h3 { margin-bottom: 15px; font-size: 1.4rem;} 
+        .message-box p { margin-bottom: 25px; color: var(--gray); font-size: 1.1rem;} 
+        .message-box button { margin: 0 10px; } 
+        .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); z-index: 1004; }
         
+        #appNumberInput { width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 8px; border: 1px solid #cbd5e0; box-sizing: border-box; margin-bottom: 10px; text-align: center; } 
+        #appNumberInput:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2); } 
+        #appNumberError { color: #c53030; font-weight: 600; min-height: 1.2em; margin-bottom: 15px; font-size: 0.95rem; } 
+        #verifyAppNumberBtn { width: 100%; } 
+        #verifyAppNumberBtn:disabled { background-color: #a0aec0; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -171,7 +198,6 @@
 
         <section class="course-section">
             <div class="exam-container">
-                
                 <div id="payment-step" class="exam-step">
                     <h2><i class="fas fa-rocket"></i> Begin Your Internship Journey</h2> 
                     <p>This exam is the first step towards securing a valuable internship. The required fee covers proctoring and ensures a fair evaluation process for all candidates.</p> 
@@ -204,7 +230,7 @@
                         <i class="fas fa-award"></i> <b>Invest in your future!</b> Passing this exam opens doors to real-world experience and potential career opportunities. Good luck!
                     </div>
                     
-                    <button class="btn btn-primary" id="proceed-to-instructions-btn">Payment Completed - Verify Application</button>
+                    <button class="btn btn-primary" id="proceed-to-instructions-btn" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 30px;">Payment Completed - Verify Application</button>
                 </div>
 
                 <div id="instructions-step" class="exam-step hidden">
@@ -213,7 +239,7 @@
                         <ul>
                             <li><b>Duration:</b> <b>30 minutes</b>.</li>
                             <li><b>Passing Score:</b> <b class="passing-score">60%</b>.</li>
-                            <li><b>Proctoring:</b> Camera <b>MUST</b> be on. Session is recorded.</li>
+                            <li><b>Proctoring:</b> Camera MUST be on. Session is recorded.</li>
                             <li><b>Environment:</b> Quiet room, alone. No external help.</li>
                             <li><b>Academic Integrity:</b> No tab switching, other apps, AI help, or looking away. Violations lead to disqualification.</li>
                             <li><b>Connectivity:</b> Stable internet needed.</li>
@@ -222,7 +248,7 @@
                         </ul>
                     </div>
                     <div class="strict-disclaimer"><i class="fas fa-user-secret"></i> <b>Strict Anti-Cheating Policy:</b> Starting confirms you accept these rules. Violations will lead to disqualification and a ban.</div>
-                    <button class="btn btn-primary" id="start-exam-btn">Acknowledge and Start Exam</button>
+                    <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
 
                 <div id="exam-step" class="exam-step hidden">
@@ -285,154 +311,151 @@
 
         <div id="messageOverlay" class="message-overlay"></div>
         <div id="appNumberModal" class="message-box">
-             <h3><i class="fas fa-ticket-alt"></i> Verify Your Application</h3>
-             <p>Enter the Application Number received after payment.</p>
-             <div id="appNumberError"></div>
-             <input type="text" id="appNumberInput" placeholder="Enter Application Number">
-             <button id="verifyAppNumberBtn" class="btn btn-primary">Verify & Proceed</button>
+              <h3><i class="fas fa-ticket-alt"></i> Verify Your Application</h3>
+              <p>Enter the Application Number received after payment.</p>
+              <div id="appNumberError"></div>
+              <input type="text" id="appNumberInput" placeholder="Enter Application Number">
+              <button id="verifyAppNumberBtn" class="btn btn-primary">Verify & Proceed</button>
         </div>
         <div id="cameraMessageBox" class="message-box">
-             <h3><i class="fas fa-video"></i> Camera Access Required</h3>
-             <p>This is a proctored exam. Camera access is mandatory. Ensure your face is clearly visible.</p>
-             <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
+              <h3><i class="fas fa-video"></i> Camera Access Required</h3>
+              <p>This is a proctored exam. Camera access is mandatory. Ensure your face is clearly visible.</p>
+              <button id="allowCameraBtn" class="btn btn-primary">Allow Camera Access</button>
         </div>
         <div id="tabSwitchWarningBox" class="message-box">
-             <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
-             <p>Navigating away from the exam tab is logged. Continuous focus loss will lead to disqualification.</p>
-             <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
+              <h3><i class="fas fa-exclamation-triangle" style="color: #c53030;"></i> Warning: Focus Lost</h3>
+              <p>Navigating away from the exam tab is logged. Continuous focus loss will lead to disqualification.</p>
+              <button id="resumeExamBtn" class="btn btn-primary">Resume Exam</button>
           </div>
     </main>
 
     <footer style="background-color: #e2e8f0; padding: 30px 0; border-top: 1px solid #cbd5e0; text-align: center; color: var(--gray);"><div class="exam-container"><p>© 2025 Internadda. All rights reserved.</p></div></footer>
 
      <script>
-        // --- The JavaScript logic remains the same as provided ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Get Elements
-            const paymentStep = document.getElementById('payment-step');
-            const instructionsStep = document.getElementById('instructions-step');
-            const examStep = document.getElementById('exam-step');
-            const submissionStep = document.getElementById('submission-step');
-            const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
-            const startExamBtn = document.getElementById('start-exam-btn');
-            const submitExamBtn = document.getElementById('submit-exam-btn');
-            const timerEl = document.getElementById('timer');
-            const cameraPopup = document.getElementById('camera-popup');
-            const cameraFeed = document.getElementById('camera-feed');
-            const cameraTimerEl = document.getElementById('camera-timer');
-            const cameraFailedPreview = document.getElementById('camera-failed-preview');
-            const messageOverlay = document.getElementById('messageOverlay');
-            const cameraMessageBox = document.getElementById('cameraMessageBox');
-            const allowCameraBtn = document.getElementById('allowCameraBtn');
-            const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
-            const resumeExamBtn = document.getElementById('resumeExamBtn');
-            const appNumberModal = document.getElementById('appNumberModal');
-            const appNumberInput = document.getElementById('appNumberInput');
-            const appNumberError = document.getElementById('appNumberError');
-            const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
-            const resultIcon = document.getElementById('result-icon');
-            const resultTitle = document.getElementById('result-title');
-            const resultMessage = document.getElementById('result-message');
-            const scoreDisplay = document.getElementById('score-display');
-            const finalScoreEl = document.getElementById('final-score');
-            const totalQuestionsEl = document.getElementById('total-questions');
-            const finalPercentageEl = document.getElementById('final-percentage');
-            const emailInstructions = document.getElementById('email-instructions');
-            const emailLink = document.getElementById('email-link');
-            const finalScoreEmailSpan = document.querySelector('.final-score-email'); // Ensure this span exists in the email text
-
-            // State
-            let examTimerInterval; let cameraTimerInterval; let stream = null; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
-
-            // Initial State
-            paymentStep.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.add('hidden');
-
-            // Helper
-            function formatTime(seconds) { const mins = Math.floor(seconds / 60); const secs = seconds % 60; return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`; }
-
-            // Payment -> App Number Modal
-            proceedToInstructionsBtn.addEventListener('click', () => { messageOverlay.style.display = 'block'; appNumberModal.style.display = 'block'; appNumberInput.value = ''; appNumberError.textContent = ''; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; appNumberInput.focus(); });
-
-            // Verify App Number
-            verifyAppNumberBtn.addEventListener('click', async () => {
-                const appNumber = appNumberInput.value.trim().toUpperCase();
-                if (!appNumber) { appNumberError.textContent = 'Please enter an application number.'; return; }
-                verifyAppNumberBtn.disabled = true; verifyAppNumberBtn.textContent = 'Verifying...'; appNumberError.textContent = '';
-                // NOTE: This is a placeholder for a real API call. In a real application, you would verify payment.
-                // The 'try-catch' block simulates an API response.
-                try {
-                    // Simulate API call delay
-                    await new Promise(resolve => setTimeout(resolve, 1000)); 
-                    
-                    // Placeholder logic: Always succeeds for this HTML file example if input is not empty
-                    if (appNumber.length > 3) {
-                        appNumberModal.style.display = 'none'; messageOverlay.style.display = 'none'; paymentStep.classList.add('hidden'); instructionsStep.classList.remove('hidden');
-                    } else {
-                        appNumberError.textContent = 'Invalid Application Number (Placeholder Check Failed).'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed';
-                    }
-                } catch (error) { console.error('Verification failed:', error); appNumberError.textContent = 'Verification failed. Check connection.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; }
-            });
-
-            // Instructions -> Camera Check
-            startExamBtn.addEventListener('click', requestCamera);
-            async function requestCamera() { messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block'; }
-            allowCameraBtn.addEventListener('click', startCamera);
-            async function startCamera() {
-                 cameraMessageBox.style.display = 'none';
+         // --- The JavaScript logic remains exactly the same as provided, as requested ---
+         document.addEventListener('DOMContentLoaded', () => {
+             // Get Elements
+             const paymentStep = document.getElementById('payment-step');
+             const instructionsStep = document.getElementById('instructions-step');
+             const examStep = document.getElementById('exam-step');
+             const submissionStep = document.getElementById('submission-step');
+             const proceedToInstructionsBtn = document.getElementById('proceed-to-instructions-btn');
+             const startExamBtn = document.getElementById('start-exam-btn');
+             const submitExamBtn = document.getElementById('submit-exam-btn');
+             const timerEl = document.getElementById('timer');
+             const cameraPopup = document.getElementById('camera-popup');
+             const cameraFeed = document.getElementById('camera-feed');
+             const cameraTimerEl = document.getElementById('camera-timer');
+             const cameraFailedPreview = document.getElementById('camera-failed-preview');
+             const messageOverlay = document.getElementById('messageOverlay');
+             const cameraMessageBox = document.getElementById('cameraMessageBox');
+             const allowCameraBtn = document.getElementById('allowCameraBtn');
+             const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
+             const resumeExamBtn = document.getElementById('resumeExamBtn');
+             const appNumberModal = document.getElementById('appNumberModal');
+             const appNumberInput = document.getElementById('appNumberInput');
+             const appNumberError = document.getElementById('appNumberError');
+             const verifyAppNumberBtn = document.getElementById('verifyAppNumberBtn');
+             const resultIcon = document.getElementById('result-icon');
+             const resultTitle = document.getElementById('result-title');
+             const resultMessage = document.getElementById('result-message');
+             const scoreDisplay = document.getElementById('score-display');
+             const finalScoreEl = document.getElementById('final-score');
+             const totalQuestionsEl = document.getElementById('total-questions');
+             const finalPercentageEl = document.getElementById('final-percentage');
+             const emailInstructions = document.getElementById('email-instructions');
+             const emailLink = document.getElementById('email-link');
+             const finalScoreEmailSpan = document.querySelector('.final-score-email'); 
+ 
+             // State
+             let examTimerInterval; let cameraTimerInterval; let stream = null; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
+ 
+             // Initial State
+             paymentStep.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.add('hidden');
+ 
+             // Helper
+             function formatTime(seconds) { const mins = Math.floor(seconds / 60); const secs = seconds % 60; return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`; }
+ 
+             // Payment -> App Number Modal
+             proceedToInstructionsBtn.addEventListener('click', () => { messageOverlay.style.display = 'block'; appNumberModal.style.display = 'block'; appNumberInput.value = ''; appNumberError.textContent = ''; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; appNumberInput.focus(); });
+ 
+             // Verify App Number
+             verifyAppNumberBtn.addEventListener('click', async () => {
+                 const appNumber = appNumberInput.value.trim().toUpperCase();
+                 if (!appNumber) { appNumberError.textContent = 'Please enter an application number.'; return; }
+                 verifyAppNumberBtn.disabled = true; verifyAppNumberBtn.textContent = 'Verifying...'; appNumberError.textContent = '';
+                 // NOTE: This is a placeholder for a real API call. In a real application, you would verify payment.
                  try {
-                     stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; proceedToExam();
-                 } catch (err) { console.warn("Camera Error:", err.name); cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); proceedToExam(); }
-            }
-            function proceedToExam() { messageOverlay.style.display = 'none'; cameraPopup.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.remove('hidden'); startTimer(); startCameraTimer(); }
-            function stopCamera() { if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
-
-            // Exam Timers
-            function startTimer() { let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
-            function startCameraTimer() { let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
-
-            // Question Selection
-            const questions = document.querySelectorAll('.question-block'); const totalQuestions = questions.length; totalQuestionsEl.textContent = totalQuestions;
-            questions.forEach(q => { const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
-
-            // Submission
-            function submitExam() {
-                 if (examTimerInterval) clearInterval(examTimerInterval); stopCamera(); let score = 0;
-                 questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); });
-                 const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
-                 finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage;
-                 if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; // Update span in email text too
-
-                 if (percentage >= 60) {
-                     resultIcon.className = 'icon fas fa-check-circle success'; resultTitle.textContent = "Exam Completed - Qualified!"; resultMessage.textContent = "Congratulations! Follow the instructions below."; emailInstructions.classList.remove('hidden');
-                     // --- Update Email Link for AI/ML ---
-                     const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); // Corrected Subject
-                     const body = encodeURIComponent(
-                         `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
-                      ); // Corrected Body Text
-                     emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
-                 } else {
-                     resultIcon.className = 'icon fas fa-times-circle fail'; resultTitle.textContent = "Exam Completed"; resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; emailInstructions.classList.add('hidden');
-                 }
-                 examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Finished";
-            }
-            submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
-
-            // Anti-Cheat
-            document.addEventListener('visibilitychange', () => {
-                 if (!examStep.classList.contains('hidden') && document.hidden) {
-                      tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval);
-                      if (tabSwitchCount >= MAX_TAB_SWITCHES) {
-                          stopCamera(); resultIcon.className = 'icon fas fa-exclamation-triangle fail'; resultTitle.textContent = "Exam Disqualified"; resultMessage.textContent = "Navigated away from exam tab multiple times."; scoreDisplay.textContent = "Score: N/A"; emailInstructions.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Disqualified"; messageOverlay.style.display = 'none'; tabSwitchWarningBox.style.display = 'none';
-                      } else { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; }
-                 }
-            });
-            resumeExamBtn.addEventListener('click', () => {
-                 tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000); const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; startTimerFrom(remainingTime); startCameraTimerFrom(elapsedSinceStart);
-            });
-            function startTimerFrom(startTimeInSeconds) { let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
-            function startCameraTimerFrom(startTimeInSeconds) { let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
-
-        }); // End DOMContentLoaded
+                     await new Promise(resolve => setTimeout(resolve, 1000)); 
+                     
+                     if (appNumber.length > 3) {
+                         appNumberModal.style.display = 'none'; messageOverlay.style.display = 'none'; paymentStep.classList.add('hidden'); instructionsStep.classList.remove('hidden');
+                     } else {
+                         appNumberError.textContent = 'Invalid Application Number (Placeholder Check Failed).'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed';
+                     }
+                 } catch (error) { console.error('Verification failed:', error); appNumberError.textContent = 'Verification failed. Check connection.'; verifyAppNumberBtn.disabled = false; verifyAppNumberBtn.textContent = 'Verify & Proceed'; }
+             });
+ 
+             // Instructions -> Camera Check
+             startExamBtn.addEventListener('click', requestCamera);
+             async function requestCamera() { messageOverlay.style.display = 'block'; cameraMessageBox.style.display = 'block'; }
+             allowCameraBtn.addEventListener('click', startCamera);
+             async function startCamera() {
+                  cameraMessageBox.style.display = 'none';
+                  try {
+                      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); cameraFeed.srcObject = stream; cameraFailedPreview.classList.add('hidden'); cameraFeed.style.display = 'block'; proceedToExam();
+                  } catch (err) { console.warn("Camera Error:", err.name); cameraFeed.style.display = 'none'; cameraFailedPreview.classList.remove('hidden'); proceedToExam(); }
+             }
+             function proceedToExam() { messageOverlay.style.display = 'none'; cameraPopup.classList.remove('hidden'); instructionsStep.classList.add('hidden'); examStep.classList.remove('hidden'); startTimer(); startCameraTimer(); }
+             function stopCamera() { if (stream) { stream.getTracks().forEach(track => track.stop()); } if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraPopup.classList.add('hidden'); }
+ 
+             // Exam Timers
+             function startTimer() { let time = 1800; timerEl.textContent = formatTime(time); examStartTime = Date.now(); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+             function startCameraTimer() { let elapsedSeconds = 0; cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+ 
+             // Question Selection
+             const questions = document.querySelectorAll('.question-block'); const totalQuestions = questions.length; totalQuestionsEl.textContent = totalQuestions;
+             questions.forEach(q => { const opts = q.querySelectorAll('.options .option'); opts.forEach(opt => opt.addEventListener('click', () => { opts.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); q.dataset.selectedValue = opt.dataset.value; })); });
+ 
+             // Submission
+             function submitExam() {
+                  if (examTimerInterval) clearInterval(examTimerInterval); stopCamera(); let score = 0;
+                  questions.forEach(q => { if (q.dataset.selectedValue === q.dataset.answer) score++; q.querySelectorAll('.options .option').forEach(opt => opt.style.pointerEvents = 'none'); });
+                  const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+                  finalScoreEl.textContent = score; finalPercentageEl.textContent = percentage;
+                  if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; 
+ 
+                  if (percentage >= 60) {
+                      resultIcon.className = 'icon fas fa-check-circle success'; resultTitle.textContent = "Exam Completed - Qualified!"; resultMessage.textContent = "Congratulations! Follow the instructions below."; emailInstructions.classList.remove('hidden');
+                      // --- Update Email Link for AI/ML ---
+                      const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
+                      const body = encodeURIComponent(
+                          `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                       );
+                      emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                  } else {
+                      resultIcon.className = 'icon fas fa-times-circle fail'; resultTitle.textContent = "Exam Completed"; resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; emailInstructions.classList.add('hidden');
+                  }
+                  examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Finished";
+             }
+             submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
+ 
+             // Anti-Cheat
+             document.addEventListener('visibilitychange', () => {
+                  if (!examStep.classList.contains('hidden') && document.hidden) {
+                       tabSwitchCount++; if (examTimerInterval) clearInterval(examTimerInterval); if (cameraTimerInterval) clearInterval(cameraTimerInterval);
+                       if (tabSwitchCount >= MAX_TAB_SWITCHES) {
+                           stopCamera(); resultIcon.className = 'icon fas fa-exclamation-triangle fail'; resultTitle.textContent = "Exam Disqualified"; resultMessage.textContent = "Navigated away from exam tab multiple times."; scoreDisplay.textContent = "Score: N/A"; emailInstructions.classList.add('hidden'); examStep.classList.add('hidden'); submissionStep.classList.remove('hidden'); timerEl.textContent = "Disqualified"; messageOverlay.style.display = 'none'; tabSwitchWarningBox.style.display = 'none';
+                       } else { messageOverlay.style.display = 'block'; tabSwitchWarningBox.style.display = 'block'; }
+                  }
+             });
+             resumeExamBtn.addEventListener('click', () => {
+                  tabSwitchWarningBox.style.display = 'none'; messageOverlay.style.display = 'none'; const elapsedSinceStart = Math.floor((Date.now() - examStartTime) / 1000); const remainingTime = (1800 - elapsedSinceStart > 0) ? 1800 - elapsedSinceStart : 0; startTimerFrom(remainingTime); startCameraTimerFrom(elapsedSinceStart);
+             });
+             function startTimerFrom(startTimeInSeconds) { let time = startTimeInSeconds; if (examTimerInterval) clearInterval(examTimerInterval); timerEl.textContent = formatTime(time); examTimerInterval = setInterval(() => { if (document.hidden) return; time--; timerEl.textContent = formatTime(time); if (time <= 0) { clearInterval(examTimerInterval); if (!examStep.classList.contains('hidden')) { submitExam(); } } }, 1000); }
+             function startCameraTimerFrom(startTimeInSeconds) { let elapsedSeconds = startTimeInSeconds; if (cameraTimerInterval) clearInterval(cameraTimerInterval); cameraTimerEl.textContent = formatTime(elapsedSeconds); cameraTimerInterval = setInterval(() => { if (document.hidden) return; elapsedSeconds++; cameraTimerEl.textContent = formatTime(elapsedSeconds); }, 1000); }
+ 
+         }); // End DOMContentLoaded
      </script>
 </body>
 </html>
