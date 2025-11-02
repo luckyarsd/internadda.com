@@ -365,15 +365,15 @@
                     </div>
                     
                     <div id="email-instructions" class="email-instructions hidden">
-                        <p>**Excellent Work!** 🎉 You have met the minimum score requirement (60%).</p>
-                        <p>To proceed, please **email us with the following details:**</p>
+                        <p><b>Excellent Work!</b> 🎉 You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please <b>email us with the following details:</b></p>
                         <ul>
-                            <li>**To:** official.internadda@gmail.com</li>
-                            <li>**Subject:** AI & ML Internship Application - [Your Full Name Here]</li>
-                            <li>**Body:** Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
-                            <li>**Attachment:** Screenshot of this results page.</li>
+                            <li><b>To:</b> official.internadda@gmail.com</li>
+                            <li><b>Subject:</b> AI & ML Internship Application - [Your Full Name Here]</li>
+                            <li><b>Body:</b> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li><b>Attachment:</b> Screenshot of this results page.</li>
                         </ul>
-                        <p>We will verify your score and session logs, then reply within **72 business hours**.</p>
+                        <p>We will verify your score and session logs, then reply within <b>72 business hours</b>.</p>
                         <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
                     
@@ -549,7 +549,8 @@
                               resultIcon.className = 'icon fas fa-exclamation-triangle fail'; 
                               resultTitle.textContent = "Exam Disqualified"; 
                               resultMessage.textContent = "Navigating away from exam tab multiple times. Your attempt is now invalid."; 
-                              scoreDisplay.textContent = "Score: N/A"; 
+                              // Use innerText for consistency
+                              document.getElementById('score-display').innerText = "Score: N/A"; 
                               emailInstructions.classList.add('hidden'); 
                               examStep.classList.add('hidden'); 
                               submissionStep.classList.remove('hidden'); 
