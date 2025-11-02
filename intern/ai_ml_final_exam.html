@@ -87,7 +87,7 @@
         .question-block { margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 30px; opacity: 1; transform: none; }
         .question-block:last-child { border-bottom: none; margin-bottom: 0; } 
         .question-block h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 25px; line-height: 1.6; display: flex; align-items: flex-start; color: var(--dark); } 
-        .question-block h3 b { display: inline-block; background: var(--primary); color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center; margin-right: 15px; font-size: 1rem; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); } 
+        .question-block h3 strong { display: inline-block; background: var(--primary); color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center; margin-right: 15px; font-size: 1rem; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); } 
         .options .option { background-color: var(--light); padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.25s ease-in-out; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 1.05rem; } 
         .options .option::before { content: ''; display: inline-block; width: 18px; height: 18px; border: 2px solid var(--gray); border-radius: 50%; transition: all 0.2s ease; flex-shrink: 0; } 
         .options .option:hover { background-color: var(--hover-light); border-color: var(--primary); transform: translateX(5px); } 
@@ -214,7 +214,7 @@
             margin-top: 30px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        #email-instructions b { color: var(--success); }
+        #email-instructions strong { color: var(--success); }
         #email-instructions p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 15px; }
         #email-instructions ul { margin-left: 20px; padding-left: 0; list-style-type: none; }
         #email-instructions li { margin-bottom: 10px; position: relative; padding-left: 20px; }
@@ -299,21 +299,21 @@
                 <div id="instructions-step" class="exam-step">
                     <h2><i class="fas fa-scroll"></i> Final Exam Instructions (AI & ML)</h2>
                     <p style="text-align: center; font-size: 1.1rem; color: var(--dark); margin-bottom: 30px;">
-                        Welcome to the **AI & Machine Learning Final Exam**. This test evaluates your **Practical, Real-World** knowledge in **Python, TensorFlow, ML Algorithms, and Deep Learning**. Read all rules carefully before proceeding.
+                        Welcome to the <strong>AI & Machine Learning Final Exam</strong>. This test evaluates your <strong>Practical, Real-World</strong> knowledge in <strong>Python, TensorFlow, ML Algorithms, and Deep Learning</strong>. Read all rules carefully before proceeding.
                     </p>
                     <div class="instructions-list">
                         <ul>
-                            <li>**Duration:** **30 minutes**.</li>
-                            <li>**Passing Score:** **60%** (15 out of 25 questions).</li>
-                            <li>**Proctoring:** This is **NOT** a camera proctored exam, but integrity rules still apply.</li>
-                            <li>**Environment:** You must be in a quiet room, alone. No external help is permitted.</li>
-                            <li>**Academic Integrity:** No tab switching, other applications, or AI tools. Violations are logged and lead to disqualification.</li>
-                            <li>**Connectivity:** A stable internet connection is mandatory.</li>
-                            <li>**Questions:** 25 mandatory Multiple Choice Questions (MCQs) focusing on daily-life and business scenarios.</li>
-                            <li>**Submission:** The exam auto-submits at time up or submit manually. No changes can be made after submission.</li>
+                            <li><strong>Duration:</strong> <strong>30 minutes</strong>.</li>
+                            <li><strong>Passing Score:</strong> <strong>60%</strong> (15 out of 25 questions).</li>
+                            <li><strong>Proctoring:</strong> This is <strong>NOT</strong> a camera proctored exam, but integrity rules still apply.</li>
+                            <li><strong>Environment:</strong> You must be in a quiet room, alone. No external help is permitted.</li>
+                            <li><strong>Academic Integrity:</strong> No tab switching, other applications, or AI tools. Violations are logged and lead to disqualification.</li>
+                            <li><strong>Connectivity:</strong> A stable internet connection is mandatory.</li>
+                            <li><strong>Questions:</strong> 25 mandatory Multiple Choice Questions (MCQs) focusing on daily-life and business scenarios.</li>
+                            <li><strong>Submission:</strong> The exam auto-submits at time up or submit manually. No changes can be made after submission.</li>
                         </ul>
                     </div>
-                    <div class="strict-disclaimer"><i class="fas fa-exclamation-triangle"></i> **Strict Anti-Cheating Policy:** Starting confirms you accept these rules. Violations will lead to disqualification and a permanent ban.</div>
+                    <div class="strict-disclaimer"><i class="fas fa-exclamation-triangle"></i> <strong>Strict Anti-Cheating Policy:</strong> Starting confirms you accept these rules. Violations will lead to disqualification and a permanent ban.</div>
                     <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
 
@@ -322,31 +322,31 @@
                         <h1>Practical AI & ML Final Exam</h1>
                     </div>
                     <div id="quiz-container">
-                        <div class="question-block" data-answer="b"><h3><b>1</b> A food delivery startup wants to predict which customers are likely to stop ordering next month. Which Machine Learning task is best suited for this Customer Churn prediction?</h3><div class="options"><div class="option" data-value="a">Regression</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Reinforcement Learning</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>2</b> You are developing an ML model to identify fraudulent credit card transactions. You discover only 0.5% of your data is fraudulent. Which metric is the least reliable for evaluating this highly imbalanced scenario?</h3><div class="options"><div class="option" data-value="a">Recall</div><div class="option" data-value="b">F1-Score</div><div class="option" data-value="c">Area Under Curve (AUC)</div><div class="option" data-value="d">Accuracy</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>3</b> Your e-commerce website uses a recommendation system. A user views a product, and the system instantly recommends 5 related items. Which ML approach is most likely used for this real-time 'similar item' recommendation?</h3><div class="options"><div class="option" data-value="a">K-Nearest Neighbors (KNN) or collaborative filtering</div><div class="option" data-value="b">Linear Regression</div><div class="option" data-value="c">Time Series Forecasting</div><div class="option" data-value="d">K-Means Clustering</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>4</b> A logistics company wants to predict the ideal delivery time (a continuous value in minutes) for a parcel based on traffic and weather. Which type of ML algorithm should be used?</h3><div class="options"><div class="option" data-value="a">Classification</div><div class="option" data-value="b">Clustering</div><div class="option" data-value="c">Regression</div><div class="option" data-value="d">Association Rule Mining</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>5</b> You're training a custom object detection model using TensorFlow. To make the model robust against pictures taken from slightly different angles or lighting, what technique is most critical to use on your input images?</h3><div class="options"><div class="option" data-value="a">Feature Scaling (Normalization)</div><div class="option" data-value="b">Data Augmentation (Rotation, Cropping, Flipping)</div><div class="option" data-value="c">One-Hot Encoding</div><div class="option" data-value="d">Principal Component Analysis (PCA)</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>6</b> A bank's internal memo mentions that their new loan approval ML model shows a significant 'bias' against a certain demographic. This indicates a failure in which crucial area of responsible AI?</h3><div class="options"><div class="option" data-value="a">Fairness and Transparency</div><div class="option" data-value="b">Hardware Acceleration</div><div class="option" data-value="c">Gradient Descent Optimization</div><div class="option" data-value="d">Curse of Dimensionality</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>7</b> A data scientist needs to build a model that predicts whether a stock's price will go up or down *tomorrow* based on *today's* and *yesterday's* price movements. Which architecture is best for handling this kind of sequential data dependency?</h3><div class="options"><div class="option" data-value="a">Feedforward Neural Network (FNN)</div><div class="option" data-value="b">K-Means Clustering</div><div class="option" data-value="c">Convolutional Neural Network (CNN)</div><div class="option" data-value="d">Recurrent Neural Network (RNN) or LSTM</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>8</b> In a large dataset for house price prediction, the 'zip code' feature has 10,000 unique values. Converting this feature using One-Hot Encoding will likely lead to which practical problem?</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting the labels</div><div class="option" data-value="c">Curse of Dimensionality</div><div class="option" data-value="d">High Bias</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>9</b> You are using a complex Deep Learning model that is overfitting badly. What is the most common technique used to regularize and prevent this problem in a neural network?</h3><div class="options"><div class="option" data-value="a">Increasing the size of the training dataset only.</div><div class="option" data-value="b">Adding Dropout layers.</div><div class="option" data-value="c">Decreasing the number of layers.</div><div class="option" data-value="d">Using a linear activation function.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>10</b> When deploying an image classification model (like identifying defects on a production line), what is the primary role of the Softmax activation function in the final layer?</h3><div class="options"><div class="option" data-value="a">To convert inputs into binary (0 or 1) outputs.</div><div class="option" data-value="b">To introduce non-linearity into the model.</div><div class="option" data-value="c">To perform feature extraction.</div><div class="option" data-value="d">To output a probability distribution across all possible defect types.</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>11</b> A movie streaming company wants to automatically categorize its new film library into genres (Action, Comedy, Drama, etc.). This is an example of what type of supervised learning?</h3><div class="options"><div class="option" data-value="a">Multi-Class Classification</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Dimension Reduction</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>12</b> In a self-driving car system using Reinforcement Learning, the reward function is designed to maximize safety. What would be the strongest negative reward given to the agent?</h3><div class="options"><div class="option" data-value="a">Driving slightly over the speed limit.</div><div class="option" data-value="b">Making a wide turn.</div><div class="option" data-value="c">Causing a collision.</div><div class="option" data-value="d">Arriving 5 minutes late to the destination.</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>13</b> You are using Transfer Learning to build a custom dog breed classifier. What does this process primarily involve?</h3><div class="options"><div class="option" data-value="a">Creating a model from scratch with a small dataset.</div><div class="option" data-value="b">Using a simpler algorithm like Linear Regression.</div><div class="option" data-value="c">Training a single massive layer network.</div><div class="option" data-value="d">Re-using a pre-trained model (like VGG or ResNet) on a massive image database and fine-tuning its final layers.</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>14</b> A medical diagnostic tool is built to detect a rare disease. A False Negative (Failing to detect a sick patient) is extremely dangerous. Which metric should you prioritize to minimize False Negatives?</h3><div class="options"><div class="option" data-value="a">Precision</div><div class="option" data-value="b">Recall (Sensitivity)</div><div class="option" data-value="c">Specificity</div><div class="option" data-value="d">Accuracy</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>15</b> Your goal is to simplify a dataset with 50 highly correlated features into a smaller set of 10 uncorrelated features, while retaining most of the variance. Which technique is most appropriate?</h3><div class="options"><div class="option" data-value="a">L1 Regularization</div><div class="option" data-value="b">Feature Selection</div><div class="option" data-value="c">Principal Component Analysis (PCA)</div><div class="option" data-value="d">One-Hot Encoding</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>16</b> An online forum is constantly flooded with hate speech, and you need a system to flag new comments automatically. Which NLP technique is most effective for converting text into numerical inputs for a classifier model?</h3><div class="options"><div class="option" data-value="a">Word Embeddings (like Word2Vec, GloVe, or BERT)</div><div class="option" data-value="b">Stemming and Lemmatization only</div><div class="option" data-value="c">Viterbi Algorithm</div><div class="option" data-value="d">HMM (Hidden Markov Models)</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>17</b> You are building a model ensemble where subsequent models are trained to specifically fix the errors made by previous models. Which technique are you using?</h3><div class="options"><div class="option" data-value="a">Bagging (Random Forest)</div><div class="option" data-value="b">Stacking</div><div class="option" data-value="c">Bootstrap Aggregating</div><div class="option" data-value="d">Boosting (e.g., XGBoost, AdaBoost)</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>18</b> A manufacturing plant monitors machine sensor data to detect when a machine is about to fail. This is a crucial, rare event. Which unsupervised ML technique is typically used to spot these abnormal sensor readings?</h3><div class="options"><div class="option" data-value="a">K-Means Clustering</div><div class="option" data-value="b">Anomaly Detection (Outlier Detection)</div><div class="option" data-value="c">Market Basket Analysis</div><div class="option" data-value="d">Linear Regression</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>19</b> Your marketing team segments customers into distinct groups based on purchasing history *without* pre-defining the segments. This is a classic example of:</h3><div class="options"><div class="option" data-value="a">Unsupervised Learning (Clustering)</div><div class="option" data-value="b">Supervised Learning (Classification)</div><div class="option" data-value="c">Feature Engineering</div><div class="option" data-value="d">Dimensionality Reduction</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>20</b> You notice the weights in your Deep Neural Network are becoming extremely large during training, leading to NaNs (Not a Number) in the output. This phenomenon is known as:</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting</div><div class="option" data-value="c">Gradient Explosion</div><div class="option" data-value="d">High Bias</div></div></div>
-                        <div class="question-block" data-answer="b"><h3><b>21</b> An oil company wants to predict the exact oil barrel price next week. This involves predicting a future numerical value based on a sequence of past values. Which model type is required?</h3><div class="options"><div class="option" data-value="a">Standard Regression Model</div><div class="option" data-value="b">Time Series Forecasting Model (e.g., ARIMA, LSTM)</div><div class="option" data-value="c">Clustering Model</div><div class="option" data-value="d">Decision Tree Classifier</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>22</b> When designing a Convolutional Neural Network (CNN) for image processing, which component is primarily responsible for extracting local features like edges, lines, and corners from the image?</h3><div class="options"><div class="option" data-value="a">Convolutional Layer (using Kernels/Filters)</div><div class="option" data-value="b">Pooling Layer</div><div class="option" data-value="c">Fully Connected Layer</div><div class="option" data-value="d">Softmax Layer</div></div></div>
-                        <div class="question-block" data-answer="d"><h3><b>23</b> During the data preprocessing stage for a new project, you accidentally include a column that contains the *true target value* for each row, but disguised in another format. This leads to unrealistically high performance on the test set. What is this common mistake called?</h3><div class="options"><div class="option" data-value="a">Overfitting</div><div class="option" data-value="b">Underfitting</div><div class="option" data-value="c">High Variance</div><div class="option" data-value="d">Data Leakage</div></div></div>
-                        <div class="question-block" data-answer="c"><h3><b>24</b> You have a simple ML model (e.g., Linear Regression) that performs poorly on both the training data and the test data. This is a classic sign of:</h3><div class="options"><div class="option" data-value="a">High Variance (Overfitting)</div><div class="option" data-value="b">Feature Scaling Error</div><div class="option" data-value="c">High Bias (Underfitting)</div><div class="option" data-value="d">Lack of Regularization</div></div></div>
-                        <div class="question-block" data-answer="a"><h3><b>25</b> A large company wants to automate its customer service responses for common inquiries. The AI needs to understand the customer's intent from their text input. This capability is known in NLP as:</h3><div class="options"><div class="option" data-value="a">Intent Classification</div><div class="option" data-value="b">Machine Translation</div><div class="option" data-value="c">Part-of-Speech Tagging</div><div class="option" data-value="d">Topic Modeling</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>1</strong> A food delivery startup wants to predict which customers are likely to stop ordering next month. Which Machine Learning task is best suited for this Customer Churn prediction?</h3><div class="options"><div class="option" data-value="a">Regression</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Reinforcement Learning</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>2</strong> You are developing an ML model to identify fraudulent credit card transactions. You discover only 0.5% of your data is fraudulent. Which metric is the least reliable for evaluating this highly imbalanced scenario?</h3><div class="options"><div class="option" data-value="a">Recall</div><div class="option" data-value="b">F1-Score</div><div class="option" data-value="c">Area Under Curve (AUC)</div><div class="option" data-value="d">Accuracy</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>3</strong> Your e-commerce website uses a recommendation system. A user views a product, and the system instantly recommends 5 related items. Which ML approach is most likely used for this real-time 'similar item' recommendation?</h3><div class="options"><div class="option" data-value="a">K-Nearest Neighbors (KNN) or collaborative filtering</div><div class="option" data-value="b">Linear Regression</div><div class="option" data-value="c">Time Series Forecasting</div><div class="option" data-value="d">K-Means Clustering</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>4</strong> A logistics company wants to predict the ideal delivery time (a continuous value in minutes) for a parcel based on traffic and weather. Which type of ML algorithm should be used?</h3><div class="options"><div class="option" data-value="a">Classification</div><div class="option" data-value="b">Clustering</div><div class="option" data-value="c">Regression</div><div class="option" data-value="d">Association Rule Mining</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>5</strong> You're training a custom object detection model using TensorFlow. To make the model robust against pictures taken from slightly different angles or lighting, what technique is most critical to use on your input images?</h3><div class="options"><div class="option" data-value="a">Feature Scaling (Normalization)</div><div class="option" data-value="b">Data Augmentation (Rotation, Cropping, Flipping)</div><div class="option" data-value="c">One-Hot Encoding</div><div class="option" data-value="d">Principal Component Analysis (PCA)</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>6</strong> A bank's internal memo mentions that their new loan approval ML model shows a significant 'bias' against a certain demographic. This indicates a failure in which crucial area of responsible AI?</h3><div class="options"><div class="option" data-value="a">Fairness and Transparency</div><div class="option" data-value="b">Hardware Acceleration</div><div class="option" data-value="c">Gradient Descent Optimization</div><div class="option" data-value="d">Curse of Dimensionality</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>7</strong> A data scientist needs to build a model that predicts whether a stock's price will go up or down tomorrow based on today's and yesterday's price movements. Which architecture is best for handling this kind of sequential data dependency?</h3><div class="options"><div class="option" data-value="a">Feedforward Neural Network (FNN)</div><div class="option" data-value="b">K-Means Clustering</div><div class="option" data-value="c">Convolutional Neural Network (CNN)</div><div class="option" data-value="d">Recurrent Neural Network (RNN) or LSTM</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>8</strong> In a large dataset for house price prediction, the 'zip code' feature has 10,000 unique values. Converting this feature using One-Hot Encoding will likely lead to which practical problem?</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting the labels</div><div class="option" data-value="c">Curse of Dimensionality</div><div class="option" data-value="d">High Bias</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>9</strong> You are using a complex Deep Learning model that is overfitting badly. What is the most common technique used to regularize and prevent this problem in a neural network?</h3><div class="options"><div class="option" data-value="a">Increasing the size of the training dataset only.</div><div class="option" data-value="b">Adding Dropout layers.</div><div class="option" data-value="c">Decreasing the number of layers.</div><div class="option" data-value="d">Using a linear activation function.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>10</strong> When deploying an image classification model (like identifying defects on a production line), what is the primary role of the Softmax activation function in the final layer?</h3><div class="options"><div class="option" data-value="a">To convert inputs into binary (0 or 1) outputs.</div><div class="option" data-value="b">To introduce non-linearity into the model.</div><div class="option" data-value="c">To perform feature extraction.</div><div class="option" data-value="d">To output a probability distribution across all possible defect types.</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>11</strong> A movie streaming company wants to automatically categorize its new film library into genres (Action, Comedy, Drama, etc.). This is an example of what type of supervised learning?</h3><div class="options"><div class="option" data-value="a">Multi-Class Classification</div><div class="option" data-value="b">Binary Classification</div><div class="option" data-value="c">Clustering</div><div class="option" data-value="d">Dimension Reduction</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>12</strong> In a self-driving car system using Reinforcement Learning, the reward function is designed to maximize safety. What would be the strongest negative reward given to the agent?</h3><div class="options"><div class="option" data-value="a">Driving slightly over the speed limit.</div><div class="option" data-value="b">Making a wide turn.</div><div class="option" data-value="c">Causing a collision.</div><div class="option" data-value="d">Arriving 5 minutes late to the destination.</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>13</strong> You are using Transfer Learning to build a custom dog breed classifier. What does this process primarily involve?</h3><div class="options"><div class="option" data-value="a">Creating a model from scratch with a small dataset.</div><div class="option" data-value="b">Using a simpler algorithm like Linear Regression.</div><div class="option" data-value="c">Training a single massive layer network.</div><div class="option" data-value="d">Re-using a pre-trained model (like VGG or ResNet) on a massive image database and fine-tuning its final layers.</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>14</strong> A medical diagnostic tool is built to detect a rare disease. A False Negative (Failing to detect a sick patient) is extremely dangerous. Which metric should you prioritize to minimize False Negatives?</h3><div class="options"><div class="option" data-value="a">Precision</div><div class="option" data-value="b">Recall (Sensitivity)</div><div class="option" data-value="c">Specificity</div><div class="option" data-value="d">Accuracy</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>15</strong> Your goal is to simplify a dataset with 50 highly correlated features into a smaller set of 10 uncorrelated features, while retaining most of the variance. Which technique is most appropriate?</h3><div class="options"><div class="option" data-value="a">L1 Regularization</div><div class="option" data-value="b">Feature Selection</div><div class="option" data-value="c">Principal Component Analysis (PCA)</div><div class="option" data-value="d">One-Hot Encoding</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>16</strong> An online forum is constantly flooded with hate speech, and you need a system to flag new comments automatically. Which NLP technique is most effective for converting text into numerical inputs for a classifier model?</h3><div class="options"><div class="option" data-value="a">Word Embeddings (like Word2Vec, GloVe, or BERT)</div><div class="option" data-value="b">Stemming and Lemmatization only</div><div class="option" data-value="c">Viterbi Algorithm</div><div class="option" data-value="d">HMM (Hidden Markov Models)</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>17</strong> You are building a model ensemble where subsequent models are trained to specifically fix the errors made by previous models. Which technique are you using?</h3><div class="options"><div class="option" data-value="a">Bagging (Random Forest)</div><div class="option" data-value="b">Stacking</div><div class="option" data-value="c">Bootstrap Aggregating</div><div class="option" data-value="d">Boosting (e.g., XGBoost, AdaBoost)</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>18</strong> A manufacturing plant monitors machine sensor data to detect when a machine is about to fail. This is a crucial, rare event. Which unsupervised ML technique is typically used to spot these abnormal sensor readings?</h3><div class="options"><div class="option" data-value="a">K-Means Clustering</div><div class="option" data-value="b">Anomaly Detection (Outlier Detection)</div><div class="option" data-value="c">Market Basket Analysis</div><div class="option" data-value="d">Linear Regression</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>19</strong> Your marketing team segments customers into distinct groups based on purchasing history without pre-defining the segments. This is a classic example of:</h3><div class="options"><div class="option" data-value="a">Unsupervised Learning (Clustering)</div><div class="option" data-value="b">Supervised Learning (Classification)</div><div class="option" data-value="c">Feature Engineering</div><div class="option" data-value="d">Dimensionality Reduction</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>20</strong> You notice the weights in your Deep Neural Network are becoming extremely large during training, leading to NaNs (Not a Number) in the output. This phenomenon is known as:</h3><div class="options"><div class="option" data-value="a">Vanishing Gradient</div><div class="option" data-value="b">Overfitting</div><div class="option" data-value="c">Gradient Explosion</div><div class="option" data-value="d">High Bias</div></div></div>
+                        <div class="question-block" data-answer="b"><h3><strong>21</strong> An oil company wants to predict the exact oil barrel price next week. This involves predicting a future numerical value based on a sequence of past values. Which model type is required?</h3><div class="options"><div class="option" data-value="a">Standard Regression Model</div><div class="option" data-value="b">Time Series Forecasting Model (e.g., ARIMA, LSTM)</div><div class="option" data-value="c">Clustering Model</div><div class="option" data-value="d">Decision Tree Classifier</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>22</strong> When designing a Convolutional Neural Network (CNN) for image processing, which component is primarily responsible for extracting local features like edges, lines, and corners from the image?</h3><div class="options"><div class="option" data-value="a">Convolutional Layer (using Kernels/Filters)</div><div class="option" data-value="b">Pooling Layer</div><div class="option" data-value="c">Fully Connected Layer</div><div class="option" data-value="d">Softmax Layer</div></div></div>
+                        <div class="question-block" data-answer="d"><h3><strong>23</strong> During the data preprocessing stage for a new project, you accidentally include a column that contains the true target value for each row, but disguised in another format. This leads to unrealistically high performance on the test set. What is this common mistake called?</h3><div class="options"><div class="option" data-value="a">Overfitting</div><div class="option" data-value="b">Underfitting</div><div class="option" data-value="c">High Variance</div><div class="option" data-value="d">Data Leakage</div></div></div>
+                        <div class="question-block" data-answer="c"><h3><strong>24</strong> You have a simple ML model (e.g., Linear Regression) that performs poorly on both the training data and the test data. This is a classic sign of:</h3><div class="options"><div class="option" data-value="a">High Variance (Overfitting)</div><div class="option" data-value="b">Feature Scaling Error</div><div class="option" data-value="c">High Bias (Underfitting)</div><div class="option" data-value="d">Lack of Regularization</div></div></div>
+                        <div class="question-block" data-answer="a"><h3><strong>25</strong> A large company wants to automate its customer service responses for common inquiries. The AI needs to understand the customer's intent from their text input. This capability is known in NLP as:</h3><div class="options"><div class="option" data-value="a">Intent Classification</div><div class="option" data-value="b">Machine Translation</div><div class="option" data-value="c">Part-of-Speech Tagging</div><div class="option" data-value="d">Topic Modeling</div></div></div>
 
                         <button class="btn btn-primary" id="submit-exam-btn">Submit Final Exam</button>
                     </div>
@@ -365,15 +365,15 @@
                     </div>
                     
                     <div id="email-instructions" class="email-instructions hidden">
-                        <p><b>Excellent Work!</b> 🎉 You have met the minimum score requirement (60%).</p>
-                        <p>To proceed, please <b>email us with the following details:</b></p>
+                        <p><strong>Excellent Work!</strong> 🎉 You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please <strong>email us with the following details:</strong></p>
                         <ul>
-                            <li><b>To:</b> official.internadda@gmail.com</li>
-                            <li><b>Subject:</b> AI & ML Internship Application - [Your Full Name Here]</li>
-                            <li><b>Body:</b> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
-                            <li><b>Attachment:</b> Screenshot of this results page.</li>
+                            <li><strong>To:</strong> official.internadda@gmail.com</li>
+                            <li><strong>Subject:</strong> AI & ML Internship Application - [Your Full Name Here]</li>
+                            <li><strong>Body:</strong> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li><strong>Attachment:</strong> Screenshot of this results page.</li>
                         </ul>
-                        <p>We will verify your score and session logs, then reply within <b>72 business hours</b>.</p>
+                        <p>We will verify your score and session logs, then reply within <strong>72 business hours</strong>.</p>
                         <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
                     
@@ -483,29 +483,29 @@
                  submissionStep.classList.remove('passed', 'failed'); // Reset classes
 
                  if (percentage >= 60) {
-                    submissionStep.classList.add('passed'); // Add success class
-                    resultIcon.className = 'icon fas fa-award success'; // Changed icon for success
-                    resultTitle.textContent = "Excellent Work! 🏆 Exam Qualified!"; 
-                    resultMessage.textContent = "Congratulations! You successfully passed the Practical AI & ML Exam. Follow the instructions below to begin your internship journey."; 
-                    emailInstructions.classList.remove('hidden');
+                     submissionStep.classList.add('passed'); // Add success class
+                     resultIcon.className = 'icon fas fa-award success'; // Changed icon for success
+                     resultTitle.textContent = "Excellent Work! 🏆 Exam Qualified!"; 
+                     resultMessage.textContent = "Congratulations! You successfully passed the Practical AI & ML Exam. Follow the instructions below to begin your internship journey."; 
+                     emailInstructions.classList.remove('hidden');
 
-                    // Confetti Effect Trigger
-                    confettiContainer.classList.remove('hidden');
-                    createConfetti();
+                     // Confetti Effect Trigger
+                     confettiContainer.classList.remove('hidden');
+                     createConfetti();
 
-                    // Update Email Link
-                     const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
-                     const body = encodeURIComponent(
-                         `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
-                          );
-                     emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
+                     // Update Email Link
+                      const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
+                      const body = encodeURIComponent(
+                          `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                           );
+                      emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
                  } else {
-                    submissionStep.classList.add('failed'); // Add fail class
-                    resultIcon.className = 'icon fas fa-frown fail'; // Sad icon for not meeting requirement
-                    resultTitle.textContent = "Try Better Next Time 😔"; 
-                    resultMessage.textContent = `Your score is ${percentage}%, which does not meet the 60% requirement. Don't worry, you can re-attempt the exam after 48 hours!`; 
-                    emailInstructions.classList.add('hidden');
-                    confettiContainer.classList.add('hidden');
+                     submissionStep.classList.add('failed'); // Add fail class
+                     resultIcon.className = 'icon fas fa-frown fail'; // Sad icon for not meeting requirement
+                     resultTitle.textContent = "Try Better Next Time 😔"; 
+                     resultMessage.textContent = `Your score is ${percentage}%, which does not meet the 60% requirement. Don't worry, you can re-attempt the exam after 48 hours!`; 
+                     emailInstructions.classList.add('hidden');
+                     confettiContainer.classList.add('hidden');
                  }
 
                  examStep.classList.add('hidden'); 
@@ -542,26 +542,26 @@
             // Anti-Cheat (Tab Switch)
             document.addEventListener('visibilitychange', () => {
                  if (!examStep.classList.contains('hidden') && document.hidden) {
-                          tabSwitchCount++; 
-                          if (examTimerInterval) clearInterval(examTimerInterval); 
-                          
-                          if (tabSwitchCount >= MAX_TAB_SWITCHES) {
-                              resultIcon.className = 'icon fas fa-exclamation-triangle fail'; 
-                              resultTitle.textContent = "Exam Disqualified"; 
-                              resultMessage.textContent = "Navigating away from exam tab multiple times. Your attempt is now invalid."; 
-                              // Use innerText for consistency
-                              document.getElementById('score-display').innerText = "Score: N/A"; 
-                              emailInstructions.classList.add('hidden'); 
-                              examStep.classList.add('hidden'); 
-                              submissionStep.classList.remove('hidden'); 
-                              timerEl.textContent = "Disqualified"; 
-                              messageOverlay.style.display = 'none'; 
-                              tabSwitchWarningBox.style.display = 'none';
-                              fixedTimerContainer.classList.add('hidden');
-                          } else { 
-                              messageOverlay.style.display = 'block'; 
-                              tabSwitchWarningBox.style.display = 'block'; 
-                          }
+                     tabSwitchCount++; 
+                     if (examTimerInterval) clearInterval(examTimerInterval); 
+                     
+                     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
+                         resultIcon.className = 'icon fas fa-exclamation-triangle fail'; 
+                         resultTitle.textContent = "Exam Disqualified"; 
+                         resultMessage.textContent = "Navigating away from exam tab multiple times. Your attempt is now invalid."; 
+                         // Use innerText for consistency
+                         document.getElementById('score-display').innerText = "Score: N/A"; 
+                         emailInstructions.classList.add('hidden'); 
+                         examStep.classList.add('hidden'); 
+                         submissionStep.classList.remove('hidden'); 
+                         timerEl.textContent = "Disqualified"; 
+                         messageOverlay.style.display = 'none'; 
+                         tabSwitchWarningBox.style.display = 'none';
+                         fixedTimerContainer.classList.add('hidden');
+                     } else { 
+                         messageOverlay.style.display = 'block'; 
+                         tabSwitchWarningBox.style.display = 'block'; 
+                     }
                  }
             });
             resumeExamBtn.addEventListener('click', () => {
