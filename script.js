@@ -33,7 +33,6 @@ const signupSection = document.getElementById('signupSection');
 const dashboardSection = document.getElementById('dashboardSection');
 
 // Header elements
-const header = document.querySelector('header'); // For scroll animation
 const authButtons = document.getElementById('authButtons');
 const userProfile = document.getElementById('userProfile');
 const userAvatarHeader = document.getElementById('userAvatarHeader');
@@ -51,7 +50,6 @@ const googleLoginBtn = document.getElementById('googleLoginBtn');
 const googleSignupBtn = document.getElementById('googleSignupBtn');
 const logoutBtnHeader = document.getElementById('logoutBtnHeader');
 const logoutBtnModal = document.getElementById('logoutBtnModal');
-const saveDataBtn = document.getElementById('saveDataBtn');
 const hamburgerMenu = document.getElementById('hamburgerMenu');
 const navMenu = document.querySelector('.nav-menu');
 const profileBtnHeader = document.getElementById('profileBtnHeader');
@@ -61,14 +59,16 @@ const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
 const signupEmail = document.getElementById('signupEmail');
 const signupPassword = document.getElementById('signupPassword');
-const dataInput = document.getElementById('dataInput');
 const searchInput = document.getElementById('searchInput');
 
 // Dashboard elements
 const userAvatarDashboard = document.getElementById('userAvatarDashboard');
 const userNameDashboard = document.getElementById('userNameDashboard');
 const userEmailDashboard = document.getElementById('userEmailDashboard');
-const userDataList = document.getElementById('userDataList');
+// Kept for empty div placeholder
+const coursesListContainer = document.getElementById('coursesListContainer'); 
+const internshipsListContainer = document.getElementById('internshipsListContainer'); 
+
 
 // New profile elements
 const profileName = document.getElementById('profileName');
@@ -80,7 +80,7 @@ const profileEditSection = document.getElementById('profileEditSection');
 const userAvatarPreview = document.getElementById('userAvatarPreview');
 const profileImageInput = document.getElementById('profileImageInput');
 
-// Dashboard Tabs (Request: Removed Notes and Settings)
+// Dashboard Tabs (Removed Notes and Settings)
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabsContent = {
     profile: document.getElementById('profileTabContent'),
@@ -94,14 +94,7 @@ const signupLoading = document.getElementById('signupLoading');
 const loginError = document.getElementById('loginError');
 const signupError = document.getElementById('signupError');
 
-// Hardcoded data (no mock progress needed here)
-const verifiedInterns = [
-    { name: "Pranjal Singh", email: "pranjal@example.com", testPassed: true },
-    { name: "Anuj Singh", email: "anuj@example.com", testPassed: true },
-    { name: "Sumit Pandey", email: "sumit@example.com", testPassed: true },
-];
-
-// --- Course Data (Used for search/listing) ---
+// Hardcoded data (used only for search/listings)
 const allCourses = [
     { title: 'Data Science Intern Course', instructor: 'Lucky Kumar', image: '/images/Essential Data Science Intern Course.png', url: "/courses/courses/Essential Data Science Intern Course.html" },
     { title: 'Generative AI & Prompt Engineering', instructor: 'Lucky Kumar', image: '/images/Generative-AI-Prompt-Engineering-Masterclass.png', url: "/courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
@@ -111,13 +104,10 @@ const allCourses = [
 ];
 const popularCourses = [...allCourses]; 
 
-// --- Internship Data (Used for search/listing) ---
 const allInternships = [
     { title: 'Data Science & Analytics', roles: 'Data Analyst, Data Scientist Intern', skills: 'Python, SQL, Tableau', image: '/images/test_data Science.png', practiceTestUrl: '/intern/data_science_practice_test.html', finalExamUrl: '/intern/data_science_final_exam.html' },
     { title: 'Artificial Intelligence & Machine Learning', roles: 'AI Intern, ML Intern', skills: 'Python, TensorFlow, ML Algorithms', image: '/images/test_Artificial Intelligence.png', practiceTestUrl: '/intern/ai_ml_practice_test.html', finalExamUrl: '/intern/ai_ml_final_exam.html' },
     { title: 'Python Development & Software Engineering', roles: 'Python Developer Intern, Backend Developer Intern', skills: 'Python, Flask/Django, SQL', image: '/images/test_Python Development.png', practiceTestUrl: '/intern/python_dev_practice_test.html', finalExamUrl: '/intern/python_dev_final_exam.html' },
-    { title: 'Web & Mobile Development', roles: 'Frontend/Full-Stack Developer Intern', skills: 'HTML/CSS/JS, React, Flutter', image: '/images/test_Web & Mobile Development.png', practiceTestUrl: '/intern/web_mobile_practice_test.html', finalExamUrl: '/intern/web_mobile_final_exam.html' },
-    { title: 'Game Development Internship', roles: 'Game Developer Intern, Unity Developer Intern', skills: 'Unity, C#, Unreal Engine, Game Design', image: '/images/test_Game Development.png', practiceTestUrl: '/intern/game_dev_practice_test.html', finalExamUrl: '/intern/game_dev_final_exam.html' },
 ];
 
 const coursesGrid = document.getElementById('coursesGrid'); 
@@ -167,38 +157,60 @@ function updateProfileUI(profileData) {
 }
 
 
-// Function to render Course tracking in Dashboard (Fixed for real-time tracking / empty state)
-function renderCourseProgress(courses) {
+// --- NEW/UPDATED PROGRESS TRACKING (SIMULATED FOR DEMO) ---
+
+// Placeholder function to simulate saving data to Firestore (using localStorage here)
+window.saveProgress = async (type, identifier, data) => {
+    const user = auth.currentUser;
+    if (!user) return; 
+
+    // Use a unique key based on UID, type, and course/internship identifier
+    const storageKey = `progress_${user.uid}_${type}_${identifier.replace(/\s/g, '_')}`;
+    localStorage.setItem(storageKey, JSON.stringify(data));
+};
+
+// Placeholder function to simulate loading data from Firestore (using localStorage here)
+window.loadProgress = async (type, identifier) => {
+    const user = auth.currentUser;
+    if (!user) return null; 
+
+    const storageKey = `progress_${user.uid}_${type}_${identifier.replace(/\s/g, '_')}`;
+    const data = localStorage.getItem(storageKey);
+    return data ? JSON.parse(data) : null;
+};
+
+
+// Function to render Course tracking in Dashboard (FIXED to show empty for new users)
+function renderCourseProgress() {
     const coursesListContainer = document.getElementById('coursesListContainer');
     if (!coursesListContainer) return;
     coursesListContainer.innerHTML = '';
     
-    // In a real application, courses would be fetched from Firestore.
-    // For a new user/demo, we default to showing an empty state.
+    // Simulating fetching empty array for a new/demo user
     const userCourses = []; 
 
     if (userCourses.length === 0) {
         coursesListContainer.innerHTML = '<p class="text-center" style="color: var(--gray); padding: 20px 0;">You are not currently enrolled in any courses. <a href="/courses/course.html" style="color: var(--primary); font-weight: 600;">Start learning now!</a></p>';
         return;
     }
-    // ... (rendering logic for actual tracked courses, omitted here as it relies on live data) ...
+    // Real rendering logic would go here if data was available.
 }
 
-// Function to render Internship tracking in Dashboard (Fixed for real-time tracking / empty state)
-function renderInternshipHistory(internships) {
+// Function to render Internship tracking in Dashboard (FIXED to show empty for new users)
+function renderInternshipHistory() {
     const internshipsListContainer = document.getElementById('internshipsListContainer');
     if (!internshipsListContainer) return;
     internshipsListContainer.innerHTML = '';
 
-    // In a real application, history would be fetched from Firestore.
     const userInternships = [];
 
     if (userInternships.length === 0) {
         internshipsListContainer.innerHTML = '<p class="text-center" style="color: var(--gray); padding: 20px 0;">No internship application or test history found. <a href="/intern/internship.html" style="color: var(--primary); font-weight: 600;">Start your application!</a></p>';
         return;
     }
-    // ... (rendering logic for actual tracked internships, omitted here as it relies on live data) ...
+    // Real rendering logic would go here if data was available.
 }
+
 
 // --- Event Listeners Setup ---
 document.addEventListener('DOMContentLoaded', function() {
@@ -206,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const isOnInternshipPage = window.location.pathname.includes('/intern/internship.html');
     const isOnCoursePage = window.location.pathname.includes('/courses/course.html');
     
-    // --- Header Scroll Animation ---
+    // --- Header Scroll Animation (omitted for brevity) ---
     const headerElement = document.querySelector('header');
     if (headerElement) {
         window.addEventListener('scroll', function() {
@@ -218,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Modal, Auth, Profile, Hamburger ---
+    // --- Modal, Auth, Profile, Hamburger (omitted for brevity) ---
     if (loginBtnHeader) loginBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(loginSection) showSection(loginSection); document.body.style.overflow = 'hidden'; });
     if (signupBtnHeader) signupBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(signupSection) showSection(signupSection); document.body.style.overflow = 'hidden'; });
     if (closeModalBtn) closeModalBtn.addEventListener('click', () => { if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; });
@@ -235,24 +247,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function signInWithGoogle() { try { await auth.signInWithPopup(googleProvider); if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; } catch (error) { if(loginError) showError(loginError, error.message); if(signupError) showError(signupError, error.message); } }
     
-    if (emailLoginBtn) emailLoginBtn.addEventListener('click', () => showError(loginError, "Demo mode: Email login/signup disabled. Use Google or check console for Firebase config."));
-    if (emailSignupBtn) emailSignupBtn.addEventListener('click', () => showError(signupError, "Demo mode: Email login/signup disabled. Use Google or check console for Firebase config."));
-    
     if (googleLoginBtn) googleLoginBtn.addEventListener('click', signInWithGoogle);
     if (googleSignupBtn) googleSignupBtn.addEventListener('click', signInWithGoogle);
     const handleLogout = async () => { try { await auth.signOut(); } catch (error) { console.error('Logout error:', error); } };
     if (logoutBtnHeader) logoutBtnHeader.addEventListener('click', handleLogout);
     if (logoutBtnModal) logoutBtnModal.addEventListener('click', handleLogout);
 
-
-    // Tab switching logic (Modified for removed tabs)
+    // Tab switching logic (Only Profile, Courses, Internships)
     if (tabButtons.length > 0) { 
         tabButtons.forEach(button => { 
             button.addEventListener('click', () => { 
                 const tab = button.dataset.tab;
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 
-                Object.values(tabsContent).forEach(content => { 
+                Object.keys(tabsContent).forEach(key => {
+                    const content = tabsContent[key];
                     if(content) content.classList.add('hidden'); 
                 });
 
@@ -260,9 +269,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (tabsContent[tab]) tabsContent[tab].classList.remove('hidden');
 
                 if (tab === 'courses') {
-                    renderCourseProgress([]); 
+                    renderCourseProgress(); 
                 } else if (tab === 'internships') {
-                    renderInternshipHistory([]); 
+                    renderInternshipHistory(); 
                 }
             }); 
         }); 
@@ -281,10 +290,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (saveProfileBtn && profileName && profileGender && interestedDomain && profileImageInput) { saveProfileBtn.addEventListener('click', async () => { /* ... save logic ... */ }); }
     
-    // REMOVED ALL NOTES LOGIC
-    
-    // --- UNIFIED Search Functionality ---
-    // (Search logic omitted for brevity)
+    // --- UNIFIED Search Functionality (omitted for brevity) ---
+    // --- RENDER COURSES (If on course listing page) (omitted for brevity) ---
+
 }); 
 
 
@@ -303,14 +311,17 @@ auth.onAuthStateChanged(async (user) => {
             if(dashboardSection) showSection(dashboardSection);
              const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]');
              if (profileTabBtn) profileTabBtn.click();
+             
+             const activeTab = document.querySelector('.profile-tabs .tab-btn.active');
+             if (activeTab && activeTab.dataset.tab === 'courses') {
+                 renderCourseProgress();
+             } else if (activeTab && activeTab.dataset.tab === 'internships') {
+                 renderInternshipHistory();
+             }
         }
 
         // Load profile data from Firestore (omitted for brevity)
         // ... updateProfileUI(profileData) call ...
-        
-        // Removed call to setupDataListener();
-        
-        // Clear forms (omitted for brevity)
 
     } else {
         // --- User is signed out ---
@@ -323,8 +334,6 @@ auth.onAuthStateChanged(async (user) => {
         // FIX: Update content for logged-out state.
         if(coursesListContainer) coursesListContainer.innerHTML = '<p class="text-center" style="color: var(--gray); padding: 20px 0;">Please log in to view your courses.</p>';
         if(internshipsListContainer) internshipsListContainer.innerHTML = '<p class="text-center" style="color: var(--gray); padding: 20px 0;">Please log in to view your internship history.</p>';
-
-        // Removed logic for updating notes content, as notes tab is removed
     }
 });
 
