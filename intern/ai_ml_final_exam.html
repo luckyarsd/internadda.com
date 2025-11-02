@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI & ML Final Exam — Internadda</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght[700]&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -97,20 +97,187 @@
         .btn { display: inline-block; padding: 14px 30px; font-size: 1.1rem; font-weight: 700; text-align: center; text-decoration: none; border-radius: 10px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); border: 2px solid transparent; letter-spacing: 0.5px; } 
         .btn-primary { background-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(76, 81, 191, 0.3); } 
         .btn-primary:hover { background-color: #3f44af; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 81, 191, 0.4); } 
+        .btn-outline {
+            background-color: transparent;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
+        .btn-outline:hover {
+            background-color: var(--dark);
+            color: white;
+        }
 
         #submit-exam-btn { width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 40px; }
         
-        /* Submission Step */
-        #submission-step { text-align: center; padding: 40px; } 
-        /* ... other submission styles retained ... */
-
         /* Modals/Messages (Only tab-switch retained) */
         .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 6px solid var(--primary); max-width: 500px; width: 90%; animation: modalPop 0.3s ease-out; } 
         .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); z-index: 1004; }
         
         /* Footer Centering Style */
-        footer {
-            text-align: center; /* This centers the text inside the footer */
+        footer { text-align: center; }
+
+        /* =======================================
+           * NEW/MODIFIED SUBMISSION STEP STYLES *
+           ======================================= */
+
+        /* Submission Step Overhaul */
+        #submission-step { 
+            text-align: center; 
+            padding: 60px 40px; /* Increased Padding */
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden; /* For Confetti/Effects */
+            border: none;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15); /* Stronger Shadow */
+            background: linear-gradient(145deg, #ffffff, #f0f4ff); /* Subtle Gradient */
+        }
+
+        #result-icon {
+            font-size: 5rem; /* Larger Icon */
+            margin-bottom: 20px;
+            animation: bounceIn 0.8s ease-out; /* Icon Animation */
+            display: block;
+        }
+
+        /* Success State Styles */
+        .icon.success { 
+            color: var(--success); 
+            text-shadow: 0 0 15px rgba(56, 161, 105, 0.6);
+        }
+        #submission-step.passed #result-title { 
+            font-size: 3.5rem; 
+            color: var(--success); 
+            font-family: 'Poppins', sans-serif; 
+            margin-top: 0;
+        }
+        #submission-step.passed #result-message { 
+            font-size: 1.35rem; 
+            color: var(--gray);
+            max-width: 600px;
+            margin: 15px auto 40px;
+            font-weight: 500;
+        }
+        #submission-step.passed .score-display {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            padding: 15px 30px;
+            background: var(--light);
+            border-radius: 12px;
+            border: 3px solid var(--success);
+            margin: 20px auto 30px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(56, 161, 105, 0.2);
+        }
+
+        /* Failure State Styles */
+        .icon.fail { 
+            color: #e53e3e; /* Red for Disqualification/Failure */
+            animation: shake 0.5s;
+        }
+        #submission-step.failed {
+            background: #fffafa; /* Light Red Background */
+            border: 2px dashed #fbb6b6;
+        }
+        #submission-step.failed #result-title { 
+            font-size: 3rem; 
+            color: #e53e3e; 
+            font-family: 'Poppins', sans-serif; 
+            margin-top: 0;
+        }
+        #submission-step.failed #result-message { 
+            font-size: 1.2rem; 
+            color: var(--gray);
+            max-width: 600px;
+            margin: 15px auto 40px;
+            font-weight: 400;
+        }
+        #submission-step.failed .score-display {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            padding: 10px 20px;
+            background: #fed7d7;
+            border-radius: 8px;
+            border: 2px solid #e53e3e;
+            margin: 20px auto 30px;
+            display: inline-block;
+        }
+
+        /* Email Instruction Card (Professional Look) */
+        #email-instructions {
+            background-color: #f0fdf4; /* Very Light Green for success */
+            border: 1px solid #a7f3d0;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        #email-instructions b { color: var(--success); }
+        #email-instructions p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 15px; }
+        #email-instructions ul { margin-left: 20px; padding-left: 0; list-style-type: none; }
+        #email-instructions li { margin-bottom: 10px; position: relative; padding-left: 20px; }
+        #email-instructions li::before { 
+            content: "\f00c"; /* Checkmark icon */
+            font-family: "Font Awesome 6 Free"; 
+            font-weight: 900; 
+            color: var(--success); 
+            position: absolute; 
+            left: 0; 
+        }
+        #email-link { 
+            margin-top: 25px; 
+            width: 100%; 
+            padding: 16px; 
+            font-size: 1.15rem;
+            background-color: var(--success);
+            box-shadow: 0 4px 10px rgba(56, 161, 105, 0.4);
+        }
+        #email-link:hover {
+            background-color: #2f855a;
+        }
+
+        /* Confetti Effect (Success Animation) */
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            background: var(--primary);
+            top: 0;
+            opacity: 0;
+            transform-origin: 0% 0%;
+            animation: confetti 4s infinite;
+        }
+        .confetti-piece:nth-child(even) { background: var(--success); width: 12px; height: 16px; }
+        .confetti-piece:nth-child(3n) { background: #f6ad55; }
+        .confetti-piece:nth-child(4n) { background: #4299e1; }
+        .confetti-piece:nth-child(5n) { background: #ecc94b; }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
+        }
+
+        /* Keyframe Animations */
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
         }
     </style>
 </head>
@@ -186,23 +353,31 @@
                 </div>
 
                 <div id="submission-step" class="exam-step hidden">
+                    <div id="confetti-container" class="confetti hidden"></div>
+                    
                     <div id="result-icon" class="icon"></div>
                     <h2 id="result-title">Exam Submitted</h2>
                     <p id="result-message"></p>
-                    <div id="score-display" class="score-display">Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> (<span id="final-percentage">--</span>%)</div>
+                    
+                    <div id="score-display" class="score-display">
+                        Your Score: <span id="final-score">--</span>/<span id="total-questions">--</span> 
+                        (<span id="final-percentage">--</span>%)
+                    </div>
+                    
                     <div id="email-instructions" class="email-instructions hidden">
-                        <p><b>Congratulations!</b> You have met the minimum score requirement (60%).</p>
-                        <p>To proceed, please <b>email us with the following details:</b></p>
+                        <p><b>शानदार प्रदर्शन!</b> 🎉 आपने न्यूनतम स्कोर (60%) की आवश्यकता को पूरा कर लिया है।</p>
+                        <p>अगले चरण के लिए, कृपया **इन विवरणों के साथ हमें ईमेल करें:**</p>
                         <ul>
                             <li><b>To:</b> official.internadda@gmail.com</li>
                             <li><b>Subject:</b> AI & ML Internship Application - [Your Full Name Here]</li>
                             <li><b>Body:</b> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
                             <li><b>Attachment:</b> Screenshot of this results page.</li>
                         </ul>
-                        <p>We will verify your score and session logs, then reply within <b>72 business hours</b>.</p>
-                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
+                        <p>हम आपके स्कोर और सेशन लॉग्स को वेरीफाई करेंगे और **72 व्यावसायिक घंटों** के भीतर जवाब देंगे।</p>
+                        <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> ईमेल ड्राफ्ट खोलने के लिए क्लिक करें</a>
                     </div>
-                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">Back to Home</a>
+                    
+                    <a href="../index.html" class="btn btn-outline" style="margin-top: 30px;">मुखपृष्ठ पर वापस जाएं</a>
                 </div>
             </div>
         </section>
@@ -226,7 +401,7 @@
             const startExamBtn = document.getElementById('start-exam-btn');
             const submitExamBtn = document.getElementById('submit-exam-btn');
             const timerEl = document.getElementById('timer');
-            const fixedTimerContainer = document.getElementById('fixed-timer-container'); // NEW ELEMENT
+            const fixedTimerContainer = document.getElementById('fixed-timer-container');
             const messageOverlay = document.getElementById('messageOverlay');
             const tabSwitchWarningBox = document.getElementById('tabSwitchWarningBox');
             const resumeExamBtn = document.getElementById('resumeExamBtn');
@@ -240,6 +415,7 @@
             const emailInstructions = document.getElementById('email-instructions');
             const emailLink = document.getElementById('email-link');
             const finalScoreEmailSpan = document.querySelector('.final-score-email'); 
+            const confettiContainer = document.getElementById('confetti-container'); // NEW ELEMENT
  
             // State
             let examTimerInterval; let tabSwitchCount = 0; const MAX_TAB_SWITCHES = 2; let examStartTime = 0;
@@ -291,7 +467,7 @@
                 })); 
             });
  
-            // Submission
+            // Submission (UPDATED for Confetti/New Styling)
             function submitExam() {
                  if (examTimerInterval) clearInterval(examTimerInterval); 
                  let score = 0;
@@ -305,23 +481,34 @@
                  finalPercentageEl.textContent = percentage;
                  if(finalScoreEmailSpan) finalScoreEmailSpan.textContent = percentage; 
  
+                 submissionStep.classList.remove('passed', 'failed'); // Reset classes
+
                  if (percentage >= 60) {
-                     resultIcon.className = 'icon fas fa-check-circle success'; 
-                     resultTitle.textContent = "Exam Completed - Qualified!"; 
-                     resultMessage.textContent = "Congratulations! Follow the instructions below to complete your application."; 
-                     emailInstructions.classList.remove('hidden');
-                     // Update Email Link
+                    submissionStep.classList.add('passed'); // Add success class
+                    resultIcon.className = 'icon fas fa-award success'; // Changed icon for success
+                    resultTitle.textContent = "उत्कृष्ट कार्य! 🏆 परीक्षा उत्तीर्ण!"; 
+                    resultMessage.textContent = "बधाई हो! आपने AI & ML का प्रैक्टिकल एग्जाम सफलतापूर्वक पास कर लिया है। अपनी इंटर्नशिप यात्रा शुरू करने के लिए नीचे दिए गए निर्देशों का पालन करें।"; 
+                    emailInstructions.classList.remove('hidden');
+
+                    // Confetti Effect Trigger
+                    confettiContainer.classList.remove('hidden');
+                    createConfetti();
+
+                    // Update Email Link
                      const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
                      const body = encodeURIComponent(
                          `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
                           );
                      emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
                  } else {
-                     resultIcon.className = 'icon fas fa-times-circle fail'; 
-                     resultTitle.textContent = "Exam Completed"; 
-                     resultMessage.textContent = `Score ${percentage}% did not meet the 60% requirement.`; 
-                     emailInstructions.classList.add('hidden');
+                    submissionStep.classList.add('failed'); // Add fail class
+                    resultIcon.className = 'icon fas fa-frown fail'; // Sad icon for not meeting requirement
+                    resultTitle.textContent = "बेहतर प्रयास करें 😔"; 
+                    resultMessage.textContent = `आपका स्कोर ${percentage}% है, जो 60% की आवश्यकता को पूरा नहीं करता है। निराश न हों, आप 48 घंटे बाद फिर से प्रयास कर सकते हैं!`; 
+                    emailInstructions.classList.add('hidden');
+                    confettiContainer.classList.add('hidden');
                  }
+
                  examStep.classList.add('hidden'); 
                  submissionStep.classList.remove('hidden'); 
                  timerEl.textContent = "Finished";
@@ -329,6 +516,30 @@
             }
             submitExamBtn.addEventListener('click', () => { if(confirm("Submit exam?")) { submitExam(); } });
  
+            // Confetti Generator Function
+            function createConfetti() {
+                const numConfetti = 50;
+                const colors = ['var(--primary)', 'var(--success)', '#f6ad55', '#4299e1', '#ecc94b'];
+                for (let i = 0; i < numConfetti; i++) {
+                    const piece = document.createElement('div');
+                    piece.classList.add('confetti-piece');
+                    piece.style.left = `${Math.random() * 100}%`;
+                    piece.style.top = `${-20 - Math.random() * 20}%`;
+                    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    piece.style.animationDelay = `${Math.random() * 0.5}s`;
+                    piece.style.animationDuration = `${3 + Math.random() * 2}s`;
+                    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confettiContainer.appendChild(piece);
+                }
+                // Clean up after the animation (optional but good practice)
+                setTimeout(() => {
+                    while (confettiContainer.firstChild) {
+                        confettiContainer.removeChild(confettiContainer.firstChild);
+                    }
+                    confettiContainer.classList.add('hidden');
+                }, 5000);
+            }
+
             // Anti-Cheat (Tab Switch)
             document.addEventListener('visibilitychange', () => {
                  if (!examStep.classList.contains('hidden') && document.hidden) {
@@ -350,7 +561,6 @@
                           } else { 
                               messageOverlay.style.display = 'block'; 
                               tabSwitchWarningBox.style.display = 'block'; 
-                              // Resume button will re-start timer from remaining time
                           }
                  }
             });
@@ -381,4 +591,4 @@
         }); // End DOMContentLoaded
       </script>
 </body>
-</html> 
+</html>
