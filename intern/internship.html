@@ -16,16 +16,6 @@
 </head>
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZZ3HGFM3Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3ZZ3HGFM3Q');
-</script>
-
-
 <body>
     <header>
         <div class="container header-container">
@@ -92,26 +82,28 @@
     </header>
 
     <main>
-        <section class="hero" style="padding-top: 100px; padding-bottom: 100px;">
-            <div class="container hero-container">
+        <!-- Applied new class internship-hero-section for distinct feel (dark background) -->
+        <section class="internship-hero-section">
+            <div class="container internship-hero-container">
                 <div class="hero-content">
                     <h1 class="hero-heading">Secure Your Future: <br> Land a Paid Internship</h1>
-                    <p class="hero-description">Ready to take the next step? Prove your skills through our comprehensive tests and get a chance to secure a <b>stipend-based internship of up to 50K </b> with top companies.</p>
+                    <p class="hero-description">Prove your industry skills through our comprehensive tests and qualify for a <b>stipend-based internship of up to ₹50K</b> with leading companies.</p>
                     <div class="hero-cta">
-                        <button class="btn btn-primary btn-lg" onclick="window.location.href='#tests'">Prove Your Skills</button>
-                        <button class="btn btn-outline btn-lg" onclick="window.location.href='#benefits'">Learn More</button>
+                        <a href="#tests" class="btn btn-primary btn-lg">Prove Your Skills</a>
+                        <a href="#benefits" class="btn btn-transparent btn-lg">Why Choose Us?</a>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="../images/slide1.png" class="internship-img" style="border-radius: 8px;">
+                    <img src="../images/slide3.png" class="internship-img" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
                 </div>
             </div>
         </section>
 
+        <!-- Value Proposition remains, ensuring responsiveness -->
         <section class="value-prop" id="benefits">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Why Our Internship Program?</h2>
+                    <h2 class="section-title">The Internadda Advantage</h2>
                     <p class="section-subtitle">We don't just connect you, we prepare you. Our unique approach ensures you're ready to excel from day one.</p>
                 </div>
 
@@ -120,8 +112,8 @@
                         <div class="value-icon">
                             <i class="fas fa-microchip"></i>
                         </div>
-                        <h3 class="value-title">Practice Tests Available</h3>
-                        <p class="value-description">Sharpen your skills with our free, domain-specific practice tests. Understand your strengths and areas for improvement before the final exam.</p>
+                        <h3 class="value-title">Verified Skill Tests</h3>
+                        <p class="value-description">Rigorously proctored exams designed by industry experts to accurately measure your readiness for professional roles.</p>
                     </div>
 
                     <div class="value-card">
@@ -129,7 +121,7 @@
                             <i class="fas fa-money-check-alt"></i>
                         </div>
                         <h3 class="value-title">Paid Opportunities</h3>
-                        <p class="value-description">Our partner companies offer competitive stipends of up to ₹50,000 per month, ensuring your hard work is rewarded.</p>
+                        <p class="value-description">Focus on opportunities offering competitive stipends of up to ₹50,000 per month, ensuring your time and hard work are fairly compensated.</p>
                     </div>
 
                     <div class="value-card">
@@ -137,289 +129,155 @@
                             <i class="fas fa-briefcase"></i>
                         </div>
                         <h3 class="value-title">Guaranteed Experience</h3>
-                        <p class="value-description">Pass the final test to secure an internship where you'll work on real-world projects and receive mentorship from industry leaders.</p>
+                        <p class="value-description">Pass the final test to secure an internship where you'll work on real-world projects and receive mentorship.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="courses" id="tests">
+        <!-- New Internship Card Grid (Uses new styles from style.css) -->
+        <section class="internship-grid-container" id="tests">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Choose Your Domain & Prove Your Skill</h2>
-                    <p class="section-subtitle">Select a domain below to take a practice test or the final internship exam.</p>
+                    <h2 class="section-title">Test Your Domain Expertise</h2>
+                    <p class="section-subtitle">Select your area of expertise below to proceed to the practice test or the final qualifying exam.</p>
                 </div>
 
-                <div class="courses-grid">
+                <div class="internship-grid" id="internshipGrid">
 
-                    <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_data Science.png"
-                                 alt="Data Science & Analytics">
+                    <!-- Data Science -->
+                    <div class="internship-card">
+                        <div class="card-image">
+                            <img src="../images/test_data Science.png" alt="Data Science & Analytics Test">
                         </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Data Science & Analytics</h3>
-                            <p class="course-instructor">
-                                Roles: Data Analyst,Data Engneer, Data Scientist Intern<br>
-                                Skills: Python, SQL, Tableau
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                        <div class="card-content">
+                            <h3 class="card-title">Data Science & Analytics</h3>
+                            <div class="card-details">
+                                Roles: <strong>Data Analyst, Data Scientist Intern</strong>
+                                <strong>Skills:</strong>
+                                <div class="skills-list">
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">SQL</span>
+                                    <span class="skill-tag">Tableau</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
                                 <a href="data_science_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="payment_page_data_science.html" class="btn btn-primary">Final Exam</a>
+                                <!-- FIXED: Added JS wrapper to enforce login -->
+                                <a href="javascript:void(0)" onclick="checkLoginAndRedirect('payment_page_data_science.html')" class="btn btn-primary">Final Exam</a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Artificial Intelligence.png"
-                                 alt="Artificial Intelligence & Machine Learning">
+                    
+                    <!-- AI & ML -->
+                    <div class="internship-card">
+                        <div class="card-image">
+                            <img src="../images/test_Artificial Intelligence.png" alt="AI & Machine Learning Test">
                         </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Artificial Intelligence & ML</h3>
-                            <p class="course-instructor">
-                                Roles: Artificial Intelligence Intern, Machine Learning Intern<br>
-                                Skills: Python, TensorFlow, ML Algorithms
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                        <div class="card-content">
+                            <h3 class="card-title">Artificial Intelligence & ML</h3>
+                            <div class="card-details">
+                                Roles: <strong>AI Intern, Machine Learning Intern</strong>
+                                <strong>Skills:</strong>
+                                <div class="skills-list">
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">TensorFlow</span>
+                                    <span class="skill-tag">ML Algorithms</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
                                 <a href="ai_ml_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="payment_page_ai_ml.html" class="btn btn-primary">Final Exam</a>
+                                <a href="javascript:void(0)" onclick="checkLoginAndRedirect('payment_page_ai_ml.html')" class="btn btn-primary">Final Exam</a>
                             </div>
                         </div>
                     </div>
 
-                     <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Python Development.png"
-                                 alt="Python Dev & Software Eng.">
+                    <!-- Python Dev & SWE -->
+                    <div class="internship-card">
+                        <div class="card-image">
+                            <img src="../images/test_Python Development.png" alt="Python Dev & SWE Test">
                         </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Python Dev & Software Eng </h3>
-                            <p class="course-instructor">
-                                Roles: Python Developer Intern, Backend Developer Intern <br>
-                                Skills: Python, Flask/Django, SQL
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                        <div class="card-content">
+                            <h3 class="card-title">Python Dev & Software Eng.</h3>
+                            <div class="card-details">
+                                Roles: <strong>Python Developer Intern, Backend Dev</strong>
+                                <strong>Skills:</strong>
+                                <div class="skills-list">
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">Flask/Django</span>
+                                    <span class="skill-tag">SQL</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
                                 <a href="python_dev_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="payment_page_python.html" class="btn btn-primary">Final Exam</a>
-                            </div>
-                        </div>
-                    </div>
-<!--
-                     <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Cloud Computing.png"
-                                 alt="Cloud Computing & DevOps">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Cloud Computing & DevOps</h3>
-                            <p class="course-instructor">
-                                Roles: Cloud Engineer Intern, DevOps Intern<br>
-                                Skills: AWS, Docker, CI/CD
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="cloud_devops_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="cloud_devops_final_exam.html" class="btn btn-primary">Final Exam</a>
+                                <a href="javascript:void(0)" onclick="checkLoginAndRedirect('payment_page_python.html')" class="btn btn-primary">Final Exam</a>
                             </div>
                         </div>
                     </div>
 
-                     <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Cybersecurity & Ethical Hacking.png"
-                                 alt="Cybersecurity & Ethical Hacking">
+                     <!-- Web & Mobile Development -->
+                    <div class="internship-card">
+                        <div class="card-image">
+                            <img src="../images/test_Web & Mobile Development.png" alt="Web & Mobile Development Test">
                         </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Cybersecurity & Ethical Hacking</h3>
-                            <p class="course-instructor">
-                                Roles: Security Analyst Intern, Ethical Hacking Intern<br>
-                                Skills: Networking, Linux, Penetration Testing
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="cybersecurity_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="cybersecurity_final_exam.html" class="btn btn-primary">Final Exam</a>
+                        <div class="card-content">
+                            <h3 class="card-title">Web & Mobile Development</h3>
+                            <div class="card-details">
+                                Roles: <strong>Frontend/Full-Stack Developer</strong>
+                                <strong>Skills:</strong>
+                                <div class="skills-list">
+                                    <span class="skill-tag">HTML/CSS/JS</span>
+                                    <span class="skill-tag">React</span>
+                                    <span class="skill-tag">Flutter</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                     <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Web & Mobile Development.png"
-                                 alt="Web & Mobile Development">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Web & Mobile Development</h3>
-                            <p class="course-instructor">
-                                Roles: Frontend/Full-Stack Developer Intern<br>
-                                Skills: HTML/CSS/JS, React, Flutter
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                            <div class="card-actions">
                                 <a href="web_mobile_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="web_mobile_final_exam.html" class="btn btn-primary">Final Exam</a>
+                                <a href="javascript:void(0)" onclick="checkLoginAndRedirect('web_mobile_final_exam.html')" class="btn btn-primary">Final Exam</a>
                             </div>
                         </div>
                     </div>
 
-                     <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Blockchain & Web3.png"
-                                 alt="Blockchain & Web3">
+                    <div class="internship-card">
+                        <div class="card-image">
+                            <img src="../images/test_Digital Marketing & Growth Hacking.png" alt="Digital Marketing & Growth Hacking Test">
                         </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Blockchain & Web3</h3>
-                            <p class="course-instructor">
-                                Roles: Blockchain Developer Intern, Smart Contract Developer<br>
-                                Skills: Solidity, Ethereum
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="blockchain_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="blockchain_final_exam.html" class="btn btn-primary">Final Exam</a>
+                        <div class="card-content">
+                            <h3 class="card-title">Digital Marketing & Growth</h3>
+                            <div class="card-details">
+                                Roles: <strong>Digital Marketing Intern, SEO/SEM</strong>
+                                <strong>Skills:</strong>
+                                <div class="skills-list">
+                                    <span class="skill-tag">SEO</span>
+                                    <span class="skill-tag">Content Marketing</span>
+                                    <span class="skill-tag">PPC</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                     <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_UIUX Design & Product Design.png"
-                                 alt="UI/UX & Product Design">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">UI/UX & Product Design</h3>
-                            <p class="course-instructor">
-                                Roles: UI/UX Intern, Product Design Intern<br>
-                                Skills: Figma, Wireframing
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="uiux_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="uiux_final_exam.html" class="btn btn-primary">Final Exam</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Content Creation & Video Editing.png"
-                                 alt="Content Creation & Video Editing">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Content Creation & Video Editing</h3>
-                            <p class="course-instructor">
-                                Roles: Content Creator Intern, Video Editing Intern<br>
-                                Skills: Canva, CapCut, Adobe Premiere Pro, Scriptwriting
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="content_creation_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="content_creation_final_exam.html" class="btn btn-primary">Final Exam</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Prompt Engineering.png"
-                                 alt="Prompt Engineering Internship">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Prompt Engineering Internship</h3>
-                            <p class="course-instructor">
-                                Roles: AI Prompt Engineer Intern, ChatGPT Specialist Intern<br>
-                                Skills: ChatGPT, Midjourney, Generative AI, Prompt Design
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="prompt_engineering_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="prompt_engineering_final_exam.html" class="btn btn-primary">Final Exam</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Game Development.png"
-                                 alt="Game Development Internship">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Game Development Internship</h3>
-                            <p class="course-instructor">
-                                Roles: Game Developer Intern, Unity Developer Intern<br>
-                                Skills: Unity, C#, Unreal Engine, Game Design
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
-                                <a href="game_dev_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="game_dev_final_exam.html" class="btn btn-primary">Final Exam</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="course-card">
-                        <div class="course-image">
-                             <img src="../images/test_Digital Marketing & Growth Hacking.png"
-                                 alt="Digital Marketing & Growth Hacking">
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Digital Marketing & Growth Hacking</h3>
-                            <p class="course-instructor">
-                                Roles: Digital Marketing Intern, SEO/SEM Intern<br>
-                                Skills: SEO, Content Marketing
-                            </p>
-                            <div class="course-price" style="margin-top: 20px; justify-content: center;">
+                            <div class="card-actions">
                                 <a href="digital_marketing_practice_test.html" class="btn btn-outline">Practice Test</a>
-                                <a href="digital_marketing_final_exam.html" class="btn btn-primary">Final Exam</a>
+                                <a href="javascript:void(0)" onclick="checkLoginAndRedirect('digital_marketing_final_exam.html')" class="btn btn-primary">Final Exam</a>
                             </div>
                         </div>
                     </div>
 
-                    -->
-
-                    </div> </div>
-        </section>
-
-        <section class="testimonials">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Success Stories</h2>
-                    <p class="section-subtitle">Hear from our students who transformed their careers through Internadda</p>
-                </div>
-
-                <div class="testimonials-container">
-                    <div class="testimonials-grid">
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p class="testimonial-text">"Internadda's internship program was a game-changer. The final exam was tough but fair, and it prepared me perfectly for my role. I now have a full-time job offer with the company I interned at!"</p>
-                                <div class="testimonial-author">
-                                     <img src="../images/no_image.png"  alt="Pranjal Singh" class="author-avatar">
-                                    <div class="author-details">
-                                        <span class="author-name">Pranjal Singh</span>
-                                        <span class="author-role">DU Graduate</span>
-                                    </div>
+                    <div class="internship-card">
+                        <div class="card-image">
+                            <img src="../images/test_UIUX Design & Product Design.png" alt="UI/UX & Product Design Test">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">UI/UX & Product Design</h3>
+                            <div class="card-details">
+                                Roles: <strong>UI/UX Intern, Product Designer</strong>
+                                <strong>Skills:</strong>
+                                <div class="skills-list">
+                                    <span class="skill-tag">Figma</span>
+                                    <span class="skill-tag">Wireframing</span>
+                                    <span class="skill-tag">Prototyping</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p class="testimonial-text">"The data science internship I got through Internadda was invaluable. The experience on real projects gave me the confidence and portfolio I needed to stand out in the job market."</p>
-                                <div class="testimonial-author">
-                                     <img src="../images/no_image.png" alt="Anuj Singh" class="author-avatar">
-                                    <div class="author-details">
-                                        <span class="author-name">Anuj Singh</span>
-                                        <span class="author-role">BHU Graduate</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p class="testimonial-text">"I was amazed by how comprehensive the UX design course was. The curriculum was up-to-date with industry standards, and the career coaching helped me negotiate a better salary package!"</p>
-                                <div class="testimonial-author">
-                                     <img src="../images/no_image.png"  alt="Sumit Pandey" class="author-avatar">
-                                    <div class="author-details">
-                                        <span class="author-name">Sumit Pandey</span>
-                                        <span class="author-role">DU Graduate</span>
-                                    </div>
-                                </div>
+                            <div class="card-actions">
+                                <a href="uiux_practice_test.html" class="btn btn-outline">Practice Test</a>
+                                <a href="javascript:void(0)" onclick="checkLoginAndRedirect('uiux_final_exam.html')" class="btn btn-primary">Final Exam</a>
                             </div>
                         </div>
                     </div>
@@ -440,51 +298,143 @@
     </main>
 
 
+    <footer>
+        <div class="container">
+           <div class="footer-grid">
+                <div class="footer-brand"><div class="footer-logo">Internadda</div><p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p></div>
+                <div class="footer-links-column"><h3 class="footer-links-title">Learn</h3><ul class="footer-links"><li><a href="/courses/course.html">Browse Courses</a></li></ul></div>
+                <div class="footer-links-column"><h3 class="footer-links-title">Intern</h3><ul class="footer-links"><li><a href="/intern/internship.html">Find Internships</a></li></ul></div>
+                <div class="footer-links-column"><h3 class="footer-links-title">Contact & Legal</h3><ul class="footer-links"><li><a href="/about.html">About Us</a></li><li><a href="/contact.html">Contact Us</a></li><li><a href="/privacy.html">Privacy Policy</a></li></ul></div>
+           </div>
+           <div class="footer-bottom"><p>© 2025 Internadda. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal (Kept clean for the sake of presentation, logic remains in script.js) -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+
+            <div id="loginSection" class="auth-section">
+                <h2 class="auth-title">Welcome Back</h2>
+                <div class="loading" id="loginLoading"><div class="spinner"></div><span>Signing in...</span></div>
+                <div id="loginError" class="error"></div>
+                <div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" placeholder="Enter your email" required></div>
+                <div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" placeholder="Enter your password" required></div>
+                <button class="btn btn-primary" id="emailLoginBtn">Sign In</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="btn btn-google" id="googleLoginBtn"><i class="fab fa-google"></i> Continue with Google</button>
+                <div class="toggle-auth"><span>Don't have an account?</span> <a href="#" id="showSignup">Sign up</a></div>
+            </div>
+
+            <div id="signupSection" class="auth-section">
+                <h2 class="auth-title">Create Account</h2>
+                <div class="loading" id="signupLoading"><div class="spinner"></div><span>Creating account...</span></div>
+                <div id="signupError" class="error"></div>
+                <div class="form-group"><label for="signupEmail">Email</label><input type="email" id="signupEmail" placeholder="Enter your email" required></div>
+                <div class="form-group"><label for="signupPassword">Password</label><input type="password" id="signupPassword" placeholder="Create a password (6+ characters)" required></div>
+                <button class="btn btn-primary" id="emailSignupBtn">Create Account</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="btn btn-google" id="googleSignupBtn"><i class="fab fa-google"></i> Sign up with Google</button>
+                <div class="toggle-auth"><span>Already have an account?</span> <a href="#" id="showLogin">Sign in</a></div>
+            </div>
+
+            <div id="dashboardSection" class="auth-section">
+                <div class="dashboard-content">
+                    <div id="profileDisplaySection">
+                        <div class="user-info-profile">
+                            <div class="profile-avatar-display">
+                                <img id="userAvatarDashboard" class="user-avatar" src="" alt="User Avatar">
+                            </div>
+                            <div class="user-profile-details">
+                                <h2 id="userNameDashboard"></h2>
+                                <p id="userEmailDashboard"></p>
+                            </div>
+                        </div>
+                        <div class="profile-details">
+                            <h3 class="section-title-small">Profile Information</h3>
+                            <div class="profile-info-item">
+                                <strong>Gender:</strong> <span id="profileGenderDisplay">Not specified</span>
+                            </div>
+                            <div class="profile-info-item">
+                                <strong>Interested Domain:</strong> <span id="profileDomainDisplay">Not specified</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
+                    </div>
+
+                    <div id="profileEditSection" class="hidden">
+                         <div class="profile-avatar-display">
+                            <img id="userAvatarPreview" class="user-avatar" src="" alt="User Avatar Preview">
+                            <label for="profileImageInput" class="file-upload-label">
+                                <i class="fas fa-upload"></i> Upload Image
+                            </label>
+                            <input type="file" id="profileImageInput" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileName">Full Name</label>
+                            <input type="text" id="profileName" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileGender">Gender</label>
+                            <select id="profileGender">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="interestedDomain">Interested Domain</label>
+                            <select id="interestedDomain">
+                                <option value="">Select Domain</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Data Science & AI">Data Science & AI</option>
+                                <option value="Digital Marketing">Digital Marketing</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
+                    </div>
+                     <div id="notesTabContent" class="tab-content">
+                        <h3 class="section-title-small">📝 Your Notes</h3>
+                        <div class="form-group-note">
+                            <input type="text" id="dataInput" placeholder="Enter a new note...">
+                            <button class="btn btn-primary btn-note" id="saveDataBtn">💾 Save</button>
+                        </div>
+                        <div id="userDataList" class="user-data-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="../script.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
-            const signupBtnMobile = document.getElementById('signupBtnHeaderMobile');
-            const authModal = document.getElementById('authModal');
-            const loginSection = document.getElementById('loginSection');
-            const signupSection = document.getElementById('signupSection');
-            const navMenu = document.querySelector('.nav-menu');
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-
-            const closeHamburgerMenu = () => {
-                if (navMenu && hamburgerMenu) {
-                    navMenu.classList.remove('active');
-                    hamburgerMenu.classList.remove('active');
+        // Custom check to enforce login before attempting to access the exam pages (FIXED: Login Gate)
+        function checkLoginAndRedirect(targetUrl) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                // If logged in, proceed to the target payment/exam page
+                window.location.href = targetUrl;
+            } else {
+                // If not logged in, alert the user and open the login modal
+                alert("Login Required: You must be logged in to proceed to the Final Exam or Practice Test. Please log in or sign up now.");
+                
+                const authModal = document.getElementById('authModal');
+                const loginSection = document.getElementById('loginSection');
+                if (authModal && loginSection) {
+                    authModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    loginSection.classList.add('active');
+                    // Hide signup section if it's visible by default
+                    const signupSection = document.getElementById('signupSection');
+                    if(signupSection) signupSection.classList.remove('active');
                 }
-            };
-
-            if (loginBtnMobile) {
-                loginBtnMobile.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (authModal && loginSection && signupSection) {
-                        authModal.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                        signupSection.classList.remove('active');
-                        loginSection.classList.add('active');
-                        closeHamburgerMenu();
-                    }
-                });
             }
-
-            if (signupBtnMobile) {
-                signupBtnMobile.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (authModal && loginSection && signupSection) {
-                        authModal.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                        loginSection.classList.remove('active');
-                        signupSection.classList.add('active');
-                        closeHamburgerMenu();
-                    }
-                });
-            }
-        });
+        }
     </script>
 </body>
 </html>
