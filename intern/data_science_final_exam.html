@@ -284,6 +284,14 @@
         .message-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 30px 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 1005; text-align: center; border-top: 6px solid var(--primary); max-width: 500px; width: 90%; animation: modalPop 0.3s ease-out; } 
         .message-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); z-index: 1004; }
         
+        /* FOOTER CENTERING STYLE */
+        footer { 
+            background-color: #f7fafc; 
+            padding: 40px 0; 
+            border-top: 1px solid #e2e8f0; 
+            text-align: center; /* Centered Footer Text */
+        }
+        
     </style>
 </head>
 <body>
@@ -305,21 +313,21 @@
                 <div id="instructions-step" class="exam-step">
                     <h2><i class="fas fa-scroll"></i> Final Exam Instructions (Data Science)</h2>
                     <p style="text-align: center; font-size: 1.1rem; color: var(--dark); margin-bottom: 30px;">
-                        Welcome to the <strong>Data Science Final Exam</strong>. This test evaluates your **Practical, Real-World** knowledge in **Python, SQL, Tableau, and ML Algorithms**. Read all rules carefully before proceeding.
+                        Welcome to the Data Science Final Exam. This test evaluates your Practical, Real-World knowledge in Python, SQL, Tableau, and ML Algorithms. Read all rules carefully before proceeding.
                     </p>
                     <div class="instructions-list">
                         <ul>
-                            <li><strong>Duration:</strong> <strong>30 minutes</strong>.</li>
-                            <li><strong>Passing Score:</strong> **60%** (15 out of 25 questions).</li>
-                            <li><strong>Proctoring:</strong> This is **NOT** a camera proctored exam, but integrity rules still apply.</li>
+                            <li><strong>Duration:</strong> 30 minutes.</li>
+                            <li><strong>Passing Score:</strong>60% (15 out of 25 questions).</li>
+                            <li><strong>Proctoring:</strong> This is not a camera proctored exam, but integrity rules still apply.</li>
                             <li><strong>Environment:</strong> You must be in a quiet room, alone. No external help is permitted.</li>
                             <li><strong>Academic Integrity:</strong> No tab switching, other applications, or AI tools. Violations are logged and lead to disqualification.</li>
                             <li><strong>Connectivity:</strong> A stable internet connection is mandatory.</li>
-                            <li><strong>Questions:</strong> 25 mandatory Multiple Choice Questions (MCQs) focusing on data science scenarios.</li>
+                            <li><strong>Questions:</strong> 25 mandatory Multiple Choice Questions (MCQs) focusing on daily-life and business scenarios.</li>
                             <li><strong>Submission:</strong> The exam auto-submits at time up or submit manually. No changes can be made after submission.</li>
                         </ul>
                     </div>
-                    <div class="strict-disclaimer"><i class="fas fa-exclamation-triangle"></i> <strong>Strict Anti-Cheating Policy:</strong> Starting confirms you accept these rules. Violations will lead to disqualification and a permanent ban.</div>
+                    <div class="strict-disclaimer"><i class="fas fa-exclamation-triangle"></i> Strict Anti-Cheating Policy: Starting confirms you accept these rules. Violations will lead to disqualification and a permanent ban.</div>
                     <button class="btn btn-primary" id="start-exam-btn" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-top: 30px;">Acknowledge and Start Exam</button>
                 </div>
 
@@ -380,15 +388,15 @@ import pyplot as plt</pre><div class="options"><div class="option" data-value="a
                     </div>
                     
                     <div id="email-instructions" class="email-instructions hidden">
-                        <p><strong>Excellent Work!</strong> 🎉 You have met the minimum score requirement (60%).</p>
-                        <p>To proceed, please <strong>email us with the following details:</strong></p>
+                        <p>Excellent Work! 🎉 You have met the minimum score requirement (60%).</p>
+                        <p>To proceed, please email us with the following details:</p>
                         <ul>
-                            <li><strong>To:</strong> official.internadda@gmail.com</li>
-                            <li><strong>Subject:</strong> Data Science Internship Application - [Your Full Name Here]</li>
-                            <li><strong>Body:</strong> Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
-                            <li><strong>Attachment:</strong> Screenshot of this results page.</li>
+                            <li>To: official.internadda@gmail.com</li>
+                            <li>Subject: Data Science Internship Application - [Your Full Name Here]</li>
+                            <li>Body: Mention your score (<span class="final-score-email">--</span>%) and registered email.</li>
+                            <li>Attachment: Screenshot of this results page.</li>
                         </ul>
-                        <p>We will verify your score and session logs, then reply within **72 business hours**.</p>
+                        <p>We will verify your score and session logs, then reply within 72 business hours.</p>
                         <a href="#" id="email-link" class="btn btn-primary"><i class="fas fa-envelope"></i> Click to Open Email Draft</a>
                     </div>
                     
@@ -410,7 +418,6 @@ import pyplot as plt</pre><div class="options"><div class="option" data-value="a
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Get all HTML Elements ---
-            // Note: Removed elements related to payment and camera
             const instructionsStep = document.getElementById('instructions-step');
             const examStep = document.getElementById('exam-step');
             const submissionStep = document.getElementById('submission-step');
@@ -497,8 +504,7 @@ import pyplot as plt</pre><div class="options"><div class="option" data-value="a
             // --- Submission Logic ---
             function submitExam() {
                 if (examTimerInterval) clearInterval(examTimerInterval); 
-                // stopCamera() is removed as there is no camera
-
+                
                 let score = 0;
                 questions.forEach(question => {
                     if (question.dataset.selectedValue === question.dataset.answer) {
