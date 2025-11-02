@@ -254,7 +254,7 @@ header.scrolled {
 
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(43, 108, 176, 0.2); /* Clearer focus ring */
+    box-shadow: 0 0 0 4px rgba(43, 108, 176, 0.2);
     border-color: var(--primary);
 }
 
@@ -369,7 +369,18 @@ header.scrolled {
 
 
 /* Hamburger menu for mobile */
-.hamburger-menu { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 24px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 200; }
+.hamburger-menu { 
+    display: none; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    width: 30px; 
+    height: 24px; 
+    background: transparent; 
+    border: none; 
+    cursor: pointer; 
+    padding: 0; 
+    z-index: 9999; /* GLOBAL FIX: Ensure it's the highest element on all pages */
+}
 .hamburger-menu span { display: block; width: 100%; height: 3px; background-color: var(--dark); border-radius: 4px; transition: var(--transition); }
 .hamburger-menu.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
 .hamburger-menu.active span:nth-child(2) { opacity: 0; }
@@ -783,7 +794,13 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .header-actions #userProfile { 
         display: none;
     }
-    .hamburger-menu { display: flex; }
+    
+    /* FIX: Ensure Hamburger is always on top for clickability */
+    .hamburger-menu { 
+        display: flex; 
+        position: relative; /* Create stacking context */
+        z-index: 9999;     /* Ensure it's the highest element on all pages */
+    }
 
     /* Style the opened mobile navigation menu */
     .nav-menu.active {
@@ -857,6 +874,21 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .header-actions { gap: 16px; }
     .hamburger-menu { display: flex; }
     .hero-heading { font-size: 36px; }
+    
+    /* MOBILE UI/UX OPTIMIZATION FIXES */
+    /* 1. Hide the slider/image block on mobile */
+    .hero-image {
+        display: none;
+    }
+    .hero-container {
+        flex-direction: column; /* Ensure vertical stack */
+        gap: 30px;
+    }
+    .hero-content {
+        /* Ensure content takes full width when image is hidden */
+        width: 100%;
+    }
+    
     .hero-stats { flex-direction: column; gap: 24px; align-items: center; }
     .hero-cta, .cta-buttons { flex-direction: column; }
     .value-cards, .courses-grid, .testimonials-grid, .footer-grid, .team-grid, .partners-grid { grid-template-columns: 1fr; }
@@ -864,7 +896,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     /* Dashboard Modal Responsiveness */
     .modal-content { 
         width: 100%; 
-        max-width: 100%; /* Ensure it takes full width */
+        max-width: 100%; 
     }
     .auth-section { padding: 32px 24px; }
     
@@ -879,7 +911,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
          margin-top: 10px;
     }
     .profile-info-item {
-        flex-direction: column; /* Stack label and value vertically */
+        flex-direction: column; 
         align-items: flex-start;
         padding: 10px 0;
         gap: 5px;
@@ -892,9 +924,9 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         align-self: flex-start;
     }
     .profile-details {
-        width: 100%; /* Ensure info block takes full width */
+        width: 100%; 
     }
-    .user-data-list { max-height: 300px; } /* Adjust list height for mobile */
+    .user-data-list { max-height: 300px; } 
 
     /* Adjust section padding for smaller screens */
     .value-prop,
