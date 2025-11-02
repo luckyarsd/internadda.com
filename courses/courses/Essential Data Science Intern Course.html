@@ -697,7 +697,7 @@
                  // Reset video container to thumbnail view
                 videoContainer.innerHTML = `
                     <div class="video-wrapper" id="video-thumbnail-new">
-                        <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Course Video Thumbnail">
+                        <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Course Video Thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/600x338/546e7a/ffffff?text=Video+Not+Available'">
                         <div class="play-button"><i class="fas fa-play-circle"></i></div>
                     </div>
                 `;
