@@ -33,6 +33,7 @@
                 <span class="logo-text">InternAdda</span>
             </a>
 
+            ...
             <nav class="nav-menu">
                 <a href="/index.html" class="nav-link">Home</a>
                 <a href="/courses/course.html" class="nav-link">Courses</a>
@@ -48,12 +49,15 @@
                         <a href="/community/academy.html" class="dropdown-link">Offline Academy</a>
                     </div>
                 </div>
-                <a href="/community/join.html" class="nav-link mobile-only-link">Join Community</a>
-                <a href="/community/partners.html" class="nav-link mobile-only-link">Partners</a>
-                <a href="/blog/index.html" class="nav-link mobile-only-link">Blog</a>
-                <a href="/community/academy.html" class="nav-link mobile-only-link">Offline Academy</a>
-                
                 <div class="nav-actions-mobile">
+                     <div class="user-profile hidden" id="userProfile">
+                         <img src="images/no_image.png" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
+                         <span id="userNameHeader"></span>
+                         <div class="dropdown-menu" id="userDropdown">
+                             <button id="profileBtnHeader">My Profile</button>
+                             <button id="logoutBtnHeader">Sign Out</button>
+                         </div>
+                     </div>
                      <div id="authButtonsMobile">
                         <a href="#" class="btn btn-outline" id="loginBtnHeaderMobile">Log in</a>
                         <a href="#" class="btn btn-primary" id="signupBtnHeaderMobile">Sign up</a>
@@ -72,6 +76,7 @@
                     <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
                 </div>
 
+            </div>
                 <div class="user-profile hidden" id="userProfile">
                     <img src="images/no_image.png" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
                     <span id="userNameHeader"></span>
