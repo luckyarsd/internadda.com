@@ -285,6 +285,11 @@
          * This targets screens smaller than 600px
          ======================================= */
         @media (max-width: 600px) {
+            /* Fix: Timer/Meter ko mobile view me hide kar diya */
+            #fixed-timer-container {
+                display: none !important; 
+            }
+            
             .exam-container {
                 margin: 20px auto;
                 padding: 0 10px; /* Reduced side padding on mobile */
@@ -296,32 +301,6 @@
                 font-size: 1.5rem; /* Smaller header text */
             }
             
-            /* Reposition the Fixed Timer to the top right/center-top on mobile */
-            #fixed-timer-container {
-                top: 15px;
-                left: initial; /* Remove left positioning */
-                right: 15px; /* Stick to the right edge */
-                flex-direction: row; /* Align label and timer horizontally */
-                align-items: center;
-                gap: 5px;
-                background-color: rgba(255, 255, 255, 0.95);
-                padding: 8px 12px;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            }
-            #timer-label {
-                margin-bottom: 0; /* Remove bottom margin */
-                font-size: 0.75rem; /* Smaller label */
-                color: var(--primary); /* Highlight label slightly */
-            }
-            #timer {
-                font-size: 1.2rem; /* Smaller timer digits */
-                padding: 4px 8px; /* Smaller padding */
-                border-width: 1px; /* Thinner border */
-                box-shadow: none; /* Remove box shadow for a cleaner look */
-                animation: none; /* Remove pulse animation on mobile */
-            }
-
             /* Adjust question/option spacing for tighter mobile layout */
             .question-block h3 {
                 font-size: 1.1rem;
