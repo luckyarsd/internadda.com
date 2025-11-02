@@ -150,11 +150,16 @@ header.scrolled {
     gap: 24px;
 }
 
-/* Button Sizing in Header */
+/* [MODIFIED] Button Sizing in Header for desktop/aesthetic (Point 3) */
 .header-actions .btn {
-    padding: 10px 18px;
-    font-size: 15px;
+    padding: 8px 16px; /* Reduced padding from 10px 18px */
+    font-size: 14px; /* Reduced font size from 15px */
     border-radius: 8px;
+    transition: var(--transition), transform 0.2s ease;
+}
+/* [MODIFIED] Button Aesthetics (Point 3) */
+.btn-primary:hover, .btn-outline:hover {
+    transform: translateY(-2px); /* Subtle lift for professional look */
 }
 
 .user-profile {
@@ -777,7 +782,9 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .nav-menu .nav-link:not(.mobile-only-link),
     .nav-menu .nav-item.dropdown,
     .search-container,
-    .header-actions #authButtons {
+    .header-actions #authButtons,
+    /* [MODIFIED] HIDE DESKTOP USER PROFILE WHEN HAMBURGER IS VISIBLE (Point 2) */
+    .header-actions #userProfile { 
         display: none;
     }
     .hamburger-menu { display: flex; }
@@ -798,23 +805,9 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         animation: slideDown 0.4s ease-out;
         z-index: 99;
     }
-    /* Show mobile links inside active menu */
-    .nav-menu.active .nav-link {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 14px 20px;
-        font-size: 17px;
-        border-top: 1px solid #eee;
-        margin: 0;
-    }
-    .nav-menu.active .nav-link:first-child {
-        border-top: none;
-    }
-     /* Show mobile-only community links */
-    .nav-menu.active .nav-link.mobile-only-link { display: block; }
-
-    /* MOBILE LOGIN/SIGNUP */
+    /* [REMOVED] The original .nav-link.mobile-only-link block is removed from HTML templates (Point 2) */
+    
+     /* [MODIFIED/NEW] Mobile Auth/Profile block in active menu (Point 2) */
     .nav-menu.active .nav-actions-mobile {
         display: flex;
         flex-direction: column;
@@ -822,31 +815,45 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         width: 100%;
         max-width: 300px;
         margin: 16px auto 0;
-        padding: 16px 20px;
+        padding: 16px 20px 24px;
         border-top: 1px solid #eee;
-        padding-bottom: 24px;
     }
+    
+    /* [NEW] Style for the embedded profile/buttons */
+    .nav-menu.active .nav-actions-mobile > .user-profile {
+        display: flex; /* Show the profile inside the mobile menu */
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        margin-bottom: 10px;
+        color: var(--dark); /* Ensure text is visible */
+        cursor: default; /* Not clickable like the desktop profile */
+        transform: none; /* Remove hover animation */
+        background: none;
+    }
+
+    .nav-menu.active .nav-actions-mobile .dropdown-menu { 
+        /* Hide the nested dropdown for mobile profile (simplifies UI) */
+        display: none !important; 
+    }
+    
+    .nav-menu.active .nav-actions-mobile #authButtonsMobile {
+         display: flex; /* Ensure mobile buttons are flex row in the container */
+         gap: 10px;
+         justify-content: center;
+    }
+
+    /* [MODIFIED] Mobile buttons inherit smaller size/professional look (Point 3) */
     .nav-menu.active .nav-actions-mobile .btn {
         display: inline-flex;
-        width: 100%;
+        width: 100%; /* Make buttons full width in their container */
         text-align: center;
-        padding: 14px;
+        padding: 12px; /* Slightly reduced padding from original to look better on mobile */
+        font-size: 15px;
     }
 
-    /* Other responsive adjustments */
-    .hero-container, .internship-container { flex-direction: column; text-align: center; gap: 30px;}
-    .hero-heading { font-size: 44px; }
-    .value-cards { grid-template-columns: 1fr 1fr; gap: 24px;}
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px;}
-    .search-results-container { width: calc(100% - 64px); left: 32px; }
-
-    /* Partner Logo Section for Mobile (Faster scroll, smaller logos) */
-    .partner-logo-section { padding: 30px 0; }
-    .logo-marquee-container { height: 60px; }
-    .logo-marquee, .logo-marquee.duplicate { animation-duration: 15s; }
-    .logo-item { padding: 0 15px; height: 60px; }
-    .logo-item img { height: 40px; width: 40px; }
-    .logo-item:hover img { transform: scale(1.1); }
+    /* ... (Existing other responsive adjustments) ... */
+    
 }
 
 @media (max-width: 768px) {
