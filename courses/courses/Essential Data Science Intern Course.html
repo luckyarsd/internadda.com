@@ -160,7 +160,7 @@
                     <i class="fas fa-lock" style="font-size: 4rem; color: var(--primary); margin-bottom: 30px;"></i>
                     <h2>Login Required to View Course</h2>
                     <p>Please sign in to access the full course material and track your learning progress.</p>
-                    <button class="btn btn-primary" onclick="document.getElementById('loginBtnHeader').click()">Sign In Now</button>
+                    <button class="btn btn-primary" onclick="window.location.href = '#loginBtnHeader'">Sign In Now</button>
                 </div>
                 <div id="courseContent" class="hidden">
                     <div id="video-container" class="fade-in">
@@ -185,7 +185,7 @@
                                     <h3>1️⃣ What Is Data Science?</h3>
                                     <p>At its core, data science is the discipline of <b>extracting valuable knowledge and actionable insights from data.</b> It's a blend of several fields, and mastering this synthesis is where the true value lies.</p>
                                     <p>Think of it as a powerful combination of: <br>
-                                    <b>📊 Statistics & Math:</b> The language for reasoning about uncertainty and patterns. [Image of Venn Diagram for Data Science] <br>
+                                    <b>📊 Statistics & Math:</b> The language for reasoning about uncertainty and patterns.  <br>
                                     <b>💻 Programming:</b> The tool to automate data collection, analysis, and model building.<br>
                                     <b>🧠 Domain Knowledge:</b> The context that helps you ask the right questions and interpret results accurately.<br>
                                     <b>🗣️ Storytelling:</b> The skill to communicate complex findings to decision-makers in a clear, compelling way.</p>
@@ -335,7 +335,7 @@
                                     <p>Probability is the foundation of all modeling. You must understand:
                                     <ul>
                                         <li><b>Random Variables:</b> Outcomes of a random process.</li>
-                                        <li><b>Distributions:</b> Patterns that random variables follow (e.g., the bell-shaped <b>Normal Distribution</b>). [Image of Normal Distribution Bell Curve] </li>
+                                        <li><b>Distributions:</b> Patterns that random variables follow (e.g., the bell-shaped <b>Normal Distribution</b>).  </li>
                                     </ul>
                                     </p>
 
@@ -421,7 +421,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td><b>Line Chart</b></td>
-                                                    <td>To show trends or changes over a period of time. [Image of Line Chart showing Sales Trend]</td>
+                                                    <td>To show trends or changes over a period of time. </td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>Scatter Plot</b></td>
@@ -578,7 +578,7 @@
             1: { correct: 2, feedback: "✅ Correct! Defining the problem and exploring data is always the crucial first step before building complex models." },
             2: { correct: 2, feedback: "✅ Excellent! Replacing missing values with a measure like the median is a common and effective imputation technique that avoids data loss. " },
             3: { correct: 2, feedback: "✅ You've got it! The chi-squared test or binomial test is ideal for comparing observed counts against expected counts against an expected distribution." },
-            4: { correct: 2, feedback: "✅ Exactly! A well-designed chart quickly and clearly communicates insights to a non-technical audience. Visuals are key for business-facing presentations." },
+            4: { correct: 2, feedback: "✅ Exactly! A well-labeled chart quickly and clearly communicates insights to a non-technical audience. Visuals are key for business-facing presentations." },
             5: { correct: 3, feedback: "✅ Spot on! This is a classic example of overfitting. Fixing it requires giving the model more data or constraining its complexity with techniques like regularization." }
         };
         
@@ -632,13 +632,13 @@
                         completed: isCompleted,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
-                } else if (pageNumber === 1) {
-                    // Initial enrollment if somehow missed by script.js's initialization on login
+                } else {
+                    // Initial enrollment (or if doc was somehow deleted)
                      await enrollmentsRef.add({
                         title: docTitle,
-                        progress: 0,
-                        completed: false,
-                        lastPage: 1,
+                        progress: progressPercentage, // Should be 0 initially
+                        completed: isCompleted,
+                        lastPage: pageNumber,
                         userId: user.uid
                     });
                 }
@@ -719,7 +719,18 @@
                 const newContent = newPage.querySelector('.fade-in');
                 if(newContent) {
                      newContent.classList.remove('visible');
-                     setTimeout(() => observer.observe(newContent), 10);
+                     // Use setTimeout to ensure re-observing works
+                     setTimeout(() => {
+                         const tempObserver = new IntersectionObserver((entries) => {
+                             entries.forEach(entry => {
+                                 if (entry.isIntersecting) {
+                                     entry.target.classList.add('visible');
+                                     tempObserver.unobserve(entry.target); // Stop observing once visible
+                                 }
+                             });
+                         }, { threshold: 0.1 });
+                         tempObserver.observe(newContent);
+                     }, 10);
                 }
                 
                 updateProgressUI(pageNumber); 
@@ -838,6 +849,7 @@
                     } else {
                         // Initial enrollment: Start at page 1 and save 0% progress
                         currentPage = 1;
+                        // Save initial enrollment to Firestore
                         await saveProgressLocal(1, false);
                     }
                     
