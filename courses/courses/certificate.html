@@ -19,7 +19,7 @@
       box-sizing: border-box;
     }
 
-    /* --- ROBUST BORDER STRUCTURE (FIX) --- */
+    /* --- ROBUST BORDER STRUCTURE --- */
     .outer-border {
       width: 1000px;
       height: 707px;
@@ -215,14 +215,18 @@
         
         <div class="certificate-footer">
           <div class="stamp-area">
+            <img src="../../images/signature.jpg" alt="Lucky Tiwari Signature">
+            <p class="stamp-label">Lucky Tiwari, Founder & CEO</p>
+          </div>
+
+          <div class="stamp-area">
             <img src="../../images/stamp.jpg" alt="Official Seal Stamp">
-            <p class="stamp-label">Official Accreditation</p>
+            <p class="stamp-label">Official Seal</p>
           </div>
 
           <div class="certificate-info-block">
             <p class="info-item"><strong>Awarded On:</strong> <span id="certificateDate"></span></p>
-           <br>
-            <p>     </p>
+            <p class="info-item"><strong>Certificate ID:</strong> <span id="certificateId"></span></p>
           </div>
         </div>
 
@@ -241,7 +245,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const name = params.get('name') || 'Recipient Name';
+      // Automatically fetch name and course from URL. No user prompt.
+      const name = params.get('name') || 'Recipient Name'; 
       const course = params.get('course') || 'Comprehensive Training Program';
 
       const certificateName = document.getElementById('certificateName');
@@ -261,7 +266,6 @@
       certificateId.textContent = `INT-COMP-${generateUUID().substring(0, 8).toUpperCase()}`;
 
       // --- PDF Generation ---
-      // IMPORTANT: Target the .outer-border for the PDF
       const element = document.getElementById('certificate'); 
       const opt = {
         margin: 0,
