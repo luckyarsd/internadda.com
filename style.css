@@ -150,7 +150,7 @@ header.scrolled {
     gap: 24px;
 }
 
-/* [ENHANCED] Button Sizing/Aesthetics in Header (Point 6) */
+/* [ENHANCED] Button Sizing/Aesthetics in Header */
 .header-actions .btn {
     padding: 10px 18px; 
     font-size: 15px; 
@@ -254,7 +254,7 @@ header.scrolled {
 
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(43, 108, 176, 0.2);
+    box-shadow: 0 0 0 4px rgba(43, 108, 176, 0.2); /* Clearer focus ring */
     border-color: var(--primary);
 }
 
@@ -564,7 +564,7 @@ footer { background-color: var(--dark); color: var(--white); padding: 100px 0 48
 .modal { display: none; position: fixed; z-index: 1001; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); transition: background-color 0.4s ease, backdrop-filter 0.4s ease; }
 .modal.active { display: block; }
 .modal-content { background: var(--white); position: absolute; top: 0; right: -100%; height: 100%; width: var(--profile-width); max-width: 100%; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2); transition: right 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; }
-/* ADDED ANIMATION: Profile dashboard slide-in/slide-down effect on modal open (Point 6) */
+/* ADDED ANIMATION: Profile dashboard slide-in/slide-down effect on modal open */
 .modal.active .modal-content { 
     right: 0; 
     animation: dashboard-slide-in 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -608,7 +608,7 @@ h3.section-title-small { font-size: 1.8rem; font-weight: 700; margin-bottom: 24p
 .form-group-note { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
 .btn-note { padding: 16px 24px; flex-shrink: 0; }
 .user-data-list { max-height: 400px; overflow-y: auto; padding-right: 14px; } /* Increased max-height for desktop view */
-/* [ENHANCED] Data item list animation & styling (Point 6) */
+/* [ENHANCED] Data item list animation & styling */
 .data-item { 
     background-color: var(--light); 
     padding: 20px; 
@@ -690,11 +690,8 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 .seats-popup .close-btn { position: absolute; top: 5px; right: 10px; font-size: 24px; cursor: pointer; color: var(--gray); transition: color 0.3s; }
 .seats-popup .close-btn:hover { color: var(--white); }
 
-/* Blog Section Styles (omitted for brevity) */
-/* ... */
 
-
-/* --- New Partner/Trust Section CSS (Integrated and Enhanced) --- */
+/* --- New Partner/Trust Section CSS (Dynamic Marquee) --- */
 .partner-logo-section {
     padding: 30px 0;
     overflow: hidden;
@@ -864,14 +861,14 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .hero-cta, .cta-buttons { flex-direction: column; }
     .value-cards, .courses-grid, .testimonials-grid, .footer-grid, .team-grid, .partners-grid { grid-template-columns: 1fr; }
     
-    /* Dashboard Modal Responsiveness (Point 1, 5) */
+    /* Dashboard Modal Responsiveness */
     .modal-content { 
         width: 100%; 
         max-width: 100%; /* Ensure it takes full width */
     }
     .auth-section { padding: 32px 24px; }
     
-    /* Profile Alignment Fixes (Point 1) */
+    /* Profile Alignment Fixes */
     .user-info-profile {
         flex-direction: column;
         align-items: center;
