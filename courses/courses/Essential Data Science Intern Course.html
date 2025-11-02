@@ -1188,255 +1188,255 @@
             </div>
         </div>
     
-        <script src="../../script.js"></script>
+<script src="../../script.js"></script>
+    
+    <script>
+        // Course Specific Details
+        const COURSE_TITLE = "Essential Data Science Intern Course";
+        const TOTAL_PAGES = 5;
+        const VIDEO_ID = "x-G-dSSUNQE"; // Example ID for a Data Science Intro video
+
+        // Helper functions from main script are needed here.
+        // Re-declaring key ones for clarity, though they should be global via script.js
+
+        const coursePages = document.querySelectorAll('.course-page');
+        const progressFill = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const finishButton = document.getElementById('finishButton');
+        const videoContainer = document.getElementById('video-container');
+        const contentGate = document.getElementById('contentGate');
+        const courseContent = document.getElementById('courseContent');
+        const authButtons = document.getElementById('authButtons');
+        const userProfile = document.getElementById('userProfile');
         
-        <script>
-            // Course Specific Details
-            const COURSE_TITLE = "Essential Data Science Intern Course";
-            const TOTAL_PAGES = 5;
-            const VIDEO_ID = "x-G-dSSUNQE"; // Example ID for a Data Science Intro video
+        // Quiz data with correct answers and feedback
+        const quizData = {
+            1: { correct: 2, feedback: "✅ Correct! Defining the problem and exploring data is always the crucial first step before building complex models." },
+            2: { correct: 2, feedback: "✅ Excellent! Replacing missing values with a measure like the median is a common and effective imputation technique that avoids data loss. " },
+            3: { correct: 2, feedback: "✅ You've got it! The chi-squared test or binomial test is ideal for comparing observed counts against expected counts against an expected distribution." },
+            4: { correct: 2, feedback: "✅ Exactly! A well-designed chart quickly and clearly communicates insights to a non-technical audience. Visuals are key for business-facing presentations." },
+            5: { correct: 3, feedback: "✅ Spot on! This is a classic example of overfitting. Fixing it requires giving the model more data or constraining its complexity with techniques like regularization." }
+        };
+        
+        const pageVideoIds = {
+            1: "x-G-dSSUNQE",
+            2: "JOlruyTytz8",
+            3: "Cc-RKfvITzo",
+            4: "4tYY6NFRfws",
+            5: "i_LwzRVP7bg"
+        };
+        
+        let currentPage = 1;
+        
+        // Helper to update progress locally and save to storage
+        const updateProgress = (pageNumber) => {
+            const totalPages = coursePages.length;
+            const progressPercentage = Math.min(100, Math.floor(((pageNumber - 1) / totalPages) * 100));
+            
+            if (progressFill && progressText) {
+                progressFill.style.width = `${progressPercentage}%`;
+                progressText.textContent = `${progressPercentage}% Complete`;
+            }
+            
+            if (window.saveProgress && firebase.auth().currentUser) {
+                window.saveProgress('course', COURSE_TITLE, { 
+                    progress: progressPercentage, 
+                    lastPage: pageNumber,
+                    completed: progressPercentage === 100 ? true : false
+                });
+            }
+        };
 
-            document.addEventListener('DOMContentLoaded', async () => {
-                const coursePages = document.querySelectorAll('.course-page');
-                const progressFill = document.getElementById('progressBar');
-                const progressText = document.getElementById('progressText');
-                const finishButton = document.getElementById('finishButton');
-                const videoContainer = document.getElementById('video-container');
-                const contentGate = document.getElementById('contentGate');
-                const courseContent = document.getElementById('courseContent');
-                const authButtons = document.getElementById('authButtons');
-                const userProfile = document.getElementById('userProfile');
-                
-                // Quiz data with correct answers and feedback
-                const quizData = {
-                    1: { correct: 2, feedback: "✅ Correct! Defining the problem and exploring data is always the crucial first step before building complex models." },
-                    2: { correct: 2, feedback: "✅ Excellent! Replacing missing values with a measure like the median is a common and effective imputation technique that avoids data loss. " },
-                    3: { correct: 2, feedback: "✅ You've got it! The chi-squared test or binomial test is ideal for comparing observed counts against expected counts against an expected distribution." },
-                    4: { correct: 2, feedback: "✅ Exactly! A well-designed chart quickly and clearly communicates insights to a non-technical audience. Visuals are key for business-facing presentations." },
-                    5: { correct: 3, feedback: "✅ Spot on! This is a classic example of overfitting. Fixing it requires giving the model more data or constraining its complexity with techniques like regularization." }
-                };
-                
-                const pageVideoIds = {
-                    1: "x-G-dSSUNQE",
-                    2: "JOlruyTytz8",
-                    3: "Cc-RKfvITzo",
-                    4: "4tYY6NFRfws",
-                    5: "i_LwzRVP7bg"
-                };
-                
-                let currentPage = 1;
-                let isAuthReady = false;
-                
-                // Helper to update progress locally and save to storage
-                const updateProgress = (pageNumber) => {
-                    const totalPages = coursePages.length;
-                    const progressPercentage = Math.min(100, Math.floor(((pageNumber - 1) / totalPages) * 100));
-                    
-                    if (progressFill && progressText) {
-                        progressFill.style.width = `${progressPercentage}%`;
-                        progressText.textContent = `${progressPercentage}% Complete`;
-                    }
-                    
-                    // Save progress to storage if authenticated
-                    if (firebase.auth().currentUser && window.saveProgress) {
-                        window.saveProgress('course', COURSE_TITLE, { 
-                            progress: progressPercentage, 
-                            lastPage: pageNumber,
-                            completed: progressPercentage === 100 ? true : false
-                        });
-                    }
-                };
+        const loadVideoForPage = (pageNumber) => {
+            const videoId = pageVideoIds[pageNumber];
+            if (videoContainer) {
+                 // Reset video container to thumbnail view
+                videoContainer.innerHTML = `
+                    <div class="video-wrapper" id="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Course Video Thumbnail">
+                        <div class="play-button"><i class="fas fa-play-circle"></i></div>
+                    </div>
+                `;
+                const currentVideoThumbnail = videoContainer.querySelector('#video-thumbnail');
+                if (currentVideoThumbnail) {
+                    currentVideoThumbnail.addEventListener('click', () => {
+                        const iframeContainer = document.createElement('div');
+                        iframeContainer.classList.add('video-embed-container');
+                        const iframe = document.createElement('iframe');
+                        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
+                        iframe.setAttribute('title', 'YouTube video player');
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                        iframe.setAttribute('allowfullscreen', '');
+                        iframeContainer.appendChild(iframe);
+                        videoContainer.innerHTML = ''; 
+                        videoContainer.appendChild(iframeContainer);
+                    });
+                }
+            }
+        };
 
-                const loadVideoForPage = (pageNumber) => {
-                    const videoId = pageVideoIds[pageNumber];
-                    if (videoContainer) {
-                         // Reset video container to thumbnail view
-                        videoContainer.innerHTML = `
-                            <div class="video-wrapper" id="video-thumbnail">
-                                <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Course Video Thumbnail">
-                                <div class="play-button"><i class="fas fa-play-circle"></i></div>
-                            </div>
-                        `;
-                        const currentVideoThumbnail = videoContainer.querySelector('#video-thumbnail');
-                        if (currentVideoThumbnail) {
-                            currentVideoThumbnail.addEventListener('click', () => {
-                                const iframeContainer = document.createElement('div');
-                                iframeContainer.classList.add('video-embed-container');
-                                const iframe = document.createElement('iframe');
-                                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
-                                iframe.setAttribute('title', 'YouTube video player');
-                                iframe.setAttribute('frameborder', '0');
-                                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-                                iframe.setAttribute('allowfullscreen', '');
-                                iframeContainer.appendChild(iframe);
-                                videoContainer.innerHTML = ''; 
-                                videoContainer.appendChild(iframeContainer);
-                            });
-                        }
-                    }
-                };
-
-                const showPage = (pageNumber) => {
-                    coursePages.forEach(page => page.classList.add('hidden'));
-                    let newPage = document.querySelector(`[data-page="${pageNumber}"]`);
-                    
-                    if (!newPage) {
-                        pageNumber = 1;
-                        newPage = document.querySelector(`[data-page="${pageNumber}"]`);
-                        if (newPage) currentPage = 1;
-                    }
-                    
-                    if (newPage) {
-                        newPage.classList.remove('hidden');
-                        const newContent = newPage.querySelector('.fade-in');
-                        newContent.classList.remove('visible');
-                        setTimeout(() => newContent.classList.add('visible'), 10);
-                        
-                        updateProgress(pageNumber); 
-                        loadVideoForPage(pageNumber);
-                        
-                        document.querySelector('.course-section').scrollIntoView({ behavior: 'smooth' });
-                    }
-                };
+        const showPage = (pageNumber) => {
+            coursePages.forEach(page => page.classList.add('hidden'));
+            let newPage = document.querySelector(`[data-page="${pageNumber}"]`);
+            
+            if (!newPage) {
+                pageNumber = 1;
+                newPage = document.querySelector(`[data-page="${pageNumber}"]`);
+                if (newPage) currentPage = 1;
+            }
+            
+            if (newPage) {
+                newPage.classList.remove('hidden');
+                const newContent = newPage.querySelector('.fade-in');
+                newContent.classList.remove('visible');
+                setTimeout(() => newContent.classList.add('visible'), 10);
                 
-                const updateUI = () => {
-                    coursePages.forEach((page, index) => {
-                        const pageNumber = index + 1;
-                        const prevButton = page.querySelector(`#prevButton${pageNumber}`);
-                        const nextButton = page.querySelector(`#nextButton${pageNumber}`);
-                        
-                        if (prevButton) {
-                            prevButton.onclick = () => {
-                                currentPage = Math.max(1, currentPage - 1);
-                                showPage(currentPage);
-                            };
-                            prevButton.disabled = (pageNumber === 1);
-                        }
+                updateProgress(pageNumber); 
+                loadVideoForPage(pageNumber);
+                
+                document.querySelector('.course-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+        
+        const updateUI = () => {
+            // Setup navigation buttons
+            coursePages.forEach((page, index) => {
+                const pageNumber = index + 1;
+                const prevButton = page.querySelector(`#prevButton${pageNumber}`);
+                const nextButton = page.querySelector(`#nextButton${pageNumber}`);
+                
+                if (prevButton) {
+                    prevButton.onclick = () => {
+                        currentPage = Math.max(1, currentPage - 1);
+                        showPage(currentPage);
+                    };
+                    prevButton.disabled = (pageNumber === 1);
+                }
+                
+                if (nextButton) {
+                    nextButton.addEventListener('click', () => {
+                        currentPage = Math.min(coursePages.length + 1, currentPage + 1);
+                        showPage(currentPage);
+                    });
+                }
+            });
+        };
+        
+        const handleQuiz = (pageNumber) => {
+            const page = document.querySelector(`[data-page="${pageNumber}"]`);
+            const options = page.querySelectorAll('.option');
+            const feedbackDiv = page.querySelector('.quiz-feedback');
+            const nextButton = page.querySelector(`#nextButton${pageNumber}`);
+            
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    const selected = parseInt(option.dataset.answer);
+                    const isCorrect = selected === quizData[pageNumber].correct;
+
+                    options.forEach(opt => opt.style.pointerEvents = 'none');
+                    option.classList.remove('incorrect');
+                    option.classList.remove('correct');
+
+                    if (isCorrect) {
+                        option.classList.add('correct');
+                        feedbackDiv.textContent = quizData[pageNumber].feedback;
+                        feedbackDiv.style.color = 'var(--success)';
                         
                         if (nextButton) {
-                            nextButton.addEventListener('click', () => {
-                                currentPage = Math.min(coursePages.length + 1, currentPage + 1);
-                                showPage(currentPage);
-                            });
+                            nextButton.classList.remove('hidden');
+                        } else if (finishButton) {
+                            finishButton.classList.remove('hidden');
+                            updateProgress(coursePages.length + 1);
                         }
-                    });
-                };
-                
-                const handleQuiz = (pageNumber) => {
-                    const page = document.querySelector(`[data-page="${pageNumber}"]`);
-                    const options = page.querySelectorAll('.option');
-                    const feedbackDiv = page.querySelector('.quiz-feedback');
-                    const nextButton = page.querySelector(`#nextButton${pageNumber}`);
-                    
-                    options.forEach(option => {
-                        option.addEventListener('click', () => {
-                            const selected = parseInt(option.dataset.answer);
-                            const isCorrect = selected === quizData[pageNumber].correct;
-
-                            options.forEach(opt => opt.style.pointerEvents = 'none');
-                            option.classList.remove('incorrect');
-                            option.classList.remove('correct');
-
-                            if (isCorrect) {
-                                option.classList.add('correct');
-                                feedbackDiv.textContent = quizData[pageNumber].feedback;
-                                feedbackDiv.style.color = 'var(--success)';
-                                
-                                if (nextButton) {
-                                    nextButton.classList.remove('hidden');
-                                } else if (finishButton) {
-                                    finishButton.classList.remove('hidden');
-                                    updateProgress(coursePages.length + 1); // 100%
-                                }
-                            } else {
-                                option.classList.add('incorrect');
-                                feedbackDiv.textContent = "❌ Incorrect. Please review the content on this page and try again. You can reattempt in 2 seconds.";
-                                feedbackDiv.style.color = 'var(--warning)';
-                                
-                                if (nextButton) nextButton.classList.add('hidden');
-
-                                setTimeout(() => {
-                                    options.forEach(opt => {
-                                        opt.classList.remove('incorrect');
-                                        opt.style.pointerEvents = 'auto';
-                                    });
-                                    feedbackDiv.classList.add('hidden');
-                                }, 2000);
-                            }
-                            feedbackDiv.classList.remove('hidden');
-                        });
-                    });
-                };
-
-                for (let i = 1; i <= coursePages.length; i++) {
-                    handleQuiz(i);
-                }
-
-                // Handle Certificate Generation (Completion)
-                if (finishButton) {
-                    finishButton.addEventListener('click', () => {
-                         const user = firebase.auth().currentUser;
-                         if (!user) {
-                             alert("Login required to generate certificate.");
-                             return;
-                         }
-                        
-                        // FIX: Automatically fetch name from logged-in user
-                        const userName = user.displayName || 'Learner'; 
-                        
-                        const courseNameEncoded = encodeURIComponent(COURSE_TITLE);
-                        const nameEncoded = encodeURIComponent(userName);
-                        
-                        // Mark course as fully completed in storage
-                        window.saveProgress('course', COURSE_TITLE, { 
-                            progress: 100, 
-                            lastPage: coursePages.length + 1, 
-                            completed: true 
-                        });
-                        
-                        window.location.href = `certificate.html?name=${nameEncoded}&course=${courseNameEncoded}`;
-                    });
-                }
-                
-                // --- 1. AUTHENTICATION CHECK AND GATE CONTROL (THE FIX) ---
-                firebase.auth().onAuthStateChanged(async user => {
-                    isAuthReady = true;
-                    if (user) {
-                        // User is logged in: Show content, hide gate
-                        if(authButtons) authButtons.classList.add('hidden');
-                        if(userProfile) userProfile.classList.remove('hidden');
-                        contentGate.classList.add('hidden');
-                        courseContent.classList.remove('hidden');
-
-                        // Load saved progress and jump to last page
-                        const savedProgress = await window.loadProgress('course', COURSE_TITLE);
-                        if (savedProgress && savedProgress.lastPage) {
-                            currentPage = savedProgress.lastPage;
-                        } else {
-                            // If user is logged in but no progress saved, start at page 1 and save state.
-                            currentPage = 1;
-                            await window.saveProgress('course', COURSE_TITLE, { 
-                                progress: 0, 
-                                lastPage: 1,
-                                completed: false 
-                            });
-                        }
-                        
-                        updateUI();
-                        showPage(currentPage);
-
                     } else {
-                        // User is logged out: Hide content, show gate
-                        if(authButtons) authButtons.classList.remove('hidden');
-                        if(userProfile) userProfile.classList.add('hidden');
-                        contentGate.classList.remove('hidden');
-                        courseContent.classList.add('hidden');
-                        currentPage = 1; 
-                        updateProgress(1); // Set 0% progress on header
-                    }
-                });
+                        option.classList.add('incorrect');
+                        feedbackDiv.textContent = "❌ Incorrect. Please review the content on this page and try again. You can reattempt in 2 seconds.";
+                        feedbackDiv.style.color = 'var(--warning)';
+                        
+                        if (nextButton) nextButton.classList.add('hidden');
 
+                        setTimeout(() => {
+                            options.forEach(opt => {
+                                opt.classList.remove('incorrect');
+                                opt.style.pointerEvents = 'auto';
+                            });
+                            feedbackDiv.classList.add('hidden');
+                        }, 2000);
+                    }
+                    feedbackDiv.classList.remove('hidden');
+                });
             });
-        </script>
+        };
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize quiz handlers
+            for (let i = 1; i <= coursePages.length; i++) {
+                handleQuiz(i);
+            }
+
+            if (finishButton) {
+                finishButton.addEventListener('click', () => {
+                     const user = firebase.auth().currentUser;
+                     if (!user) {
+                         alert("Login required to generate certificate.");
+                         return;
+                     }
+                    
+                    const userName = user.displayName || 'Learner'; 
+                    const courseNameEncoded = encodeURIComponent(COURSE_TITLE);
+                    const nameEncoded = encodeURIComponent(userName);
+                    
+                    window.saveProgress('course', COURSE_TITLE, { 
+                        progress: 100, 
+                        lastPage: coursePages.length + 1, 
+                        completed: true 
+                    });
+                    
+                    window.location.href = `certificate.html?name=${nameEncoded}&course=${courseNameEncoded}`;
+                });
+            }
+
+            // --- THE FIX: Wait for Firebase Auth state to be confirmed ---
+            firebase.auth().onAuthStateChanged(async user => {
+                if (user) {
+                    // User is logged in: Show content, hide gate
+                    if(authButtons) authButtons.classList.add('hidden');
+                    if(userProfile) userProfile.classList.remove('hidden');
+                    contentGate.classList.add('hidden');
+                    courseContent.classList.remove('hidden');
+                    
+                    // Load saved progress
+                    const savedProgress = await window.loadProgress('course', COURSE_TITLE);
+                    
+                    if (savedProgress && savedProgress.lastPage) {
+                        currentPage = savedProgress.lastPage;
+                    } else {
+                        // Initialize first-time progress
+                        currentPage = 1;
+                        await window.saveProgress('course', COURSE_TITLE, { 
+                            progress: 0, 
+                            lastPage: 1,
+                            completed: false 
+                        });
+                    }
+                    
+                    updateUI();
+                    showPage(currentPage);
+
+                } else {
+                    // User is logged out: Show gate, hide content
+                    if(authButtons) authButtons.classList.remove('hidden');
+                    if(userProfile) userProfile.classList.add('hidden');
+                    contentGate.classList.remove('hidden');
+                    courseContent.classList.add('hidden');
+                    currentPage = 1; 
+                    updateProgress(1); // Set header progress to 0%
+                }
+            });
+
+        });
+    </script>
     </body>
     </html>
