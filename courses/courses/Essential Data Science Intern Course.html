@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essential Data Science Intern Course — Internadda</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* Global variables and resets */
         :root {
-            --primary: #2b6cb0; 
-            --secondary: #9f7aea;
-            --accent: #38a169; 
-            --dark: #2d3748; 
-            --light: #f7fafc; 
-            --gray: #718096; 
-            --success: #48bb78; 
-            --warning: #ed8936; 
+            --primary: #2b6cb0; /* Trustworthy blue */
+            --secondary: #9f7aea; /* Approachable purple */
+            --accent: #38a169; /* Success green for positivity */
+            --dark: #2d3748; /* Softer dark for text */
+            --light: #f7fafc; /* Clean, light background */
+            --gray: #718096; /* Neutral gray for secondary text */
+            --success: #48bb78; /* Vibrant success green */
+            --warning: #ed8936; /* Warm, approachable orange */
             --white: #ffffff;
             --border: 1px solid #e2e8f0;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
@@ -25,7 +25,11 @@
             --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -37,61 +41,367 @@
         }
         
         /* Animation */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        .main-content-container { max-width: 800px; margin: 0 auto; }
-        .hidden { display: none !important; }
-
-        header { background-color: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
-        .header-container { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
-        .logo { display: flex; align-items: center; text-decoration: none; gap: 10px; transition: var(--transition); }
-        .logo-img { height: 40px; width: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
-        .logo-text { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Poppins', serif; font-weight: 700; font-size: 2rem; letter-spacing: -0.03em; }
-
-        .user-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; position: relative; padding: 6px 10px; border-radius: 12px; transition: var(--transition); }
-        .user-profile img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--primary); transition: var(--transition); }
-        .user-profile span { font-weight: 500; font-size: 15px; }
-
-        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer; transition: var(--transition); border: none; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        .btn-primary { background: var(--gradient); color: var(--white); }
-
-        .course-section { padding: 60px 0; }
-        .course-title-main { font-size: 2.8rem; font-weight: 800; text-align: center; margin-bottom: 20px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .progress-container { display: flex; align-items: center; gap: 20px; margin: 40px auto; }
-        .progress-bar-bg { flex-grow: 1; height: 12px; background-color: #e2e8f0; border-radius: 999px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .progress-text { font-weight: 600; color: var(--dark); min-width: 120px; text-align: right; }
-
-        .course-content-wrapper { margin-top: 50px; }
-        .course-page { background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow); transition: opacity 0.5s ease-in-out; position: relative; }
-        .course-page.hidden { display: none !important; }
-        .course-page-title { font-size: 2rem; font-weight: 700; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
-        .course-page-body p, .course-page-body li { font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; }
-        .course-page-body h3 { font-size: 1.5rem; font-weight: 700; margin-top: 30px; margin-bottom: 15px; }
-        .quiz-options .option.correct { background-color: #d1f7e0; border-color: var(--success); box-shadow: 0 0 0 3px var(--success); }
-        .quiz-options .option.incorrect { background-color: #fcebeb; border-color: #f56565; box-shadow: 0 0 0 3px #f56565; }
-        #finishButton { width: 100%; text-align: center; }
-        .course-navigation { margin-top: 40px; display: flex; justify-content: space-between; gap: 20px; }
-        .course-navigation .btn { flex-grow: 1; }
-        
-        /* Login Gate Modal (To enforce login for content) */
-        .login-gate { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(255, 255, 255, 0.95); 
-            z-index: 10; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            padding: 40px; 
-            text-align: center;
-            border-radius: 16px;
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        .login-gate h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 20px; }
-        .login-gate p { font-size: 1.2rem; color: var(--gray); margin-bottom: 30px; }
-        .login-gate .btn { padding: 15px 30px; }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
         
-         /* Video and Quiz Styles retained from original file */
+        .main-content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 14px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: var(--transition);
+            padding: 10px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.4s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            position: relative;
+            padding: 10px;
+            border-radius: 14px;
+            transition: var(--transition);
+        }
+        .user-profile:hover {
+            background: rgba(43, 108, 176, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .user-profile img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+        }
+        .user-profile span {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .course-section {
+            padding: 60px 0;
+        }
+
+        .course-title-main {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 40px auto;
+        }
+        .progress-bar-bg {
+            flex-grow: 1;
+            height: 12px;
+            background-color: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .progress-text {
+            font-weight: 600;
+            color: var(--dark);
+            min-width: 120px;
+            text-align: right;
+        }
+
+        .course-content-wrapper {
+            margin-top: 50px;
+        }
+
+        .course-page {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: opacity 0.5s ease-in-out;
+            position: relative;
+        }
+
+        .course-page.hidden {
+            display: none !important;
+        }
+
+        .course-page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .course-page-body p, .course-page-body li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .course-page-body h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .course-page-body ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .course-page-body li {
+            margin-bottom: 10px;
+        }
+
+        .course-page-body pre {
+            background-color: #f6f8fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+
+        .course-page-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .course-page-body th, .course-page-body td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 16px;
+            text-align: left;
+        }
+        .course-page-body th {
+            background-color: var(--dark);
+            color: var(--light);
+            font-weight: 600;
+        }
+        .course-page-body tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+
+        .quiz-section {
+            border-top: 2px solid #e2e8f0;
+            padding-top: 30px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .quiz-options .option {
+            background-color: #f7fafc;
+            padding: 18px 24px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+            font-weight: 500;
+        }
+        .quiz-options .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .quiz-options .option.correct {
+            background-color: #d1f7e0;
+            border-color: var(--success);
+            box-shadow: 0 0 0 3px var(--success);
+        }
+        .quiz-options .option.incorrect {
+            background-color: #fcebeb;
+            border-color: #f56565;
+            box-shadow: 0 0 0 3px #f56565;
+        }
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 600;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .quiz-feedback.hidden {
+            display: none;
+        }
+        .btn.hidden {
+            display: none !important;
+        }
+        #finishButton {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .takeaways {
+            margin-top: 40px;
+            padding: 30px;
+            background: #eef2f7;
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+        }
+        .takeaways h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .takeaways ul {
+            list-style-type: '✅ ';
+            padding-left: 20px;
+        }
+        
+        /* Video Section */
         .video-wrapper {
             margin: 30px 0;
             position: relative;
@@ -111,7 +421,22 @@
             aspect-ratio: 16/9;
             object-fit: cover;
         }
-         .video-embed-container {
+        .video-wrapper .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, color 0.2s ease;
+            pointer-events: none;
+        }
+        .video-wrapper:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            color: #fff;
+        }
+        .video-embed-container {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -125,46 +450,129 @@
             height: 100%;
             border-radius: 16px;
         }
-        .quiz-section {
-            border-top: 2px solid #e2e8f0;
-            padding-top: 30px;
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        
+        /* Login Gate Modal (To enforce login for content) */
+        .login-gate { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255, 255, 255, 0.95); 
+            z-index: 10; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            padding: 40px; 
+            text-align: center;
+            border-radius: 16px;
+        }
+        .login-gate h2 { 
+            color: var(--primary); 
+            font-size: 2.2rem; 
+            margin-bottom: 20px; 
+        }
+        .login-gate p { 
+            font-size: 1.2rem; 
+            color: var(--gray); 
+            margin-bottom: 30px; 
         }
 
-        .quiz-question {
-            font-size: 1.3rem;
-            font-weight: 600;
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 80px 0 48px;
         }
-        .quiz-options {
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 56px;
+            margin-bottom: 56px;
+        }
+        .footer-brand {
+            grid-column: span 1;
+        }
+        .footer-logo {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+        .footer-description {
+            color: #e2e8f0;
+            margin-bottom: 36px;
+        }
+        .social-links {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 24px;
         }
-        .quiz-options .option {
-            background-color: #f7fafc;
-            padding: 18px 24px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
-            font-weight: 500;
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s ease;
         }
-        .quiz-feedback {
-            padding: 15px;
-            border-radius: 12px;
+        .social-link:hover {
+            background: var(--gradient);
+            transform: scale(1.15);
+        }
+        .footer-links-title {
+            font-size: 19px;
             font-weight: 600;
-            animation: fadeIn 0.5s;
+            margin-bottom: 28px;
         }
-        /* Mobile adjustment for course content */
-        @media (max-width: 600px) {
-            .course-page {
-                padding: 20px;
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 18px;
+        }
+        .footer-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: var(--white);
+            transform: translateX(6px);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 48px;
+            text-align: center;
+            color: #e2e8f0;
+            font-size: 15px;
+        }
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
             }
-            .course-navigation {
+            .hamburger-menu {
+                display: flex;
+            }
+            .nav-menu.active {
+                display: flex;
                 flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                padding: 28px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+        }
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+            .logo {
+                width: 100%;
+                justify-content: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -213,11 +621,11 @@
                     <p>Please sign in to access the full course material and track your learning progress.</p>
                     <button class="btn btn-primary" onclick="document.getElementById('loginBtnHeader').click()">Sign In Now</button>
                 </div>
-
+                
                 <div id="courseContent" class="hidden">
                     <div id="video-container" class="fade-in">
                         <div class="video-wrapper" id="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/x-G-dSSUNQE/maxresdefault.jpg" alt="Course Video Thumbnail">
+                            <img src="" alt="Course Video Thumbnail">
                             <div class="play-button"><i class="fas fa-play-circle"></i></div>
                         </div>
                     </div>
@@ -230,7 +638,6 @@
                     </div>
 
                     <div class="course-content-wrapper">
-                        
                         <div class="course-page active" data-page="1">
                             <div class="fade-in">
                                 <h2 class="course-page-title">Page 1: Introduction to Data Science</h2>
@@ -244,297 +651,543 @@
                                     <b>💻 Programming:</b> The tool to automate data collection, analysis, and model building.<br>
                                     <b>🧠 Domain Knowledge:</b> The context that helps you ask the right questions and interpret results accurately.<br>
                                     <b>🗣️ Storytelling:</b> The skill to communicate complex findings to decision-makers in a clear, compelling way.</p>
-                                                                    </div>
+                                    <p><b>Wisdom from the Pros:</b> A data scientist who is an expert in one area but a novice in the others is not a data scientist. Your job is to be the bridge between the data and the business, ensuring every insight drives real value.</p>
+
+                                    <h3>2️⃣ The Gold-Standard Data-Science Workflow</h3>
+                                    <p>A professional data-science project rarely starts with a machine learning model. It follows a structured, iterative process. Skipping a step can lead to flawed insights and wasted effort. Here’s the typical journey:</p>
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Step</th>
+                                                    <th>What It Means</th>
+                                                    <th>Example in a Startup</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1. <b>Define the Problem</b></td>
+                                                    <td>Clarify the exact question the business needs answered.</td>
+                                                    <td>“Predict which customers are most likely to churn in the next month.”</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2. <b>Collect & Acquire Data</b></td>
+                                                    <td>Gather raw data from databases, APIs, or files.</td>
+                                                    <td>Pull customer sign-up dates, usage logs, and support tickets from the database.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3. <b>Clean & Prepare Data</b></td>
+                                                    <td>Handle missing values, fix data types, and normalize data.</td>
+                                                    <td>Fill in empty support ticket fields and convert text dates to a proper format.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4. <b>Explore & Visualize</b></td>
+                                                    <td>Uncover initial trends and patterns to inform your modeling.</td>
+                                                    <td>Plot usage over time to see if activity drops before a customer cancels.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5. <b>Model & Evaluate</b></td>
+                                                    <td>Build statistical or machine learning models to make a prediction.</td>
+                                                    <td>Train a classification model to flag "high-risk" customers.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6. <b>Deploy & Communicate</b></td>
+                                                    <td>Share findings and integrate the model into a product or dashboard.</td>
+                                                    <td>Present a report to management on the top 100 at-risk accounts, with a clear dashboard to track future predictions.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h3>3️⃣ The Intern Mindset: Key Habits for Success</h3>
+                                    <ul>
+                                        <li><b>Be Curious & Ask Why:</b> Don't just follow instructions. Ask "why are we doing this?" to gain a deeper understanding.</li>
+                                        <li><b>Start Simple:</b> Master the basics (Python, Pandas) before moving to complex deep learning frameworks.</li>
+                                        <li><b>Focus on Business Value:</b> Your job isn't to build the most complex model; it's to solve a business problem effectively.</li>
+                                    </ul>
+                                </div>
                                 <div class="quiz-section">
                                     <h3 class="quiz-question">❓ Question from Page 1</h3>
-                                    <p>Which statement best defines Data Science?</p>
+                                    <p>Imagine you join a food-delivery startup to forecast pizza demand by neighborhood.<br>Which of the following would be the initial, most crucial step?</p>
                                     <div class="quiz-options">
-                                        <div class="option" data-answer="1">A. Writing complex algorithms in Python.</div>
-                                        <div class="option" data-answer="2">B. The blend of statistics, programming, and domain knowledge to extract insight from data.</div>
-                                        <div class="option" data-answer="3">C. Only collecting and cleaning large datasets.</div>
+                                        <div class="option" data-answer="1">A. Train a deep neural network immediately</div>
+                                        <div class="option" data-answer="2">B. Explore and understand the historical order data</div>
+                                        <div class="option" data-answer="3">C. Design a flashy dashboard for management</div>
                                     </div>
                                     <div class="quiz-feedback hidden" id="feedback1"></div>
                                     <div class="course-navigation">
-                                        <button class="btn btn-outline" id="prevButton1" disabled>Previous</button>
                                         <button class="btn btn-primary hidden" id="nextButton1">Next Lesson <i class="fas fa-chevron-right"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="course-page hidden" data-page="2">
-                               <div class="fade-in">
-                                    <h2 class="course-page-title">Page 2: Python & Essential Libraries</h2>
-                                    <div class="course-page-body">
-                                        <p><b>🎯 Your Goal for This Page:</b> Get comfortable with the core programming language and essential libraries every data-science intern uses daily.</p>
-                                        <h3>2️⃣ Essential Tools for Your Toolkit</h3>
-                                        <p>Here are the <b>Big 3</b> libraries you'll live in:</p>
+                        <div class="course-page hidden" data-page="2">
+                           <div class="fade-in">
+                                <h2 class="course-page-title">Page 2: Python & Essential Libraries</h2>
+                                <div class="course-page-body">
+                                    <p><b>🎯 Your Goal for This Page:</b> Get comfortable with the core programming language and essential libraries every data-science intern uses daily.</p>
+
+                                    <h3>1️⃣ Why Python? A Glimpse of True Power</h3>
+                                    <p>Python is the industry’s lingua franca because it's <b>readable</b>, <b>versatile</b>, and supported by an enormous <b>community</b> that has created thousands of powerful libraries.</p>
+
+                                    <h3>2️⃣ Essential Tools for Your Toolkit</h3>
+                                    <p>Before you even touch a DataFrame, master these Python fundamentals: variables, lists, dictionaries, functions, and file handling. A senior can tell a lot about your coding habits from the clarity of your variable names and the efficiency of your loops.</p>
+
+                                    <p>Here are the <b>Big 3</b> libraries you'll live in:</p>
+                                    <div class="table-container">
                                         <table>
                                             <thead>
-                                                <tr><th>Library</th><th>Why It's Essential</th><th>Quick Demo</th></tr>
+                                                <tr>
+                                                    <th>Library</th>
+                                                    <th>Why It's Essential</th>
+                                                    <th>Quick Demo</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                                <tr><td><b>NumPy</b></td><td>For high-speed numerical computations on arrays.</td><td><code>import numpy as np; np.mean([1,2,3])</code></td></tr>
-                                                <tr><td><b>Pandas</b></td><td>Your go-to for data manipulation, analysis, and cleaning.</td><td><code>df['price'].mean()</code></td></tr>
-                                                <tr><td><b>Matplotlib & Seaborn</b></td><td>For powerful, publication-quality data visualization.</td><td><code>sns.histplot(df['age'])</code></td></tr>
+                                                <tr>
+                                                    <td><b>NumPy</b></td>
+                                                    <td>For high-speed numerical computations on arrays. The backbone of all scientific computing in Python.</td>
+                                                    <td><code>import numpy as np; np.mean([1,2,3])</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Pandas</b></td>
+                                                    <td>Your go-to for data manipulation, analysis, and cleaning. It turns messy CSVs into clean, usable tables.</td>
+                                                    <td><code>df['price'].mean()</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Matplotlib & Seaborn</b></td>
+                                                    <td>For powerful, publication-quality data visualization. Turn raw numbers into compelling stories.</td>
+                                                    <td><code>sns.histplot(df['age'])</code></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="quiz-section">
-                                        <h3 class="quiz-question">❓ Question from Page 2</h3>
-                                        <p>The **Pandas** library is primarily used for:</p>
-                                        <div class="quiz-options">
-                                            <div class="option" data-answer="1">A. Complex mathematical modeling.</div>
-                                            <div class="option" data-answer="2">B. Data manipulation and analysis using DataFrames.</div>
-                                            <div class="option" data-answer="3">C. Creating machine learning models.</div>
-                                        </div>
-                                        <div class="quiz-feedback hidden" id="feedback2"></div>
-                                        <div class="course-navigation">
-                                            <button class="btn btn-outline" id="prevButton2">Previous Lesson</button>
-                                            <button class="btn btn-primary hidden" id="nextButton2">Next Lesson <i class="fas fa-chevron-right"></i></button>
-                                        </div>
+
+                                    <h3>3️⃣ The Intern Mindset: Code with Confidence</h3>
+                                    <ul>
+                                        <li><b>Read the Docs:</b> This is a superpower. Every pro constantly refers to official documentation.</li>
+                                        <li><b>Use Virtual Environments:</b> This keeps your projects isolated and prevents dependency conflicts. It's a sign of a professional workflow.</li>
+                                        <li><b>Comment Liberally:</b> Your code should tell a story. Comments explain the "why," not just the "what."</li>
+                                    </ul>
+                                </div>
+                                <div class="quiz-section">
+                                    <h3 class="quiz-question">❓ Question from Page 2</h3>
+                                    <p>You find several `NaN` (missing) values in a Pandas DataFrame column that represents product price.<br>Which of the following is the best first step, and why?</p>
+                                    <div class="quiz-options">
+                                        <div class="option" data-answer="1">A. Drop all rows with missing prices</div>
+                                        <div class="option" data-answer="2">B. Replace missing prices with the column’s median</div>
+                                        <div class="option" data-answer="3">C. Leave them as `NaN` and continue analysis unchanged</div>
+                                    </div>
+                                    <div class="quiz-feedback hidden" id="feedback2"></div>
+                                    <div class="course-navigation">
+                                        <button class="btn btn-outline" id="prevButton2">Previous Lesson</button>
+                                        <button class="btn btn-primary hidden" id="nextButton2">Next Lesson <i class="fas fa-chevron-right"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="course-page hidden" data-page="3">
-                                <div class="fade-in">
-                                    <h2 class="course-page-title">Page 3: Statistics & Probability Essentials</h2>
-                                    <div class="course-page-body">
-                                        <h3>4️⃣ Hypothesis Testing: Proving Your Point</h3>
-                                        <p>This is a formal way to test a claim. You start with a <b>Null Hypothesis (H₀)</b> ("there is no difference") and try to find evidence against it. Your <b>p-value</b> is the "surprise meter." A low p-value (<0.05) means your result is very surprising if the null hypothesis were true, so you reject the null and conclude there is a real effect.</p>
+                        </div>
+
+                        <div class="course-page hidden" data-page="3">
+                            <div class="fade-in">
+                                <h2 class="course-page-title">Page 3: Statistics & Probability Essentials</h2>
+                                <div class="course-page-body">
+                                    <p><b>🎯 Your Goal for This Page:</b> Grasp the statistical mindset that validates your findings and turns raw data into trustworthy insights.</p>
+
+                                    <h3>1️⃣ Why Statistics is Your Co-Pilot</h3>
+                                    <p>Without a strong statistical foundation, your data projects are just guesses. Statistics gives you the tools to <b>quantify uncertainty</b> and <b>validate your conclusions.</b> It's the difference between saying "I think sales are up" and "Sales are statistically significantly higher, and we're 95% confident."</p>
+
+                                    <h3>2️⃣ The Power of Descriptive Statistics</h3>
+                                    <p>This is your first glance at the data. Use these key metrics to quickly describe your dataset: <b>Mean</b> & <b>Median</b> (the "typical" value), <b>Variance</b> & <b>Standard Deviation</b> (how spread out the data is), and <b>Percentiles</b> (where a value falls within the data).</p>
+
+                                    <h3>3️⃣ Probability & Distributions</h3>
+                                    <p>Probability is the foundation of all modeling. You must understand:
+                                    <ul>
+                                        <li><b>Random Variables:</b> Outcomes of a random process.</li>
+                                        <li><b>Distributions:</b> Patterns that random variables follow (e.g., the bell-shaped <b>Normal Distribution</b>).</li>
+                                    </ul>
+                                    </p>
+
+                                    <h3>4️⃣ Hypothesis Testing: Proving Your Point</h3>
+                                    <p>This is a formal way to test a claim. You start with a <b>Null Hypothesis (H₀)</b> ("there is no difference") and try to find evidence against it. Your <b>p-value</b> is the "surprise meter." A low p-value (<0.05) means your result is very surprising if the null hypothesis were true, so you reject the null and conclude there is a real effect.</p>
+
+                                    <h3>5️⃣ The Intern Mindset: The Value of Precision</h3>
+                                    <ul>
+                                        <li><b>Avoid Cherry-Picking:</b> Always look at the full picture. A good data scientist presents both positive and negative findings.</li>
+                                        <li><b>Mind the Sample Size:</b> Remember that small samples can produce misleading results. Be transparent about your data's limitations.</li>
+                                    </ul>
+                                </div>
+                                <div class="quiz-section">
+                                    <h3 class="quiz-question">❓ Question from Page 3</h3>
+                                    <p>A coin is flipped 100 times and lands heads 65 times. You suspect it’s biased. Which statistical test (or concept) would you use to check if the coin is fair, and why?</p>
+                                    <div class="quiz-options">
+                                        <div class="option" data-answer="1">A. A t-test, because you are comparing two groups (heads vs. tails).</div>
+                                        <div class="option" data-answer="2">B. A chi-squared test or binomial test, as you are analyzing counts of categorical outcomes (heads/tails) against an expected distribution.</div>
+                                        <div class="option" data-answer="3">C. A linear regression model, to predict the next flip.</div>
                                     </div>
-                                    <div class="quiz-section">
-                                        <h3 class="quiz-question">❓ Question from Page 3</h3>
-                                        <p>A low p-value (e.g., <0.05) in hypothesis testing indicates:</p>
-                                        <div class="quiz-options">
-                                            <div class="option" data-answer="1">A. Your conclusion is false.</div>
-                                            <div class="option" data-answer="2">B. There is strong evidence to reject the Null Hypothesis.</div>
-                                            <div class="option" data-answer="3">C. That the sample size was too small.</div>
-                                        </div>
-                                        <div class="quiz-feedback hidden" id="feedback3"></div>
-                                        <div class="course-navigation">
-                                            <button class="btn btn-outline" id="prevButton3">Previous Lesson</button>
-                                            <button class="btn btn-primary hidden" id="nextButton3">Next Lesson <i class="fas fa-chevron-right"></i></button>
-                                        </div>
+                                    <div class="quiz-feedback hidden" id="feedback3"></div>
+                                    <div class="course-navigation">
+                                        <button class="btn btn-outline" id="prevButton3">Previous Lesson</button>
+                                        <button class="btn btn-primary hidden" id="nextButton3">Next Lesson <i class="fas fa-chevron-right"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="course-page hidden" data-page="4">
-                                <div class="fade-in">
-                                    <h2 class="course-page-title">Page 4: Data Wrangling & Visualization</h2>
-                                    <div class="course-page-body">
-                                        <p><b>🎯 Your Goal for This Page:</b> Learn how to clean messy, real-world data and transform it into compelling visuals that tell a story.</p>
-                                        <h3>1️⃣ The 80% Rule: Data Wrangling is Everything</h3>
-                                        <p>In the real world, data is never perfect. You'll spend <b>70-80% of your time</b> on a project just cleaning and preparing the data. Get good at this, and you will be indispensable. Key tasks include:</p>
+                        </div>
+
+                        <div class="course-page hidden" data-page="4">
+                            <div class="fade-in">
+                                <h2 class="course-page-title">Page 4: Data Wrangling & Visualization</h2>
+                                <div class="course-page-body">
+                                    <p><b>🎯 Your Goal for This Page:</b> Learn how to clean messy, real-world data and transform it into compelling visuals that tell a story.</p>
+
+                                    <h3>1️⃣ The 80% Rule: Data Wrangling is Everything</h3>
+                                    <p>In the real world, data is never perfect. You'll spend <b>70-80% of your time</b> on a project just cleaning and preparing the data. Get good at this, and you will be indispensable. Key tasks include:</p>
+                                    <div class="table-container">
                                         <table>
                                             <thead>
-                                                <tr><th>Task</th><th>Why It Matters</th><th>Quick Pandas Move</th></tr>
+                                                <tr>
+                                                    <th>Task</th>
+                                                    <th>Why It Matters</th>
+                                                    <th>Quick Pandas Move</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                                <tr><td><b>Handle Missing Values</b></td><td>Prevents errors and skewed results.</td><td><code>df.dropna()</code> or <code>df.fillna(df.median())</code></td></tr>
-                                                <tr><td><b>Fix Data Types</b></td><td>Ensures columns are in the correct format for analysis (e.g., text to numbers).</td><td><code>df['price'].astype(float)</code></td></tr>
-                                                <tr><td><b>Remove Duplicates</b></td><td>Avoids double-counting and ensures accurate statistics.</td><td><code>df.drop_duplicates()</code></td></tr>
+                                                <tr>
+                                                    <td><b>Handle Missing Values</b></td>
+                                                    <td>Prevents errors and skewed results.</td>
+                                                    <td><code>df.dropna()</code> or <code>df.fillna(df.median())</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Fix Data Types</b></td>
+                                                    <td>Ensures columns are in the correct format for analysis (e.g., text to numbers).</td>
+                                                    <td><code>df['price'] = df['price'].astype(float)</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Remove Duplicates</b></td>
+                                                    <td>Avoids double-counting and ensures accurate statistics.</td>
+                                                    <td><code>df.drop_duplicates()</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Feature Engineering</b></td>
+                                                    <td>Creating new, insightful columns from existing data (e.g., combining dates).</td>
+                                                    <td><code>df['full_name'] = df['first'] + ' ' + df['last']</code></td>
+                                                </tr>
                                             </tbody>
                                         </table>
-                                        <h3>2️⃣ The Art of Data Storytelling</h3>
-                                        <p>Visualization is how you turn numbers into narratives that decision-makers can act on.</p>
                                     </div>
-                                    <div class="quiz-section">
-                                        <h3 class="quiz-question">❓ Question from Page 4</h3>
-                                        <p>Which Pandas method is used to remove duplicate rows from a DataFrame?</p>
-                                        <div class="quiz-options">
-                                            <div class="option" data-answer="1">A. `df.remove_dups()`</div>
-                                            <div class="option" data-answer="2">B. `df.drop_duplicates()`</div>
-                                            <div class="option" data-answer="3">C. `df.unique()`</div>
-                                        </div>
-                                        <div class="quiz-feedback hidden" id="feedback4"></div>
-                                        <div class="course-navigation">
-                                            <button class="btn btn-outline" id="prevButton4">Previous Lesson</button>
-                                            <button class="btn btn-primary hidden" id="nextButton4">Next Lesson <i class="fas fa-chevron-right"></i></button>
-                                        </div>
+
+                                    <h3>2️⃣ The Art of Data Storytelling</h3>
+                                    <p>A beautifully crafted chart can communicate more than a thousand words of text. Visualization is how you turn numbers into narratives that decision-makers can act on. Here are some of the most common charts:</p>
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Chart</th>
+                                                    <th>When to Use It</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><b>Bar Chart</b></td>
+                                                    <td>To compare values across different categories.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Line Chart</b></td>
+                                                    <td>To show trends or changes over a period of time.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Scatter Plot</b></td>
+                                                    <td>To show the relationship between two numerical variables.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Box Plot</b></td>
+                                                    <td>To visualize the distribution and identify outliers.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h3>3️⃣ The Intern Mindset: Attention to Detail</h3>
+                                    <ul>
+                                        <li><b>Label Everything:</b> A chart without clear axis labels, a title, or a legend is useless.</li>
+                                        <li><b>Keep it Simple:</b> Avoid "chart junk" like excessive colors or 3D effects.</li>
+                                    </ul>
+                                </div>
+                                <div class="quiz-section">
+                                    <h3 class="quiz-question">❓ Question from Page 4</h3>
+                                    <p>Your manager (non-technical) needs to grasp regional sales trends quickly.<br>Which is the best way to present your findings and why?</p>
+                                    <div class="quiz-options">
+                                        <div class="option" data-answer="1">A. Show the raw Pandas DataFrame in a notebook</div>
+                                        <div class="option" data-answer="2">B. Create a well-labeled bar or line chart</div>
+                                        <div class="option" data-answer="3">C. Send a 10-page statistical report with formulas</div>
+                                    </div>
+                                    <div class="quiz-feedback hidden" id="feedback4"></div>
+                                    <div class="course-navigation">
+                                        <button class="btn btn-outline" id="prevButton4">Previous Lesson</button>
+                                        <button class="btn btn-primary hidden" id="nextButton4">Next Lesson <i class="fas fa-chevron-right"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="course-page hidden" data-page="5">
-                                <div class="fade-in">
-                                    <h2 class="course-page-title">Page 5: Machine Learning & The Intern Mindset</h2>
-                                    <div class="course-page-body">
-                                        <h3>2️⃣ Overfitting: The Most Common Mistake</h3>
-                                        <p>A critical concept to understand is <b>overfitting.</b> This happens when your model learns the training data <i>too well</i>, including the noise and random fluctuations, and performs poorly on new, unseen data.</p>
+                        <div class="course-page hidden" data-page="5">
+                            <div class="fade-in">
+                                <h2 class="course-page-title">Page 5: Machine Learning & The Intern Mindset</h2>
+                                <div class="course-page-body">
+                                    <p><b>🎯 Your Goal for This Page:</b> Understand where machine learning fits into the data science process and what personal habits will make you an indispensable intern.</p>
+
+                                    <h3>1️⃣ Machine Learning: The Prediction Engine</h3>
+                                    <p>Machine learning is about building models that <b>learn patterns from data</b> to make intelligent predictions or decisions. As an intern, your focus will be on two main types:</p>
+                                    <ul>
+                                        <li><b>Supervised Learning:</b> Building models that learn from labeled examples to predict an outcome (e.g., predicting house prices, or classifying an email as spam).</li>
+                                        <li><b>Unsupervised Learning:</b> Building models that find hidden structures or patterns in unlabeled data (e.g., clustering customers into different segments).</li>
+                                    </ul>
+
+                                    <h3>2️⃣ Overfitting: The Most Common Mistake</h3>
+                                    <p>A critical concept to understand is <b>overfitting.</b> This happens when your model learns the training data <i>too well</i>, including the noise and random fluctuations, and performs poorly on new, unseen data. It's like an actor who memorizes every line perfectly but can't improvise when a scene changes. The solution is to use more data or simplify the model.</p>
+
+                                    <h3>3️⃣ The Intern Mindset: Building Your Reputation</h3>
+                                    <p>Your technical skills are a baseline, but your soft skills will define your success. A few key habits:</p>
+                                    <ul>
+                                        <li><b>Communicate Clearly & Concisely:</b> Your senior mentor is busy. Be able to summarize your findings in 2-3 sentences.</li>
+                                        <li><b>Embrace Version Control (Git):</b> This is non-negotiable. Learn to track your changes and collaborate with a team. It's the hallmark of a professional developer.</li>
+                                        <li><b>Document Everything:</b> Leave comments in your code and clear notes in your notebooks. Your future self (and teammates) will thank you.</li>
+                                        <li><b>Ask Smart Questions:</b> Don't be afraid to ask for help, but first, show that you've tried to solve the problem yourself.</li>
+                                    </ul>
+                                       <div class="takeaways">
+                                            <h3>Key Takeaways from This Course</h3>
+                                            <ul>
+                                                <li>Data science is about driving business value, not just building models.</li>
+                                                <li>Following a structured workflow is crucial for success.</li>
+                                                <li>Mastering Python, Pandas, and data visualization is non-negotiable.</li>
+                                                <li>Always validate your findings with statistical rigor.</li>
+                                                <li>Clear communication and a professional mindset will set you apart.</li>
+                                            </ul>
+                                        </div>
+                                </div>
+                                <div class="quiz-section">
+                                    <h3 class="quiz-question">❓ Final Question from Page 5</h3>
+                                    <p>You train a model that achieves 99% accuracy on the training set but performs poorly on new data.<br>What is the most likely problem, and what specific step would you take to fix it?</p>
+                                    <div class="quiz-options">
+                                        <div class="option" data-answer="1">A. The model is underfitting, and you should use a simpler algorithm.</div>
+                                        <div class="option" data-answer="2">B. The model is overfitting, and you should use a different random seed.</div>
+                                        <div class="option" data-answer="3">C. The model is overfitting, and you should add more data or use regularization.</div>
                                     </div>
-                                    <div class="quiz-section">
-                                        <h3 class="quiz-question">❓ Final Question from Page 5</h3>
-                                        <p>A model that performs well on training data but poorly on test data is suffering from:</p>
-                                        <div class="quiz-options">
-                                            <div class="option" data-answer="1">A. Underfitting (High Bias)</div>
-                                            <div class="option" data-answer="2">B. Overfitting (High Variance)</div>
-                                            <div class="option" data-answer="3">C. Data Leakage (Unrelated to model complexity)</div>
-                                        </div>
-                                        <div class="quiz-feedback hidden" id="feedback5"></div>
-                                        <div class="course-navigation">
-                                            <button class="btn btn-outline" id="prevButton5">Previous Lesson</button>
-                                            <a href="javascript:void(0);" class="btn btn-primary hidden" id="finishButton">Get Certificate of Completion <i class="fas fa-award"></i></a>
-                                        </div>
+                                    <div class="quiz-feedback hidden" id="feedback5"></div>
+                                    <div class="course-navigation">
+                                        <button class="btn btn-outline" id="prevButton5">Previous Lesson</button>
+                                        <a href="javascript:void(0);" class="btn btn-primary hidden" id="finishButton">Get Certificate of Completion <i class="fas fa-award"></i></a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer>
-            </footer>
-        
-        <div id="authModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" id="closeModal">&times;</span>
-
-                <div id="loginSection" class="auth-section">
-                    <div class="auth-notification">
-                        <i class="fas fa-lock"></i> <strong>Log in Required:</strong> Log in to take courses, track progress, and apply for internships.
-                    </div>
-                    <h2 class="auth-title">Welcome Back</h2>
-                    <div class="loading" id="loginLoading">
-                        <div class="spinner"></div>
-                        <span>Signing in...</span>
-                    </div>
-                    <div id="loginError" class="error"></div>
-
-                    <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                    </div>
-
-                    <button class="btn btn-primary" id="emailLoginBtn">Sign In</button>
-                    <div class="separator"><span>OR</span></div>
-                    <button class="btn btn-google" id="googleLoginBtn"><i class="fab fa-google"></i> Continue with Google</button>
-
-                    <div class="toggle-auth">
-                        <span>Don't have an account?</span> <a href="#" id="showSignup">Sign up</a>
-                    </div>
-                </div>
-
-                <div id="signupSection" class="auth-section">
-                    <h2 class="auth-title">Create Account</h2>
-                    <div class="loading" id="signupLoading">
-                        <div class="spinner"></div>
-                        <span>Creating account...</span>
-                    </div>
-                    <div id="signupError" class="error"></div>
-
-                    <div class="form-group">
-                        <label for="signupEmail">Email</label>
-                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" placeholder="Create a password (6+ characters)" required>
-                    </div>
-
-                    <button class="btn btn-primary" id="emailSignupBtn">Create Account</button>
-                    <div class="separator"><span>OR</span></div>
-                    <button class="btn btn-google" id="googleSignupBtn"><i class="fab fa-google"></i> Continue with Google</button>
-
-                    <div class="toggle-auth">
-                        <span>Already have an account?</span> <a href="#" id="showLogin">Sign in</a>
-                    </div>
-                </div>
-
-                <div id="dashboardSection" class="auth-section">
-                     <div class="dashboard-content">
-                        <div class="profile-tabs">
-                             <button class="tab-btn active" data-tab="profile">Profile</button>
-                             <button class="tab-btn" data-tab="courses">Courses</button>
-                             <button class="tab-btn" data-tab="internships">Internships</button>
-                        </div>
-
-                        <div id="profileTabContent" class="tab-content">
-                             <div id="profileDisplaySection">
-                                 <div class="user-info-profile">
-                                     <div class="profile-avatar-display">
-                                         <img id="userAvatarDashboard" class="user-avatar" src="../../images/no_image.png" alt="User Avatar">
-                                     </div>
-                                     <div class="user-profile-details">
-                                         <h2 id="userNameDashboard"></h2>
-                                         <p id="userEmailDashboard"></p>
-                                     </div>
-                                 </div>
-                                 <div class="profile-details">
-                                     <h3 class="section-title-small">Profile Information</h3>
-                                     <div class="profile-info-item">
-                                         <strong>Gender:</strong> <span id="profileGenderDisplay">Not specified</span>
-                                     </div>
-                                     <div class="profile-info-item">
-                                         <strong>Interested Domain:</strong> <span id="profileDomainDisplay">Not specified</span>
-                                     </div>
-                                 </div>
-                                 <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
-                             </div>
-
-                             <div id="profileEditSection" class="hidden">
-                                 <div class="profile-avatar-display">
-                                     <img id="userAvatarPreview" class="user-avatar" src="../../images/no_image.png" alt="User Avatar Preview">
-                                     <label for="profileImageInput" class="file-upload-label">
-                                         <i class="fas fa-upload"></i> Upload Image
-                                     </label>
-                                     <input type="file" id="profileImageInput" accept="image/*">
-                                 </div>
-                                 <div class="form-group">
-                                     <label for="profileName">Full Name</label>
-                                     <input type="text" id="profileName" placeholder="Enter your full name">
-                                 </div>
-                                 <div class="form-group">
-                                     <label for="profileGender">Gender</label>
-                                     <select id="profileGender">
-                                         <option value="">Select Gender</option>
-                                         <option value="Male">Male</option>
-                                         <option value="Female">Female</option>
-                                         <option value="Other">Other</option>
-                                     </select>
-                                 </div>
-                                 <div class="form-group">
-                                     <label for="interestedDomain">Interested Domain</label>
-                                     <select id="interestedDomain">
-                                         <option value="">Select Domain</option>
-                                         <option value="Web Development">Web Development</option>
-                                         <option value="Data Science & AI">Data Science & AI</option>
-                                         <option value="Digital Marketing">Digital Marketing</option>
-                                         <option value="UI/UX Design">UI/UX Design</option>
-                                     </select>
-                                 </div>
-                                 <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
-                             </div>
-                        </div>
-
-                        <div id="coursesTabContent" class="tab-content hidden">
-                            <h3 class="section-title-small">📚 Enrolled Courses & Certificates</h3>
-                            <p style="color: var(--gray); margin-bottom: 20px;">Track your progress and access completion certificates here.</p>
-                            <div id="coursesListContainer" class="user-data-list">
-                                <p style="text-align: center; padding: 20px;">Please log in to view your courses.</p>
-                            </div>
-                        </div>
-
-                        <div id="internshipsTabContent" class="tab-content hidden">
-                            <h3 class="section-title-small">💼 Internship Application History</h3>
-                            <p style="color: var(--gray); margin-bottom: 20px;">View your exam results and application status for different domains.</p>
-                            <div id="internshipsListContainer" class="user-data-list">
-                                <p style="text-align: center; padding: 20px;">Please log in to view your internship history.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">Internadda</div>
+                    <p class="footer-description">Transforming careers through learning, interning, and earning opportunities.</p>
+                                        <div class="social-links">
+                        <a href="https://www.linkedin.com/company/internadda-india" target="_blank" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@theinternadda" target="_blank" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://www.instagram.com/internadda.india" target="_blank" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Learn</h3>
+                    <ul class="footer-links">
+                        <li><a href="../course.html">Browse Courses</a></li>
+                        <li><a href="#">Free Courses</a></li>
+                        <li><a href="#">For Businesses</a></li>
+                        <li><a href="#">Become an Instructor</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Intern</h3>
+                    <ul class="footer-links">
+                        <li><a href="../../intern/internship.html">Find Internships</a></li>
+                        <li><a href="#">For Companies</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Career Coaching</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h3 class="footer-links-title">Contact & Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../../about.html">About Us</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                        <li><a href="../../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../refund.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Internadda. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+
+            <div id="loginSection" class="auth-section">
+                 <div class="auth-notification">
+                    <i class="fas fa-lock"></i> <strong>Log in Required:</strong> Log in to take courses, track progress, and apply for internships.
+                 </div>
+                <h2 class="auth-title">Welcome Back</h2>
+                <div class="loading" id="loginLoading">
+                    <div class="spinner"></div>
+                    <span>Signing in...</span>
+                </div>
+                <div id="loginError" class="error"></div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+
+                <button class="btn btn-primary" id="emailLoginBtn">Sign In</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="btn btn-google" id="googleLoginBtn"><i class="fab fa-google"></i> Continue with Google</button>
+
+                <div class="toggle-auth">
+                    <span>Don't have an account?</span> <a href="#" id="showSignup">Sign up</a>
+                </div>
+            </div>
+
+            <div id="signupSection" class="auth-section">
+                <h2 class="auth-title">Create Account</h2>
+                <div class="loading" id="signupLoading">
+                    <div class="spinner"></div>
+                    <span>Creating account...</span>
+                </div>
+                <div id="signupError" class="error"></div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password (6+ characters)" required>
+                </div>
+
+                <button class="btn btn-primary" id="emailSignupBtn">Create Account</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="btn btn-google" id="googleSignupBtn"><i class="fab fa-google"></i> Continue with Google</button>
+
+                <div class="toggle-auth">
+                    <span>Already have an account?</span> <a href="#" id="showLogin">Sign in</a>
+                </div>
+            </div>
+
+            <div id="dashboardSection" class="auth-section">
+                 <div class="dashboard-content">
+                    <div class="profile-tabs">
+                         <button class="tab-btn active" data-tab="profile">Profile</button>
+                         <button class="tab-btn" data-tab="courses">Courses</button>
+                         <button class="tab-btn" data-tab="internships">Internships</button>
+                    </div>
+
+                    <div id="profileTabContent" class="tab-content">
+                         <div id="profileDisplaySection">
+                             <div class="user-info-profile">
+                                 <div class="profile-avatar-display">
+                                     <img id="userAvatarDashboard" class="user-avatar" src="../../images/no_image.png" alt="User Avatar">
+                                 </div>
+                                 <div class="user-profile-details">
+                                     <h2 id="userNameDashboard"></h2>
+                                     <p id="userEmailDashboard"></p>
+                                 </div>
+                             </div>
+                             <div class="profile-details">
+                                 <h3 class="section-title-small">Profile Information</h3>
+                                 <div class="profile-info-item">
+                                     <strong>Gender:</strong> <span id="profileGenderDisplay">Not specified</span>
+                                 </div>
+                                 <div class="profile-info-item">
+                                     <strong>Interested Domain:</strong> <span id="profileDomainDisplay">Not specified</span>
+                                 </div>
+                             </div>
+                             <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
+                         </div>
+
+                         <div id="profileEditSection" class="hidden">
+                             <div class="profile-avatar-display">
+                                 <img id="userAvatarPreview" class="user-avatar" src="../../images/no_image.png" alt="User Avatar Preview">
+                                 <label for="profileImageInput" class="file-upload-label">
+                                     <i class="fas fa-upload"></i> Upload Image
+                                 </label>
+                                 <input type="file" id="profileImageInput" accept="image/*">
+                             </div>
+                             <div class="form-group">
+                                 <label for="profileName">Full Name</label>
+                                 <input type="text" id="profileName" placeholder="Enter your full name">
+                             </div>
+                             <div class="form-group">
+                                 <label for="profileGender">Gender</label>
+                                 <select id="profileGender">
+                                     <option value="">Select Gender</option>
+                                     <option value="Male">Male</option>
+                                     <option value="Female">Female</option>
+                                     <option value="Other">Other</option>
+                                 </select>
+                             </div>
+                             <div class="form-group">
+                                 <label for="interestedDomain">Interested Domain</label>
+                                 <select id="interestedDomain">
+                                     <option value="">Select Domain</option>
+                                     <option value="Web Development">Web Development</option>
+                                     <option value="Data Science & AI">Data Science & AI</option>
+                                     <option value="Digital Marketing">Digital Marketing</option>
+                                     <option value="UI/UX Design">UI/UX Design</option>
+                                 </select>
+                             </div>
+                             <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
+                         </div>
+                    </div>
+
+                    <div id="coursesTabContent" class="tab-content hidden">
+                        <h3 class="section-title-small">📚 Enrolled Courses & Certificates</h3>
+                        <p style="color: var(--gray); margin-bottom: 20px;">Track your progress and access completion certificates here.</p>
+                        <div id="coursesListContainer" class="user-data-list">
+                            <p style="text-align: center; padding: 20px;">Please log in to view your courses.</p>
+                        </div>
+                    </div>
+
+                    <div id="internshipsTabContent" class="tab-content hidden">
+                        <h3 class="section-title-small">💼 Internship Application History</h3>
+                        <p style="color: var(--gray); margin-bottom: 20px;">View your exam results and application status for different domains.</p>
+                        <div id="internshipsListContainer" class="user-data-list">
+                            <p style="text-align: center; padding: 20px;">Please log in to view your internship history.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
         <script src="../../script.js"></script>
         
         <script>
@@ -551,56 +1204,38 @@
                 const videoContainer = document.getElementById('video-container');
                 const contentGate = document.getElementById('contentGate');
                 const courseContent = document.getElementById('courseContent');
+                const authButtons = document.getElementById('authButtons');
+                const userProfile = document.getElementById('userProfile');
                 
+                // Quiz data with correct answers and feedback
                 const quizData = {
-                    1: { correct: 2, feedback: "✅ Correct! Data Science requires the blend of all three core skills." },
-                    2: { correct: 2, feedback: "✅ Excellent! Pandas DataFrames are the essential structure for data analysis in Python." },
-                    3: { correct: 2, feedback: "✅ Exactly! A low p-value suggests the observed result is unlikely due to chance." },
-                    4: { correct: 2, feedback: "✅ Correct! `df.drop_duplicates()` is the Pandas method for removing repeated rows." },
-                    5: { correct: 2, feedback: "✅ Spot on! Overfitting means the model is too complex and memorizes the training noise." }
+                    1: { correct: 2, feedback: "✅ Correct! Defining the problem and exploring data is always the crucial first step before building complex models." },
+                    2: { correct: 2, feedback: "✅ Excellent! Replacing missing values with a measure like the median is a common and effective imputation technique that avoids data loss. " },
+                    3: { correct: 2, feedback: "✅ You've got it! The chi-squared test or binomial test is ideal for comparing observed counts against expected counts against an expected distribution." },
+                    4: { correct: 2, feedback: "✅ Exactly! A well-designed chart quickly and clearly communicates insights to a non-technical audience. Visuals are key for business-facing presentations." },
+                    5: { correct: 3, feedback: "✅ Spot on! This is a classic example of overfitting. Fixing it requires giving the model more data or constraining its complexity with techniques like regularization." }
+                };
+                
+                const pageVideoIds = {
+                    1: "x-G-dSSUNQE",
+                    2: "JOlruyTytz8",
+                    3: "Cc-RKfvITzo",
+                    4: "4tYY6NFRfws",
+                    5: "i_LwzRVP7bg"
                 };
                 
                 let currentPage = 1;
                 let isAuthReady = false;
-
-                // --- 1. AUTHENTICATION CHECK AND GATE CONTROL (FIXED) ---
-                firebase.auth().onAuthStateChanged(async user => {
-                    isAuthReady = true;
-                    if (user) {
-                        contentGate.classList.add('hidden');
-                        courseContent.classList.remove('hidden');
-                        
-                        // Load saved progress and jump to last page
-                        const savedProgress = await window.loadProgress('course', COURSE_TITLE);
-                        if (savedProgress && savedProgress.lastPage) {
-                            currentPage = savedProgress.lastPage;
-                        } else {
-                            // If user is logged in but no progress saved, start at page 1 and save state.
-                            currentPage = 1;
-                            await window.saveProgress('course', COURSE_TITLE, { 
-                                progress: 0, 
-                                lastPage: 1,
-                                completed: false 
-                            });
-                        }
-                        
-                        updateUI();
-                        showPage(currentPage);
-
-                    } else {
-                        contentGate.classList.remove('hidden');
-                        courseContent.classList.add('hidden');
-                        currentPage = 1; // Reset state visually if logged out
-                        updateProgress(1);
-                    }
-                });
-
-                // --- 2. CORE UI & PROGRESS FUNCTIONS ---
-
+                
+                // Helper to update progress locally and save to storage
                 const updateProgress = (pageNumber) => {
-                    const progressPercentage = Math.min(100, Math.floor(((pageNumber - 1) / TOTAL_PAGES) * 100));
-                    progressFill.style.width = `${progressPercentage}%`;
-                    progressText.textContent = `${progressPercentage}% Complete`;
+                    const totalPages = coursePages.length;
+                    const progressPercentage = Math.min(100, Math.floor(((pageNumber - 1) / totalPages) * 100));
+                    
+                    if (progressFill && progressText) {
+                        progressFill.style.width = `${progressPercentage}%`;
+                        progressText.textContent = `${progressPercentage}% Complete`;
+                    }
                     
                     // Save progress to storage if authenticated
                     if (firebase.auth().currentUser && window.saveProgress) {
@@ -612,12 +1247,13 @@
                     }
                 };
 
-                const loadVideoForPage = () => {
-                    // This logic remains the same, ensuring video loading specific to the course.
+                const loadVideoForPage = (pageNumber) => {
+                    const videoId = pageVideoIds[pageNumber];
                     if (videoContainer) {
+                         // Reset video container to thumbnail view
                         videoContainer.innerHTML = `
                             <div class="video-wrapper" id="video-thumbnail">
-                                <img src="https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg" alt="Course Video Thumbnail">
+                                <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Course Video Thumbnail">
                                 <div class="play-button"><i class="fas fa-play-circle"></i></div>
                             </div>
                         `;
@@ -627,7 +1263,7 @@
                                 const iframeContainer = document.createElement('div');
                                 iframeContainer.classList.add('video-embed-container');
                                 const iframe = document.createElement('iframe');
-                                iframe.setAttribute('src', `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0`);
+                                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
                                 iframe.setAttribute('title', 'YouTube video player');
                                 iframe.setAttribute('frameborder', '0');
                                 iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
@@ -644,11 +1280,10 @@
                     coursePages.forEach(page => page.classList.add('hidden'));
                     let newPage = document.querySelector(`[data-page="${pageNumber}"]`);
                     
-                    // Ensure current page is valid, fall back to page 1 if not
                     if (!newPage) {
                         pageNumber = 1;
                         newPage = document.querySelector(`[data-page="${pageNumber}"]`);
-                        if (newPage) currentPage = 1; // Update global state only if fallback succeeds
+                        if (newPage) currentPage = 1;
                     }
                     
                     if (newPage) {
@@ -657,20 +1292,18 @@
                         newContent.classList.remove('visible');
                         setTimeout(() => newContent.classList.add('visible'), 10);
                         
-                        // Update UI on page change
                         updateProgress(pageNumber); 
-                        loadVideoForPage();
+                        loadVideoForPage(pageNumber);
                         
-                        // Scroll to top of content
                         document.querySelector('.course-section').scrollIntoView({ behavior: 'smooth' });
                     }
                 };
                 
                 const updateUI = () => {
-                    // Link buttons to navigation
                     coursePages.forEach((page, index) => {
                         const pageNumber = index + 1;
                         const prevButton = page.querySelector(`#prevButton${pageNumber}`);
+                        const nextButton = page.querySelector(`#nextButton${pageNumber}`);
                         
                         if (prevButton) {
                             prevButton.onclick = () => {
@@ -680,12 +1313,15 @@
                             prevButton.disabled = (pageNumber === 1);
                         }
                         
-                        // Next button logic is primarily handled in handleQuiz
+                        if (nextButton) {
+                            nextButton.addEventListener('click', () => {
+                                currentPage = Math.min(coursePages.length + 1, currentPage + 1);
+                                showPage(currentPage);
+                            });
+                        }
                     });
-                }
+                };
                 
-                // --- 3. QUIZ HANDLER AND NAVIGATION LOGIC ---
-
                 const handleQuiz = (pageNumber) => {
                     const page = document.querySelector(`[data-page="${pageNumber}"]`);
                     const options = page.querySelectorAll('.option');
@@ -710,15 +1346,14 @@
                                     nextButton.classList.remove('hidden');
                                 } else if (finishButton) {
                                     finishButton.classList.remove('hidden');
-                                    updateProgress(TOTAL_PAGES + 1); // Mark 100% complete
+                                    updateProgress(coursePages.length + 1); // 100%
                                 }
                             } else {
                                 option.classList.add('incorrect');
                                 feedbackDiv.textContent = "❌ Incorrect. Please review the content on this page and try again. You can reattempt in 2 seconds.";
                                 feedbackDiv.style.color = 'var(--warning)';
-                                if (nextButton) {
-                                    nextButton.classList.add('hidden');
-                                }
+                                
+                                if (nextButton) nextButton.classList.add('hidden');
 
                                 setTimeout(() => {
                                     options.forEach(opt => {
@@ -733,7 +1368,7 @@
                     });
                 };
 
-                for (let i = 1; i <= TOTAL_PAGES; i++) {
+                for (let i = 1; i <= coursePages.length; i++) {
                     handleQuiz(i);
                 }
 
@@ -752,10 +1387,10 @@
                         const courseNameEncoded = encodeURIComponent(COURSE_TITLE);
                         const nameEncoded = encodeURIComponent(userName);
                         
-                        // Mark course as fully completed in Firestore/storage
+                        // Mark course as fully completed in storage
                         window.saveProgress('course', COURSE_TITLE, { 
                             progress: 100, 
-                            lastPage: TOTAL_PAGES + 1, 
+                            lastPage: coursePages.length + 1, 
                             completed: true 
                         });
                         
@@ -763,17 +1398,45 @@
                     });
                 }
                 
-                // Initial check and load on page load if user is already authenticated
-                if (!firebase.auth().currentUser) {
-                    updateProgress(1); // Set 0% progress when logged out
-                }
-                
-                // Update navigation buttons for mobile
-                document.querySelectorAll('.btn-primary[id^="nextButton"]').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        btn.classList.add('hidden');
-                        setTimeout(() => btn.classList.remove('hidden'), 500);
-                    });
+                // --- 1. AUTHENTICATION CHECK AND GATE CONTROL (THE FIX) ---
+                firebase.auth().onAuthStateChanged(async user => {
+                    isAuthReady = true;
+                    if (user) {
+                        // User is logged in: Show content, hide gate
+                        if(authButtons) authButtons.classList.add('hidden');
+                        if(userProfile) userProfile.classList.remove('hidden');
+                        contentGate.classList.add('hidden');
+                        courseContent.classList.remove('hidden');
+
+                        // Load saved progress and jump to last page
+                        const savedProgress = await window.loadProgress('course', COURSE_TITLE);
+                        if (savedProgress && savedProgress.lastPage) {
+                            currentPage = savedProgress.lastPage;
+                        } else {
+                            // If user is logged in but no progress saved, start at page 1 and save state.
+                            currentPage = 1;
+                            await window.saveProgress('course', COURSE_TITLE, { 
+                                progress: 0, 
+                                lastPage: 1,
+                                completed: false 
+                            });
+                        }
+                        
+                        updateUI();
+                        showPage(currentPage);
+
+                    } else {
+                        // User is logged out: Hide content, show gate
+                        if(authButtons) authButtons.classList.remove('hidden');
+                        if(userProfile) userProfile.classList.add('hidden');
+                        contentGate.classList.remove('hidden');
+                        courseContent.classList.add('hidden');
+                        currentPage = 1; 
+                        updateProgress(1); // Set 0% progress on header
+                    }
                 });
+
             });
         </script>
+    </body>
+    </html>
