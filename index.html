@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- FIXED: Ensure modern Firebase SDK is used for full functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-auth-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-firestore-compat.min.js"></script>
@@ -48,12 +49,14 @@
                         <a href="/community/academy.html" class="dropdown-link">Offline Academy</a>
                     </div>
                 </div>
+                <!-- Mobile Only Links/Buttons (Hidden on Desktop) -->
                 <a href="/community/join.html" class="nav-link mobile-only-link">Join Community</a>
                 <a href="/community/partners.html" class="nav-link mobile-only-link">Partners</a>
                 <a href="/blog/index.html" class="nav-link mobile-only-link">Blog</a>
                 <a href="/community/academy.html" class="nav-link mobile-only-link">Offline Academy</a>
                 
                 <div class="nav-actions-mobile">
+                     <!-- FIXED: Mobile auth buttons placed here inside the hamburger menu content -->
                      <div id="authButtonsMobile">
                         <a href="#" class="btn btn-outline" id="loginBtnHeaderMobile">Log in</a>
                         <a href="#" class="btn btn-primary" id="signupBtnHeaderMobile">Sign up</a>
@@ -68,11 +71,13 @@
                 </div>
 
                 <div id="authButtons">
+                    <!-- FIXED: Desktop Auth buttons are smaller now (style.css change) -->
                     <a href="#" class="btn btn-outline" id="loginBtnHeader">Log in</a>
                     <a href="#" class="btn btn-primary" id="signupBtnHeader">Sign up</a>
                 </div>
 
                 <div class="user-profile hidden" id="userProfile">
+                    <!-- FIXED: Default placeholder image is set in script.js to reflect user photoURL/default -->
                     <img src="images/no_image.png" alt="User Avatar" class="user-avatar-header" id="userAvatarHeader">
                     <span id="userNameHeader"></span>
                     <div class="dropdown-menu" id="userDropdown">
@@ -212,9 +217,10 @@
                 </div>
 
 
-
                 <div class="courses-grid">
-                   <a href="courses/courses/Essential Data Science Intern Course.html" class="course-card" style="text-decoration:none; color:inherit;">
+                   <a href="javascript:void(0)" onclick="checkLoginAndRedirectCourse('Essential Data Science Intern Course')"
+                       class="course-card"
+                       style="text-decoration:none; color:inherit;">
                         <div class="course-image">
                             <img src="images/Essential Data Science Intern Course.png"
                                  alt="Essential Data Science Intern Course">
@@ -239,7 +245,7 @@
                         </div>
                     </a>
 
-                <a href="courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html"
+                <a href="javascript:void(0)" onclick="checkLoginAndRedirectCourse('Generative AI & Prompt Engineering Masterclass')"
                    class="course-card"
                    style="text-decoration:none; color:inherit;">
                      <div class="course-image">
@@ -267,7 +273,7 @@
                  </a>
 
 
-                <a href="courses/courses/Python-Essentials-for-All.html"
+                <a href="javascript:void(0)" onclick="checkLoginAndRedirectCourse('Python Essentials for All')"
                    class="course-card"
                    style="text-decoration:none; color:inherit;">
                      <div class="course-image">
@@ -333,8 +339,8 @@
                     <button class="btn btn-primary" onclick="window.location.href='intern/internship.html'">Explore Internships</button>
                 </div>
 
-                <div class="internship-image">
-                    <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Internship program" class="internship-img">
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Internship program" class="internship-img" style="border-radius: 12px;">
                 </div>
             </div>
         </section>
@@ -619,6 +625,28 @@
     <script src="script.js"></script>
 
     <script>
+        // Custom check function to redirect after login (for Course pages on Home)
+        function checkLoginAndRedirectCourse(courseTitle) {
+            const user = firebase.auth().currentUser;
+            // The course links on index.html point to courses/courses/*.html
+            const targetUrl = `courses/courses/${courseTitle.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '-')}.html`;
+
+            if (user) {
+                window.location.href = targetUrl;
+            } else {
+                alert("Login Required: You must be logged in to view course material and track progress. Please log in or sign up now.");
+                
+                const authModal = document.getElementById('authModal');
+                const loginSection = document.getElementById('loginSection');
+                if (authModal && loginSection) {
+                    authModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    loginSection.classList.add('active');
+                    document.getElementById('signupSection').classList.remove('active');
+                }
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             // Select the buttons for mobile view
             const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
