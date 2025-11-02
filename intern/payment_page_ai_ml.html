@@ -158,19 +158,38 @@
         }
         /* End Media Query */
 
-        /* Cashfree Button */
+        /* Cashfree Button - NEW STYLES INTEGRATED */
         #payment-button-container { display: flex; justify-content: center; align-items: center; margin: 40px 0; }
         .button-container {
-            border: none; border-radius: 15px; display: flex; padding: 18px 40px; width: fit-content; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(29, 59, 226, 0.35);
+            border: 1px solid black; 
+            border-radius: 15px;
+            display: flex;
+            padding: 10px; 
+            width: fit-content;
+            cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s;
         }
-        .button-container:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(29, 59, 226, 0.5); }
-        .text-container { display: flex; flex-direction: column; justify-content: center; margin-left: 10px; margin-right: 10px; }
-        .logo-container { width: 50px; height: 50px; margin-right: 15px; } 
-        .seconday-logo-container { width: 14px; height: 14px; vertical-align: middle; margin-left: 4px; filter: brightness(0) invert(1); }
-        .text-container > div:first-child { font-family: 'Poppins', sans-serif; color: #ffffff; font-size: 20px; font-weight: 700; margin-bottom: 5px; } 
-        .text-container > div:last-child { font-family: 'Inter', sans-serif; color: #e2e8f0; font-size: 11px; }
+        .button-container:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Subtle lift on hover */
+        }
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 10px;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .logo-container {
+            width: 40px; 
+            height: 40px; 
+        }
+        .seconday-logo-container {
+            width: 16px; 
+            height: 16px; 
+            vertical-align: middle;
+        }
         a { text-decoration: none; }
         
         /* Footer */
@@ -245,22 +264,22 @@
 
                     <div id="payment-button-container">
                         <form>
-                            <a href="https://payments.cashfree.com/forms/ssssss">
-                                <div class="button-container" style="background: #1d3be2">
-                                    <div>
-                                        <img src="https://cashfree-checkoutcartimages-prod.cashfree.com/logoV9dpar71b7e0_prod.jpg" alt="Cashfree Logo" class="logo-container">
-                                    </div>
-                                    <div class="text-container">
-                                        <div>
-                                            <b style="font-size: 1.5em;"><i class="fas fa-lock" style="margin-right: 10px;"></i> PAY NOW</b>
-                                        </div>
-                                        <div>
-                                            <span>Securely Processed by Cashfree Payments</span>
-                                            <img src="https://cashfreelogo.cashfree.com/cashfreepayments/logosvgs/Group_4355.svg" alt="Cashfree Secondary Logo" class="seconday-logo-container">
-                                        </div>
-                                    </div>
+                          <a href="https://payments.cashfree.com/forms/ssssss" target="_parent">
+                            <div class="button-container" style="background: #1d3be2">
+                              <div>
+                                <img src="https://cashfree-checkoutcartimages-prod.cashfree.com/logo-removebg-previewv9ds2cpks5i0_prod.png" alt="logo" class="logo-container">
+                              </div>
+                              <div class="text-container">
+                                <div style="font-family: Arial; color: #ffffff; margin-bottom: 5px; font-size: 14px; font-weight: 700;">
+                                  Pay Now
                                 </div>
-                            </a>
+                                <div style="font-family: Arial; color: #ffffff; font-size: 10px;">
+                                    <span>Powered By Cashfree</span>
+                                    <img src="https://cashfreelogo.cashfree.com/cashfreepayments/logosvgs/Group_4355.svg" alt="logo" class="seconday-logo-container">
+                                </div>
+                              </div>
+                            </div>
+                          </a>
                         </form>
                     </div>
 
