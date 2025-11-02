@@ -29,7 +29,7 @@
 
         .hidden { display: none !important; }
 
-        /* FIXED TIMER STYLES (Desktop) */
+        /* FIXED TIMER STYLES */
         #fixed-timer-container {
             position: fixed; /* Fixes timer position */
             top: 20px;
@@ -117,8 +117,8 @@
         footer { text-align: center; }
 
         /* =======================================
-         * NEW/MODIFIED SUBMISSION STEP STYLES *
-         ======================================= */
+           * NEW/MODIFIED SUBMISSION STEP STYLES *
+           ======================================= */
 
         /* Submission Step Overhaul */
         #submission-step { 
@@ -278,58 +278,6 @@
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-10px); }
             40%, 80% { transform: translateX(10px); }
-        }
-
-        /* =======================================
-         * MOBILE-SPECIFIC STYLES (Screen width < 600px)
-         ======================================= */
-        @media (max-width: 600px) {
-            /* FIX: Mobile view me fixed timer/meter ko hata diya */
-            #fixed-timer-container {
-                display: none !important; 
-            }
-            
-            .exam-container {
-                margin: 20px auto;
-                padding: 0 10px; /* Reduced side padding on mobile */
-            }
-            .exam-step {
-                padding: 20px; /* Reduced padding for exam steps */
-            }
-            .exam-header h1 {
-                font-size: 1.5rem; /* Smaller header text */
-            }
-            
-            /* Adjust question/option spacing for tighter mobile layout */
-            .question-block h3 {
-                font-size: 1.1rem;
-                margin-bottom: 15px;
-            }
-            .question-block h3 strong {
-                width: 25px;
-                height: 25px;
-                line-height: 25px;
-                font-size: 0.8rem;
-                margin-right: 10px;
-            }
-            .options .option {
-                font-size: 1rem;
-                padding: 12px 15px;
-            }
-            
-            #instructions-step h2 {
-                font-size: 2rem;
-            }
-            #submission-step.passed #result-title {
-                font-size: 2.5rem;
-            }
-            #submission-step.failed #result-title {
-                font-size: 2.3rem;
-            }
-            .btn {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
         }
     </style>
 </head>
@@ -546,10 +494,10 @@
                      createConfetti();
 
                      // Update Email Link
-                     const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
-                     const body = encodeURIComponent(
-                         `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
-                            );
+                      const subject = encodeURIComponent(`AI & ML Internship Application - [Your Full Name Here]`); 
+                      const body = encodeURIComponent(
+                          `Dear Internadda Team,\n\nI have successfully completed the AI & Machine Learning Final Exam with a score of ${percentage}%. My registered email is [Your Registered Email Address Here].\n\nPlease find attached a screenshot of my exam result page showing the score.\n\nI look forward to hearing about the next steps in the internship selection process.\n\nThank you,\n\n[Your Full Name Here]\n[Your Contact Number Here]\n[Link to your LinkedIn Profile, if available - Optional]`
+                           );
                       emailLink.href = `mailto:official.internadda@gmail.com?subject=${subject}&body=${body}`;
                  } else {
                      submissionStep.classList.add('failed'); // Add fail class
