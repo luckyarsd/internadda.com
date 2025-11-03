@@ -401,6 +401,7 @@ header.scrolled {
 .nav-item.dropdown:hover .dropdown-content { display: block; }
 .nav-item.dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 /* Hide mobile specific links/buttons on desktop */
+/* These links are now contained within nav-menu.active (in HTML) but hidden here for desktop size */
 .nav-link.mobile-only-link,
 .nav-actions-mobile { display: none; }
 /* ============================
@@ -786,7 +787,8 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 /* Responsive Design */
 @media (max-width: 1024px) {
     /* Hide desktop nav elements, show hamburger */
-    .nav-menu .nav-link:not(.mobile-only-link),
+    /* Only allow Home, Courses, Internships, and mobile profile/auth buttons to be potentially visible in mobile menu */
+    .nav-menu .nav-link:not(:nth-child(-n+3)):not(.mobile-only-link), /* Hides links 4 (Jobs), 5 (About) and the Dropdown (Community) - assuming clean HTML ordering */
     .nav-menu .nav-item.dropdown,
     .search-container,
     .header-actions #authButtons,
@@ -863,6 +865,11 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         font-size: 15px;
     }
     
+    /* Ensure the mobile-only links requested (if any remaining in HTML) are displayed */
+    .nav-menu.active .nav-link.mobile-only-link {
+        display: block;
+    }
+    
 }
 
 @media (max-width: 768px) {
@@ -875,8 +882,7 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
     .hamburger-menu { display: flex; }
     .hero-heading { font-size: 36px; }
     
-    /* MOBILE UI/UX OPTIMIZATION FIXES */
-    /* 1. Hide the slider/image block on mobile */
+    /* MOBILE UI/UX OPTIMIZATION FIXES (Point 2: Professional Look - Hide Hero Image) */
     .hero-image {
         display: none;
     }
