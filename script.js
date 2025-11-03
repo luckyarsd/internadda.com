@@ -51,9 +51,9 @@ function getUserPath(collection) {
 // --- MOCK INITIALIZATION DATA (Replaces old mock data arrays) ---
 // This ensures that when a new user logs in, they see some placeholder data initially
 const INITIAL_MOCK_COURSES = [
-    { title: 'Data Science Intern Course', progress: 0, completed: false },
-    { title: 'Generative AI & Prompt Engineering', progress: 0, completed: false },
-    { title: 'Ethical Hacking Mastery', progress: 0, completed: false }
+    { title: 'Data Science Intern Course', progress: 0, completed: false, url: "/courses/courses/Essential Data Science Intern Course.html" },
+    { title: 'Generative AI & Prompt Engineering', progress: 0, completed: false, url: "/courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
+    { title: 'Ethical Hacking Mastery', progress: 0, completed: false, url: "/courses/courses/Ethical-Hacking-Mastery.html" }
 ];
 const INITIAL_MOCK_INTERNSHIPS = [
     { title: 'Data Science & Analytics', status: 'Pending', score: 0, finalExamUrl: '/intern/payment_page_data_science.html' },
@@ -61,6 +61,9 @@ const INITIAL_MOCK_INTERNSHIPS = [
 ];
 
 async function initializeUserData(user) {
+    // Only run initialization if user is NOT anonymous
+    if (user.isAnonymous) return;
+    
     const profileRef = db.collection('users').doc(user.uid);
     const profileDoc = await profileRef.get();
 
@@ -101,6 +104,13 @@ function renderCourseProgress(coursesData) {
 
     coursesListContainer.innerHTML = '';
     
+    // Check if user is logged in
+    const user = auth.currentUser;
+    if (!user || user.isAnonymous) {
+         coursesListContainer.innerHTML = '<p class="text-center empty-state" style="padding: 20px 0;">Please log in to view your courses.</p>';
+         return;
+    }
+    
     if (coursesData.length === 0) {
         coursesListContainer.innerHTML = '<p class="text-center empty-state" style="padding: 20px 0;">You are not currently enrolled in any courses. <a href="/courses/course.html" class="text-primary font-semibold">Start learning now!</a></p>';
         return;
@@ -109,20 +119,22 @@ function renderCourseProgress(coursesData) {
     coursesData.forEach(course => {
         let buttonHtml;
         let statusColor;
+        
+        // Find the correct URL for the course using a title match fallback if 'url' field is missing from Firestore data
+        const courseDetails = allCourses.find(c => c.title.includes(course.title)) || { url: '/courses/course.html' };
+        const courseUrl = course.url || courseDetails.url; // Prefer Firestore URL, fallback to local lookup
 
-        if (course.completed && course.progress === 100) {
+        if (course.completed && course.progress >= 99) {
             statusColor = 'var(--success)';
-            const nameEncoded = encodeURIComponent(auth.currentUser.displayName || auth.currentUser.email.split('@')[0]);
+            const nameEncoded = encodeURIComponent(user.displayName || user.email.split('@')[0]);
             const courseNameEncoded = encodeURIComponent(course.title);
             const certificateUrl = `/courses/courses/certificate.html?name=${nameEncoded}&course=${courseNameEncoded}`;
             
+            // POINT 4: Download Certificate Link in My Profile
             buttonHtml = `<a href="${certificateUrl}" target="_blank" class="btn btn-primary animate-pulse" style="padding: 8px 15px; font-size: 14px; background-color: var(--success);">Download Certificate</a>`;
         } else {
             statusColor = course.progress > 0 ? 'var(--warning)' : 'var(--primary)';
-            // Find hardcoded URL from the list for deep linking
-            const courseDetails = allCourses.find(c => c.title.includes(course.title)) || { url: '/courses/course.html' };
-            
-            buttonHtml = `<a href="${courseDetails.url}" class="btn btn-outline" style="padding: 8px 15px; font-size: 14px;">Continue Course</a>`;
+            buttonHtml = `<a href="${courseUrl}" class="btn btn-outline" style="padding: 8px 15px; font-size: 14px;">Continue Course</a>`;
         }
         
         const itemHtml = `
@@ -148,6 +160,12 @@ function renderInternshipHistory(internshipsData) {
     if (!internshipsListContainer) return;
     
     internshipsListContainer.innerHTML = '';
+    
+    const user = auth.currentUser;
+    if (!user || user.isAnonymous) {
+        internshipsListContainer.innerHTML = '<p class="text-center empty-state" style="padding: 20px 0;">Please log in to view your internship history.</p>';
+        return;
+    }
 
     if (internshipsData.length === 0) {
         internshipsListContainer.innerHTML = '<p class="text-center empty-state" style="padding: 20px 0;">No internship application or test history found. <a href="/intern/internship.html" class="text-primary font-semibold">Start your application!</a></p>';
@@ -163,6 +181,7 @@ function renderInternshipHistory(internshipsData) {
             case 'Passed':
                 statusColor = 'var(--success)';
                 statusText = `Qualified (${internship.score}%)`;
+                // Assumes the finalExamUrl links to a final exam page that can display results on reload.
                 actionLink = `<a href="${internship.finalExamUrl.replace('payment_page', 'ai_ml_final_exam')}" class="btn btn-primary" style="padding: 8px 15px; font-size: 14px; background-color: var(--success);">View Results</a>`;
                 break;
             case 'Failed':
@@ -222,7 +241,9 @@ async function saveProfileData(user) {
         profileEditSection.classList.add('hidden');
     } catch (error) {
         console.error("Profile save error:", error);
-        showError(document.getElementById('profileEditSection').querySelector('.error'), "Failed to save profile. Please check connection.");
+        // Assuming there is a generic error element in the edit section
+        const errorElement = document.getElementById('profileEditSection').querySelector('.error');
+        if (errorElement) showError(errorElement, "Failed to save profile. Please check connection.");
     }
 }
 
@@ -255,9 +276,11 @@ let courseUnsubscribe;
 let internshipUnsubscribe;
 
 auth.onAuthStateChanged(async (user) => {
-    // 1. Manage UI for auth status
+    // 1. Manage UI for auth status (Desktop & Mobile)
     const authButtons = document.getElementById('authButtons');
     const userProfile = document.getElementById('userProfile');
+    const authButtonsMobile = document.getElementById('authButtonsMobile');
+    const userProfileMobile = document.getElementById('userProfileMobile');
     const dashboardSection = document.getElementById('dashboardSection');
     const loginSection = document.getElementById('loginSection');
     
@@ -265,6 +288,8 @@ auth.onAuthStateChanged(async (user) => {
         // --- User is signed in ---
         if(authButtons) authButtons.classList.add('hidden');
         if(userProfile) userProfile.classList.remove('hidden');
+        if(authButtonsMobile) authButtonsMobile.style.display = 'none'; // POINT 1
+        if(userProfileMobile) userProfileMobile.classList.remove('hidden'); // POINT 1
 
         // Check/Initialize user's data on first login
         await initializeUserData(user);
@@ -295,6 +320,8 @@ auth.onAuthStateChanged(async (user) => {
         // --- User is signed out or anonymous ---
         if(authButtons) authButtons.classList.remove('hidden');
         if(userProfile) userProfile.classList.add('hidden');
+        if(authButtonsMobile) authButtonsMobile.style.display = 'flex'; // POINT 1
+        if(userProfileMobile) userProfileMobile.classList.add('hidden'); // POINT 1
 
         // 3. Clear listeners when logged out
         if (courseUnsubscribe) { courseUnsubscribe(); courseUnsubscribe = null; }
@@ -333,7 +360,7 @@ auth.onAuthStateChanged(async (user) => {
                            <i class="fas fa-lock" style="font-size: 4rem; color: var(--primary); margin-bottom: 30px;"></i>
                             <h2 style="font-size: 2.2rem; color: var(--dark); margin-bottom: 20px;">Login Required to View This Content</h2>
                            <p style="font-size: 1.2rem; color: var(--gray); max-width: 600px; margin-bottom: 30px;">Please sign in or create an account to view courses and apply for internships.</p>
-                           <button class="btn btn-primary" onclick="document.getElementById('loginBtnHeader').click()">Sign In Now</button>
+                           <button class="btn btn-primary" id="fullPageLoginButton" onclick="document.getElementById('loginBtnHeader').click()">Sign In Now</button>
                           </div>
                       `;
                     container.style.position = 'relative';
@@ -400,9 +427,9 @@ const tabsContent = {
 const searchInput = document.getElementById('searchInput');
 
 
-// Hardcoded data (used only for search/listings)
+// Hardcoded data (used only for search/listings and lookup for progress rendering)
 const allCourses = [
-    { title: 'Data Science Intern Course', instructor: 'Lucky Kumar', image: '/images/Essential Data Science Intern Course.png', url: "/courses/courses/Essential Data Science Intern Course.html" },
+    { title: 'Essential Data Science Intern Course', instructor: 'Lucky Kumar', image: '/images/Essential Data Science Intern Course.png', url: "/courses/courses/Essential Data Science Intern Course.html" },
     { title: 'Generative AI & Prompt Engineering', instructor: 'Lucky Kumar', image: '/images/Generative-AI-Prompt-Engineering-Masterclass.png', url: "/courses/courses/Generative-AI-Prompt-Engineering-Masterclass.html" },
     { title: 'Ethical Hacking Mastery', instructor: 'Lucky Kumar', image: '/images/Ethical-Hacking-Mastery.png', url: "/courses/courses/Ethical-Hacking-Mastery.html" },
     { title: 'Python Essentials for All', instructor: 'Lucky Kumar', image: '/images/Python-Essentials-for-All.png', url: "/courses/courses/Python-Essentials-for-All.html" },
@@ -441,11 +468,21 @@ function handleImagePreview(event) {
 }
 function updateProfileUI(profileData) {
     const avatarUrl = profileData.photoUrl || '/images/no_image.png';
+    const userName = profileData.name || 'User';
+
+    // Desktop Header
     if (userAvatarHeader) userAvatarHeader.src = avatarUrl;
+    if (userNameHeader) userNameHeader.textContent = userName.split(' ')[0];
+
+    // Mobile Header (POINT 1)
+    const userAvatarHeaderMobile = document.getElementById('userAvatarHeaderMobile');
+    const userNameHeaderMobile = document.getElementById('userNameHeaderMobile');
+    if (userAvatarHeaderMobile) userAvatarHeaderMobile.src = avatarUrl;
+    if (userNameHeaderMobile) userNameHeaderMobile.textContent = 'My Profile'; // Keep as "My Profile" for mobile link text
+
+    // Dashboard
     if (userAvatarDashboard) userAvatarDashboard.src = avatarUrl;
-    if (userAvatarPreview) userAvatarPreview.src = avatarUrl;
-    if (userNameHeader) userNameHeader.textContent = profileData.name ? profileData.name.split(' ')[0] : 'User';
-    if (userNameDashboard) userNameDashboard.textContent = profileData.name || 'User';
+    if (userNameDashboard) userNameDashboard.textContent = userName;
     if (userEmailDashboard) userEmailDashboard.textContent = profileData.email;
     const genderDisplay = document.getElementById('profileGenderDisplay');
     const domainDisplay = document.getElementById('profileDomainDisplay');
@@ -462,6 +499,13 @@ function updateProfileUI(profileData) {
 
 
 // --- 🔑 AUTH & PROFILE LOGIC 🔑 ---
+
+// Global function to show modal (used by course pages)
+window.showLoginModal = function() {
+    if(authModal) authModal.classList.add('active');
+    if(loginSection) showSection(loginSection);
+    document.body.style.overflow = 'hidden';
+}
 
 // Login function using Email and Password
 async function handleEmailLogin(e) {
@@ -507,6 +551,7 @@ async function handleEmailSignup(e) {
     }
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        // Initial profile creation (ensures data exists for initialization in listener)
         await db.collection('users').doc(userCredential.user.uid).set({
             email: email,
             name: userCredential.user.displayName || email.split('@')[0], 
@@ -534,19 +579,33 @@ async function handleEmailSignup(e) {
 // --- EVENT LISTENERS ---
 document.addEventListener('DOMContentLoaded', function() {
     // --- Auth Buttons & Modal Toggles ---
-    if (loginBtnHeader) loginBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(loginSection) showSection(loginSection); document.body.style.overflow = 'hidden'; });
+    if (loginBtnHeader) loginBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) window.showLoginModal(); });
     if (signupBtnHeader) signupBtnHeader.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(signupSection) showSection(signupSection); document.body.style.overflow = 'hidden'; });
     if (closeModalBtn) closeModalBtn.addEventListener('click', () => { if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; });
     if (authModal) window.addEventListener('click', (e) => { if (e.target === authModal) { authModal.classList.remove('active'); document.body.style.overflow = ''; } });
     if (showSignupLink) showSignupLink.addEventListener('click', (e) => { e.preventDefault(); if(signupSection) showSection(signupSection); });
     if (showLoginLink) showLoginLink.addEventListener('click', (e) => { e.preventDefault(); if(loginSection) showSection(loginSection); });
     
-    // --- Mobile Auth Button Fix ---
+    // --- Mobile Auth Button Logic (POINT 1) ---
     const loginBtnMobile = document.getElementById('loginBtnHeaderMobile');
     const signupBtnMobile = document.getElementById('signupBtnHeaderMobile');
-    if (loginBtnMobile) loginBtnMobile.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(loginSection) showSection(loginSection); document.body.style.overflow = 'hidden'; if (hamburgerMenu && navMenu) { hamburgerMenu.classList.remove('active'); navMenu.classList.remove('active'); } });
+    const profileBtnHeaderMobile = document.getElementById('profileBtnHeaderMobile');
+    const logoutBtnHeaderMobile = document.getElementById('logoutBtnHeaderMobile');
+    
+    // Mobile Login Button
+    if (loginBtnMobile) loginBtnMobile.addEventListener('click', (e) => { e.preventDefault(); if(authModal) window.showLoginModal(); if (hamburgerMenu && navMenu) { hamburgerMenu.classList.remove('active'); navMenu.classList.remove('active'); } });
+    // Mobile Signup Button
     if (signupBtnMobile) signupBtnMobile.addEventListener('click', (e) => { e.preventDefault(); if(authModal) authModal.classList.add('active'); if(signupSection) showSection(signupSection); document.body.style.overflow = 'hidden'; if (hamburgerMenu && navMenu) { hamburgerMenu.classList.remove('active'); navMenu.classList.remove('active'); } });
-
+    // Mobile Profile Button (open dashboard)
+    if (profileBtnHeaderMobile) profileBtnHeaderMobile.addEventListener('click', () => { if(authModal) authModal.classList.add('active'); if(dashboardSection) showSection(dashboardSection); if (hamburgerMenu && navMenu) { hamburgerMenu.classList.remove('active'); navMenu.classList.remove('active'); } document.body.style.overflow = 'hidden'; const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]'); if (profileTabBtn) profileTabBtn.click(); });
+    
+    const handleLogout = async () => { try { await auth.signOut(); if (hamburgerMenu && navMenu) { hamburgerMenu.classList.remove('active'); navMenu.classList.remove('active'); } if (authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; } catch (error) { console.error('Logout error:', error); } };
+    
+    // Desktop Logout Button
+    if (document.getElementById('logoutBtnHeader')) document.getElementById('logoutBtnHeader').addEventListener('click', handleLogout);
+    // Mobile Logout Button
+    if (logoutBtnHeaderMobile) logoutBtnHeaderMobile.addEventListener('click', handleLogout);
+    
     // --- Auth Actions ---
     if (googleLoginBtn) googleLoginBtn.addEventListener('click', async () => { try { await auth.signInWithPopup(googleProvider); if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; } catch (error) { if(loginError) showError(loginError, error.message); } });
     if (googleSignupBtn) googleSignupBtn.addEventListener('click', async () => { try { await auth.signInWithPopup(googleProvider); if(authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; } catch (error) { if(signupError) showError(signupError, error.message); } });
@@ -557,8 +616,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (userProfile) userProfile.addEventListener('click', () => { if(userDropdown) userDropdown.classList.toggle('active'); });
     document.addEventListener('click', (e) => { if (userProfile && userDropdown && !userProfile.contains(e.target) && userDropdown.classList.contains('active')) userDropdown.classList.remove('active'); });
     if (profileBtnHeader) profileBtnHeader.addEventListener('click', () => { if(authModal) authModal.classList.add('active'); if(dashboardSection) showSection(dashboardSection); if(userDropdown) userDropdown.classList.remove('active'); document.body.style.overflow = 'hidden'; const profileTabBtn = document.querySelector('.tab-btn[data-tab="profile"]'); if (profileTabBtn) profileTabBtn.click(); });
-    const handleLogout = async () => { try { await auth.signOut(); if (hamburgerMenu && navMenu) { hamburgerMenu.classList.remove('active'); navMenu.classList.remove('active'); } if (authModal) authModal.classList.remove('active'); document.body.style.overflow = ''; } catch (error) { console.error('Logout error:', error); } };
-    if (document.getElementById('logoutBtnHeader')) document.getElementById('logoutBtnHeader').addEventListener('click', handleLogout);
     
     // --- Profile Editing ---
     if (editProfileBtn && profileDisplaySection && profileEditSection) { editProfileBtn.addEventListener('click', () => { profileDisplaySection.classList.add('hidden'); profileEditSection.classList.remove('hidden'); }); }
@@ -578,10 +635,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.classList.add('active');
                 if (tabsContent[tab]) tabsContent[tab].classList.remove('hidden');
 
+                // Re-render content upon tab switch
                 if (tab === 'courses') {
-                    renderCourseProgress(auth.currentUser); // Trigger rendering with real-time data
+                    db.collection(getUserPath('enrollments')).get().then(snapshot => {
+                        const courses = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                        renderCourseProgress(courses);
+                    }).catch(err => console.error("Error fetching course data on tab switch:", err));
                 } else if (tab === 'internships') {
-                    renderInternshipHistory(auth.currentUser); // Trigger rendering with real-time data
+                     db.collection(getUserPath('internships')).get().then(snapshot => {
+                        const internships = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                        renderInternshipHistory(internships);
+                    }).catch(err => console.error("Error fetching internship data on tab switch:", err));
                 }
             });
         });
