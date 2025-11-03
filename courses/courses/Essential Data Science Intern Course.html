@@ -102,7 +102,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .course-page-body p, .course-page-body li {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -163,6 +162,32 @@
         .video-embed-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px;
         }
+        
+        /* Instructor Card Styling */
+        .instructor-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            background: #f7fafc;
+        }
+        .instructor-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            margin-bottom: 15px;
+        }
+        .overview-details p {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
     </style>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"></script>
@@ -186,26 +211,26 @@
                 <a href="../../index.html" class="nav-link">Home</a>
                 <a href="../course.html" class="nav-link">Courses</a>
                 <a href="../../intern/internship.html" class="nav-link">Internships</a>
-                <a href="../../jobs.html" class="nav-link">Jobs</a>
-                <a href="../../about.html" class="nav-link">About</a>
             </nav>
         </div>
     </header>
     <main>
         <section class="course-section">
             <div class="main-content-container" id="mainContentContainer">
-                <h1 class="course-title-main fade-in">Essential Data Science Intern Course</h1>
                 
                 <div class="login-gate" id="contentGate">
                     <i class="fas fa-lock" style="font-size: 4rem; color: var(--primary); margin-bottom: 30px;"></i>
                     <h2>Login Required to View Course</h2>
                     <p>Please sign in to access the full course material and track your learning progress.</p>
-                    <button class="btn btn-primary" onclick="window.showLoginModal()">Sign In Now</button>
+                    <button class="btn btn-primary" onclick="window.showLoginModal()" id="enrollmentOrLoginBtn">Sign In Now</button>
                 </div>
+                
                 <div id="courseContent" class="hidden">
+                    
+                    <h1 class="course-title-main fade-in">Essential Data Science Intern Course</h1>
+                    
                     <div id="video-container" class="fade-in">
-                        <!-- Video thumbnail/embed loads dynamically -->
-                    </div>
+                        </div>
 
                     <div class="progress-container fade-in">
                         <div class="progress-bar-bg">
@@ -215,9 +240,35 @@
                     </div>
 
                     <div class="course-content-wrapper">
-                        <!-- START Course Pages (English Refined Content) -->
                         
-                        <div class="course-page active" data-page="1">
+                         <div class="course-page hidden" data-page="0">
+                            <div class="fade-in">
+                                <h2 class="course-page-title" style="text-align: center; font-size: 2.5rem; border-bottom: none;">Course Overview: Get Enrolled</h2>
+                                
+                                <div class="instructor-card">
+                                    <img src="../../images/founder.jpg" alt="Instructor Lucky Kumar" style="border-color: var(--secondary);">
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Lucky Kumar</h3>
+                                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">Your Instructor</p>
+                                    <p style="font-size: 1rem; color: var(--gray);"><strong>DU Graduate</strong> with <strong>3+ years</strong> of teaching experience. Dedicated to bridging the gap between academia and industry.</p>
+                                </div>
+
+                                <h3 style="font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Course Details</h3>
+                                <div class="overview-details">
+                                     <p style="margin-bottom: 10px;"><i class="fas fa-clock" style="color: var(--primary); margin-right: 10px;"></i> <strong>Estimated Time:</strong> 30 Minutes</p>
+                                     <p style="margin-bottom: 10px;"><i class="fas fa-trophy" style="color: var(--primary); margin-right: 10px;"></i> <strong>Certification:</strong> Professional Certificate of Completion</p>
+                                     <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 10px;">Key Topics:</h4>
+                                     <ul style="list-style-type: none; padding-left: 0; margin-bottom: 30px;">
+                                         <li><i class="fas fa-code" style="color: var(--accent); margin-right: 8px;"></i> Python Fundamentals & Data Handling (Pandas/NumPy)</li>
+                                         <li><i class="fas fa-chart-line" style="color: var(--accent); margin-right: 8px;"></i> SQL Basics & Data Visualization (Tableau Concepts)</li>
+                                         <li><i class="fas fa-calculator" style="color: var(--accent); margin-right: 8px;"></i> Statistics, Hypothesis Testing, and ML/AI Concepts</li>
+                                         <li><i class="fas fa-briefcase" style="color: var(--accent); margin-right: 8px;"></i> Professional Data Workflow & Career Tips</li>
+                                     </ul>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-lg" style="width: 100%;" id="startEnrollmentButtonActual">Enroll for Free</button>
+                            </div>
+                        </div>
+                        <div class="course-page hidden" data-page="1">
                             <div class="fade-in">
                                 <h2 class="course-page-title">Page 1: Data Science Fundamentals & Workflow</h2>
                                 <div class="course-page-body">
@@ -481,7 +532,7 @@
                                         <div class="option" data-answer="1">A. It is only required for deployment to the production server.</div>
                                         <div class="option" data-answer="2">B. It automates testing and deployment pipelines.</div>
                                         <div class="option" data-answer="3">C. It tracks code history, enables team collaboration, and allows quick rollback to previous versions in case of errors.</div>
-                                        <div class="option" data-answer="4">D. It speeds up the data loading process for Pandas DataFrames.</div>
+                                        <div class="option" data-value="4">D. It speeds up the data loading process for Pandas DataFrames.</div>
                                     </div>
                                     <div class="quiz-feedback hidden" id="feedback5"></div>
                                     <a href="javascript:void(0);" class="btn btn-primary hidden" id="finishButton">Get Certificate of Completion <i class="fas fa-award"></i></a>
@@ -489,8 +540,7 @@
                             </div>
                         </div>
                         
-                        <!-- END Course Pages -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </section>
@@ -556,7 +606,8 @@
     <script>
         // Course Specific Details
         const COURSE_TITLE = "Essential Data Science Intern Course";
-        const TOTAL_PAGES = 5;
+        const TOTAL_LESSON_PAGES = 5; // Pages 1 to 5 are content pages
+        const TOTAL_PAGES = 1 + TOTAL_LESSON_PAGES; // Page 0 (Overview) + 5 Lesson Pages
         const LOGIN_REDIRECT_ELEMENT_ID = 'loginBtnHeader'; // Element to click to open the modal
 
         // FIX: Re-mapped correct answers and ensured 4 options (MCQ fix)
@@ -587,8 +638,11 @@
         const courseContent = document.getElementById('courseContent');
         const mainContentContainer = document.getElementById('mainContentContainer');
         const loadingOverlay = document.getElementById('loadingOverlay');
-        
-        let currentPage = 1;
+        const enrollmentOrLoginBtn = document.getElementById('enrollmentOrLoginBtn');
+        const startEnrollmentButtonActual = document.getElementById('startEnrollmentButtonActual'); // Button on Page 0
+
+        let currentPage = 0; // Start at overview page (Page 0)
+        let isUserEnrolled = false;
         
         // Helper to get Firestore path (Assumes global auth and db from script.js)
         function getUserPath(collection) {
@@ -602,18 +656,18 @@
             const user = firebase.auth().currentUser;
             if (!user || user.isAnonymous) return;
             
-            const totalPages = coursePages.length;
-            const progressPercentage = Math.min(100, Math.floor(((pageNumber - 1) / totalPages) * 100));
+            // Calculate progress based on lesson pages (1-5)
+            const progressForDb = pageNumber === 0 ? 0 : Math.min(100, Math.floor(((pageNumber - 1) / TOTAL_LESSON_PAGES) * 100));
             
             const enrollmentsRef = db.collection(getUserPath('enrollments'));
             const docTitle = COURSE_TITLE;
-
+            
             try {
                 const existingEnrollment = await enrollmentsRef.where('title', '==', docTitle).get();
                 if (!existingEnrollment.empty) {
                     const docId = existingEnrollment.docs[0].id;
                     await enrollmentsRef.doc(docId).update({
-                        progress: progressPercentage,
+                        progress: progressForDb,
                         lastPage: pageNumber,
                         completed: isCompleted,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -622,12 +676,13 @@
                     // Initial enrollment 
                      await enrollmentsRef.add({
                         title: docTitle,
-                        progress: progressPercentage, 
+                        progress: progressForDb, 
                         completed: isCompleted,
                         lastPage: pageNumber,
                         userId: user.uid
                     });
                 }
+                isUserEnrolled = true;
             } catch(e) {
                 console.error("Error saving progress:", e);
             }
@@ -637,23 +692,27 @@
              if (!user || user.isAnonymous) return null;
              try {
                 const enrollmentsRef = db.collection(getUserPath('enrollments'));
-                // Use onSnapshot for real-time listener if needed in future, but for initial load, get() is simpler
                 const existingEnrollment = await enrollmentsRef.where('title', '==', COURSE_TITLE).limit(1).get();
                  
                 if (!existingEnrollment.empty) {
-                    return existingEnrollment.docs[0].data();
+                    const data = existingEnrollment.docs[0].data();
+                    isUserEnrolled = true;
+                    return data;
                 }
+                isUserEnrolled = false;
                 return null;
              } catch(e) {
                  console.error("Error loading progress:", e);
+                 isUserEnrolled = false;
                  return null;
              }
         }
         
         // Helper to update progress visualization
         const updateProgressUI = (pageNumber) => {
-            const totalPages = coursePages.length;
-            const progressPercentage = Math.min(100, Math.floor(((pageNumber - 1) / totalPages) * 100));
+            // Only pages 1-5 count towards progress
+            const progressPage = Math.max(0, pageNumber - 1);
+            const progressPercentage = Math.min(100, Math.floor((progressPage / TOTAL_LESSON_PAGES) * 100));
             
             if (progressFill && progressText) {
                 progressFill.style.width = `${progressPercentage}%`;
@@ -662,6 +721,11 @@
         };
 
         const loadVideoForPage = (pageNumber) => {
+             // Only load video for actual lesson pages (1-5)
+            if (pageNumber < 1) {
+                if (videoContainer) videoContainer.innerHTML = ''; // Clear video container for Page 0
+                return;
+            }
             const videoId = pageVideoIds[pageNumber];
             
             if (videoContainer) {
@@ -724,27 +788,28 @@
                 updateProgressUI(pageNumber); 
                 loadVideoForPage(pageNumber);
                 
-                // Save the current page to track progress
-                saveProgressLocal(pageNumber, pageNumber > TOTAL_PAGES);
+                // Save the current page to track progress (only save progress for pages >= 1)
+                if(pageNumber >= 1) {
+                    saveProgressLocal(pageNumber, pageNumber > TOTAL_LESSON_PAGES);
+                }
 
                 // Smooth scroll to the content wrapper
-                document.querySelector('.course-content-wrapper').scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
             }
         };
         
         const updateUI = () => {
-            // Setup navigation buttons functionality
-            coursePages.forEach((page, index) => {
-                const pageNumber = index + 1;
-                const nextButton = page.querySelector(`#nextButton${pageNumber}`);
-                
+            // Setup navigation buttons functionality for pages 1-5
+            for (let i = 1; i <= TOTAL_LESSON_PAGES; i++) {
+                const page = document.querySelector(`[data-page="${i}"]`);
+                const nextButton = page.querySelector(`#nextButton${i}`);
                 if (nextButton) {
                     nextButton.addEventListener('click', () => {
-                        currentPage = Math.min(coursePages.length + 1, currentPage + 1);
+                        currentPage = Math.min(TOTAL_LESSON_PAGES + 1, currentPage + 1);
                         showPage(currentPage);
                     });
                 }
-            });
+            }
         };
         
         const handleQuiz = (pageNumber) => {
@@ -778,7 +843,7 @@
                         } else if (finishButton) {
                             // Last page completed
                             finishButton.classList.remove('hidden');
-                            saveProgressLocal(coursePages.length + 1, true); // Mark 100% completion in Firestore
+                            saveProgressLocal(TOTAL_LESSON_PAGES + 1, true); // Mark 100% completion in Firestore
                         }
                     } else {
                         option.classList.add('incorrect');
@@ -800,11 +865,27 @@
                 });
             });
         };
+        
+        // Function to handle enrollment and transition to the first lesson
+        const enrollAndStart = async (e) => {
+            e.preventDefault();
+            const user = firebase.auth().currentUser;
+            if (user && !user.isAnonymous) {
+                // Perform enrollment in Firestore
+                await saveProgressLocal(1, false);
+                currentPage = 1;
+                showPage(currentPage);
+            } else {
+                 // Trigger login modal if not logged in
+                 window.showLoginModal();
+            }
+        };
 
+        // --- FIREBASE AUTH GATE & ENROLLMENT FIX ---
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize quiz handlers
-            for (let i = 1; i <= coursePages.length; i++) {
+            // Initialize quiz handlers for pages 1-5
+            for (let i = 1; i <= TOTAL_LESSON_PAGES; i++) {
                 handleQuiz(i);
             }
 
@@ -812,7 +893,6 @@
                 finishButton.addEventListener('click', () => {
                      const user = firebase.auth().currentUser;
                      if (!user) {
-                         // Should not happen if gate works, but for safety:
                          alert("Login required to generate certificate."); 
                          return;
                      }
@@ -826,8 +906,6 @@
                 });
             }
             
-            // --- FIREBASE AUTH GATE & ENROLLMENT FIX ---
-            
             // FIX: Show loading overlay immediately
             loadingOverlay.style.opacity = 1;
             
@@ -837,23 +915,31 @@
                 setTimeout(() => { loadingOverlay.style.display = 'none'; }, 500);
 
                 if (user && !user.isAnonymous) {
-                    // User is logged in: Show content, hide gate
+                    // 1. User is logged in: Check enrollment
                     contentGate.classList.add('hidden');
                     courseContent.classList.remove('hidden');
                     
-                    // Load saved progress
                     const savedProgress = await loadProgressLocal(user);
                     
-                    if (savedProgress) {
-                        currentPage = savedProgress.lastPage || 1;
-                        if (savedProgress.completed && finishButton) {
-                            finishButton.classList.remove('hidden');
-                        }
+                    if (isUserEnrolled) {
+                        // User is enrolled: Set starting page to last page or 1
+                        currentPage = (savedProgress && savedProgress.lastPage > 0) ? savedProgress.lastPage : 1;
+                        if(currentPage === 0) currentPage = 1; // Skip page 0 if enrolled
+                        
+                        // Update button on page 0 to "Continue Course"
+                        if(startEnrollmentButtonActual) startEnrollmentButtonActual.textContent = "Continue Course";
+                         // Reroute the click event to directly show page 1
+                        if(startEnrollmentButtonActual) startEnrollmentButtonActual.removeEventListener('click', enrollAndStart);
+                        if(startEnrollmentButtonActual) startEnrollmentButtonActual.addEventListener('click', () => { currentPage = 1; showPage(currentPage); });
+                        
                     } else {
-                        // Initial enrollment: Start at page 1 and save 0% progress
-                        currentPage = 1;
-                        // Save initial enrollment to Firestore
-                        await saveProgressLocal(1, false);
+                        // User is NOT enrolled: Show overview page (Page 0)
+                        currentPage = 0;
+                        if(startEnrollmentButtonActual) startEnrollmentButtonActual.textContent = "Enroll for Free";
+                        // Set up enrollment logic for button on page 0
+                        if(startEnrollmentButtonActual) startEnrollmentButtonActual.removeEventListener('click', enrollAndStart);
+                        if(startEnrollmentButtonActual) startEnrollmentButtonActual.addEventListener('click', enrollAndStart);
+                        
                     }
                     
                     updateUI();
@@ -861,35 +947,37 @@
                     
                     // Final step: make content visible
                     mainContentContainer.classList.add('content-loaded');
+                    if (isUserEnrolled && savedProgress && savedProgress.completed && finishButton) {
+                        finishButton.classList.remove('hidden');
+                    }
 
 
                 } else {
-                    // User is logged out/anonymous: Show gate, hide content
+                    // 2. User is logged out/anonymous: Show gate and overview page
                     contentGate.classList.remove('hidden');
                     courseContent.classList.add('hidden');
                     
-                    currentPage = 1; 
-                    updateProgressUI(1); 
+                    currentPage = 0; 
+                    updateProgressUI(0); 
                     
-                    // Final step: make content visible (only the gate in this case)
+                    // Final step: make content visible (only the gate/overview in this case)
                     mainContentContainer.classList.add('content-loaded');
+                    
+                    // Bind login button on gate to open the modal
+                    const signInNowBtn = contentGate.querySelector('.btn-primary');
+                    if (signInNowBtn) {
+                         signInNowBtn.onclick = function() { 
+                             const loginBtnHeader = document.getElementById(LOGIN_REDIRECT_ELEMENT_ID);
+                             if(loginBtnHeader) loginBtnHeader.click(); // Fallback to normal click
+                         };
+                    }
                 }
             });
             
-            // FIX: Bind Sign In Now button to open modal (assuming showLoginModal is defined in script.js)
-            const signInNowBtn = contentGate.querySelector('.btn-primary');
-            if (signInNowBtn) {
-                 signInNowBtn.onclick = function() { 
-                      const loginBtnHeader = document.getElementById(LOGIN_REDIRECT_ELEMENT_ID);
-                      if(loginBtnHeader && window.showLoginModal) {
-                          window.showLoginModal();
-                      } else if (loginBtnHeader) {
-                          loginBtnHeader.click(); // Fallback to normal click
-                      }
-                 };
-            }
-            // --- END FIREBASE AUTH GATE FIX ---
+            // Initial call to show Page 0 in the content section (hidden behind the gate if logged out)
+            showPage(0);
         });
+        
     </script>
 </body>
 </html>
