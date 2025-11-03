@@ -379,7 +379,7 @@ header.scrolled {
     border: none; 
     cursor: pointer; 
     padding: 0; 
-    z-index: 9999; /* GLOBAL FIX: Ensure it's the highest element on all pages */
+    z-index: 9999; 
 }
 .hamburger-menu span { display: block; width: 100%; height: 3px; background-color: var(--dark); border-radius: 4px; transition: var(--transition); }
 .hamburger-menu.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
@@ -401,8 +401,6 @@ header.scrolled {
 .nav-item.dropdown:hover .dropdown-content { display: block; }
 .nav-item.dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 /* Hide mobile specific links/buttons on desktop */
-/* These links are now contained within nav-menu.active (in HTML) but hidden here for desktop size */
-.nav-link.mobile-only-link,
 .nav-actions-mobile { display: none; }
 /* ============================
    END NAVIGATION DROPDOWN STYLES
@@ -786,25 +784,20 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    /* Hide desktop nav elements, show hamburger */
-    /* Only allow Home, Courses, Internships, and mobile profile/auth buttons to be potentially visible in mobile menu */
-    .nav-menu .nav-link:not(:nth-child(-n+3)):not(.mobile-only-link), /* Hides links 4 (Jobs), 5 (About) and the Dropdown (Community) - assuming clean HTML ordering */
-    .nav-menu .nav-item.dropdown,
-    .search-container,
-    .header-actions #authButtons,
-    /* HIDE DESKTOP USER PROFILE WHEN HAMBURGER IS VISIBLE */
-    .header-actions #userProfile { 
+    
+    /* HIDE the standard desktop nav menu */
+    .nav-menu {
         display: none;
     }
     
-    /* FIX: Ensure Hamburger is always on top for clickability */
+    /* Show Hamburger Menu */
     .hamburger-menu { 
         display: flex; 
-        position: relative; /* Create stacking context */
-        z-index: 9999;     /* Ensure it's the highest element on all pages */
+        position: relative; 
+        z-index: 9999;     
     }
 
-    /* Style the opened mobile navigation menu */
+    /* When mobile menu is active, restore the container and apply mobile-specific display */
     .nav-menu.active {
         display: flex;
         flex-direction: column;
@@ -821,21 +814,34 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         z-index: 99;
     }
     
-     /* Mobile Auth/Profile block in active menu */
-    .nav-menu.active .nav-actions-mobile {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        width: 100%;
-        max-width: 300px;
-        margin: 16px auto 0;
-        padding: 16px 20px 24px;
-        border-top: 1px solid #eee;
+    /* Hide desktop-only links inside the ACTIVE menu: Jobs(4), About(5), Community(6) - assuming HTML is correctly ordered */
+    .nav-menu.active a:nth-child(4), 
+    .nav-menu.active a:nth-child(5), 
+    .nav-menu.active .nav-item.dropdown,
+    .nav-menu.active .nav-link.mobile-only-link
+     {
+        display: none !important;
     }
     
-    /* Style for the embedded profile/buttons */
+    /* Ensure the core links (Home, Courses, Internships - first 3) are still displayed */
+    .nav-menu.active .nav-link {
+        display: flex; /* Overrides the main nav display:none inherited */
+    }
+
+     /* Mobile Auth/Profile block visibility (POINT 1) */
+    .nav-actions-mobile {
+         display: flex !important; 
+         flex-direction: column;
+         gap: 16px;
+         width: 100%;
+         max-width: 300px;
+         margin: 16px auto 0;
+         padding: 16px 20px 24px;
+         border-top: 1px solid #eee;
+    }
+    
     .nav-menu.active .nav-actions-mobile > .user-profile {
-        display: flex; /* Show the profile inside the mobile menu */
+        display: flex; /* Show the profile when active */
         justify-content: center;
         align-items: center;
         padding: 10px 0;
@@ -845,10 +851,6 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
         transform: none; 
         background: none;
     }
-
-    .nav-menu.active .nav-actions-mobile .dropdown-menu { 
-        display: none !important; 
-    }
     
     .nav-menu.active .nav-actions-mobile #authButtonsMobile {
          display: flex; 
@@ -856,20 +858,12 @@ select#profileGender, select#interestedDomain { padding: 18px; border: 1px solid
          justify-content: center;
     }
 
-    /* Mobile buttons inherit smaller size/professional look */
-    .nav-menu.active .nav-actions-mobile .btn {
-        display: inline-flex;
-        width: 100%; 
-        text-align: center;
-        padding: 12px; 
-        font-size: 15px;
+    /* Hide desktop nav elements that are redundantly displayed/not needed on mobile */
+    .search-container,
+    .header-actions #authButtons,
+    .header-actions #userProfile { 
+        display: none;
     }
-    
-    /* Ensure the mobile-only links requested (if any remaining in HTML) are displayed */
-    .nav-menu.active .nav-link.mobile-only-link {
-        display: block;
-    }
-    
 }
 
 @media (max-width: 768px) {
